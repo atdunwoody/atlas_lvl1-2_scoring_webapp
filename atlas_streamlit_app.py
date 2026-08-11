@@ -116,13 +116,35 @@ REQUIRED_COLUMNS = {
     },
 }
 
-NUMERIC_COLOR_SCALE = [
-    [0.00, "#f7fbff"],
-    [0.25, "#c6dbef"],
-    [0.50, "#6baed6"],
-    [0.75, "#2171b5"],
-    [1.00, "#08306b"],
-]
+DEFAULT_COLOR_SCALE = "Blues"
+RISK_COLOR_SCALE = "Reds"
+LIMITING_IMPACT_COLOR_SCALE = "Purples"
+ACTION_BENEFIT_COLOR_SCALE = "Greens"
+
+DISPLAY_LABELS = {
+    "bsr": "BSR",
+    "basin": "Basin",
+    "detailed_fish_use_score": "Detailed Fish Use Score",
+    "source_fish_use_score_raw": "Source Fish Use Score (raw)",
+    "source_fish_use_score_normalized": "Source Fish Use Score (normalized)",
+    "source_fish_use_score_100": "Fish Use Score /100",
+    "overall_impact_score": "Overall Limiting-Factor Impact",
+    "overall_risk_score": "Overall Risk Score",
+    "lf_sum_impact_score": "Summed Limiting-Factor Impact",
+    "lf_sum_risk_score": "Summed Limiting-Factor Risk",
+    "top_life_stage_risk_score": "Top Life-Stage Risk Score",
+    "top_limiting_factor_risk_score": "Top Limiting-Factor Risk Score",
+    "condition_score_raw_1_5": "Raw Condition Score (1–5)",
+    "condition_score": "Condition Score",
+    "impact_score": "Impact Score",
+    "risk_score": "Risk Score",
+    "condition_improvement_score": "Condition Improvement Score",
+    "limiting_factor_amelioration_score": "Limiting-Factor Amelioration Score",
+    "overall_benefit_score": "Overall Benefit Score",
+    "highest_priority_action_benefit_score": "Highest-Priority Action Benefit Score",
+    "sum_action_benefit_provisional": "Sum of Action Benefit Scores",
+    "benefit_rank_within_bsr": "Benefit Rank Within BSR",
+}
 
 
 def configure_page() -> None:
@@ -304,11 +326,35 @@ def filter_table(table: pd.DataFrame, basin: str) -> pd.DataFrame:
     return table.loc[table["basin"].eq(basin)].copy()
 
 
-def format_score(value: Any, digits: int = 3) -> str:
+def format_score(value: Any, digits: int = 2) -> str:
     """Format numeric KPI values without implying unnecessary precision."""
     if pd.isna(value):
         return "Not available"
     return f"{float(value):,.{digits}f}"
+
+
+def round_float_columns(table: pd.DataFrame) -> pd.DataFrame:
+    """Round floating-point values for display without changing source tables."""
+    rounded = table.copy()
+    float_columns = rounded.select_dtypes(include=["floating"]).columns
+    rounded[float_columns] = rounded[float_columns].round(2)
+    return rounded
+
+
+def show_score_table(table: pd.DataFrame) -> None:
+    """Display score tables with consistent two-decimal numeric formatting."""
+    rounded = round_float_columns(table)
+    float_columns = rounded.select_dtypes(include=["floating"]).columns
+    column_config = {
+        column: st.column_config.NumberColumn(format="%.2f")
+        for column in float_columns
+    }
+    st.dataframe(
+        rounded,
+        use_container_width=True,
+        hide_index=True,
+        column_config=column_config,
+    )
 
 
 def map_center_zoom(geometry: gpd.GeoDataFrame) -> tuple[dict[str, float], float]:
@@ -372,6 +418,7 @@ def render_choropleth(
     *,
     categorical: bool = False,
     hover_columns: list[str] | None = None,
+    color_scale: str = DEFAULT_COLOR_SCALE,
 ) -> None:
     """Render an interactive BSR choropleth and register click selection."""
     hover_columns = hover_columns or []
@@ -386,8 +433,18 @@ def render_choropleth(
         return
 
     geojson = json.loads(mapped[["bsr", "geometry"]].to_json())
-    plot_data = pd.DataFrame(mapped.drop(columns="geometry"))
+    plot_data = round_float_columns(pd.DataFrame(mapped.drop(columns="geometry")))
     center, zoom = map_center_zoom(mapped)
+
+    hover_fields = list(dict.fromkeys([metric, *hover_columns]))
+    hover_data = {}
+    for column in hover_fields:
+        if column not in plot_data.columns or column == "bsr":
+            continue
+        if pd.api.types.is_float_dtype(plot_data[column]):
+            hover_data[column] = ":.2f"
+        else:
+            hover_data[column] = True
 
     common = {
         "data_frame": plot_data,
@@ -396,23 +453,26 @@ def render_choropleth(
         "featureidkey": "properties.bsr",
         "color": metric,
         "hover_name": "bsr",
-        "hover_data": {
-            column: True
-            for column in hover_columns
-            if column in plot_data.columns and column != metric
-        },
+        "hover_data": hover_data,
         "custom_data": ["bsr"],
         "opacity": 0.78,
         "zoom": zoom,
         "center": center,
         "title": title,
-        "labels": {metric: metric_label},
+        "labels": {
+            column: DISPLAY_LABELS.get(
+                column,
+                column.replace("_", " ").title(),
+            )
+            for column in requested
+        }
+        | {metric: metric_label},
     }
 
     if categorical:
         common["color_discrete_sequence"] = px.colors.qualitative.Safe
     else:
-        common["color_continuous_scale"] = NUMERIC_COLOR_SCALE
+        common["color_continuous_scale"] = color_scale
         numeric = pd.to_numeric(plot_data[metric], errors="coerce")
         minimum = float(numeric.min())
         maximum = float(numeric.max())
@@ -459,7 +519,7 @@ def horizontal_bar(
     value_label: str | None = None,
 ) -> None:
     """Render a consistently formatted horizontal comparison chart."""
-    ordered = table.sort_values(value, ascending=True)
+    ordered = round_float_columns(table).sort_values(value, ascending=True)
     figure = px.bar(
         ordered,
         x=value,
@@ -468,14 +528,20 @@ def horizontal_bar(
         orientation="h",
         title=title,
         labels={value: value_label or value, category: ""},
-        text_auto=".3f",
+        text_auto=".2f",
     )
     figure.update_layout(
         height=max(360, 30 * len(ordered) + 110),
         margin={"r": 10, "t": 55, "l": 10, "b": 10},
         legend_title_text="Species" if color == "species" else color,
     )
-    figure.update_traces(textposition="outside", cliponaxis=False)
+    figure.update_traces(
+        textposition="outside",
+        cliponaxis=False,
+        hovertemplate=(
+            f"%{{y}}<br>{value_label or value}: %{{x:.2f}}<extra></extra>"
+        ),
+    )
     st.plotly_chart(
         figure,
         use_container_width=True,
@@ -510,16 +576,22 @@ def render_overall_risk(
         map_style,
         hover_columns=[
             "basin",
+            "source_fish_use_score_100",
+            "detailed_fish_use_score",
+            "overall_impact_score",
+            "lf_sum_impact_score",
+            "lf_sum_risk_score",
             "highest_priority_life_stage",
             "highest_priority_limiting_factor",
         ],
+        color_scale=RISK_COLOR_SCALE,
     )
 
     row = bsr.loc[bsr["bsr"].eq(selected_bsr)].iloc[0]
     metric_columns = st.columns(4)
     metric_columns[0].metric("Selected BSR", selected_bsr)
     metric_columns[1].metric("Overall risk", format_score(row["overall_risk_score"]))
-    metric_columns[2].metric("Fish Use Score /100", format_score(row["source_fish_use_score_100"], 1))
+    metric_columns[2].metric("Fish Use Score /100", format_score(row["source_fish_use_score_100"]))
     metric_columns[3].metric("Overall LF impact", format_score(row["overall_impact_score"]))
 
     st.markdown(
@@ -554,7 +626,7 @@ def render_overall_risk(
 
     with st.expander("Show selected BSR score tables"):
         st.subheader("Species and life stages")
-        st.dataframe(
+        show_score_table(
             life_selected[
                 [
                     "species",
@@ -564,12 +636,10 @@ def render_overall_risk(
                     "impact_score",
                     "risk_score",
                 ]
-            ].sort_values("risk_score", ascending=False),
-            use_container_width=True,
-            hide_index=True,
+            ].sort_values("risk_score", ascending=False)
         )
         st.subheader("Limiting factors")
-        st.dataframe(
+        show_score_table(
             factor_selected[
                 [
                     "limiting_factor",
@@ -578,9 +648,7 @@ def render_overall_risk(
                     "impact_score",
                     "risk_score",
                 ]
-            ].sort_values("risk_score", ascending=False),
-            use_container_width=True,
-            hide_index=True,
+            ].sort_values("risk_score", ascending=False)
         )
 
 
@@ -638,11 +706,17 @@ def render_fish_use(
             "map_top_life_stage",
             map_style,
             categorical=True,
-            hover_columns=["basin", "top_life_stage_risk_score"],
+            hover_columns=[
+                "basin",
+                "source_fish_use_score_100",
+                "detailed_fish_use_score",
+                "top_life_stage_risk_score",
+                "overall_risk_score",
+            ],
         )
 
     with st.expander("Show species and life-stage data"):
-        st.dataframe(
+        show_score_table(
             selected[
                 [
                     "species",
@@ -652,9 +726,7 @@ def render_fish_use(
                     "impact_score",
                     "risk_score",
                 ]
-            ].sort_values(["species", "life_stage"]),
-            use_container_width=True,
-            hide_index=True,
+            ].sort_values(["species", "life_stage"])
         )
 
 
@@ -680,15 +752,31 @@ def render_limiting_factors(
         options=list(overall_labels),
         horizontal=True,
     )
+    overall_metric = overall_labels[overall_label]
+    overall_color_scale = (
+        LIMITING_IMPACT_COLOR_SCALE
+        if overall_metric == "overall_impact_score"
+        else RISK_COLOR_SCALE
+    )
     render_choropleth(
         geometry,
         bsr,
-        overall_labels[overall_label],
+        overall_metric,
         overall_label,
         overall_label,
         "map_limiting_factor_overall",
         map_style,
-        hover_columns=["basin", "highest_priority_limiting_factor"],
+        hover_columns=[
+            "basin",
+            "source_fish_use_score_100",
+            "overall_impact_score",
+            "overall_risk_score",
+            "lf_sum_impact_score",
+            "lf_sum_risk_score",
+            "highest_priority_limiting_factor",
+            "top_limiting_factor_risk_score",
+        ],
+        color_scale=overall_color_scale,
     )
 
     st.subheader("Specific limiting factor")
@@ -705,6 +793,11 @@ def render_limiting_factors(
         horizontal=True,
     )
     factor_score = factor_score_labels[factor_score_label]
+    factor_color_scale = {
+        "impact_score": LIMITING_IMPACT_COLOR_SCALE,
+        "risk_score": RISK_COLOR_SCALE,
+        "condition_score": DEFAULT_COLOR_SCALE,
+    }[factor_score]
     factor_map = limiting.loc[limiting["limiting_factor"].eq(selected_factor)].copy()
     render_choropleth(
         geometry,
@@ -714,7 +807,14 @@ def render_limiting_factors(
         f"{selected_factor}: {factor_score_label}",
         "map_specific_limiting_factor",
         map_style,
-        hover_columns=["basin", "condition_score_raw_1_5", "condition_score"],
+        hover_columns=[
+            "basin",
+            "condition_score_raw_1_5",
+            "condition_score",
+            "impact_score",
+            "risk_score",
+        ],
+        color_scale=factor_color_scale,
     )
 
     left, right = st.columns(2)
@@ -762,11 +862,17 @@ def render_limiting_factors(
             "map_top_limiting_factor",
             map_style,
             categorical=True,
-            hover_columns=["basin", "top_limiting_factor_risk_score"],
+            hover_columns=[
+                "basin",
+                "source_fish_use_score_100",
+                "overall_impact_score",
+                "overall_risk_score",
+                "top_limiting_factor_risk_score",
+            ],
         )
 
     with st.expander("Show selected limiting-factor data"):
-        st.dataframe(
+        show_score_table(
             biological[
                 [
                     "species",
@@ -778,9 +884,7 @@ def render_limiting_factors(
                     "impact_component",
                     "risk_component",
                 ]
-            ].sort_values("risk_component", ascending=False),
-            use_container_width=True,
-            hide_index=True,
+            ].sort_values("risk_component", ascending=False)
         )
 
 
@@ -829,7 +933,14 @@ def render_actions(
         f"{selected_action}: {action_score_label}",
         "map_action_specific",
         map_style,
-        hover_columns=["basin", "benefit_rank_within_bsr"],
+        hover_columns=[
+            "basin",
+            "condition_improvement_score",
+            "limiting_factor_amelioration_score",
+            "overall_benefit_score",
+            "benefit_rank_within_bsr",
+        ],
+        color_scale=ACTION_BENEFIT_COLOR_SCALE,
     )
 
     selected = actions.loc[actions["bsr"].eq(selected_bsr)].copy()
@@ -854,7 +965,7 @@ def render_actions(
                 f"{selected_bsr}: benefit components for {selected_action}",
                 value_label="Benefit component",
             )
-            st.dataframe(
+            show_score_table(
                 component_rows[
                     [
                         "limiting_factor",
@@ -863,9 +974,7 @@ def render_actions(
                         "amelioration_component",
                         "benefit_component",
                     ]
-                ].sort_values("benefit_component", ascending=False),
-                use_container_width=True,
-                hide_index=True,
+                ].sort_values("benefit_component", ascending=False)
             )
 
     st.subheader("Highest-priority action type")
@@ -878,7 +987,12 @@ def render_actions(
         "map_top_action",
         map_style,
         categorical=True,
-        hover_columns=["basin", "highest_priority_action_benefit_score"],
+        hover_columns=[
+            "basin",
+            "highest_priority_action_benefit_score",
+            "sum_action_benefit_provisional",
+            "overall_risk_score",
+        ],
     )
 
     with st.expander("Provisional map: sum of action-specific benefit scores"):
@@ -896,11 +1010,17 @@ def render_actions(
             "Provisional Overall Benefit Score",
             "map_action_sum",
             map_style,
-            hover_columns=["basin", "highest_priority_action"],
+            hover_columns=[
+                "basin",
+                "highest_priority_action",
+                "highest_priority_action_benefit_score",
+                "overall_risk_score",
+            ],
+            color_scale=ACTION_BENEFIT_COLOR_SCALE,
         )
 
     with st.expander("Show selected BSR action table"):
-        st.dataframe(
+        show_score_table(
             selected[
                 [
                     "action_id",
@@ -910,9 +1030,7 @@ def render_actions(
                     "overall_benefit_score",
                     "benefit_rank_within_bsr",
                 ]
-            ].sort_values("benefit_rank_within_bsr"),
-            use_container_width=True,
-            hide_index=True,
+            ].sort_values("benefit_rank_within_bsr")
         )
 
 
