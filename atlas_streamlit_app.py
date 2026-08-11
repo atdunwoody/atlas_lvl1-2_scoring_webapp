@@ -15,8 +15,6 @@ BSR identifiers used in bsr_scores.csv, such as CC1 or UGR11.
 from __future__ import annotations
 
 import json
-import os
-import tempfile
 from functools import partial
 from pathlib import Path
 from typing import Any
@@ -28,15 +26,11 @@ import plotly.express as px
 import streamlit as st
 
 
-DEFAULT_SCORE_DIR = Path(
-    os.getenv(
-        "ATLAS_SCORE_DIR",
-        r"data/outputs",
-    )
-)
-DEFAULT_BSR_LAYER = os.getenv("ATLAS_BSR_LAYER", "")
-DEFAULT_BSR_LAYER_NAME = os.getenv("ATLAS_BSR_LAYER_NAME", "bsr")
-DEFAULT_BSR_ID_FIELD = os.getenv("ATLAS_BSR_ID_FIELD", "BSR")
+SCORE_DIR = Path("data/outputs")
+BSR_GPKG_PATH = SCORE_DIR / "bsr_scores.gpkg"
+BSR_LAYER_NAME = "bsr"
+BSR_ID_FIELD = "BSR"
+MAP_STYLE = "carto-positron"
 
 CORE_SCORE_FILES = {
     "bsr": "bsr_scores.csv",
@@ -46,14 +40,11 @@ CORE_SCORE_FILES = {
     "grid": "calculation_grid.csv",
 }
 
-REVIEW_SCORE_FILES = {
+SUPPORTING_SCORE_FILES = {
     "action_components": "action_score_components.csv",
-    "vulnerability_review": "vulnerability_scores_for_review.csv",
-    "assumptions_review": "assumptions_for_review.csv",
-    "bsr_identifiers_review": "bsr_identifiers_for_review.csv",
 }
 
-SCORE_FILES = {**CORE_SCORE_FILES, **REVIEW_SCORE_FILES}
+SCORE_FILES = {**CORE_SCORE_FILES, **SUPPORTING_SCORE_FILES}
 
 REQUIRED_COLUMNS = {
     "bsr": {
@@ -123,24 +114,6 @@ REQUIRED_COLUMNS = {
         "amelioration_component",
         "benefit_component",
     },
-    "vulnerability_review": {
-        "species",
-        "life_stage",
-        "limiting_factor",
-        "vulnerability_score",
-        "vulnerability_review_flag",
-        "uncertainty_notes",
-    },
-    "assumptions_review": {
-        "component",
-        "field_or_rule",
-        "implementation",
-    },
-    "bsr_identifiers_review": {
-        "bsr",
-        "basin",
-        "bsr_crosswalk_status",
-    },
 }
 
 NUMERIC_COLOR_SCALE = [
@@ -184,7 +157,7 @@ def require_columns(table_name: str, table: pd.DataFrame) -> None:
 
 @st.cache_data(show_spinner=False)
 def load_score_tables(score_dir_text: str) -> dict[str, pd.DataFrame]:
-    """Load core scoring tables and any available review tables."""
+    """Load core scoring tables and available action components."""
     score_dir = Path(score_dir_text).expanduser()
     missing_files = [
         filename
@@ -203,7 +176,7 @@ def load_score_tables(score_dir_text: str) -> dict[str, pd.DataFrame]:
     tables.update(
         {
             name: pd.read_csv(score_dir / filename)
-            for name, filename in REVIEW_SCORE_FILES.items()
+            for name, filename in SUPPORTING_SCORE_FILES.items()
             if (score_dir / filename).is_file()
         }
     )
@@ -233,7 +206,7 @@ def load_score_tables(score_dir_text: str) -> dict[str, pd.DataFrame]:
                 f"Missing: {missing}; extra: {extra}"
             )
 
-    for name in ("action_components", "bsr_identifiers_review"):
+    for name in ("action_components",):
         if name not in tables:
             continue
         table_bsrs = set(tables[name]["bsr"])
@@ -270,24 +243,6 @@ def load_geometry_path(path_text: str, layer_name: str) -> gpd.GeoDataFrame:
         raise FileNotFoundError(f"Spatial layer not found: {path}")
     layer = layer_name.strip() or None
     return gpd.read_file(path, layer=layer)
-
-
-@st.cache_data(show_spinner=False)
-def load_geometry_upload(
-    file_name: str,
-    file_bytes: bytes,
-    layer_name: str,
-) -> gpd.GeoDataFrame:
-    """Read an uploaded GeoPackage or GeoJSON through a temporary file."""
-    suffix = Path(file_name).suffix.lower()
-    if suffix not in {".gpkg", ".geojson", ".json"}:
-        raise ValueError("Upload a .gpkg, .geojson, or .json polygon file.")
-
-    with tempfile.TemporaryDirectory(prefix="atlas_bsr_") as temp_dir:
-        temp_path = Path(temp_dir) / f"bsr{suffix}"
-        temp_path.write_bytes(file_bytes)
-        layer = layer_name.strip() or None
-        return gpd.read_file(temp_path, layer=layer)
 
 
 def prepare_geometry(
@@ -328,8 +283,7 @@ def prepare_geometry(
     ].copy()
     if spatial.empty:
         raise ValueError(
-            "No spatial identifiers matched the scoring outputs. Check the ID "
-            "field and identifier convention."
+            "No values in the GeoPackage BSR field matched bsr_scores.csv."
         )
 
     spatial["bsr"] = spatial["bsr"].astype(str).str.strip()
@@ -358,7 +312,7 @@ def format_score(value: Any, digits: int = 3) -> str:
 
 
 def map_center_zoom(geometry: gpd.GeoDataFrame) -> tuple[dict[str, float], float]:
-    """Estimate a reasonable initial center and zoom from polygon bounds."""
+    """Center the map and frame the BSR extent relatively tightly."""
     min_x, min_y, max_x, max_y = geometry.total_bounds
     center = {"lon": float((min_x + max_x) / 2), "lat": float((min_y + max_y) / 2)}
     span = max(float(max_x - min_x), float(max_y - min_y))
@@ -376,7 +330,7 @@ def map_center_zoom(geometry: gpd.GeoDataFrame) -> tuple[dict[str, float], float
         zoom = 5.0
     else:
         zoom = 4.0
-    return center, zoom
+    return center, min(zoom + 1.0, 12.0)
 
 
 def selected_point_bsr(point: dict[str, Any]) -> str | None:
@@ -642,24 +596,12 @@ def render_fish_use(
     life = filter_table(tables["life_stage"], basin)
 
     st.header("Level 1: Fish use")
-    fish_metric_labels = {
-        "Fish Use Score /100": "source_fish_use_score_100",
-        "Source Fish Use Score (raw)": "source_fish_use_score_raw",
-        "Source Fish Use Score (normalized)": "source_fish_use_score_normalized",
-        "Detailed life-stage Fish Use Score": "detailed_fish_use_score",
-    }
-    metric_label = st.radio(
-        "Overall fish-use map value",
-        options=list(fish_metric_labels),
-        horizontal=True,
-    )
-    metric = fish_metric_labels[metric_label]
     render_choropleth(
         geometry,
         bsr,
-        metric,
-        metric_label,
-        metric_label,
+        "source_fish_use_score_100",
+        "Fish Use Score /100",
+        "Fish Use Score /100",
         "map_fish_use",
         map_style,
         hover_columns=[
@@ -974,145 +916,17 @@ def render_actions(
         )
 
 
-def geometry_controls(
-    bsr_scores: pd.DataFrame,
-    score_dir_text: str,
-) -> gpd.GeoDataFrame:
-    """Render sidebar spatial controls and return app-ready BSR polygons."""
-    st.sidebar.subheader("BSR polygons")
-    default_geometry_path = DEFAULT_BSR_LAYER.strip() or str(
-        Path(score_dir_text).expanduser() / "bsr_scores.gpkg"
-    )
-    source_mode = st.sidebar.radio(
-        "Spatial source",
-        ["File path", "Upload file"],
-        horizontal=True,
-    )
-    layer_name = st.sidebar.text_input(
-        "GeoPackage layer name (optional)",
-        value=DEFAULT_BSR_LAYER_NAME,
-        help="Leave blank to read the default or only layer.",
-    )
-
-    if source_mode == "File path":
-        path_text = st.sidebar.text_input(
-            "GeoPackage or GeoJSON path",
-            value=default_geometry_path,
-        ).strip()
-        if not path_text:
-            st.info(
-                "Provide a BSR polygon path in the sidebar, or switch to Upload file. "
-                "The scoring CSVs do not contain geometry."
-            )
-            st.stop()
-        source = load_geometry_path(path_text, layer_name)
-    else:
-        uploaded = st.sidebar.file_uploader(
-            "Upload BSR polygons",
-            type=["gpkg", "geojson", "json"],
-        )
-        if uploaded is None:
-            st.info("Upload a BSR GeoPackage or GeoJSON file to draw the maps.")
-            st.stop()
-        source = load_geometry_upload(uploaded.name, uploaded.getvalue(), layer_name)
-
-    attribute_columns = [column for column in source.columns if column != "geometry"]
-    if not attribute_columns:
-        raise ValueError("The spatial layer contains no attribute fields.")
-    default_index = 0
-    for index, column in enumerate(attribute_columns):
-        if column.lower() == DEFAULT_BSR_ID_FIELD.lower():
-            default_index = index
-            break
-    spatial_id_field = st.sidebar.selectbox(
-        "Spatial BSR ID field",
-        attribute_columns,
-        index=default_index,
-        help="Use the field containing identifiers such as CC1 or UGR11.",
-    )
-
-    geometry, unmatched = prepare_geometry(
-        source,
-        spatial_id_field,
-        bsr_scores,
-    )
+def load_bsr_geometry(bsr_scores: pd.DataFrame) -> gpd.GeoDataFrame:
+    """Load and prepare the hardcoded BSR GeoPackage layer."""
+    source = load_geometry_path(str(BSR_GPKG_PATH), BSR_LAYER_NAME)
+    geometry, unmatched = prepare_geometry(source, BSR_ID_FIELD, bsr_scores)
     if unmatched:
-        st.sidebar.warning(
+        st.warning(
             f"{len(unmatched)} spatial identifiers did not match scoring BSRs: "
             + ", ".join(unmatched[:10])
             + (" ..." if len(unmatched) > 10 else "")
         )
     return geometry
-
-
-def render_review_tables(
-    tables: dict[str, pd.DataFrame],
-    selected_bsr: str,
-) -> None:
-    """Expose supporting review outputs when they are present."""
-    review_names = [
-        name
-        for name in (
-            "bsr_identifiers_review",
-            "vulnerability_review",
-            "assumptions_review",
-        )
-        if name in tables
-    ]
-    if not review_names:
-        return
-
-    with st.expander("Source review flags and scoring assumptions"):
-        if "bsr_identifiers_review" in tables:
-            identifier_row = tables["bsr_identifiers_review"].loc[
-                tables["bsr_identifiers_review"]["bsr"].eq(selected_bsr)
-            ]
-            if not identifier_row.empty:
-                status = identifier_row.iloc[0]["bsr_crosswalk_status"]
-                st.caption(f"{selected_bsr} crosswalk status: {status}")
-
-        tab_labels: list[str] = []
-        if "vulnerability_review" in tables:
-            tab_labels.append("Vulnerability review")
-        if "assumptions_review" in tables:
-            tab_labels.append("Assumptions")
-        if not tab_labels:
-            return
-
-        tabs = st.tabs(tab_labels)
-        tab_index = 0
-        if "vulnerability_review" in tables:
-            with tabs[tab_index]:
-                vulnerability = tables["vulnerability_review"].copy()
-                flagged = vulnerability.loc[
-                    vulnerability["vulnerability_review_flag"]
-                    .astype(str)
-                    .str.casefold()
-                    .eq("yes")
-                ].copy()
-                st.dataframe(
-                    flagged[
-                        [
-                            "species",
-                            "life_stage",
-                            "limiting_factor",
-                            "vulnerability_score",
-                            "vulnerability_review_flag",
-                            "uncertainty_notes",
-                        ]
-                    ].sort_values(["species", "life_stage", "limiting_factor"]),
-                    use_container_width=True,
-                    hide_index=True,
-                )
-            tab_index += 1
-
-        if "assumptions_review" in tables:
-            with tabs[tab_index]:
-                st.dataframe(
-                    tables["assumptions_review"],
-                    use_container_width=True,
-                    hide_index=True,
-                )
 
 
 def main() -> None:
@@ -1121,26 +935,19 @@ def main() -> None:
     st.title("Atlas Integrated Scoring")
     st.caption("Interactive Level 1 risk and Level 2 action-benefit maps")
 
-    st.sidebar.header("Atlas controls")
-    score_dir = st.sidebar.text_input(
-        "Scoring output directory",
-        value=str(DEFAULT_SCORE_DIR),
-        help="Directory created by Atlas_Integrated_Scoring.ipynb.",
-    )
-
     try:
-        tables = load_score_tables(score_dir)
+        tables = load_score_tables(str(SCORE_DIR))
     except Exception as error:
         st.error(str(error))
         st.stop()
 
     try:
-        geometry = geometry_controls(tables["bsr"], score_dir)
+        geometry = load_bsr_geometry(tables["bsr"])
     except Exception as error:
         st.error(str(error))
         st.stop()
 
-    st.sidebar.subheader("Map and drill-down")
+    st.sidebar.header("Map and drill-down")
     basin_options = ["All basins", *sorted(tables["bsr"]["basin"].unique())]
     basin = st.sidebar.selectbox("Basin", basin_options)
     available_bsrs = sorted(filter_table(tables["bsr"], basin)["bsr"].unique())
@@ -1152,10 +959,6 @@ def main() -> None:
         available_bsrs,
         key="selected_bsr",
         help="Map clicks update this selector.",
-    )
-    map_style = st.sidebar.selectbox(
-        "Base map",
-        ["carto-positron", "open-street-map", "white-bg"],
     )
     page = st.sidebar.radio(
         "View",
@@ -1178,21 +981,18 @@ def main() -> None:
         )
 
     if page == "Overall risk":
-        render_overall_risk(tables, geometry, basin, selected_bsr, map_style)
+        render_overall_risk(tables, geometry, basin, selected_bsr, MAP_STYLE)
     elif page == "Fish use":
-        render_fish_use(tables, geometry, basin, selected_bsr, map_style)
+        render_fish_use(tables, geometry, basin, selected_bsr, MAP_STYLE)
     elif page == "Limiting factors":
-        render_limiting_factors(tables, geometry, basin, selected_bsr, map_style)
+        render_limiting_factors(tables, geometry, basin, selected_bsr, MAP_STYLE)
     else:
-        render_actions(tables, geometry, basin, selected_bsr, map_style)
-
-    render_review_tables(tables, selected_bsr)
+        render_actions(tables, geometry, basin, selected_bsr, MAP_STYLE)
 
     st.divider()
     st.caption(
         "Scores are relative prioritization indicators derived from the provisional "
-        "Atlas framework. Review the assumptions and source review flags before "
-        "publication or decision-making."
+        "Atlas framework."
     )
 
 
