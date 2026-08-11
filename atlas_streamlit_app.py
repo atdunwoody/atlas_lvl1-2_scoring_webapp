@@ -31,8 +31,7 @@ import streamlit as st
 DEFAULT_SCORE_DIR = Path(
     os.getenv(
         "ATLAS_SCORE_DIR",
-        r"C:\L\Lichen\Lichen - Documents\Projects\20240007_Atlas Process (GRMW)"
-        r"\07_GIS\Analysis\WebApp - Scoring\Data Out\integrated_scoring",
+        r"data\outputs",
     )
 )
 DEFAULT_BSR_LAYER = os.getenv("ATLAS_BSR_LAYER", "")
