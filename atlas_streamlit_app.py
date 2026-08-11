@@ -330,7 +330,7 @@ def map_center_zoom(geometry: gpd.GeoDataFrame) -> tuple[dict[str, float], float
         zoom = 5.0
     else:
         zoom = 4.0
-    return center, min(zoom + 1.0, 12.0)
+    return center, min(zoom + 2.0, 12.0)
 
 
 def selected_point_bsr(point: dict[str, Any]) -> str | None:
