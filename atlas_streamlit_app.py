@@ -31,7 +31,7 @@ import streamlit as st
 DEFAULT_SCORE_DIR = Path(
     os.getenv(
         "ATLAS_SCORE_DIR",
-        r"data\outputs",
+        r"data/outputs",
     )
 )
 DEFAULT_BSR_LAYER = os.getenv("ATLAS_BSR_LAYER", "")
