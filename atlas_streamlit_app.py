@@ -45,6 +45,7 @@ SUPPORTING_SCORE_FILES = {
 }
 
 SCORE_FILES = {**CORE_SCORE_FILES, **SUPPORTING_SCORE_FILES}
+SCORE_SCHEMA_VERSION = "2026-08-11-current-score-fields-v1"
 
 REQUIRED_COLUMNS = {
     "bsr": {
@@ -117,6 +118,37 @@ REQUIRED_COLUMNS = {
     },
 }
 
+LEGACY_COLUMN_REPLACEMENTS = {
+    "fish_use_score": (
+        "source_fish_use_score_100",
+        "detailed_fish_use_score",
+        "fish_use_rating",
+    ),
+    "highest_risk_species_life_stage": (
+        "highest_priority_life_stage",
+    ),
+    "top_species_life_stage_risk_score": (
+        "top_life_stage_risk_score",
+    ),
+    "top_species_life_stage_risk_tie_count": (
+        "highest_priority_life_stage_tie_count",
+    ),
+    "species_life_stage_label": ("priority_label",),
+    "highest_risk_limiting_factor": (
+        "highest_priority_limiting_factor",
+    ),
+    "top_limiting_factor_risk_tie_count": (
+        "highest_priority_limiting_factor_tie_count",
+    ),
+    "highest_risk_aligned_action_type": ("highest_priority_action",),
+    "highest_action_benefit_score": (
+        "highest_priority_action_benefit_score",
+    ),
+    "top_action_benefit_tie_count": (
+        "highest_priority_action_tie_count",
+    ),
+}
+
 DEFAULT_COLOR_SCALE = "Blues"
 RISK_COLOR_SCALE = "Reds"
 LIMITING_IMPACT_COLOR_SCALE = "Purples"
@@ -179,14 +211,60 @@ def require_columns(table_name: str, table: pd.DataFrame) -> None:
     """Raise a readable error when an expected notebook output field is absent."""
     missing = sorted(REQUIRED_COLUMNS[table_name] - set(table.columns))
     if missing:
+        legacy_matches = []
+        for current_name in missing:
+            for legacy_name in LEGACY_COLUMN_REPLACEMENTS.get(
+                current_name, ()
+            ):
+                if legacy_name in table.columns:
+                    legacy_matches.append(
+                        f"{legacy_name} -> {current_name}"
+                    )
+        legacy_detail = (
+            " Legacy fields found: " + ", ".join(legacy_matches) + "."
+            if legacy_matches
+            else ""
+        )
         raise ValueError(
-            f"{SCORE_FILES[table_name]} is missing required columns: {missing}"
+            f"{SCORE_FILES[table_name]} is missing current scoring columns: "
+            f"{missing}.{legacy_detail} Re-run the revised integrated-scoring "
+            "notebook and deploy its updated data/outputs files. The app does "
+            "not substitute retired score fields."
         )
 
 
+def score_file_signature(
+    score_dir_text: str,
+) -> tuple[tuple[str, int, int], ...]:
+    """Return file metadata used to invalidate cached score tables."""
+    score_dir = Path(score_dir_text).expanduser()
+    signature = []
+    for filename in SCORE_FILES.values():
+        path = score_dir / filename
+        if path.is_file():
+            status = path.stat()
+            signature.append(
+                (filename, status.st_mtime_ns, status.st_size)
+            )
+        else:
+            signature.append((filename, -1, -1))
+    return tuple(signature)
+
+
 @st.cache_data(show_spinner=False)
-def load_score_tables(score_dir_text: str) -> dict[str, pd.DataFrame]:
+def load_score_tables(
+    score_dir_text: str,
+    schema_version: str,
+    file_signature: tuple[tuple[str, int, int], ...],
+) -> dict[str, pd.DataFrame]:
     """Load core scoring tables and available action components."""
+    if schema_version != SCORE_SCHEMA_VERSION:
+        raise ValueError("The requested score schema version is not supported.")
+    if file_signature != score_file_signature(score_dir_text):
+        raise ValueError(
+            "One or more scoring files changed while they were being loaded. "
+            "Refresh the app to reload a consistent set of outputs."
+        )
     score_dir = Path(score_dir_text).expanduser()
     missing_files = [
         filename
@@ -358,7 +436,7 @@ def show_score_table(table: pd.DataFrame) -> None:
     }
     st.dataframe(
         rounded,
-        use_container_width=True,
+        width="stretch",
         hide_index=True,
         column_config=column_config,
     )
@@ -429,6 +507,13 @@ def render_choropleth(
 ) -> None:
     """Render an interactive BSR choropleth and register click selection."""
     hover_columns = hover_columns or []
+    if metric not in values.columns:
+        st.error(
+            f"Cannot render {metric_label}: required field {metric!r} is "
+            "missing from the current score table. Re-run the revised "
+            "integrated-scoring notebook and deploy the updated outputs."
+        )
+        return
     requested = ["bsr", metric, *hover_columns]
     requested = list(dict.fromkeys(column for column in requested if column in values.columns))
     value_table = values[requested].drop_duplicates("bsr")
@@ -508,7 +593,7 @@ def render_choropleth(
     figure.update_traces(marker_line_width=1.1, marker_line_color="#ffffff")
     st.plotly_chart(
         figure,
-        use_container_width=True,
+        width="stretch",
         key=chart_key,
         on_select=partial(capture_map_selection, chart_key),
         selection_mode="points",
@@ -551,7 +636,7 @@ def horizontal_bar(
     )
     st.plotly_chart(
         figure,
-        use_container_width=True,
+        width="stretch",
         config={"displaylogo": False},
     )
 
@@ -1035,7 +1120,10 @@ def main() -> None:
     st.caption("Interactive Level 1 risk and Level 2 action-benefit maps")
 
     try:
-        tables = load_score_tables(str(SCORE_DIR))
+        score_signature = score_file_signature(str(SCORE_DIR))
+        tables = load_score_tables(
+            str(SCORE_DIR), SCORE_SCHEMA_VERSION, score_signature
+        )
     except Exception as error:
         st.error(str(error))
         st.stop()
