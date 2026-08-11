@@ -624,7 +624,7 @@ def render_overall_risk(
             value_label="Risk score",
         )
 
-    with st.expander("Show selected BSR score tables"):
+    with st.expander(f"Show {selected_bsr} score tables"):
         st.subheader("Species and life stages")
         show_score_table(
             life_selected[
@@ -643,7 +643,6 @@ def render_overall_risk(
             factor_selected[
                 [
                     "limiting_factor",
-                    "condition_score_raw_1_5",
                     "condition_score",
                     "impact_score",
                     "risk_score",
@@ -715,7 +714,7 @@ def render_fish_use(
             ],
         )
 
-    with st.expander("Show species and life-stage data"):
+    with st.expander(f"Show {selected_bsr} species and life-stage data"):
         show_score_table(
             selected[
                 [
@@ -809,7 +808,6 @@ def render_limiting_factors(
         map_style,
         hover_columns=[
             "basin",
-            "condition_score_raw_1_5",
             "condition_score",
             "impact_score",
             "risk_score",
@@ -852,7 +850,7 @@ def render_limiting_factors(
             value_label=component_label,
         )
 
-    with st.expander("Optional map: highest-priority limiting factor"):
+    with st.expander("Highest-priority limiting factor map"):
         render_choropleth(
             geometry,
             bsr,
@@ -871,7 +869,7 @@ def render_limiting_factors(
             ],
         )
 
-    with st.expander("Show selected limiting-factor data"):
+    with st.expander(f"Show limiting-factor data for: {selected_factor} in {selected_bsr}"):
         show_score_table(
             biological[
                 [
@@ -957,7 +955,7 @@ def render_actions(
             action_components["bsr"].eq(selected_bsr)
             & action_components["action_type"].eq(selected_action)
         ].copy()
-        with st.expander("Show limiting-factor contributions to the selected action"):
+        with st.expander(f"Show limiting-factor contributions to the selected action: {selected_action}"):
             horizontal_bar(
                 component_rows,
                 "benefit_component",
@@ -995,31 +993,7 @@ def render_actions(
         ],
     )
 
-    with st.expander("Provisional map: sum of action-specific benefit scores"):
-        st.warning(
-            "This score is exploratory. Summing action scores may double count "
-            "overlapping benefits and may reward BSRs with more applicable action "
-            "pathways. Do not treat it as a finalized overall restoration-potential "
-            "score without further review."
-        )
-        render_choropleth(
-            geometry,
-            bsr,
-            "sum_action_benefit_provisional",
-            "Sum of action-specific benefit scores",
-            "Provisional Overall Benefit Score",
-            "map_action_sum",
-            map_style,
-            hover_columns=[
-                "basin",
-                "highest_priority_action",
-                "highest_priority_action_benefit_score",
-                "overall_risk_score",
-            ],
-            color_scale=ACTION_BENEFIT_COLOR_SCALE,
-        )
-
-    with st.expander("Show selected BSR action table"):
+    with st.expander(f"Show {selected_bsr} action table"):
         show_score_table(
             selected[
                 [
