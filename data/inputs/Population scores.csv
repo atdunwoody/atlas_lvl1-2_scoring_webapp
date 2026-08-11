@@ -1,0 +1,21 @@
+basin,species,life_stage,population_priority
+Catherine Creek,Chinook,Spawning,0.12
+Catherine Creek,Steelhead,Spawning,0.25
+Catherine Creek,Chinook,Summer Rearing,0.21
+Catherine Creek,Steelhead,Summer Rearing,0.25
+Catherine Creek,Chinook,Winter Rearing,0.36
+Catherine Creek,Steelhead,Winter Rearing,0.25
+Catherine Creek,Chinook,Migration,0.3
+Catherine Creek,Steelhead,Migration,0.25
+Upper Grande Ronde,Chinook,Spawning,0.08
+Upper Grande Ronde,Steelhead,Spawning,0.25
+Upper Grande Ronde,Chinook,Summer Rearing,0.24
+Upper Grande Ronde,Steelhead,Summer Rearing,0.25
+Upper Grande Ronde,Chinook,Winter Rearing,0.34
+Upper Grande Ronde,Steelhead,Winter Rearing,0.25
+Upper Grande Ronde,Chinook,Migration,0.34
+Upper Grande Ronde,Steelhead,Migration,0.25
+Catherine Creek,Bull Trout,Spawning & Resident,0.6
+Catherine Creek,Bull Trout,FMO,0.4
+Upper Grande Ronde,Bull Trout,Spawning & Resident,0.6
+Upper Grande Ronde,Bull Trout,FMO,0.4

@@ -1,0 +1,436 @@
+bsr,limiting_factor,n,mean_r,median_r,geo_mean_r,sd_r,var_r,iqr_r,min_r,max_r,range_r,flag_spread,flag_low_n,any_flag,lf_condition_score_raw_1_5,lf_condition_score,condition_transformation
+CC1,Riparian Condition,5,4.6,5,4.573050519,0.547722558,0.3,1,4,5,1,FALSE,FALSE,FALSE,4.57,0.90325,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC1,Floodplain Condition,5,4.8,5,4.781762499,0.447213595,0.2,0,4,5,1,FALSE,FALSE,FALSE,4.78,0.9505,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC1,Side Channel and Wetland Habitat,5,4.2,5,4.075965548,1.095445115,1.2,2,3,5,2,TRUE,FALSE,TRUE,4.08,0.793,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC1,Channel and Habitat Structure,5,4.6,5,4.573050519,0.547722558,0.3,1,4,5,1,FALSE,FALSE,FALSE,4.57,0.90325,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC1,Decreased Sediment Quantity,5,3.4,3,2.954176939,1.673320053,2.8,2,1,5,4,TRUE,FALSE,TRUE,2.95,0.53875,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC1,Increased Sediment Quantity,5,4.6,5,4.514402257,0.894427191,0.8,0,3,5,2,FALSE,FALSE,FALSE,4.51,0.88975,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC1,Anthropogenic Barriers,3,4,5,3.684031499,1.732050808,3,1.5,2,5,3,FALSE,FALSE,FALSE,3.68,0.703,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC1,Predation,3,4.333333333,5,4.217163327,1.154700538,1.333333333,1,3,5,2,FALSE,FALSE,FALSE,4.22,0.8245,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC1,Altered Primary Productivity,3,4.333333333,4,4.30886938,0.577350269,0.333333333,0.5,4,5,1,FALSE,FALSE,FALSE,4.31,0.84475,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC1,Non-Native Species Interactions and Competition,3,4.666666667,5,4.641588834,0.577350269,0.333333333,0.5,4,5,1,FALSE,FALSE,FALSE,4.64,0.919,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC1,Decreased Water Quantity,3,5,5,5,0,0,0,5,5,0,FALSE,FALSE,FALSE,5,1,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC1,Altered Flow Timing,3,4.333333333,4,4.30886938,0.577350269,0.333333333,0.5,4,5,1,FALSE,FALSE,FALSE,4.31,0.84475,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC1,Summer Water Temperature,3,4.666666667,5,4.641588834,0.577350269,0.333333333,0.5,4,5,1,FALSE,FALSE,FALSE,4.64,0.919,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC1,Winter Water Temperature,3,4,4,3.914867641,1,1,1,3,5,2,FALSE,FALSE,FALSE,3.91,0.75475,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC1,Water Quality,3,5,5,5,0,0,0,5,5,0,FALSE,FALSE,FALSE,5,1,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC2,Riparian Condition,5,3.6,4,3.437543855,1.140175425,1.3,1,2,5,3,FALSE,FALSE,FALSE,3.44,0.649,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC2,Floodplain Condition,5,4,4,3.948700972,0.707106781,0.5,0,3,5,2,FALSE,FALSE,FALSE,3.95,0.76375,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC2,Side Channel and Wetland Habitat,5,4.4,4,4.373448296,0.547722558,0.3,1,4,5,1,FALSE,FALSE,FALSE,4.37,0.85825,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC2,Channel and Habitat Structure,5,4.4,4,4.373448296,0.547722558,0.3,1,4,5,1,FALSE,FALSE,FALSE,4.37,0.85825,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC2,Decreased Sediment Quantity,5,2.8,3,2.491461879,1.303840481,1.7,2,1,4,3,TRUE,FALSE,TRUE,2.49,0.43525,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC2,Increased Sediment Quantity,5,4.4,5,4.317359884,0.894427191,0.8,1,3,5,2,FALSE,FALSE,FALSE,4.32,0.847,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC2,Anthropogenic Barriers,3,4.666666667,5,4.641588834,0.577350269,0.333333333,0.5,4,5,1,FALSE,FALSE,FALSE,4.64,0.919,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC2,Predation,3,4.333333333,5,4.217163327,1.154700538,1.333333333,1,3,5,2,FALSE,FALSE,FALSE,4.22,0.8245,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC2,Altered Primary Productivity,3,4.333333333,4,4.30886938,0.577350269,0.333333333,0.5,4,5,1,FALSE,FALSE,FALSE,4.31,0.84475,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC2,Non-Native Species Interactions and Competition,3,4,4,3.914867641,1,1,1,3,5,2,FALSE,FALSE,FALSE,3.91,0.75475,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC2,Decreased Water Quantity,3,4.333333333,4,4.30886938,0.577350269,0.333333333,0.5,4,5,1,FALSE,FALSE,FALSE,4.31,0.84475,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC2,Altered Flow Timing,3,4.333333333,4,4.30886938,0.577350269,0.333333333,0.5,4,5,1,FALSE,FALSE,FALSE,4.31,0.84475,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC2,Summer Water Temperature,3,3.666666667,4,3.419951893,1.527525232,2.333333333,1.5,2,5,3,FALSE,FALSE,FALSE,3.42,0.6445,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC2,Winter Water Temperature,3,4,4,3.914867641,1,1,1,3,5,2,FALSE,FALSE,FALSE,3.91,0.75475,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC2,Water Quality,3,4.666666667,5,4.641588834,0.577350269,0.333333333,0.5,4,5,1,FALSE,FALSE,FALSE,4.64,0.919,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC3,Riparian Condition,5,2.8,3,2.491461879,1.303840481,1.7,2,1,4,3,TRUE,FALSE,TRUE,2.49,0.43525,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC3,Floodplain Condition,5,2.6,3,2.352158045,1.140175425,1.3,1,1,4,3,FALSE,FALSE,FALSE,2.35,0.40375,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC3,Side Channel and Wetland Habitat,5,3.2,3,2.724069927,1.788854382,3.2,3,1,5,4,TRUE,FALSE,TRUE,2.72,0.487,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC3,Channel and Habitat Structure,5,3,3,2.930156052,0.707106781,0.5,0,2,4,2,FALSE,FALSE,FALSE,2.93,0.53425,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC3,Decreased Sediment Quantity,5,3,3,2.861938162,1,1,2,2,4,2,TRUE,FALSE,TRUE,2.86,0.5185,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC3,Increased Sediment Quantity,5,3.8,4,3.727919273,0.836660027,0.7,1,3,5,2,FALSE,FALSE,FALSE,3.73,0.71425,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC3,Anthropogenic Barriers,3,3.666666667,4,3.634241186,0.577350269,0.333333333,0.5,3,4,1,FALSE,FALSE,FALSE,3.63,0.69175,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC3,Predation,3,3,3,2.884499141,1,1,1,2,4,2,FALSE,FALSE,FALSE,2.88,0.523,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC3,Altered Primary Productivity,3,3.333333333,3,3.301927249,0.577350269,0.333333333,0.5,3,4,1,FALSE,FALSE,FALSE,3.3,0.6175,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC3,Non-Native Species Interactions and Competition,3,2.666666667,3,2.620741394,0.577350269,0.333333333,0.5,2,3,1,FALSE,FALSE,FALSE,2.62,0.4645,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC3,Decreased Water Quantity,3,3.666666667,4,3.634241186,0.577350269,0.333333333,0.5,3,4,1,FALSE,FALSE,FALSE,3.63,0.69175,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC3,Altered Flow Timing,3,3.666666667,4,3.634241186,0.577350269,0.333333333,0.5,3,4,1,FALSE,FALSE,FALSE,3.63,0.69175,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC3,Summer Water Temperature,3,3.333333333,4,3.174802104,1.154700538,1.333333333,1,2,4,2,FALSE,FALSE,FALSE,3.17,0.58825,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC3,Winter Water Temperature,3,3.666666667,3,3.556893304,1.154700538,1.333333333,1,3,5,2,FALSE,FALSE,FALSE,3.56,0.676,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC3,Water Quality,3,3.333333333,3,3.301927249,0.577350269,0.333333333,0.5,3,4,1,FALSE,FALSE,FALSE,3.3,0.6175,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC4,Riparian Condition,5,3.6,4,3.314454017,1.516575089,2.3,3,2,5,3,TRUE,FALSE,TRUE,3.31,0.61975,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC4,Floodplain Condition,5,3.6,4,3.437543855,1.140175425,1.3,1,2,5,3,FALSE,FALSE,FALSE,3.44,0.649,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC4,Side Channel and Wetland Habitat,5,3.8,4,3.727919273,0.836660027,0.7,1,3,5,2,FALSE,FALSE,FALSE,3.73,0.71425,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC4,Channel and Habitat Structure,5,3.8,4,3.727919273,0.836660027,0.7,1,3,5,2,FALSE,FALSE,FALSE,3.73,0.71425,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC4,Decreased Sediment Quantity,5,3.2,3,3.177671523,0.447213595,0.2,0,3,4,1,FALSE,FALSE,FALSE,3.18,0.5905,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC4,Increased Sediment Quantity,5,3.8,4,3.776350045,0.447213595,0.2,0,3,4,1,FALSE,FALSE,FALSE,3.78,0.7255,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC4,Anthropogenic Barriers,3,4.666666667,5,4.641588834,0.577350269,0.333333333,0.5,4,5,1,FALSE,FALSE,FALSE,4.64,0.919,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC4,Predation,3,2,2,1.817120593,1,1,1,1,3,2,FALSE,FALSE,FALSE,1.82,0.2845,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC4,Altered Primary Productivity,3,3,4,2.5198421,1.732050808,3,1.5,1,4,3,FALSE,FALSE,FALSE,2.52,0.442,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC4,Non-Native Species Interactions and Competition,3,1.666666667,2,1.587401052,0.577350269,0.333333333,0.5,1,2,1,FALSE,FALSE,FALSE,1.59,0.23275,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC4,Decreased Water Quantity,3,3.666666667,4,3.634241186,0.577350269,0.333333333,0.5,3,4,1,FALSE,FALSE,FALSE,3.63,0.69175,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC4,Altered Flow Timing,3,3,3,2.884499141,1,1,1,2,4,2,FALSE,FALSE,FALSE,2.88,0.523,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC4,Summer Water Temperature,3,3.666666667,4,3.634241186,0.577350269,0.333333333,0.5,3,4,1,FALSE,FALSE,FALSE,3.63,0.69175,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC4,Winter Water Temperature,3,3.666666667,3,3.556893304,1.154700538,1.333333333,1,3,5,2,FALSE,FALSE,FALSE,3.56,0.676,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC4,Water Quality,3,3.333333333,3,3.301927249,0.577350269,0.333333333,0.5,3,4,1,FALSE,FALSE,FALSE,3.3,0.6175,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC5,Riparian Condition,5,3.8,4,3.776350045,0.447213595,0.2,0,3,4,1,FALSE,FALSE,FALSE,3.78,0.7255,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC5,Floodplain Condition,5,3.8,4,3.641128406,1.095445115,1.2,0,2,5,3,FALSE,FALSE,FALSE,3.64,0.694,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC5,Side Channel and Wetland Habitat,5,3.6,4,3.482202253,0.894427191,0.8,0,2,4,2,FALSE,FALSE,FALSE,3.48,0.658,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC5,Channel and Habitat Structure,5,4,4,3.807307877,1.224744871,1.5,1,2,5,3,FALSE,FALSE,FALSE,3.81,0.73225,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC5,Decreased Sediment Quantity,5,3.6,4,3.437543855,1.140175425,1.3,1,2,5,3,FALSE,FALSE,FALSE,3.44,0.649,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC5,Increased Sediment Quantity,5,3.4,3,3.365865436,0.547722558,0.3,1,3,4,1,FALSE,FALSE,FALSE,3.37,0.63325,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC5,Anthropogenic Barriers,3,4,4,3.914867641,1,1,1,3,5,2,FALSE,FALSE,FALSE,3.91,0.75475,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC5,Predation,3,4,5,3.684031499,1.732050808,3,1.5,2,5,3,FALSE,FALSE,FALSE,3.68,0.703,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC5,Altered Primary Productivity,3,3.333333333,4,2.714417617,2.081665999,4.333333333,2,1,5,4,TRUE,FALSE,TRUE,2.71,0.48475,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC5,Non-Native Species Interactions and Competition,3,1.666666667,2,1.587401052,0.577350269,0.333333333,0.5,1,2,1,FALSE,FALSE,FALSE,1.59,0.23275,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC5,Decreased Water Quantity,3,3.666666667,4,3.634241186,0.577350269,0.333333333,0.5,3,4,1,FALSE,FALSE,FALSE,3.63,0.69175,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC5,Altered Flow Timing,3,3,3,2.884499141,1,1,1,2,4,2,FALSE,FALSE,FALSE,2.88,0.523,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC5,Summer Water Temperature,3,3.666666667,3,3.556893304,1.154700538,1.333333333,1,3,5,2,FALSE,FALSE,FALSE,3.56,0.676,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC5,Winter Water Temperature,3,3.666666667,4,3.419951893,1.527525232,2.333333333,1.5,2,5,3,FALSE,FALSE,FALSE,3.42,0.6445,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC5,Water Quality,3,3,3,2.884499141,1,1,1,2,4,2,FALSE,FALSE,FALSE,2.88,0.523,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC6,Riparian Condition,5,3,3,2.861938162,1,1,2,2,4,2,TRUE,FALSE,TRUE,2.86,0.5185,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC6,Floodplain Condition,5,3,3,2.8252345,1.224744871,1.5,1,2,5,3,FALSE,FALSE,FALSE,2.83,0.51175,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC6,Side Channel and Wetland Habitat,5,3.2,3,2.992555739,1.303840481,1.7,2,2,5,3,TRUE,FALSE,TRUE,2.99,0.54775,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC6,Channel and Habitat Structure,5,3.2,4,3.031433133,1.095445115,1.2,2,2,4,2,TRUE,FALSE,TRUE,3.03,0.55675,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC6,Decreased Sediment Quantity,5,3.4,4,3.287503659,0.894427191,0.8,1,2,4,2,FALSE,FALSE,FALSE,3.29,0.61525,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC6,Increased Sediment Quantity,5,3.2,3,3.103691148,0.836660027,0.7,1,2,4,2,FALSE,FALSE,FALSE,3.1,0.5725,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC6,Anthropogenic Barriers,3,3,2,2.714417617,1.732050808,3,1.5,2,5,3,FALSE,FALSE,FALSE,2.71,0.48475,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC6,Predation,3,2.333333333,2,2.289428485,0.577350269,0.333333333,0.5,2,3,1,FALSE,FALSE,FALSE,2.29,0.39025,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC6,Altered Primary Productivity,3,3,3,2.884499141,1,1,1,2,4,2,FALSE,FALSE,FALSE,2.88,0.523,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC6,Non-Native Species Interactions and Competition,3,1.666666667,1,1.44224957,1.154700538,1.333333333,1,1,3,2,FALSE,FALSE,FALSE,1.44,0.199,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC6,Decreased Water Quantity,3,3.666666667,4,3.634241186,0.577350269,0.333333333,0.5,3,4,1,FALSE,FALSE,FALSE,3.63,0.69175,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC6,Altered Flow Timing,3,3.333333333,3,3.107232506,1.527525232,2.333333333,1.5,2,5,3,FALSE,FALSE,FALSE,3.11,0.57475,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC6,Summer Water Temperature,3,3.666666667,3,3.556893304,1.154700538,1.333333333,1,3,5,2,FALSE,FALSE,FALSE,3.56,0.676,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC6,Winter Water Temperature,3,3.666666667,4,3.419951893,1.527525232,2.333333333,1.5,2,5,3,FALSE,FALSE,FALSE,3.42,0.6445,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC6,Water Quality,3,3,3,2.884499141,1,1,1,2,4,2,FALSE,FALSE,FALSE,2.88,0.523,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC7,Riparian Condition,5,1.8,2,1.64375183,0.836660027,0.7,1,1,3,2,FALSE,FALSE,FALSE,1.64,0.244,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC7,Floodplain Condition,5,1.8,2,1.741101127,0.447213595,0.2,0,1,2,1,FALSE,FALSE,FALSE,1.74,0.2665,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC7,Side Channel and Wetland Habitat,5,2.2,2,2,1.095445115,1.2,0,1,4,3,FALSE,FALSE,FALSE,2,0.325,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC7,Channel and Habitat Structure,5,1.8,2,1.64375183,0.836660027,0.7,1,1,3,2,FALSE,FALSE,FALSE,1.64,0.244,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC7,Decreased Sediment Quantity,5,3,3,2.605171085,1.58113883,2.5,2,1,5,4,TRUE,FALSE,TRUE,2.61,0.46225,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC7,Increased Sediment Quantity,5,2,2,1.888175023,0.707106781,0.5,0,1,3,2,FALSE,FALSE,FALSE,1.89,0.30025,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC7,Anthropogenic Barriers,3,1.666666667,1,1.44224957,1.154700538,1.333333333,1,1,3,2,FALSE,FALSE,FALSE,1.44,0.199,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC7,Predation,3,1,1,1,0,0,0,1,1,0,FALSE,FALSE,FALSE,1,0.1,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC7,Altered Primary Productivity,3,2,2,1.817120593,1,1,1,1,3,2,FALSE,FALSE,FALSE,1.82,0.2845,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC7,Non-Native Species Interactions and Competition,3,2,1,1.587401052,1.732050808,3,1.5,1,4,3,FALSE,FALSE,FALSE,1.59,0.23275,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC7,Decreased Water Quantity,3,3,3,2.884499141,1,1,1,2,4,2,FALSE,FALSE,FALSE,2.88,0.523,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC7,Altered Flow Timing,3,3.333333333,3,3.107232506,1.527525232,2.333333333,1.5,2,5,3,FALSE,FALSE,FALSE,3.11,0.57475,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC7,Summer Water Temperature,3,3.333333333,3,3.107232506,1.527525232,2.333333333,1.5,2,5,3,FALSE,FALSE,FALSE,3.11,0.57475,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC7,Winter Water Temperature,3,2.666666667,2,2.15443469,2.081665999,4.333333333,2,1,5,4,TRUE,FALSE,TRUE,2.15,0.35875,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC7,Water Quality,3,3,2,2.714417617,1.732050808,3,1.5,2,5,3,FALSE,FALSE,FALSE,2.71,0.48475,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC8,Riparian Condition,5,2,2,1.888175023,0.707106781,0.5,0,1,3,2,FALSE,FALSE,FALSE,1.89,0.30025,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC8,Floodplain Condition,5,2,2,1.888175023,0.707106781,0.5,0,1,3,2,FALSE,FALSE,FALSE,1.89,0.30025,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC8,Side Channel and Wetland Habitat,5,2,2,1.888175023,0.707106781,0.5,0,1,3,2,FALSE,FALSE,FALSE,1.89,0.30025,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC8,Channel and Habitat Structure,5,1.8,2,1.741101127,0.447213595,0.2,0,1,2,1,FALSE,FALSE,FALSE,1.74,0.2665,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC8,Decreased Sediment Quantity,5,2.4,2,1.974350486,1.673320053,2.8,2,1,5,4,TRUE,FALSE,TRUE,1.97,0.31825,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC8,Increased Sediment Quantity,5,2,2,1.782602458,1,1,2,1,3,2,TRUE,FALSE,TRUE,1.78,0.2755,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC8,Anthropogenic Barriers,3,1,1,1,0,0,0,1,1,0,FALSE,FALSE,FALSE,1,0.1,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC8,Predation,3,1,1,1,0,0,0,1,1,0,FALSE,FALSE,FALSE,1,0.1,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC8,Altered Primary Productivity,3,1.666666667,1,1.44224957,1.154700538,1.333333333,1,1,3,2,FALSE,FALSE,FALSE,1.44,0.199,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC8,Non-Native Species Interactions and Competition,3,1.333333333,1,1.25992105,0.577350269,0.333333333,0.5,1,2,1,FALSE,FALSE,FALSE,1.26,0.1585,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC8,Decreased Water Quantity,3,1.666666667,2,1.587401052,0.577350269,0.333333333,0.5,1,2,1,FALSE,FALSE,FALSE,1.59,0.23275,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC8,Altered Flow Timing,3,2.666666667,2,2.5198421,1.154700538,1.333333333,1,2,4,2,FALSE,FALSE,FALSE,2.52,0.442,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC8,Summer Water Temperature,3,2,2,2,0,0,0,2,2,0,FALSE,FALSE,FALSE,2,0.325,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC8,Winter Water Temperature,3,1.666666667,2,1.587401052,0.577350269,0.333333333,0.5,1,2,1,FALSE,FALSE,FALSE,1.59,0.23275,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC8,Water Quality,3,2,2,2,0,0,0,2,2,0,FALSE,FALSE,FALSE,2,0.325,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC9,Riparian Condition,5,1.2,1,1.148698355,0.447213595,0.2,0,1,2,1,FALSE,FALSE,FALSE,1.15,0.13375,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC9,Floodplain Condition,5,1.6,1,1.430969081,0.894427191,0.8,1,1,3,2,FALSE,FALSE,FALSE,1.43,0.19675,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC9,Side Channel and Wetland Habitat,5,1.6,1,1.430969081,0.894427191,0.8,1,1,3,2,FALSE,FALSE,FALSE,1.43,0.19675,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC9,Channel and Habitat Structure,5,1.2,1,1.148698355,0.447213595,0.2,0,1,2,1,FALSE,FALSE,FALSE,1.15,0.13375,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC9,Decreased Sediment Quantity,5,2,1,1.64375183,1.414213562,2,2,1,4,3,TRUE,FALSE,TRUE,1.64,0.244,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC9,Increased Sediment Quantity,5,1.4,1,1.24573094,0.894427191,0.8,0,1,3,2,FALSE,FALSE,FALSE,1.25,0.15625,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC9,Anthropogenic Barriers,3,1.333333333,1,1.25992105,0.577350269,0.333333333,0.5,1,2,1,FALSE,FALSE,FALSE,1.26,0.1585,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC9,Predation,3,1,1,1,0,0,0,1,1,0,FALSE,FALSE,FALSE,1,0.1,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC9,Altered Primary Productivity,3,1.666666667,1,1.44224957,1.154700538,1.333333333,1,1,3,2,FALSE,FALSE,FALSE,1.44,0.199,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC9,Non-Native Species Interactions and Competition,3,1.666666667,1,1.44224957,1.154700538,1.333333333,1,1,3,2,FALSE,FALSE,FALSE,1.44,0.199,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC9,Decreased Water Quantity,3,1.333333333,1,1.25992105,0.577350269,0.333333333,0.5,1,2,1,FALSE,FALSE,FALSE,1.26,0.1585,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC9,Altered Flow Timing,3,1,1,1,0,0,0,1,1,0,FALSE,FALSE,FALSE,1,0.1,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC9,Summer Water Temperature,3,1.333333333,1,1.25992105,0.577350269,0.333333333,0.5,1,2,1,FALSE,FALSE,FALSE,1.26,0.1585,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC9,Winter Water Temperature,3,1,1,1,0,0,0,1,1,0,FALSE,FALSE,FALSE,1,0.1,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+CC9,Water Quality,3,1,1,1,0,0,0,1,1,0,FALSE,FALSE,FALSE,1,0.1,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR1,Riparian Condition,5,1.4,1,1.319507911,0.547722558,0.3,1,1,2,1,FALSE,FALSE,FALSE,1.32,0.172,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR1,Floodplain Condition,5,1.8,2,1.741101127,0.447213595,0.2,0,1,2,1,FALSE,FALSE,FALSE,1.74,0.2665,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR1,Side Channel and Wetland Habitat,5,1.8,2,1.741101127,0.447213595,0.2,0,1,2,1,FALSE,FALSE,FALSE,1.74,0.2665,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR1,Channel and Habitat Structure,5,1.4,1,1.319507911,0.547722558,0.3,1,1,2,1,FALSE,FALSE,FALSE,1.32,0.172,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR1,Decreased Sediment Quantity,5,1.8,2,1.741101127,0.447213595,0.2,0,1,2,1,FALSE,FALSE,FALSE,1.74,0.2665,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR1,Increased Sediment Quantity,5,1.4,1,1.319507911,0.547722558,0.3,1,1,2,1,FALSE,FALSE,FALSE,1.32,0.172,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR1,Anthropogenic Barriers,3,2.333333333,2,2.289428485,0.577350269,0.333333333,0.5,2,3,1,FALSE,FALSE,FALSE,2.29,0.39025,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR1,Predation,3,3,3,2.884499141,1,1,1,2,4,2,FALSE,FALSE,FALSE,2.88,0.523,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR1,Altered Primary Productivity,3,1,1,1,0,0,0,1,1,0,FALSE,FALSE,FALSE,1,0.1,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR1,Non-Native Species Interactions and Competition,3,1.666666667,2,1.587401052,0.577350269,0.333333333,0.5,1,2,1,FALSE,FALSE,FALSE,1.59,0.23275,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR1,Decreased Water Quantity,3,1,1,1,0,0,0,1,1,0,FALSE,FALSE,FALSE,1,0.1,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR1,Altered Flow Timing,3,1,1,1,0,0,0,1,1,0,FALSE,FALSE,FALSE,1,0.1,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR1,Summer Water Temperature,3,1,1,1,0,0,0,1,1,0,FALSE,FALSE,FALSE,1,0.1,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR1,Winter Water Temperature,3,1,1,1,0,0,0,1,1,0,FALSE,FALSE,FALSE,1,0.1,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR1,Water Quality,3,1,1,1,0,0,0,1,1,0,FALSE,FALSE,FALSE,1,0.1,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR10,Riparian Condition,5,2.4,2,2.352158045,0.547722558,0.3,1,2,3,1,FALSE,FALSE,FALSE,2.35,0.40375,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR10,Floodplain Condition,5,2.6,3,2.550849001,0.547722558,0.3,1,2,3,1,FALSE,FALSE,FALSE,2.55,0.44875,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR10,Side Channel and Wetland Habitat,5,2.2,2,2.168943542,0.447213595,0.2,0,2,3,1,FALSE,FALSE,FALSE,2.17,0.36325,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR10,Channel and Habitat Structure,5,2,2,1.888175023,0.707106781,0.5,0,1,3,2,FALSE,FALSE,FALSE,1.89,0.30025,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR10,Decreased Sediment Quantity,5,2,2,1.888175023,0.707106781,0.5,0,1,3,2,FALSE,FALSE,FALSE,1.89,0.30025,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR10,Increased Sediment Quantity,5,2.6,3,2.352158045,1.140175425,1.3,1,1,4,3,FALSE,FALSE,FALSE,2.35,0.40375,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR10,Anthropogenic Barriers,3,1,1,1,0,0,0,1,1,0,FALSE,FALSE,FALSE,1,0.1,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR10,Predation,3,1.333333333,1,1.25992105,0.577350269,0.333333333,0.5,1,2,1,FALSE,FALSE,FALSE,1.26,0.1585,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR10,Altered Primary Productivity,3,2,2,1.817120593,1,1,1,1,3,2,FALSE,FALSE,FALSE,1.82,0.2845,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR10,Non-Native Species Interactions and Competition,3,1.666666667,1,1.44224957,1.154700538,1.333333333,1,1,3,2,FALSE,FALSE,FALSE,1.44,0.199,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR10,Decreased Water Quantity,3,2,2,1.817120593,1,1,1,1,3,2,FALSE,FALSE,FALSE,1.82,0.2845,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR10,Altered Flow Timing,3,2,1,1.587401052,1.732050808,3,1.5,1,4,3,FALSE,FALSE,FALSE,1.59,0.23275,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR10,Summer Water Temperature,3,2.333333333,3,2.080083823,1.154700538,1.333333333,1,1,3,2,FALSE,FALSE,FALSE,2.08,0.343,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR10,Winter Water Temperature,3,2,2,1.817120593,1,1,1,1,3,2,FALSE,FALSE,FALSE,1.82,0.2845,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR10,Water Quality,3,1.666666667,1,1.44224957,1.154700538,1.333333333,1,1,3,2,FALSE,FALSE,FALSE,1.44,0.199,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR11,Riparian Condition,5,3.2,3,3.103691148,0.836660027,0.7,1,2,4,2,FALSE,FALSE,FALSE,3.1,0.5725,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR11,Floodplain Condition,5,3,3,2.930156052,0.707106781,0.5,0,2,4,2,FALSE,FALSE,FALSE,2.93,0.53425,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR11,Side Channel and Wetland Habitat,5,3.4,4,3.287503659,0.894427191,0.8,1,2,4,2,FALSE,FALSE,FALSE,3.29,0.61525,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR11,Channel and Habitat Structure,5,3.6,4,3.437543855,1.140175425,1.3,1,2,5,3,FALSE,FALSE,FALSE,3.44,0.649,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR11,Decreased Sediment Quantity,5,3.8,4,3.727919273,0.836660027,0.7,1,3,5,2,FALSE,FALSE,FALSE,3.73,0.71425,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR11,Increased Sediment Quantity,5,3.4,3,3.365865436,0.547722558,0.3,1,3,4,1,FALSE,FALSE,FALSE,3.37,0.63325,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR11,Anthropogenic Barriers,3,2.333333333,2,2.289428485,0.577350269,0.333333333,0.5,2,3,1,FALSE,FALSE,FALSE,2.29,0.39025,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR11,Predation,3,2,2,1.817120593,1,1,1,1,3,2,FALSE,FALSE,FALSE,1.82,0.2845,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR11,Altered Primary Productivity,3,4.333333333,5,4.217163327,1.154700538,1.333333333,1,3,5,2,FALSE,FALSE,FALSE,4.22,0.8245,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR11,Non-Native Species Interactions and Competition,3,3,3,2.884499141,1,1,1,2,4,2,FALSE,FALSE,FALSE,2.88,0.523,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR11,Decreased Water Quantity,3,3.666666667,3,3.556893304,1.154700538,1.333333333,1,3,5,2,FALSE,FALSE,FALSE,3.56,0.676,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR11,Altered Flow Timing,3,3,3,3,0,0,0,3,3,0,FALSE,FALSE,FALSE,3,0.55,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR11,Summer Water Temperature,3,4.333333333,5,4.217163327,1.154700538,1.333333333,1,3,5,2,FALSE,FALSE,FALSE,4.22,0.8245,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR11,Winter Water Temperature,3,3,3,2.884499141,1,1,1,2,4,2,FALSE,FALSE,FALSE,2.88,0.523,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR11,Water Quality,3,3.333333333,3,3.301927249,0.577350269,0.333333333,0.5,3,4,1,FALSE,FALSE,FALSE,3.3,0.6175,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR12,Riparian Condition,5,2.8,3,2.766323734,0.447213595,0.2,0,2,3,1,FALSE,FALSE,FALSE,2.77,0.49825,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR12,Floodplain Condition,5,2.8,3,2.766323734,0.447213595,0.2,0,2,3,1,FALSE,FALSE,FALSE,2.77,0.49825,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR12,Side Channel and Wetland Habitat,5,2.4,2,2.352158045,0.547722558,0.3,1,2,3,1,FALSE,FALSE,FALSE,2.35,0.40375,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR12,Channel and Habitat Structure,5,3,3,2.930156052,0.707106781,0.5,0,2,4,2,FALSE,FALSE,FALSE,2.93,0.53425,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR12,Decreased Sediment Quantity,5,3.2,3,3.103691148,0.836660027,0.7,1,2,4,2,FALSE,FALSE,FALSE,3.1,0.5725,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR12,Increased Sediment Quantity,5,2.8,3,2.766323734,0.447213595,0.2,0,2,3,1,FALSE,FALSE,FALSE,2.77,0.49825,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR12,Anthropogenic Barriers,3,2.666666667,2,2.15443469,2.081665999,4.333333333,2,1,5,4,TRUE,FALSE,TRUE,2.15,0.35875,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR12,Predation,3,1,1,1,0,0,0,1,1,0,FALSE,FALSE,FALSE,1,0.1,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR12,Altered Primary Productivity,3,3.333333333,3,3.107232506,1.527525232,2.333333333,1.5,2,5,3,FALSE,FALSE,FALSE,3.11,0.57475,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR12,Non-Native Species Interactions and Competition,3,1.333333333,1,1.25992105,0.577350269,0.333333333,0.5,1,2,1,FALSE,FALSE,FALSE,1.26,0.1585,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR12,Decreased Water Quantity,3,3,3,3,0,0,0,3,3,0,FALSE,FALSE,FALSE,3,0.55,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR12,Altered Flow Timing,3,2.666666667,3,2.620741394,0.577350269,0.333333333,0.5,2,3,1,FALSE,FALSE,FALSE,2.62,0.4645,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR12,Summer Water Temperature,3,2.333333333,3,2.080083823,1.154700538,1.333333333,1,1,3,2,FALSE,FALSE,FALSE,2.08,0.343,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR12,Winter Water Temperature,3,2,2,2,0,0,0,2,2,0,FALSE,FALSE,FALSE,2,0.325,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR12,Water Quality,3,2,2,2,0,0,0,2,2,0,FALSE,FALSE,FALSE,2,0.325,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR13,Riparian Condition,5,3.8,4,3.776350045,0.447213595,0.2,0,3,4,1,FALSE,FALSE,FALSE,3.78,0.7255,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR13,Floodplain Condition,5,4,4,3.948700972,0.707106781,0.5,0,3,5,2,FALSE,FALSE,FALSE,3.95,0.76375,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR13,Side Channel and Wetland Habitat,5,4.2,4,4.18255821,0.447213595,0.2,0,4,5,1,FALSE,FALSE,FALSE,4.18,0.8155,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR13,Channel and Habitat Structure,5,4.4,4,4.373448296,0.547722558,0.3,1,4,5,1,FALSE,FALSE,FALSE,4.37,0.85825,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR13,Decreased Sediment Quantity,5,4,4,4,0,0,0,4,4,0,FALSE,FALSE,FALSE,4,0.775,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR13,Increased Sediment Quantity,5,3.4,3,3.245342223,1.140175425,1.3,1,2,5,3,FALSE,FALSE,FALSE,3.25,0.60625,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR13,Anthropogenic Barriers,3,2,2,1.817120593,1,1,1,1,3,2,FALSE,FALSE,FALSE,1.82,0.2845,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR13,Predation,3,2.333333333,2,2,1.527525232,2.333333333,1.5,1,4,3,FALSE,FALSE,FALSE,2,0.325,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR13,Altered Primary Productivity,3,4,4,3.914867641,1,1,1,3,5,2,FALSE,FALSE,FALSE,3.91,0.75475,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR13,Non-Native Species Interactions and Competition,3,3,3,2.884499141,1,1,1,2,4,2,FALSE,FALSE,FALSE,2.88,0.523,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR13,Decreased Water Quantity,3,3.666666667,4,3.634241186,0.577350269,0.333333333,0.5,3,4,1,FALSE,FALSE,FALSE,3.63,0.69175,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR13,Altered Flow Timing,3,3.333333333,3,3.301927249,0.577350269,0.333333333,0.5,3,4,1,FALSE,FALSE,FALSE,3.3,0.6175,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR13,Summer Water Temperature,3,3.666666667,3,3.556893304,1.154700538,1.333333333,1,3,5,2,FALSE,FALSE,FALSE,3.56,0.676,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR13,Winter Water Temperature,3,2.666666667,3,2.620741394,0.577350269,0.333333333,0.5,2,3,1,FALSE,FALSE,FALSE,2.62,0.4645,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR13,Water Quality,3,2.666666667,3,2.620741394,0.577350269,0.333333333,0.5,2,3,1,FALSE,FALSE,FALSE,2.62,0.4645,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR14,Riparian Condition,5,2.6,3,2.550849001,0.547722558,0.3,1,2,3,1,FALSE,FALSE,FALSE,2.55,0.44875,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR14,Floodplain Condition,5,2.6,3,2.550849001,0.547722558,0.3,1,2,3,1,FALSE,FALSE,FALSE,2.55,0.44875,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR14,Side Channel and Wetland Habitat,5,2.8,3,2.766323734,0.447213595,0.2,0,2,3,1,FALSE,FALSE,FALSE,2.77,0.49825,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR14,Channel and Habitat Structure,5,3,3,3,0,0,0,3,3,0,FALSE,FALSE,FALSE,3,0.55,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR14,Decreased Sediment Quantity,5,3,3,2.930156052,0.707106781,0.5,0,2,4,2,FALSE,FALSE,FALSE,2.93,0.53425,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR14,Increased Sediment Quantity,5,2.6,2,2.491461879,0.894427191,0.8,1,2,4,2,FALSE,FALSE,FALSE,2.49,0.43525,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR14,Anthropogenic Barriers,3,3,2,2.714417617,1.732050808,3,1.5,2,5,3,FALSE,FALSE,FALSE,2.71,0.48475,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR14,Predation,3,2.666666667,3,2.289428485,1.527525232,2.333333333,1.5,1,4,3,FALSE,FALSE,FALSE,2.29,0.39025,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR14,Altered Primary Productivity,3,3.333333333,3,3.107232506,1.527525232,2.333333333,1.5,2,5,3,FALSE,FALSE,FALSE,3.11,0.57475,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR14,Non-Native Species Interactions and Competition,3,3.333333333,4,2.714417617,2.081665999,4.333333333,2,1,5,4,TRUE,FALSE,TRUE,2.71,0.48475,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR14,Decreased Water Quantity,3,2.333333333,3,2.080083823,1.154700538,1.333333333,1,1,3,2,FALSE,FALSE,FALSE,2.08,0.343,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR14,Altered Flow Timing,3,1.666666667,1,1.44224957,1.154700538,1.333333333,1,1,3,2,FALSE,FALSE,FALSE,1.44,0.199,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR14,Summer Water Temperature,3,1.666666667,2,1.587401052,0.577350269,0.333333333,0.5,1,2,1,FALSE,FALSE,FALSE,1.59,0.23275,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR14,Winter Water Temperature,3,1,1,1,0,0,0,1,1,0,FALSE,FALSE,FALSE,1,0.1,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR14,Water Quality,3,1.333333333,1,1.25992105,0.577350269,0.333333333,0.5,1,2,1,FALSE,FALSE,FALSE,1.26,0.1585,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR15,Riparian Condition,5,2.2,2,2.047672511,0.836660027,0.7,1,1,3,2,FALSE,FALSE,FALSE,2.05,0.33625,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR15,Floodplain Condition,5,3.2,3,3.063887063,1.095445115,1.2,0,2,5,3,FALSE,FALSE,FALSE,3.06,0.5635,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR15,Side Channel and Wetland Habitat,5,2.6,3,2.550849001,0.547722558,0.3,1,2,3,1,FALSE,FALSE,FALSE,2.55,0.44875,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR15,Channel and Habitat Structure,5,3,3,2.8252345,1.224744871,1.5,1,2,5,3,FALSE,FALSE,FALSE,2.83,0.51175,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR15,Decreased Sediment Quantity,5,4.8,5,4.781762499,0.447213595,0.2,0,4,5,1,FALSE,FALSE,FALSE,4.78,0.9505,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR15,Increased Sediment Quantity,5,2.6,2,2.29739671,1.341640786,1.8,2,1,4,3,TRUE,FALSE,TRUE,2.3,0.3925,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR15,Anthropogenic Barriers,3,2.666666667,3,2.620741394,0.577350269,0.333333333,0.5,2,3,1,FALSE,FALSE,FALSE,2.62,0.4645,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR15,Predation,3,1.333333333,1,1.25992105,0.577350269,0.333333333,0.5,1,2,1,FALSE,FALSE,FALSE,1.26,0.1585,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR15,Altered Primary Productivity,3,3.333333333,3,3.107232506,1.527525232,2.333333333,1.5,2,5,3,FALSE,FALSE,FALSE,3.11,0.57475,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR15,Non-Native Species Interactions and Competition,3,2.333333333,3,2.080083823,1.154700538,1.333333333,1,1,3,2,FALSE,FALSE,FALSE,2.08,0.343,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR15,Decreased Water Quantity,3,2.666666667,2,2.5198421,1.154700538,1.333333333,1,2,4,2,FALSE,FALSE,FALSE,2.52,0.442,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR15,Altered Flow Timing,3,2.333333333,2,2.289428485,0.577350269,0.333333333,0.5,2,3,1,FALSE,FALSE,FALSE,2.29,0.39025,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR15,Summer Water Temperature,3,3.333333333,4,3.174802104,1.154700538,1.333333333,1,2,4,2,FALSE,FALSE,FALSE,3.17,0.58825,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR15,Winter Water Temperature,3,2.666666667,3,2.620741394,0.577350269,0.333333333,0.5,2,3,1,FALSE,FALSE,FALSE,2.62,0.4645,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR15,Water Quality,3,2.666666667,3,2.620741394,0.577350269,0.333333333,0.5,2,3,1,FALSE,FALSE,FALSE,2.62,0.4645,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR16,Riparian Condition,5,3.4,4,3.287503659,0.894427191,0.8,1,2,4,2,FALSE,FALSE,FALSE,3.29,0.61525,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR16,Floodplain Condition,5,2.8,3,2.701920077,0.836660027,0.7,1,2,4,2,FALSE,FALSE,FALSE,2.7,0.4825,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR16,Side Channel and Wetland Habitat,5,3,3,2.605171085,1.58113883,2.5,2,1,5,4,TRUE,FALSE,TRUE,2.61,0.46225,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR16,Channel and Habitat Structure,5,3.2,3,3.103691148,0.836660027,0.7,1,2,4,2,FALSE,FALSE,FALSE,3.1,0.5725,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR16,Decreased Sediment Quantity,5,3.2,3,2.724069927,1.788854382,3.2,3,1,5,4,TRUE,FALSE,TRUE,2.72,0.487,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR16,Increased Sediment Quantity,5,3.2,3,3.063887063,1.095445115,1.2,0,2,5,3,FALSE,FALSE,FALSE,3.06,0.5635,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR16,Anthropogenic Barriers,3,2,2,1.817120593,1,1,1,1,3,2,FALSE,FALSE,FALSE,1.82,0.2845,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR16,Predation,3,1,1,1,0,0,0,1,1,0,FALSE,FALSE,FALSE,1,0.1,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR16,Altered Primary Productivity,3,3.666666667,3,3.556893304,1.154700538,1.333333333,1,3,5,2,FALSE,FALSE,FALSE,3.56,0.676,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR16,Non-Native Species Interactions and Competition,3,1,1,1,0,0,0,1,1,0,FALSE,FALSE,FALSE,1,0.1,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR16,Decreased Water Quantity,3,2,2,1.817120593,1,1,1,1,3,2,FALSE,FALSE,FALSE,1.82,0.2845,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR16,Altered Flow Timing,3,1.333333333,1,1.25992105,0.577350269,0.333333333,0.5,1,2,1,FALSE,FALSE,FALSE,1.26,0.1585,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR16,Summer Water Temperature,3,2.333333333,2,2.289428485,0.577350269,0.333333333,0.5,2,3,1,FALSE,FALSE,FALSE,2.29,0.39025,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR16,Winter Water Temperature,3,1.666666667,2,1.587401052,0.577350269,0.333333333,0.5,1,2,1,FALSE,FALSE,FALSE,1.59,0.23275,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR16,Water Quality,3,1.333333333,1,1.25992105,0.577350269,0.333333333,0.5,1,2,1,FALSE,FALSE,FALSE,1.26,0.1585,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR17,Riparian Condition,5,4.6,5,4.514402257,0.894427191,0.8,0,3,5,2,FALSE,FALSE,FALSE,4.51,0.88975,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR17,Floodplain Condition,5,3.4,4,2.885399812,1.816590212,3.3,3,1,5,4,TRUE,FALSE,TRUE,2.89,0.52525,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR17,Side Channel and Wetland Habitat,5,4,5,3.758480079,1.414213562,2,2,2,5,3,TRUE,FALSE,TRUE,3.76,0.721,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR17,Channel and Habitat Structure,5,4.8,5,4.781762499,0.447213595,0.2,0,4,5,1,FALSE,FALSE,FALSE,4.78,0.9505,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR17,Decreased Sediment Quantity,5,4.2,5,3.623898318,1.788854382,3.2,0,1,5,4,FALSE,FALSE,FALSE,3.62,0.6895,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR17,Increased Sediment Quantity,5,4.2,5,4.075965548,1.095445115,1.2,2,3,5,2,TRUE,FALSE,TRUE,4.08,0.793,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR17,Anthropogenic Barriers,3,3,3,2.466212074,2,4,2,1,5,4,TRUE,FALSE,TRUE,2.47,0.43075,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR17,Predation,3,1.333333333,1,1.25992105,0.577350269,0.333333333,0.5,1,2,1,FALSE,FALSE,FALSE,1.26,0.1585,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR17,Altered Primary Productivity,3,4.666666667,5,4.641588834,0.577350269,0.333333333,0.5,4,5,1,FALSE,FALSE,FALSE,4.64,0.919,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR17,Non-Native Species Interactions and Competition,3,2.333333333,3,2.080083823,1.154700538,1.333333333,1,1,3,2,FALSE,FALSE,FALSE,2.08,0.343,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR17,Decreased Water Quantity,3,2.333333333,2,2.289428485,0.577350269,0.333333333,0.5,2,3,1,FALSE,FALSE,FALSE,2.29,0.39025,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR17,Altered Flow Timing,3,2.333333333,2,2.289428485,0.577350269,0.333333333,0.5,2,3,1,FALSE,FALSE,FALSE,2.29,0.39025,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR17,Summer Water Temperature,3,3.333333333,4,3.174802104,1.154700538,1.333333333,1,2,4,2,FALSE,FALSE,FALSE,3.17,0.58825,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR17,Winter Water Temperature,3,2.333333333,2,2.289428485,0.577350269,0.333333333,0.5,2,3,1,FALSE,FALSE,FALSE,2.29,0.39025,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR17,Water Quality,3,2,2,2,0,0,0,2,2,0,FALSE,FALSE,FALSE,2,0.325,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR18,Riparian Condition,5,2.6,3,2.550849001,0.547722558,0.3,1,2,3,1,FALSE,FALSE,FALSE,2.55,0.44875,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR18,Floodplain Condition,5,2,2,1.741101127,1.224744871,1.5,1,1,4,3,FALSE,FALSE,FALSE,1.74,0.2665,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR18,Side Channel and Wetland Habitat,5,2.4,2,2.168943542,1.140175425,1.3,1,1,4,3,FALSE,FALSE,FALSE,2.17,0.36325,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR18,Channel and Habitat Structure,5,2.4,2,2.352158045,0.547722558,0.3,1,2,3,1,FALSE,FALSE,FALSE,2.35,0.40375,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR18,Decreased Sediment Quantity,5,2.6,2,2.091279105,1.816590212,3.3,3,1,5,4,TRUE,FALSE,TRUE,2.09,0.34525,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR18,Increased Sediment Quantity,5,2.8,3,2.491461879,1.303840481,1.7,2,1,4,3,TRUE,FALSE,TRUE,2.49,0.43525,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR18,Anthropogenic Barriers,3,2,1,1.587401052,1.732050808,3,1.5,1,4,3,FALSE,FALSE,FALSE,1.59,0.23275,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR18,Predation,3,1,1,1,0,0,0,1,1,0,FALSE,FALSE,FALSE,1,0.1,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR18,Altered Primary Productivity,3,2,1,1.587401052,1.732050808,3,1.5,1,4,3,FALSE,FALSE,FALSE,1.59,0.23275,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR18,Non-Native Species Interactions and Competition,3,1.333333333,1,1.25992105,0.577350269,0.333333333,0.5,1,2,1,FALSE,FALSE,FALSE,1.26,0.1585,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR18,Decreased Water Quantity,3,1.666666667,2,1.587401052,0.577350269,0.333333333,0.5,1,2,1,FALSE,FALSE,FALSE,1.59,0.23275,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR18,Altered Flow Timing,3,1.666666667,1,1.44224957,1.154700538,1.333333333,1,1,3,2,FALSE,FALSE,FALSE,1.44,0.199,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR18,Summer Water Temperature,3,2,2,1.817120593,1,1,1,1,3,2,FALSE,FALSE,FALSE,1.82,0.2845,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR18,Winter Water Temperature,3,1.333333333,1,1.25992105,0.577350269,0.333333333,0.5,1,2,1,FALSE,FALSE,FALSE,1.26,0.1585,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR18,Water Quality,3,1.333333333,1,1.25992105,0.577350269,0.333333333,0.5,1,2,1,FALSE,FALSE,FALSE,1.26,0.1585,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR19,Riparian Condition,5,3,3,2.861938162,1,1,2,2,4,2,TRUE,FALSE,TRUE,2.86,0.5185,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR19,Floodplain Condition,5,2.4,2,2,1.516575089,2.3,3,1,4,3,TRUE,FALSE,TRUE,2,0.325,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR19,Side Channel and Wetland Habitat,5,2.8,4,2.29739671,1.643167673,2.7,3,1,4,3,TRUE,FALSE,TRUE,2.3,0.3925,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR19,Channel and Habitat Structure,5,2.6,3,2.352158045,1.140175425,1.3,1,1,4,3,FALSE,FALSE,FALSE,2.35,0.40375,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR19,Decreased Sediment Quantity,5,3.4,4,2.992555739,1.516575089,2.3,1,1,5,4,FALSE,FALSE,FALSE,2.99,0.54775,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR19,Increased Sediment Quantity,5,3.2,4,2.861938162,1.303840481,1.7,1,1,4,3,FALSE,FALSE,FALSE,2.86,0.5185,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR19,Anthropogenic Barriers,3,3.666666667,4,3.634241186,0.577350269,0.333333333,0.5,3,4,1,FALSE,FALSE,FALSE,3.63,0.69175,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR19,Predation,3,1.333333333,1,1.25992105,0.577350269,0.333333333,0.5,1,2,1,FALSE,FALSE,FALSE,1.26,0.1585,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR19,Altered Primary Productivity,3,3.666666667,4,3.419951893,1.527525232,2.333333333,1.5,2,5,3,FALSE,FALSE,FALSE,3.42,0.6445,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR19,Non-Native Species Interactions and Competition,3,1,1,1,0,0,0,1,1,0,FALSE,FALSE,FALSE,1,0.1,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR19,Decreased Water Quantity,3,2,2,1.817120593,1,1,1,1,3,2,FALSE,FALSE,FALSE,1.82,0.2845,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR19,Altered Flow Timing,3,1.666666667,1,1.44224957,1.154700538,1.333333333,1,1,3,2,FALSE,FALSE,FALSE,1.44,0.199,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR19,Summer Water Temperature,3,2.666666667,3,2.620741394,0.577350269,0.333333333,0.5,2,3,1,FALSE,FALSE,FALSE,2.62,0.4645,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR19,Winter Water Temperature,3,1.666666667,2,1.587401052,0.577350269,0.333333333,0.5,1,2,1,FALSE,FALSE,FALSE,1.59,0.23275,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR19,Water Quality,3,1.666666667,2,1.587401052,0.577350269,0.333333333,0.5,1,2,1,FALSE,FALSE,FALSE,1.59,0.23275,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR2,Riparian Condition,5,2.8,3,2.491461879,1.303840481,1.7,2,1,4,3,TRUE,FALSE,TRUE,2.49,0.43525,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR2,Floodplain Condition,5,2.8,3,2.267933155,1.788854382,3.2,3,1,5,4,TRUE,FALSE,TRUE,2.27,0.38575,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR2,Side Channel and Wetland Habitat,5,2.8,2,2.639015822,1.095445115,1.2,2,2,4,2,TRUE,FALSE,TRUE,2.64,0.469,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR2,Channel and Habitat Structure,5,3.2,3,3.103691148,0.836660027,0.7,1,2,4,2,FALSE,FALSE,FALSE,3.1,0.5725,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR2,Decreased Sediment Quantity,5,1.8,2,1.64375183,0.836660027,0.7,1,1,3,2,FALSE,FALSE,FALSE,1.64,0.244,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR2,Increased Sediment Quantity,5,2,2,1.888175023,0.707106781,0.5,0,1,3,2,FALSE,FALSE,FALSE,1.89,0.30025,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR2,Anthropogenic Barriers,3,2.666666667,3,2.289428485,1.527525232,2.333333333,1.5,1,4,3,FALSE,FALSE,FALSE,2.29,0.39025,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR2,Predation,3,2,1,1.587401052,1.732050808,3,1.5,1,4,3,FALSE,FALSE,FALSE,1.59,0.23275,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR2,Altered Primary Productivity,3,1.666666667,2,1.587401052,0.577350269,0.333333333,0.5,1,2,1,FALSE,FALSE,FALSE,1.59,0.23275,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR2,Non-Native Species Interactions and Competition,3,1.666666667,2,1.587401052,0.577350269,0.333333333,0.5,1,2,1,FALSE,FALSE,FALSE,1.59,0.23275,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR2,Decreased Water Quantity,3,2.666666667,3,2.289428485,1.527525232,2.333333333,1.5,1,4,3,FALSE,FALSE,FALSE,2.29,0.39025,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR2,Altered Flow Timing,3,3.666666667,4,3.419951893,1.527525232,2.333333333,1.5,2,5,3,FALSE,FALSE,FALSE,3.42,0.6445,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR2,Summer Water Temperature,3,2.333333333,2,2,1.527525232,2.333333333,1.5,1,4,3,FALSE,FALSE,FALSE,2,0.325,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR2,Winter Water Temperature,3,2.666666667,3,2.289428485,1.527525232,2.333333333,1.5,1,4,3,FALSE,FALSE,FALSE,2.29,0.39025,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR2,Water Quality,3,2.666666667,3,2.620741394,0.577350269,0.333333333,0.5,2,3,1,FALSE,FALSE,FALSE,2.62,0.4645,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR20,Riparian Condition,5,1.8,2,1.64375183,0.836660027,0.7,1,1,3,2,FALSE,FALSE,FALSE,1.64,0.244,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR20,Floodplain Condition,5,2.4,3,2.047672511,1.341640786,1.8,2,1,4,3,TRUE,FALSE,TRUE,2.05,0.33625,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR20,Side Channel and Wetland Habitat,5,2.4,3,2.047672511,1.341640786,1.8,2,1,4,3,TRUE,FALSE,TRUE,2.05,0.33625,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR20,Channel and Habitat Structure,5,2.4,3,2.047672511,1.341640786,1.8,2,1,4,3,TRUE,FALSE,TRUE,2.05,0.33625,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR20,Decreased Sediment Quantity,5,4,4,3.807307877,1.224744871,1.5,1,2,5,3,FALSE,FALSE,FALSE,3.81,0.73225,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR20,Increased Sediment Quantity,5,2,1,1.584893192,1.732050808,3,1,1,5,4,FALSE,FALSE,FALSE,1.58,0.2305,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR20,Anthropogenic Barriers,3,2.333333333,2,2.289428485,0.577350269,0.333333333,0.5,2,3,1,FALSE,FALSE,FALSE,2.29,0.39025,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR20,Predation,3,3,3,2.884499141,1,1,1,2,4,2,FALSE,FALSE,FALSE,2.88,0.523,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR20,Altered Primary Productivity,3,3,3,2.884499141,1,1,1,2,4,2,FALSE,FALSE,FALSE,2.88,0.523,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR20,Non-Native Species Interactions and Competition,3,4.666666667,5,4.641588834,0.577350269,0.333333333,0.5,4,5,1,FALSE,FALSE,FALSE,4.64,0.919,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR20,Decreased Water Quantity,3,1.333333333,1,1.25992105,0.577350269,0.333333333,0.5,1,2,1,FALSE,FALSE,FALSE,1.26,0.1585,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR20,Altered Flow Timing,3,2,2,1.817120593,1,1,1,1,3,2,FALSE,FALSE,FALSE,1.82,0.2845,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR20,Summer Water Temperature,3,3,3,2.466212074,2,4,2,1,5,4,TRUE,FALSE,TRUE,2.47,0.43075,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR20,Winter Water Temperature,3,1.666666667,2,1.587401052,0.577350269,0.333333333,0.5,1,2,1,FALSE,FALSE,FALSE,1.59,0.23275,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR20,Water Quality,3,2.333333333,1,1.709975947,2.309401077,5.333333333,2,1,5,4,TRUE,FALSE,TRUE,1.71,0.25975,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR3,Riparian Condition,5,2.8,3,2.459509486,1.483239697,2.2,1,1,5,4,FALSE,FALSE,FALSE,2.46,0.4285,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR3,Floodplain Condition,5,3.2,3,2.724069927,1.788854382,3.2,3,1,5,4,TRUE,FALSE,TRUE,2.72,0.487,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR3,Side Channel and Wetland Habitat,5,2.8,3,2.459509486,1.483239697,2.2,1,1,5,4,FALSE,FALSE,FALSE,2.46,0.4285,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR3,Channel and Habitat Structure,5,3.2,3,2.8252345,1.483239697,2.2,1,1,5,4,FALSE,FALSE,FALSE,2.83,0.51175,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR3,Decreased Sediment Quantity,5,2.4,2,1.974350486,1.673320053,2.8,2,1,5,4,TRUE,FALSE,TRUE,1.97,0.31825,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR3,Increased Sediment Quantity,5,2.2,2,2.047672511,0.836660027,0.7,1,1,3,2,FALSE,FALSE,FALSE,2.05,0.33625,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR3,Anthropogenic Barriers,3,2,1,1.587401052,1.732050808,3,1.5,1,4,3,FALSE,FALSE,FALSE,1.59,0.23275,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR3,Predation,3,5,5,5,0,0,0,5,5,0,FALSE,FALSE,FALSE,5,1,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR3,Altered Primary Productivity,3,3,3,2.884499141,1,1,1,2,4,2,FALSE,FALSE,FALSE,2.88,0.523,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR3,Non-Native Species Interactions and Competition,3,5,5,5,0,0,0,5,5,0,FALSE,FALSE,FALSE,5,1,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR3,Decreased Water Quantity,3,4.666666667,5,4.641588834,0.577350269,0.333333333,0.5,4,5,1,FALSE,FALSE,FALSE,4.64,0.919,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR3,Altered Flow Timing,3,4.666666667,5,4.641588834,0.577350269,0.333333333,0.5,4,5,1,FALSE,FALSE,FALSE,4.64,0.919,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR3,Summer Water Temperature,3,4,4,4,0,0,0,4,4,0,FALSE,FALSE,FALSE,4,0.775,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR3,Winter Water Temperature,3,3.666666667,3,3.556893304,1.154700538,1.333333333,1,3,5,2,FALSE,FALSE,FALSE,3.56,0.676,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR3,Water Quality,3,4.666666667,5,4.641588834,0.577350269,0.333333333,0.5,4,5,1,FALSE,FALSE,FALSE,4.64,0.919,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR4,Riparian Condition,5,3.6,3,3.519482029,0.894427191,0.8,1,3,5,2,FALSE,FALSE,FALSE,3.52,0.667,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR4,Floodplain Condition,5,4,4,3.948700972,0.707106781,0.5,0,3,5,2,FALSE,FALSE,FALSE,3.95,0.76375,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR4,Side Channel and Wetland Habitat,5,3.8,4,3.727919273,0.836660027,0.7,1,3,5,2,FALSE,FALSE,FALSE,3.73,0.71425,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR4,Channel and Habitat Structure,5,3.6,4,3.565204916,0.547722558,0.3,1,3,4,1,FALSE,FALSE,FALSE,3.57,0.67825,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR4,Decreased Sediment Quantity,5,2.4,3,2.047672511,1.341640786,1.8,2,1,4,3,TRUE,FALSE,TRUE,2.05,0.33625,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR4,Increased Sediment Quantity,5,4.2,5,4.075965548,1.095445115,1.2,2,3,5,2,TRUE,FALSE,TRUE,4.08,0.793,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR4,Anthropogenic Barriers,3,3.666666667,4,3.419951893,1.527525232,2.333333333,1.5,2,5,3,FALSE,FALSE,FALSE,3.42,0.6445,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR4,Predation,3,2.666666667,2,2.15443469,2.081665999,4.333333333,2,1,5,4,TRUE,FALSE,TRUE,2.15,0.35875,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR4,Altered Primary Productivity,3,2.333333333,2,2,1.527525232,2.333333333,1.5,1,4,3,FALSE,FALSE,FALSE,2,0.325,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR4,Non-Native Species Interactions and Competition,3,2.333333333,2,2,1.527525232,2.333333333,1.5,1,4,3,FALSE,FALSE,FALSE,2,0.325,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR4,Decreased Water Quantity,3,3,3,2.884499141,1,1,1,2,4,2,FALSE,FALSE,FALSE,2.88,0.523,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR4,Altered Flow Timing,3,3.333333333,3,3.301927249,0.577350269,0.333333333,0.5,3,4,1,FALSE,FALSE,FALSE,3.3,0.6175,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR4,Summer Water Temperature,3,3,3,3,0,0,0,3,3,0,FALSE,FALSE,FALSE,3,0.55,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR4,Winter Water Temperature,3,2.333333333,2,2.289428485,0.577350269,0.333333333,0.5,2,3,1,FALSE,FALSE,FALSE,2.29,0.39025,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR4,Water Quality,3,3,3,3,0,0,0,3,3,0,FALSE,FALSE,FALSE,3,0.55,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR5,Riparian Condition,5,5,5,5,0,0,0,5,5,0,FALSE,FALSE,FALSE,5,1,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR5,Floodplain Condition,5,5,5,5,0,0,0,5,5,0,FALSE,FALSE,FALSE,5,1,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR5,Side Channel and Wetland Habitat,5,5,5,5,0,0,0,5,5,0,FALSE,FALSE,FALSE,5,1,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR5,Channel and Habitat Structure,5,4.8,5,4.781762499,0.447213595,0.2,0,4,5,1,FALSE,FALSE,FALSE,4.78,0.9505,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR5,Decreased Sediment Quantity,5,3,3,2.605171085,1.58113883,2.5,2,1,5,4,TRUE,FALSE,TRUE,2.61,0.46225,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR5,Increased Sediment Quantity,5,3.6,4,3.129134645,1.673320053,2.8,2,1,5,4,TRUE,FALSE,TRUE,3.13,0.57925,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR5,Anthropogenic Barriers,3,3.666666667,5,2.924017738,2.309401077,5.333333333,2,1,5,4,TRUE,FALSE,TRUE,2.92,0.532,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR5,Predation,3,5,5,5,0,0,0,5,5,0,FALSE,FALSE,FALSE,5,1,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR5,Altered Primary Productivity,3,3.666666667,4,3.419951893,1.527525232,2.333333333,1.5,2,5,3,FALSE,FALSE,FALSE,3.42,0.6445,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR5,Non-Native Species Interactions and Competition,3,5,5,5,0,0,0,5,5,0,FALSE,FALSE,FALSE,5,1,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR5,Decreased Water Quantity,3,5,5,5,0,0,0,5,5,0,FALSE,FALSE,FALSE,5,1,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR5,Altered Flow Timing,3,4.666666667,5,4.641588834,0.577350269,0.333333333,0.5,4,5,1,FALSE,FALSE,FALSE,4.64,0.919,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR5,Summer Water Temperature,3,4.333333333,4,4.30886938,0.577350269,0.333333333,0.5,4,5,1,FALSE,FALSE,FALSE,4.31,0.84475,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR5,Winter Water Temperature,3,4,4,3.914867641,1,1,1,3,5,2,FALSE,FALSE,FALSE,3.91,0.75475,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR5,Water Quality,3,4.666666667,5,4.641588834,0.577350269,0.333333333,0.5,4,5,1,FALSE,FALSE,FALSE,4.64,0.919,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR6,Riparian Condition,5,2.4,2,2.168943542,1.140175425,1.3,1,1,4,3,FALSE,FALSE,FALSE,2.17,0.36325,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR6,Floodplain Condition,5,3,2,2.759459323,1.414213562,2,2,2,5,3,TRUE,FALSE,TRUE,2.76,0.496,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR6,Side Channel and Wetland Habitat,5,3.2,3,3.177671523,0.447213595,0.2,0,3,4,1,FALSE,FALSE,FALSE,3.18,0.5905,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR6,Channel and Habitat Structure,5,3.4,3,3.245342223,1.140175425,1.3,1,2,5,3,FALSE,FALSE,FALSE,3.25,0.60625,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR6,Decreased Sediment Quantity,5,2.4,2,2.29739671,0.894427191,0.8,0,2,4,2,FALSE,FALSE,FALSE,2.3,0.3925,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR6,Increased Sediment Quantity,5,2.2,2,2,1.095445115,1.2,0,1,4,3,FALSE,FALSE,FALSE,2,0.325,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR6,Anthropogenic Barriers,3,2.333333333,2,2.289428485,0.577350269,0.333333333,0.5,2,3,1,FALSE,FALSE,FALSE,2.29,0.39025,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR6,Predation,3,2,1,1.587401052,1.732050808,3,1.5,1,4,3,FALSE,FALSE,FALSE,1.59,0.23275,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR6,Altered Primary Productivity,3,2,2,1.817120593,1,1,1,1,3,2,FALSE,FALSE,FALSE,1.82,0.2845,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR6,Non-Native Species Interactions and Competition,3,3,3,2.884499141,1,1,1,2,4,2,FALSE,FALSE,FALSE,2.88,0.523,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR6,Decreased Water Quantity,3,2,2,2,0,0,0,2,2,0,FALSE,FALSE,FALSE,2,0.325,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR6,Altered Flow Timing,3,1.666666667,2,1.587401052,0.577350269,0.333333333,0.5,1,2,1,FALSE,FALSE,FALSE,1.59,0.23275,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR6,Summer Water Temperature,3,1.666666667,2,1.587401052,0.577350269,0.333333333,0.5,1,2,1,FALSE,FALSE,FALSE,1.59,0.23275,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR6,Winter Water Temperature,3,1.666666667,2,1.587401052,0.577350269,0.333333333,0.5,1,2,1,FALSE,FALSE,FALSE,1.59,0.23275,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR6,Water Quality,3,1.666666667,2,1.587401052,0.577350269,0.333333333,0.5,1,2,1,FALSE,FALSE,FALSE,1.59,0.23275,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR7,Riparian Condition,5,4.8,5,4.781762499,0.447213595,0.2,0,4,5,1,FALSE,FALSE,FALSE,4.78,0.9505,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR7,Floodplain Condition,5,5,5,5,0,0,0,5,5,0,FALSE,FALSE,FALSE,5,1,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR7,Side Channel and Wetland Habitat,5,5,5,5,0,0,0,5,5,0,FALSE,FALSE,FALSE,5,1,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR7,Channel and Habitat Structure,5,4.8,5,4.781762499,0.447213595,0.2,0,4,5,1,FALSE,FALSE,FALSE,4.78,0.9505,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR7,Decreased Sediment Quantity,5,3.2,3,2.8252345,1.483239697,2.2,1,1,5,4,FALSE,FALSE,FALSE,2.83,0.51175,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR7,Increased Sediment Quantity,5,4.4,5,4.162766037,1.341640786,1.8,0,2,5,3,FALSE,FALSE,FALSE,4.16,0.811,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR7,Anthropogenic Barriers,3,3.333333333,4,2.714417617,2.081665999,4.333333333,2,1,5,4,TRUE,FALSE,TRUE,2.71,0.48475,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR7,Predation,3,4.666666667,5,4.641588834,0.577350269,0.333333333,0.5,4,5,1,FALSE,FALSE,FALSE,4.64,0.919,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR7,Altered Primary Productivity,3,3.666666667,4,3.419951893,1.527525232,2.333333333,1.5,2,5,3,FALSE,FALSE,FALSE,3.42,0.6445,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR7,Non-Native Species Interactions and Competition,3,3.666666667,3,3.556893304,1.154700538,1.333333333,1,3,5,2,FALSE,FALSE,FALSE,3.56,0.676,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR7,Decreased Water Quantity,3,5,5,5,0,0,0,5,5,0,FALSE,FALSE,FALSE,5,1,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR7,Altered Flow Timing,3,5,5,5,0,0,0,5,5,0,FALSE,FALSE,FALSE,5,1,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR7,Summer Water Temperature,3,5,5,5,0,0,0,5,5,0,FALSE,FALSE,FALSE,5,1,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR7,Winter Water Temperature,3,4,4,3.914867641,1,1,1,3,5,2,FALSE,FALSE,FALSE,3.91,0.75475,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR7,Water Quality,3,4.666666667,5,4.641588834,0.577350269,0.333333333,0.5,4,5,1,FALSE,FALSE,FALSE,4.64,0.919,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR8,Riparian Condition,5,4.8,5,4.781762499,0.447213595,0.2,0,4,5,1,FALSE,FALSE,FALSE,4.78,0.9505,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR8,Floodplain Condition,5,3.8,4,3.594431819,1.303840481,1.7,2,2,5,3,TRUE,FALSE,TRUE,3.59,0.68275,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR8,Side Channel and Wetland Habitat,5,4.4,5,4.317359884,0.894427191,0.8,1,3,5,2,FALSE,FALSE,FALSE,4.32,0.847,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR8,Channel and Habitat Structure,5,4.4,5,4.317359884,0.894427191,0.8,1,3,5,2,FALSE,FALSE,FALSE,4.32,0.847,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR8,Decreased Sediment Quantity,5,4.2,5,3.623898318,1.788854382,3.2,0,1,5,4,FALSE,FALSE,FALSE,3.62,0.6895,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR8,Increased Sediment Quantity,5,2.6,1,1.903653939,2.19089023,4.8,4,1,5,4,TRUE,FALSE,TRUE,1.9,0.3025,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR8,Anthropogenic Barriers,3,3.333333333,4,2.714417617,2.081665999,4.333333333,2,1,5,4,TRUE,FALSE,TRUE,2.71,0.48475,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR8,Predation,3,3,3,2.466212074,2,4,2,1,5,4,TRUE,FALSE,TRUE,2.47,0.43075,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR8,Altered Primary Productivity,3,4,5,3.684031499,1.732050808,3,1.5,2,5,3,FALSE,FALSE,FALSE,3.68,0.703,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR8,Non-Native Species Interactions and Competition,3,4.666666667,5,4.641588834,0.577350269,0.333333333,0.5,4,5,1,FALSE,FALSE,FALSE,4.64,0.919,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR8,Decreased Water Quantity,3,3.333333333,4,2.714417617,2.081665999,4.333333333,2,1,5,4,TRUE,FALSE,TRUE,2.71,0.48475,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR8,Altered Flow Timing,3,3.333333333,4,2.714417617,2.081665999,4.333333333,2,1,5,4,TRUE,FALSE,TRUE,2.71,0.48475,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR8,Summer Water Temperature,3,3.333333333,4,2.714417617,2.081665999,4.333333333,2,1,5,4,TRUE,FALSE,TRUE,2.71,0.48475,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR8,Winter Water Temperature,3,3.666666667,4,3.634241186,0.577350269,0.333333333,0.5,3,4,1,FALSE,FALSE,FALSE,3.63,0.69175,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR8,Water Quality,3,4.333333333,4,4.30886938,0.577350269,0.333333333,0.5,4,5,1,FALSE,FALSE,FALSE,4.31,0.84475,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR9,Riparian Condition,5,3.8,4,3.727919273,0.836660027,0.7,1,3,5,2,FALSE,FALSE,FALSE,3.73,0.71425,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR9,Floodplain Condition,5,3.6,4,3.482202253,0.894427191,0.8,0,2,4,2,FALSE,FALSE,FALSE,3.48,0.658,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR9,Side Channel and Wetland Habitat,5,4.4,5,4.317359884,0.894427191,0.8,1,3,5,2,FALSE,FALSE,FALSE,4.32,0.847,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR9,Channel and Habitat Structure,5,4.6,5,4.573050519,0.547722558,0.3,1,4,5,1,FALSE,FALSE,FALSE,4.57,0.90325,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR9,Decreased Sediment Quantity,5,3.2,3,2.8252345,1.483239697,2.2,1,1,5,4,FALSE,FALSE,FALSE,2.83,0.51175,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR9,Increased Sediment Quantity,5,2.8,3,2.701920077,0.836660027,0.7,1,2,4,2,FALSE,FALSE,FALSE,2.7,0.4825,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR9,Anthropogenic Barriers,3,3,3,2.884499141,1,1,1,2,4,2,FALSE,FALSE,FALSE,2.88,0.523,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR9,Predation,3,3,3,2.884499141,1,1,1,2,4,2,FALSE,FALSE,FALSE,2.88,0.523,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR9,Altered Primary Productivity,3,3.333333333,4,3.174802104,1.154700538,1.333333333,1,2,4,2,FALSE,FALSE,FALSE,3.17,0.58825,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR9,Non-Native Species Interactions and Competition,3,4.333333333,5,4.217163327,1.154700538,1.333333333,1,3,5,2,FALSE,FALSE,FALSE,4.22,0.8245,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR9,Decreased Water Quantity,3,3.333333333,3,3.107232506,1.527525232,2.333333333,1.5,2,5,3,FALSE,FALSE,FALSE,3.11,0.57475,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR9,Altered Flow Timing,3,3.666666667,4,3.419951893,1.527525232,2.333333333,1.5,2,5,3,FALSE,FALSE,FALSE,3.42,0.6445,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR9,Summer Water Temperature,3,4,5,3.684031499,1.732050808,3,1.5,2,5,3,FALSE,FALSE,FALSE,3.68,0.703,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR9,Winter Water Temperature,3,2.666666667,2,2.5198421,1.154700538,1.333333333,1,2,4,2,FALSE,FALSE,FALSE,2.52,0.442,Raw suggested score mapped linearly from 1-5 to 0.10-1.00
+UGR9,Water Quality,3,3.666666667,4,3.419951893,1.527525232,2.333333333,1.5,2,5,3,FALSE,FALSE,FALSE,3.42,0.6445,Raw suggested score mapped linearly from 1-5 to 0.10-1.00

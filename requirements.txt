@@ -1,0 +1,7 @@
+streamlit>=1.42
+plotly>=5.24
+pandas
+numpy
+geopandas
+pyogrio
+shapely
