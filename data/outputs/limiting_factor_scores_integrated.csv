@@ -1,436 +1,436 @@
-bsr,basin,limiting_factor,condition_score_raw_1_5,condition_score,condition_rating_n,condition_review_flag,vulnerability_review_flag,impact_score,risk_score,risk_rank_within_bsr
-CC1,Catherine Creek,Altered Flow Timing,4.31,0.84475,3,False,Yes,0.8604382143858775,0.278260650050685,13
-CC1,Catherine Creek,Altered Primary Productivity,4.31,0.84475,3,False,No,0.748026125016895,0.24513438216632913,14
-CC1,Catherine Creek,Anthropogenic Barriers,3.68,0.703,3,False,No,0.90722149959929,0.31226004627943504,10
-CC1,Catherine Creek,Channel and Habitat Structure,4.57,0.90325,5,False,No,2.0523130356033152,0.6990864669169942,1
-CC1,Catherine Creek,Decreased Sediment Quantity,2.95,0.53875,5,True,Yes,0.6852130357912499,0.2347834018183856,15
-CC1,Catherine Creek,Decreased Water Quantity,5.0,1.0,3,False,Yes,1.78164285755,0.6087857144525,2
-CC1,Catherine Creek,Floodplain Condition,4.78,0.9505,5,False,No,1.5975189290521101,0.5344118358836105,4
-CC1,Catherine Creek,Increased Sediment Quantity,4.51,0.88975,5,False,No,0.8553675177262227,0.28873658564952465,12
-CC1,Catherine Creek,Non-Native Species Interactions and Competition,4.64,0.919,3,False,No,0.86458207123033,0.293266028496727,11
-CC1,Catherine Creek,Predation,4.22,0.8245,3,False,Yes,1.17744489269931,0.391669890995339,7
-CC1,Catherine Creek,Riparian Condition,4.57,0.90325,5,False,Yes,1.527395750560015,0.5241624269856551,5
-CC1,Catherine Creek,Side Channel and Wetland Habitat,4.08,0.793,5,True,No,1.5117412137566701,0.5060642783979316,6
-CC1,Catherine Creek,Summer Water Temperature,4.64,0.919,3,False,Yes,1.06604,0.38460150000000004,9
-CC1,Catherine Creek,Water Quality,5.0,1.0,3,False,No,1.67171428593,0.566325000068,3
-CC1,Catherine Creek,Winter Water Temperature,3.91,0.75475,3,False,No,1.1763317859849176,0.3855856018807589,8
-CC2,Catherine Creek,Altered Flow Timing,4.31,0.84475,3,False,Yes,0.6695247144196674,0.22405485273885037,12
-CC2,Catherine Creek,Altered Primary Productivity,4.31,0.84475,3,False,No,0.648345625118265,0.21683224023082526,13
-CC2,Catherine Creek,Anthropogenic Barriers,4.64,0.919,3,False,No,0.9398744279977101,0.3385103676472171,8
-CC2,Catherine Creek,Channel and Habitat Structure,4.37,0.85825,5,False,No,1.7505847856676948,0.6072823740804145,1
-CC2,Catherine Creek,Decreased Sediment Quantity,2.49,0.43525,5,True,Yes,0.5024961250739926,0.1754321759227961,15
-CC2,Catherine Creek,Decreased Water Quantity,4.31,0.84475,3,False,Yes,1.2886057860449451,0.4526532537067093,4
-CC2,Catherine Creek,Floodplain Condition,3.95,0.76375,5,False,No,1.138533036008875,0.38821139743146316,5
-CC2,Catherine Creek,Increased Sediment Quantity,4.32,0.847,5,False,No,0.7094229999225601,0.24526094995359654,10
-CC2,Catherine Creek,Non-Native Species Interactions and Competition,3.91,0.75475,3,False,No,0.606926821275465,0.21112513922678988,14
-CC2,Catherine Creek,Predation,4.22,0.8245,3,False,Yes,0.95135521410668,0.32731472134718154,9
-CC2,Catherine Creek,Riparian Condition,3.44,0.649,5,False,Yes,1.0016851432409801,0.34968120013726356,7
-CC2,Catherine Creek,Side Channel and Wetland Habitat,4.37,0.85825,5,False,No,1.4587184816168726,0.4983428623262044,2
-CC2,Catherine Creek,Summer Water Temperature,3.42,0.6445,3,False,Yes,0.6193645,0.231536625,11
-CC2,Catherine Creek,Water Quality,4.64,0.919,3,False,No,1.34515342873291,0.4661791607663405,3
-CC2,Catherine Creek,Winter Water Temperature,3.91,0.75475,3,False,No,1.082419321667935,0.3586248536566075,6
-CC3,Catherine Creek,Altered Flow Timing,3.63,0.69175,3,False,Yes,0.75247576788086,0.19497517269506473,6
-CC3,Catherine Creek,Altered Primary Productivity,3.3,0.6175,3,False,No,0.5172885716111751,0.13640707326260954,11
-CC3,Catherine Creek,Anthropogenic Barriers,3.63,0.69175,3,False,No,0.434073124875485,0.11393814246209209,13
-CC3,Catherine Creek,Channel and Habitat Structure,2.93,0.53425,5,False,No,1.06128762502137,0.28564630268345603,1
-CC3,Catherine Creek,Decreased Sediment Quantity,2.86,0.5185,5,True,Yes,0.58101628576021,0.16081610822292985,9
-CC3,Catherine Creek,Decreased Water Quantity,3.63,0.69175,3,False,Yes,0.84630671437663,0.22506778003029865,4
-CC3,Catherine Creek,Floodplain Condition,2.35,0.40375,5,False,No,0.6252933927181376,0.16775870175340274,7
-CC3,Catherine Creek,Increased Sediment Quantity,3.73,0.71425,5,False,No,0.50880108921633,0.14206228426775602,10
-CC3,Catherine Creek,Non-Native Species Interactions and Competition,2.62,0.4645,3,False,No,0.2705712499071,0.07309172926489804,15
-CC3,Catherine Creek,Predation,2.88,0.523,3,False,Yes,0.46367685732516006,0.12374553575714932,12
-CC3,Catherine Creek,Riparian Condition,2.49,0.43525,5,True,Yes,0.6130807143677901,0.1644141330632532,8
-CC3,Catherine Creek,Side Channel and Wetland Habitat,2.72,0.487,5,True,No,0.89573214271313,0.2399365513847136,3
-CC3,Catherine Creek,Summer Water Temperature,3.17,0.58825,3,False,Yes,0.4201785713722676,0.1083564903430669,14
-CC3,Catherine Creek,Water Quality,3.3,0.6175,3,False,No,0.8130269645000752,0.2179435375473623,5
-CC3,Catherine Creek,Winter Water Temperature,3.56,0.676,3,False,No,0.9873945713658001,0.27046663427741885,2
-CC4,Catherine Creek,Altered Flow Timing,2.88,0.523,3,False,Yes,0.9972862857837701,0.2496095950224367,11
-CC4,Catherine Creek,Altered Primary Productivity,2.52,0.442,3,False,No,0.63739557163126,0.1611181557669658,13
-CC4,Catherine Creek,Anthropogenic Barriers,4.64,0.919,3,False,No,1.3240820713498,0.3303391449746356,7
-CC4,Catherine Creek,Channel and Habitat Structure,3.73,0.71425,5,False,No,2.249530374721443,0.5810275797553707,1
-CC4,Catherine Creek,Decreased Sediment Quantity,3.18,0.5905,5,False,Yes,0.95137985736556,0.2531798275513735,10
-CC4,Catherine Creek,Decreased Water Quantity,3.63,0.69175,3,False,Yes,1.4844955002974525,0.37574723561493945,3
-CC4,Catherine Creek,Floodplain Condition,3.44,0.649,5,False,No,1.41528357094553,0.3683719363152653,4
-CC4,Catherine Creek,Increased Sediment Quantity,3.78,0.7255,5,False,No,0.71974782104302,0.19330688383445335,12
-CC4,Catherine Creek,Non-Native Species Interactions and Competition,1.59,0.23275,3,False,No,0.21669024994414002,0.055741629987680875,15
-CC4,Catherine Creek,Predation,1.82,0.2845,3,False,Yes,0.38027489306116996,0.09832543540506485,14
-CC4,Catherine Creek,Riparian Condition,3.31,0.61975,5,True,Yes,1.3335691964312277,0.3430325103665454,5
-CC4,Catherine Creek,Side Channel and Wetland Habitat,3.73,0.71425,5,False,No,2.0778042676132777,0.5350931418932485,2
-CC4,Catherine Creek,Summer Water Temperature,3.63,0.69175,3,False,Yes,1.25770032132975,0.30884265783243753,9
-CC4,Catherine Creek,Water Quality,3.3,0.6175,3,False,No,1.2818858933026251,0.33096985545991253,6
-CC4,Catherine Creek,Winter Water Temperature,3.56,0.676,3,False,No,1.17908885701828,0.3173337142618708,8
-CC5,Catherine Creek,Altered Flow Timing,2.88,0.523,3,False,Yes,1.17383614306709,0.30979120507264474,12
-CC5,Catherine Creek,Altered Primary Productivity,2.71,0.48475,3,True,No,0.8277798751634301,0.2279007113097143,14
-CC5,Catherine Creek,Anthropogenic Barriers,3.91,0.75475,3,False,No,1.6231437852452626,0.4755119076911626,7
-CC5,Catherine Creek,Channel and Habitat Structure,3.81,0.73225,5,False,No,3.01425482099759,0.8581776475617252,1
-CC5,Catherine Creek,Decreased Sediment Quantity,3.44,0.649,5,False,Yes,1.5087859287754002,0.4222250293631678,8
-CC5,Catherine Creek,Decreased Water Quantity,3.63,0.69175,3,False,Yes,2.2663212328178073,0.6286540003767183,3
-CC5,Catherine Creek,Floodplain Condition,3.64,0.694,5,False,No,1.95246985704074,0.5544306514314664,5
-CC5,Catherine Creek,Increased Sediment Quantity,3.37,0.63325,5,False,No,0.9197503923387825,0.2683491861087853,13
-CC5,Catherine Creek,Non-Native Species Interactions and Competition,1.59,0.23275,3,False,No,0.3362572499198675,0.09729215997306417,15
-CC5,Catherine Creek,Predation,3.68,0.703,3,False,Yes,1.3920906431704798,0.4057098364589812,11
-CC5,Catherine Creek,Riparian Condition,3.78,0.7255,5,False,Yes,2.09612496475418,0.6136097626472765,4
-CC5,Catherine Creek,Side Channel and Wetland Habitat,3.48,0.658,5,False,No,2.36682599953282,0.6628113898612654,2
-CC5,Catherine Creek,Summer Water Temperature,3.56,0.676,3,False,Yes,1.9457211427924401,0.52009508569811,6
-CC5,Catherine Creek,Water Quality,2.88,0.523,3,False,No,1.4572647860557302,0.41928274937375765,9
-CC5,Catherine Creek,Winter Water Temperature,3.42,0.6445,3,False,No,1.446119892911465,0.4128050121821164,10
-CC6,Catherine Creek,Altered Flow Timing,3.11,0.57475,3,False,Yes,1.7902641426748649,0.4491979151693343,10
-CC6,Catherine Creek,Altered Primary Productivity,2.88,0.523,3,False,No,1.34093464288404,0.3540336429010375,12
-CC6,Catherine Creek,Anthropogenic Barriers,2.71,0.48475,3,False,No,1.494657374536025,0.4309773748441875,11
-CC6,Catherine Creek,Channel and Habitat Structure,3.03,0.55675,5,True,No,3.1923249639365525,0.8571961606124799,2
-CC6,Catherine Creek,Decreased Sediment Quantity,3.29,0.61525,5,False,Yes,1.8914982324522398,0.47333599567304685,9
-CC6,Catherine Creek,Decreased Water Quantity,3.63,0.69175,3,False,Yes,3.460775840054545,0.894062169854335,1
-CC6,Catherine Creek,Floodplain Condition,2.83,0.51175,5,False,No,2.00755869647536,0.5298257410950057,8
-CC6,Catherine Creek,Increased Sediment Quantity,3.1,0.5725,5,False,No,1.0648499995649,0.28642379452488126,14
-CC6,Catherine Creek,Non-Native Species Interactions and Competition,1.44,0.199,3,False,No,0.43231328563696003,0.11747041068273001,15
-CC6,Catherine Creek,Predation,2.29,0.39025,3,False,Yes,1.1551121253595875,0.3147854062958544,13
-CC6,Catherine Creek,Riparian Condition,2.86,0.5185,5,True,Yes,2.028372000482205,0.5746461429825087,5
-CC6,Catherine Creek,Side Channel and Wetland Habitat,2.99,0.54775,5,True,No,2.72908612424567,0.7210639685578962,4
-CC6,Catherine Creek,Summer Water Temperature,3.56,0.676,3,False,Yes,3.0243274285395603,0.7550678571348901,3
-CC6,Catherine Creek,Water Quality,2.88,0.523,3,False,No,2.10414107211669,0.56996726804094,6
-CC6,Catherine Creek,Winter Water Temperature,3.42,0.6445,3,False,No,2.1525379286248296,0.5462828036183849,7
-CC7,Catherine Creek,Altered Flow Timing,3.11,0.57475,3,False,Yes,2.111754660867005,0.5592173813824799,4
-CC7,Catherine Creek,Altered Primary Productivity,1.82,0.2845,3,False,No,0.797128357192035,0.2201694696566147,13
-CC7,Catherine Creek,Anthropogenic Barriers,1.44,0.199,3,False,No,0.6718097854638301,0.210681299900898,14
-CC7,Catherine Creek,Channel and Habitat Structure,1.64,0.244,5,False,No,1.6925582854960801,0.49837697134339803,7
-CC7,Catherine Creek,Decreased Sediment Quantity,2.61,0.46225,5,True,Yes,1.8903713752357474,0.553050758155371,6
-CC7,Catherine Creek,Decreased Water Quantity,2.88,0.523,3,False,Yes,2.9504297863904503,0.8256638358975226,2
-CC7,Catherine Creek,Floodplain Condition,1.74,0.2665,5,False,No,1.25397767848691,0.3499097410472723,10
-CC7,Catherine Creek,Increased Sediment Quantity,1.89,0.30025,5,False,No,0.7719641962059576,0.2510518928271608,11
-CC7,Catherine Creek,Non-Native Species Interactions and Competition,1.59,0.23275,3,False,No,0.6699376249098925,0.22922051247876987,12
-CC7,Catherine Creek,Predation,1.0,0.1,3,False,Yes,0.342221428692,0.1033596428827,15
-CC7,Catherine Creek,Riparian Condition,1.64,0.244,5,False,Yes,1.20049742879556,0.377800885764236,9
-CC7,Catherine Creek,Side Channel and Wetland Habitat,2.0,0.325,5,False,No,1.9435464281285,0.55522071415135,5
-CC7,Catherine Creek,Summer Water Temperature,3.11,0.57475,3,False,Yes,3.0646491070607498,0.8986421517651875,1
-CC7,Catherine Creek,Water Quality,2.71,0.48475,3,False,No,2.1397557506336375,0.5861250751691431,3
-CC7,Catherine Creek,Winter Water Temperature,2.15,0.35875,3,True,No,1.406223124990775,0.38029293752816185,8
-CC8,Catherine Creek,Altered Flow Timing,2.52,0.442,3,False,Yes,0.74609600010166,0.1864106586011878,3
-CC8,Catherine Creek,Altered Primary Productivity,1.44,0.199,3,False,No,0.24917642866439002,0.06300681145280111,12
-CC8,Catherine Creek,Anthropogenic Barriers,1.0,0.1,3,False,No,0.11132857141000001,0.02766442856614,15
-CC8,Catherine Creek,Channel and Habitat Structure,1.74,0.2665,5,False,No,0.7580592499360401,0.19623936891403196,2
-CC8,Catherine Creek,Decreased Sediment Quantity,1.97,0.31825,5,True,Yes,0.4864678572187825,0.1297680287667081,7
-CC8,Catherine Creek,Decreased Water Quantity,1.59,0.23275,3,False,Yes,0.43806875008778007,0.11085500127351441,9
-CC8,Catherine Creek,Floodplain Condition,1.89,0.30025,5,False,No,0.615298035502395,0.16035258727177581,4
-CC8,Catherine Creek,Increased Sediment Quantity,1.78,0.2755,5,True,No,0.2560575713105,0.06897536068574786,11
-CC8,Catherine Creek,Non-Native Species Interactions and Competition,1.26,0.1585,3,False,No,0.130502107097345,0.0336068682040285,13
-CC8,Catherine Creek,Predation,1.0,0.1,3,False,Yes,0.115635714348,0.02995364287163,14
-CC8,Catherine Creek,Riparian Condition,1.89,0.30025,5,False,Yes,0.6014007500420351,0.1548747405503708,5
-CC8,Catherine Creek,Side Channel and Wetland Habitat,1.89,0.30025,5,False,No,0.789786178484785,0.20383758033133426,1
-CC8,Catherine Creek,Summer Water Temperature,2.0,0.325,3,False,Yes,0.47714642852500005,0.11633885713125001,8
-CC8,Catherine Creek,Water Quality,2.0,0.325,3,False,No,0.5970714287590001,0.15455189289946253,6
-CC8,Catherine Creek,Winter Water Temperature,1.59,0.23275,3,False,No,0.39602412495577755,0.10666101249139158,10
-CC9,Catherine Creek,Altered Flow Timing,1.0,0.1,3,False,Yes,0.260592857223,0.07325664289527,15
-CC9,Catherine Creek,Altered Primary Productivity,1.44,0.199,3,False,No,0.37453221431528005,0.10821321499313451,11
-CC9,Catherine Creek,Anthropogenic Barriers,1.26,0.1585,3,False,No,0.388177821311055,0.1264090710129466,9
-CC9,Catherine Creek,Channel and Habitat Structure,1.15,0.13375,5,False,No,0.6554132141418376,0.21287009905068127,3
-CC9,Catherine Creek,Decreased Sediment Quantity,1.64,0.244,5,True,Yes,0.73607828582792,0.2540031286180744,2
-CC9,Catherine Creek,Decreased Water Quantity,1.26,0.1585,3,False,Yes,0.5773928572875451,0.17805652253875326,7
-CC9,Catherine Creek,Floodplain Condition,1.43,0.19675,5,False,No,0.60681916058162,0.18431835121078774,5
-CC9,Catherine Creek,Increased Sediment Quantity,1.25,0.15625,5,False,No,0.3178794642078125,0.12133203125367188,10
-CC9,Catherine Creek,Non-Native Species Interactions and Competition,1.44,0.199,3,False,No,0.44399742857086,0.18059648001717368,6
-CC9,Catherine Creek,Predation,1.0,0.1,3,False,Yes,0.227807142958,0.07727835717323,12
-CC9,Catherine Creek,Riparian Condition,1.15,0.13375,5,False,Yes,0.47373294645551256,0.16407781250238077,8
-CC9,Catherine Creek,Side Channel and Wetland Habitat,1.43,0.19675,5,False,No,0.8315779284176825,0.2591704833314992,1
-CC9,Catherine Creek,Summer Water Temperature,1.26,0.1585,3,False,Yes,0.6118326428345,0.206954355708625,4
-CC9,Catherine Creek,Water Quality,1.0,0.1,3,False,No,0.276921428644,0.07721535716030001,13
-CC9,Catherine Creek,Winter Water Temperature,1.0,0.1,3,False,No,0.237514285716,0.07345914286539,14
-UGR1,Upper Grande Ronde,Altered Flow Timing,1.0,0.1,3,False,Yes,0.354600000056,0.09629407146613,14
-UGR1,Upper Grande Ronde,Altered Primary Productivity,1.0,0.1,3,False,No,0.264085714297,0.07549507142964001,15
-UGR1,Upper Grande Ronde,Anthropogenic Barriers,2.29,0.39025,3,False,No,1.32160949948041,0.43604277102765787,3
-UGR1,Upper Grande Ronde,Channel and Habitat Structure,1.32,0.172,5,False,No,1.17725399981252,0.3599926827772808,4
-UGR1,Upper Grande Ronde,Decreased Sediment Quantity,1.74,0.2665,5,False,Yes,1.1223266787107702,0.338193259009439,6
-UGR1,Upper Grande Ronde,Decreased Water Quantity,1.0,0.1,3,False,Yes,0.5544642858500001,0.15951457146424,10
-UGR1,Upper Grande Ronde,Floodplain Condition,1.74,0.2665,5,False,No,1.19993528562063,0.3388271481742232,5
-UGR1,Upper Grande Ronde,Increased Sediment Quantity,1.32,0.172,5,False,No,0.46207799987959997,0.1584618799929308,11
-UGR1,Upper Grande Ronde,Non-Native Species Interactions and Competition,1.59,0.23275,3,False,No,0.7036863749424775,0.26069130499160437,8
-UGR1,Upper Grande Ronde,Predation,2.88,0.523,3,False,Yes,1.7476418577749402,0.5469123072963951,1
-UGR1,Upper Grande Ronde,Riparian Condition,1.32,0.172,5,False,Yes,0.8434388572797199,0.2812337600232028,7
-UGR1,Upper Grande Ronde,Side Channel and Wetland Habitat,1.74,0.2665,5,False,No,1.559024999656215,0.4601073006046667,2
-UGR1,Upper Grande Ronde,Summer Water Temperature,1.0,0.1,3,False,Yes,0.5540142857,0.171493571425,9
-UGR1,Upper Grande Ronde,Water Quality,1.0,0.1,3,False,No,0.41637857154400004,0.11353292860387001,12
-UGR1,Upper Grande Ronde,Winter Water Temperature,1.0,0.1,3,False,No,0.36462857142800004,0.09755085715274,13
-UGR10,Upper Grande Ronde,Altered Flow Timing,1.59,0.23275,3,False,Yes,0.47806849999767254,0.12057597125205154,9
-UGR10,Upper Grande Ronde,Altered Primary Productivity,1.82,0.2845,3,False,No,0.46310503584352997,0.11773443181923245,11
-UGR10,Upper Grande Ronde,Anthropogenic Barriers,1.0,0.1,3,False,No,0.15069285712400002,0.037958428565960003,15
-UGR10,Upper Grande Ronde,Channel and Habitat Structure,1.89,0.30025,5,False,No,1.039422607059645,0.2679096435510502,3
-UGR10,Upper Grande Ronde,Decreased Sediment Quantity,1.89,0.30025,5,False,Yes,0.51615119655725,0.13594526485218275,8
-UGR10,Upper Grande Ronde,Decreased Water Quantity,1.82,0.2845,3,False,Yes,0.6701397500881949,0.17076055788133754,5
-UGR10,Upper Grande Ronde,Floodplain Condition,2.55,0.44875,5,False,No,1.1011683925039124,0.28456872223565965,2
-UGR10,Upper Grande Ronde,Increased Sediment Quantity,2.35,0.40375,5,False,No,0.4337428569952,0.11481208032060924,12
-UGR10,Upper Grande Ronde,Non-Native Species Interactions and Competition,1.44,0.199,3,False,No,0.20828192851315,0.0535668199863685,14
-UGR10,Upper Grande Ronde,Predation,1.26,0.1585,3,False,Yes,0.23844060727328,0.0611718296745662,13
-UGR10,Upper Grande Ronde,Riparian Condition,2.35,0.40375,5,False,Yes,0.971797410726975,0.25009659286526403,4
-UGR10,Upper Grande Ronde,Side Channel and Wetland Habitat,2.17,0.36325,5,False,No,1.16901633911343,0.30068797138104797,1
-UGR10,Upper Grande Ronde,Summer Water Temperature,2.08,0.343,3,False,Yes,0.626023999951,0.15639280998775001,6
-UGR10,Upper Grande Ronde,Water Quality,1.44,0.199,3,False,No,0.45914985731485003,0.11809910861255052,10
-UGR10,Upper Grande Ronde,Winter Water Temperature,1.82,0.2845,3,False,No,0.5900326785149349,0.15532074284543362,7
-UGR11,Upper Grande Ronde,Altered Flow Timing,3.0,0.55,3,False,Yes,1.0816928571845001,0.31423071430619004,11
-UGR11,Upper Grande Ronde,Altered Primary Productivity,4.22,0.8245,3,False,No,1.33957692860912,0.390341268235016,10
-UGR11,Upper Grande Ronde,Anthropogenic Barriers,2.29,0.39025,3,False,No,0.7436771246671725,0.23657846989382972,13
-UGR11,Upper Grande Ronde,Channel and Habitat Structure,3.44,0.649,5,False,No,2.4133064999740403,0.7303308256906343,1
-UGR11,Upper Grande Ronde,Decreased Sediment Quantity,3.73,0.71425,5,False,Yes,1.412531410883665,0.42877039720323173,8
-UGR11,Upper Grande Ronde,Decreased Water Quantity,3.56,0.676,3,False,Yes,1.95919285734276,0.6007573372350732,3
-UGR11,Upper Grande Ronde,Floodplain Condition,2.93,0.53425,5,False,No,1.512652553701175,0.45063720381261413,7
-UGR11,Upper Grande Ronde,Increased Sediment Quantity,3.37,0.63325,5,False,No,0.910794428555145,0.277562973719794,12
-UGR11,Upper Grande Ronde,Non-Native Species Interactions and Competition,2.88,0.523,3,False,No,0.75861149974373,0.2340331606346627,14
-UGR11,Upper Grande Ronde,Predation,1.82,0.2845,3,False,Yes,0.6198848572176399,0.1904268235778948,15
-UGR11,Upper Grande Ronde,Riparian Condition,3.1,0.5725,5,False,Yes,1.6279446432799751,0.49204657514089234,5
-UGR11,Upper Grande Ronde,Side Channel and Wetland Habitat,3.29,0.61525,5,False,No,2.0497053744401224,0.6049537910810523,2
-UGR11,Upper Grande Ronde,Summer Water Temperature,4.22,0.8245,3,False,Yes,1.410601714246845,0.4661840785617113,6
-UGR11,Upper Grande Ronde,Water Quality,3.3,0.6175,3,False,No,1.6479310718211253,0.5016927268967674,4
-UGR11,Upper Grande Ronde,Winter Water Temperature,2.88,0.523,3,False,No,1.33992600012029,0.3921110314767995,9
-UGR12,Upper Grande Ronde,Altered Flow Timing,2.62,0.4645,3,False,Yes,0.841674000125415,0.21253164325089496,7
-UGR12,Upper Grande Ronde,Altered Primary Productivity,3.11,0.57475,3,False,No,0.7358852681059276,0.18792723917177762,8
-UGR12,Upper Grande Ronde,Anthropogenic Barriers,2.15,0.35875,3,True,No,0.519060000001025,0.13078820624755025,11
-UGR12,Upper Grande Ronde,Channel and Habitat Structure,2.93,0.53425,5,False,No,1.5344041604677676,0.3979319147605546,1
-UGR12,Upper Grande Ronde,Decreased Sediment Quantity,3.1,0.5725,5,False,Yes,0.887579464476275,0.23506563754494125,6
-UGR12,Upper Grande Ronde,Decreased Water Quantity,3.0,0.55,3,False,Yes,1.093125000264,0.27951707149872,3
-UGR12,Upper Grande Ronde,Floodplain Condition,2.77,0.49825,5,False,No,0.9700927496661726,0.25282308259793324,4
-UGR12,Upper Grande Ronde,Increased Sediment Quantity,2.77,0.49825,5,False,No,0.47105978539611754,0.12563373742092773,12
-UGR12,Upper Grande Ronde,Non-Native Species Interactions and Competition,1.26,0.1585,3,False,No,0.130796464253335,0.03389092284979525,14
-UGR12,Upper Grande Ronde,Predation,1.0,0.1,3,False,Yes,0.122571428636,0.03162814287272,15
-UGR12,Upper Grande Ronde,Riparian Condition,2.77,0.49825,5,False,Yes,0.9665694106751377,0.25046244535346296,5
-UGR12,Upper Grande Ronde,Side Channel and Wetland Habitat,2.35,0.40375,5,False,No,1.0838091963530125,0.2803265089047329,2
-UGR12,Upper Grande Ronde,Summer Water Temperature,2.08,0.343,3,False,Yes,0.6047579999510001,0.15107630998775,10
-UGR12,Upper Grande Ronde,Water Quality,2.0,0.325,3,False,No,0.61418035733275,0.15895355361583752,9
-UGR12,Upper Grande Ronde,Winter Water Temperature,2.0,0.325,3,False,No,0.46208035707600004,0.124444821414615,13
-UGR13,Upper Grande Ronde,Altered Flow Timing,3.3,0.6175,3,False,Yes,1.3331383928395,0.33833663035932177,7
-UGR13,Upper Grande Ronde,Altered Primary Productivity,3.91,0.75475,3,False,No,1.2699207860151076,0.32410636239838075,8
-UGR13,Upper Grande Ronde,Anthropogenic Barriers,1.82,0.2845,3,False,No,0.4647917142361299,0.11820731141439518,15
-UGR13,Upper Grande Ronde,Channel and Habitat Structure,4.37,0.85825,5,False,No,3.0595386426107023,0.7912721699379485,1
-UGR13,Upper Grande Ronde,Decreased Sediment Quantity,4.0,0.775,5,False,Yes,1.38021964318375,0.3641298750775,6
-UGR13,Upper Grande Ronde,Decreased Water Quantity,3.63,0.69175,3,False,Yes,1.7100060002006074,0.43825722434197334,5
-UGR13,Upper Grande Ronde,Floodplain Condition,3.95,0.76375,5,False,No,1.9415070530128,0.5034972775447079,3
-UGR13,Upper Grande Ronde,Increased Sediment Quantity,3.25,0.60625,5,False,No,0.6876174104934375,0.1826284820870475,12
-UGR13,Upper Grande Ronde,Non-Native Species Interactions and Competition,2.88,0.523,3,False,No,0.57671957126943,0.1494069042483945,13
-UGR13,Upper Grande Ronde,Predation,2.0,0.325,3,False,Yes,0.529494643132,0.13703833935259,14
-UGR13,Upper Grande Ronde,Riparian Condition,3.78,0.7255,5,False,Yes,1.7994991071594402,0.4643034171568282,4
-UGR13,Upper Grande Ronde,Side Channel and Wetland Habitat,4.18,0.8155,5,False,No,2.71474124960157,0.6998737498893484,2
-UGR13,Upper Grande Ronde,Summer Water Temperature,3.56,0.676,3,False,Yes,1.273004571332,0.321070062833,9
-UGR13,Upper Grande Ronde,Water Quality,2.62,0.4645,3,False,No,1.11659164326723,0.28843061152701227,10
-UGR13,Upper Grande Ronde,Winter Water Temperature,2.62,0.4645,3,False,No,0.9878919641948051,0.2607437571246687,11
-UGR14,Upper Grande Ronde,Altered Flow Timing,1.44,0.199,3,False,Yes,0.54615550009353,0.1553429536285501,13
-UGR14,Upper Grande Ronde,Altered Primary Productivity,3.11,0.57475,3,False,No,1.174665839385885,0.34121470623747047,9
-UGR14,Upper Grande Ronde,Anthropogenic Barriers,2.71,0.48475,3,False,No,1.3039082495602625,0.43758209354328875,6
-UGR14,Upper Grande Ronde,Channel and Habitat Structure,3.0,0.55,5,False,No,2.8046071423095,0.9037195354841501,1
-UGR14,Upper Grande Ronde,Decreased Sediment Quantity,2.93,0.53425,5,False,Yes,1.5493631610981826,0.524159162477193,4
-UGR14,Upper Grande Ronde,Decreased Water Quantity,2.08,0.343,3,False,Yes,1.3541395002714602,0.42161021007447025,8
-UGR14,Upper Grande Ronde,Floodplain Condition,2.55,0.44875,5,False,No,1.449686874685875,0.4319715579400344,7
-UGR14,Upper Grande Ronde,Increased Sediment Quantity,2.49,0.43525,5,False,No,0.85150444624701,0.3213444532260064,12
-UGR14,Upper Grande Ronde,Non-Native Species Interactions and Competition,2.71,0.48475,3,True,No,1.1446678748801975,0.4605457399962813,5
-UGR14,Upper Grande Ronde,Predation,2.29,0.39025,3,False,Yes,0.963917500413665,0.324322280122204,11
-UGR14,Upper Grande Ronde,Riparian Condition,2.55,0.44875,5,False,Yes,1.7000893750583375,0.586352776778797,3
-UGR14,Upper Grande Ronde,Side Channel and Wetland Habitat,2.77,0.49825,5,False,No,2.1826197139063326,0.6733499973574507,2
-UGR14,Upper Grande Ronde,Summer Water Temperature,1.59,0.23275,3,False,Yes,0.96152349996675,0.3313093174916875,10
-UGR14,Upper Grande Ronde,Water Quality,1.26,0.1585,3,False,No,0.47188846446097005,0.13181414754899237,14
-UGR14,Upper Grande Ronde,Winter Water Temperature,1.0,0.1,3,False,No,0.240057142847,0.0694532857184,15
-UGR15,Upper Grande Ronde,Altered Flow Timing,2.29,0.39025,3,False,Yes,1.18686174990411,0.3015631787583235,12
-UGR15,Upper Grande Ronde,Altered Primary Productivity,3.11,0.57475,3,False,No,1.4080553928472899,0.3782113637900601,10
-UGR15,Upper Grande Ronde,Anthropogenic Barriers,2.62,0.4645,3,False,No,1.3607195709508,0.4060118187713979,8
-UGR15,Upper Grande Ronde,Channel and Habitat Structure,2.83,0.51175,5,False,No,2.85322557116831,0.7614671852663366,1
-UGR15,Upper Grande Ronde,Decreased Sediment Quantity,4.78,0.9505,5,False,Yes,2.919460750332675,0.6949343126971337,2
-UGR15,Upper Grande Ronde,Decreased Water Quantity,2.52,0.442,3,False,Yes,2.16684185760822,0.5571858315551035,6
-UGR15,Upper Grande Ronde,Floodplain Condition,3.06,0.5635,5,False,No,2.205337750116725,0.5706001000269353,5
-UGR15,Upper Grande Ronde,Increased Sediment Quantity,2.3,0.3925,5,True,No,0.73725517830565,0.19236368920961977,14
-UGR15,Upper Grande Ronde,Non-Native Species Interactions and Competition,2.08,0.343,3,False,No,0.73688649984663,0.20054817993617752,13
-UGR15,Upper Grande Ronde,Predation,1.26,0.1585,3,False,Yes,0.468288250134725,0.12660244108790125,15
-UGR15,Upper Grande Ronde,Riparian Condition,2.05,0.33625,5,False,Yes,1.298237232503125,0.3703796152658235,11
-UGR15,Upper Grande Ronde,Side Channel and Wetland Habitat,2.55,0.44875,5,False,No,2.1742578565357626,0.5710029623507009,4
-UGR15,Upper Grande Ronde,Summer Water Temperature,3.17,0.58825,3,False,Yes,2.489389964257983,0.6221710160644958,3
-UGR15,Upper Grande Ronde,Water Quality,2.62,0.4645,3,False,No,1.8199773576989302,0.48940980801412404,7
-UGR15,Upper Grande Ronde,Winter Water Temperature,2.62,0.4645,3,False,No,1.56735571432951,0.37839364432263545,9
-UGR16,Upper Grande Ronde,Altered Flow Timing,1.26,0.1585,3,False,Yes,0.374444928616035,0.09144306537572586,13
-UGR16,Upper Grande Ronde,Altered Primary Productivity,3.56,0.676,3,False,No,1.20806028599048,0.30548778008544647,5
-UGR16,Upper Grande Ronde,Anthropogenic Barriers,1.82,0.2845,3,False,No,0.4978140356329999,0.12474451176110908,11
-UGR16,Upper Grande Ronde,Channel and Habitat Structure,3.1,0.5725,5,False,No,2.3104873211562253,0.5853914731430341,1
-UGR16,Upper Grande Ronde,Decreased Sediment Quantity,2.72,0.487,5,True,Yes,1.1113687858304702,0.2769377678931739,6
-UGR16,Upper Grande Ronde,Decreased Water Quantity,1.82,0.2845,3,False,Yes,0.8379947501991499,0.20135284290680028,8
-UGR16,Upper Grande Ronde,Floodplain Condition,2.7,0.4825,5,False,No,1.354515356807175,0.3408066374102068,4
-UGR16,Upper Grande Ronde,Increased Sediment Quantity,3.06,0.5635,5,False,No,0.765756249628895,0.19843088991260116,9
-UGR16,Upper Grande Ronde,Non-Native Species Interactions and Competition,1.0,0.1,3,False,No,0.124835714266,0.031142142852370002,15
-UGR16,Upper Grande Ronde,Predation,1.0,0.1,3,False,Yes,0.170414285806,0.04196914287732,14
-UGR16,Upper Grande Ronde,Riparian Condition,3.29,0.61525,5,False,Yes,1.67299658948611,0.4327413611222043,3
-UGR16,Upper Grande Ronde,Side Channel and Wetland Habitat,2.61,0.46225,5,True,No,1.7104240532828525,0.4337219109950715,2
-UGR16,Upper Grande Ronde,Summer Water Temperature,2.29,0.39025,3,False,Yes,0.97763199994425,0.2226047324860625,7
-UGR16,Upper Grande Ronde,Water Quality,1.26,0.1585,3,False,No,0.41825885725743006,0.10513542752562946,12
-UGR16,Upper Grande Ronde,Winter Water Temperature,1.59,0.23275,3,False,No,0.5501544999664175,0.1400779274975395,10
-UGR17,Upper Grande Ronde,Altered Flow Timing,2.29,0.39025,3,False,Yes,1.2359496249682225,0.31185072627470284,13
-UGR17,Upper Grande Ronde,Altered Primary Productivity,4.64,0.919,3,False,No,2.27249007159793,0.6075712493985281,5
-UGR17,Upper Grande Ronde,Anthropogenic Barriers,2.47,0.43075,3,True,No,1.222437731691185,0.36411882074417457,10
-UGR17,Upper Grande Ronde,Channel and Habitat Structure,4.78,0.9505,5,False,No,5.522269213822685,1.4648006134104274,1
-UGR17,Upper Grande Ronde,Decreased Sediment Quantity,3.62,0.6895,5,False,Yes,2.26702675021473,0.5398661876369741,7
-UGR17,Upper Grande Ronde,Decreased Water Quantity,2.29,0.39025,3,False,Yes,1.9316260004510175,0.49426946512104997,8
-UGR17,Upper Grande Ronde,Floodplain Condition,2.89,0.52525,5,True,No,2.16493042857443,0.5569450857115245,6
-UGR17,Upper Grande Ronde,Increased Sediment Quantity,4.08,0.793,5,True,No,1.55665899935767,0.4033231983934908,9
-UGR17,Upper Grande Ronde,Non-Native Species Interactions and Competition,2.08,0.343,3,False,No,0.7354899998162501,0.19901055992858252,14
-UGR17,Upper Grande Ronde,Predation,1.26,0.1585,3,False,Yes,0.464076678711135,0.12455099823200375,15
-UGR17,Upper Grande Ronde,Riparian Condition,4.51,0.88975,5,False,Yes,3.5969414831368356,1.0177576972037303,2
-UGR17,Upper Grande Ronde,Side Channel and Wetland Habitat,3.76,0.721,5,True,No,3.64846599910905,0.9534112597825362,3
-UGR17,Upper Grande Ronde,Summer Water Temperature,3.17,0.58825,3,False,Yes,2.5161133213722677,0.625145880343067,4
-UGR17,Upper Grande Ronde,Water Quality,2.0,0.325,3,False,No,1.30278571466875,0.34825514296517757,11
-UGR17,Upper Grande Ronde,Winter Water Temperature,2.29,0.39025,3,False,No,1.376690499994425,0.33168239501972435,12
-UGR18,Upper Grande Ronde,Altered Flow Timing,1.44,0.199,3,False,Yes,0.45094821440881,0.1295974707828071,11
-UGR18,Upper Grande Ronde,Altered Primary Productivity,1.59,0.23275,3,False,No,0.41491012500864505,0.12176864873608821,12
-UGR18,Upper Grande Ronde,Anthropogenic Barriers,1.59,0.23275,3,False,No,0.4879271247795525,0.1667863224015933,9
-UGR18,Upper Grande Ronde,Channel and Habitat Structure,2.35,0.40375,5,False,No,1.8340055353837874,0.6035725078872842,1
-UGR18,Upper Grande Ronde,Decreased Sediment Quantity,2.09,0.34525,5,True,Yes,0.9479331965760426,0.33012435095921916,5
-UGR18,Upper Grande Ronde,Decreased Water Quantity,1.59,0.23275,3,False,Yes,0.7871771251556101,0.24591101504214774,7
-UGR18,Upper Grande Ronde,Floodplain Condition,1.74,0.2665,5,False,No,0.774372856992475,0.23467875780685052,8
-UGR18,Upper Grande Ronde,Increased Sediment Quantity,2.49,0.43525,5,True,No,0.8217830892415676,0.3179227664806522,6
-UGR18,Upper Grande Ronde,Non-Native Species Interactions and Competition,1.26,0.1585,3,False,No,0.343480821428345,0.14105798072696343,10
-UGR18,Upper Grande Ronde,Predation,1.0,0.1,3,False,Yes,0.211757142953,0.07243557145837,15
-UGR18,Upper Grande Ronde,Riparian Condition,2.55,0.44875,5,False,Yes,1.5139542858649375,0.5325280991261506,2
-UGR18,Upper Grande Ronde,Side Channel and Wetland Habitat,2.17,0.36325,5,False,No,1.4155852496512802,0.4468914259445194,3
-UGR18,Upper Grande Ronde,Summer Water Temperature,1.82,0.2845,3,False,Yes,0.965674285687055,0.33943735642176376,4
-UGR18,Upper Grande Ronde,Water Quality,1.26,0.1585,3,False,No,0.40298625011412004,0.11229464610032766,14
-UGR18,Upper Grande Ronde,Winter Water Temperature,1.26,0.1585,3,False,No,0.38800800001585006,0.11583134715882716,13
-UGR19,Upper Grande Ronde,Altered Flow Timing,1.44,0.199,3,False,Yes,0.60053935723525,0.1713426957735536,13
-UGR19,Upper Grande Ronde,Altered Primary Productivity,3.42,0.6445,3,False,No,1.517383178695725,0.4401511471328766,7
-UGR19,Upper Grande Ronde,Anthropogenic Barriers,3.63,0.69175,3,False,No,1.9821602135396124,0.6623585303848545,4
-UGR19,Upper Grande Ronde,Channel and Habitat Structure,2.35,0.40375,5,False,No,2.34541258890965,0.7496276284078868,2
-UGR19,Upper Grande Ronde,Decreased Sediment Quantity,2.99,0.54775,5,False,Yes,1.8054622503873374,0.606402287655248,5
-UGR19,Upper Grande Ronde,Decreased Water Quantity,1.82,0.2845,3,False,Yes,1.2464757859459499,0.38643106649496556,9
-UGR19,Upper Grande Ronde,Floodplain Condition,2.0,0.325,5,True,No,1.234001785497,0.36764789279270005,10
-UGR19,Upper Grande Ronde,Increased Sediment Quantity,2.86,0.5185,5,False,No,1.16573614269863,0.43075202288414927,8
-UGR19,Upper Grande Ronde,Non-Native Species Interactions and Competition,1.0,0.1,3,False,No,0.261728571404,0.10264771428542001,15
-UGR19,Upper Grande Ronde,Predation,1.26,0.1585,3,False,Yes,0.44724171446097,0.14839087005075172,14
-UGR19,Upper Grande Ronde,Riparian Condition,2.86,0.5185,5,True,Yes,2.2286981787492,0.7559337421701895,1
-UGR19,Upper Grande Ronde,Side Channel and Wetland Habitat,2.3,0.3925,5,True,No,1.9654157138663002,0.6039318998517136,6
-UGR19,Upper Grande Ronde,Summer Water Temperature,2.62,0.4645,3,False,Yes,1.9825523570765,0.681452024269125,3
-UGR19,Upper Grande Ronde,Water Quality,1.59,0.23275,3,False,No,0.8057805002699902,0.22723582007327636,11
-UGR19,Upper Grande Ronde,Winter Water Temperature,1.59,0.23275,3,False,No,0.7175017500036576,0.2087212225188461,12
-UGR2,Upper Grande Ronde,Altered Flow Timing,3.42,0.6445,3,False,Yes,1.141271392666555,0.28531784816663874,3
-UGR2,Upper Grande Ronde,Altered Primary Productivity,1.59,0.23275,3,False,No,0.31609112509276754,0.07902278127319189,12
-UGR2,Upper Grande Ronde,Anthropogenic Barriers,2.29,0.39025,3,False,No,0.4956175,0.123904375,9
-UGR2,Upper Grande Ronde,Channel and Habitat Structure,3.1,0.5725,5,False,No,1.6368592856382251,0.4092148214095563,1
-UGR2,Upper Grande Ronde,Decreased Sediment Quantity,1.64,0.244,5,False,Yes,0.333565428676,0.083391357169,11
-UGR2,Upper Grande Ronde,Decreased Water Quantity,2.29,0.39025,3,False,Yes,0.7429802500440424,0.1857450625110106,7
-UGR2,Upper Grande Ronde,Floodplain Condition,2.27,0.38575,5,True,No,0.8035999104503225,0.20089997761258063,6
-UGR2,Upper Grande Ronde,Increased Sediment Quantity,1.89,0.30025,5,False,No,0.254697785634505,0.06367444640862625,14
-UGR2,Upper Grande Ronde,Non-Native Species Interactions and Competition,1.59,0.23275,3,False,No,0.1953437499311725,0.04883593748279313,15
-UGR2,Upper Grande Ronde,Predation,1.59,0.23275,3,False,Yes,0.309507625170905,0.07737690629272626,13
-UGR2,Upper Grande Ronde,Riparian Condition,2.49,0.43525,5,True,Yes,0.8487996785005452,0.2121999196251363,5
-UGR2,Upper Grande Ronde,Side Channel and Wetland Habitat,2.64,0.469,5,True,No,1.258929999866,0.3147324999665,2
-UGR2,Upper Grande Ronde,Summer Water Temperature,2.0,0.325,3,False,Yes,0.47584642852500003,0.11896160713125001,10
-UGR2,Upper Grande Ronde,Water Quality,2.62,0.4645,3,False,No,0.910021857545645,0.22750546438641125,4
-UGR2,Upper Grande Ronde,Winter Water Temperature,2.29,0.39025,3,False,No,0.6787562498845975,0.16968906247114937,8
-UGR20,Upper Grande Ronde,Altered Flow Timing,1.82,0.2845,3,False,Yes,0.8874571072887649,0.2444383358176405,12
-UGR20,Upper Grande Ronde,Altered Primary Productivity,2.88,0.523,3,False,No,1.2467946428422,0.36203927855771856,10
-UGR20,Upper Grande Ronde,Anthropogenic Barriers,2.29,0.39025,3,False,No,1.187224124448075,0.4037610122699755,7
-UGR20,Upper Grande Ronde,Channel and Habitat Structure,2.05,0.33625,5,True,No,2.0955340175305,0.6533373525318944,4
-UGR20,Upper Grande Ronde,Decreased Sediment Quantity,3.81,0.73225,5,False,Yes,2.82784489316678,0.8661994466320846,2
-UGR20,Upper Grande Ronde,Decreased Water Quantity,1.26,0.1585,3,False,Yes,0.814973035911505,0.23740130005222576,13
-UGR20,Upper Grande Ronde,Floodplain Condition,2.05,0.33625,5,True,No,1.377664285659525,0.3942471205015369,8
-UGR20,Upper Grande Ronde,Increased Sediment Quantity,1.58,0.2305,5,False,No,0.574093178457825,0.20142077857353602,15
-UGR20,Upper Grande Ronde,Non-Native Species Interactions and Competition,4.64,0.919,3,False,No,2.64691692839288,0.9982571856932799,1
-UGR20,Upper Grande Ronde,Predation,2.88,0.523,3,False,Yes,1.6146130719807101,0.5155379108478375,6
-UGR20,Upper Grande Ronde,Riparian Condition,1.64,0.244,5,False,Yes,1.10150314307988,0.375635385754598,9
-UGR20,Upper Grande Ronde,Side Channel and Wetland Habitat,2.05,0.33625,5,True,No,1.7684828566894,0.5316280623564212,5
-UGR20,Upper Grande Ronde,Summer Water Temperature,2.47,0.43075,3,True,Yes,2.2090090713873427,0.6959073928468357,3
-UGR20,Upper Grande Ronde,Water Quality,1.71,0.25975,3,True,No,0.9762332681202325,0.26926890989664476,11
-UGR20,Upper Grande Ronde,Winter Water Temperature,1.59,0.23275,3,False,No,0.7950075000246051,0.2140402250297255,14
-UGR3,Upper Grande Ronde,Altered Flow Timing,4.64,0.919,3,False,Yes,2.27701942804366,0.685245785550835,4
-UGR3,Upper Grande Ronde,Altered Primary Productivity,2.88,0.523,3,False,No,0.8261532139861101,0.24934958920184752,12
-UGR3,Upper Grande Ronde,Anthropogenic Barriers,1.59,0.23275,3,False,No,0.6866623749221951,0.22169021872157127,13
-UGR3,Upper Grande Ronde,Channel and Habitat Structure,2.83,0.51175,5,False,No,1.7288742677357851,0.5343126919032413,6
-UGR3,Upper Grande Ronde,Decreased Sediment Quantity,1.97,0.31825,5,True,Yes,0.508654428677815,0.14830450004296375,14
-UGR3,Upper Grande Ronde,Decreased Water Quantity,4.64,0.919,3,False,Yes,3.04622242861344,0.9679367500735201,1
-UGR3,Upper Grande Ronde,Floodplain Condition,2.72,0.487,5,True,No,1.30088135758394,0.390443553721355,8
-UGR3,Upper Grande Ronde,Increased Sediment Quantity,2.05,0.33625,5,False,No,0.45852491061917494,0.13567087048455623,15
-UGR3,Upper Grande Ronde,Non-Native Species Interactions and Competition,5.0,1.0,3,False,No,1.62207142781,0.5182321426025001,7
-UGR3,Upper Grande Ronde,Predation,5.0,1.0,3,False,Yes,2.9720714288099996,0.9251607143025,2
-UGR3,Upper Grande Ronde,Riparian Condition,2.46,0.4285,5,False,Yes,1.107978571551,0.343473357193665,11
-UGR3,Upper Grande Ronde,Side Channel and Wetland Habitat,2.46,0.4285,5,False,No,1.3098938926520751,0.3865146517234288,9
-UGR3,Upper Grande Ronde,Summer Water Temperature,4.0,0.775,3,False,Yes,1.7707642856777501,0.6286910714194376,5
-UGR3,Upper Grande Ronde,Water Quality,4.64,0.919,3,False,No,2.5735938580631705,0.7983812503009726,3
-UGR3,Upper Grande Ronde,Winter Water Temperature,3.56,0.676,3,False,No,1.22732628574712,0.34652242859702004,10
-UGR4,Upper Grande Ronde,Altered Flow Timing,3.3,0.6175,3,False,Yes,1.083491964104875,0.27087299102621876,5
-UGR4,Upper Grande Ronde,Altered Primary Productivity,2.0,0.325,3,False,No,0.43863392870375,0.1096584821759375,14
-UGR4,Upper Grande Ronde,Anthropogenic Barriers,3.42,0.6445,3,False,No,0.8056249999999999,0.20140624999999998,8
-UGR4,Upper Grande Ronde,Channel and Habitat Structure,3.57,0.67825,5,False,No,1.9291367856222377,0.4822841964055594,1
-UGR4,Upper Grande Ronde,Decreased Sediment Quantity,2.05,0.33625,5,True,Yes,0.45597901800125,0.1139947545003125,13
-UGR4,Upper Grande Ronde,Decreased Water Quantity,2.88,0.523,3,False,Yes,0.9866021429206501,0.24665053573016252,7
-UGR4,Upper Grande Ronde,Floodplain Condition,3.95,0.76375,5,False,No,1.5806897316136874,0.39517243290342186,3
-UGR4,Upper Grande Ronde,Increased Sediment Quantity,4.08,0.793,5,True,No,0.6649871426419,0.166246785660475,11
-UGR4,Upper Grande Ronde,Non-Native Species Interactions and Competition,2.0,0.325,3,False,No,0.27044642847625,0.0676116071190625,15
-UGR4,Upper Grande Ronde,Predation,2.15,0.35875,3,True,Yes,0.470346875261375,0.11758671881534374,12
-UGR4,Upper Grande Ronde,Riparian Condition,3.52,0.667,5,False,Yes,1.2925507141809,0.323137678545225,4
-UGR4,Upper Grande Ronde,Side Channel and Wetland Habitat,3.73,0.71425,5,False,No,1.9029660712245002,0.47574151780612506,2
-UGR4,Upper Grande Ronde,Summer Water Temperature,3.0,0.55,3,False,Yes,0.80417857135,0.2010446428375,9
-UGR4,Upper Grande Ronde,Water Quality,3.0,0.55,3,False,No,1.0693571433325002,0.26733928583312505,6
-UGR4,Upper Grande Ronde,Winter Water Temperature,2.29,0.39025,3,False,No,0.6759687498857124,0.1689921874714281,10
-UGR5,Upper Grande Ronde,Altered Flow Timing,4.64,0.919,3,False,Yes,1.8140403568684702,0.543173637080759,8
-UGR5,Upper Grande Ronde,Altered Primary Productivity,3.42,0.6445,3,False,No,0.90427953532022,0.26903915917468535,13
-UGR5,Upper Grande Ronde,Anthropogenic Barriers,2.92,0.532,3,True,No,1.1753019998594,0.36281373995684724,12
-UGR5,Upper Grande Ronde,Channel and Habitat Structure,4.78,0.9505,5,False,No,2.839822428453295,0.8730838117160971,1
-UGR5,Upper Grande Ronde,Decreased Sediment Quantity,2.61,0.46225,5,True,Yes,0.7418782321481401,0.22671843678745104,15
-UGR5,Upper Grande Ronde,Decreased Water Quantity,5.0,1.0,3,False,Yes,2.63799999999,0.8117414286237,3
-UGR5,Upper Grande Ronde,Floodplain Condition,5.0,1.0,5,False,No,2.39307142942,0.72268000027,5
-UGR5,Upper Grande Ronde,Increased Sediment Quantity,3.13,0.57925,5,True,No,0.79485512502648,0.24262796497809608,14
-UGR5,Upper Grande Ronde,Non-Native Species Interactions and Competition,5.0,1.0,3,False,No,1.37864285688,0.4282257142074,10
-UGR5,Upper Grande Ronde,Predation,5.0,1.0,3,False,Yes,2.47278571453,0.7520392857526,4
-UGR5,Upper Grande Ronde,Riparian Condition,5.0,1.0,5,False,Yes,2.16164285759,0.6578800001681,7
-UGR5,Upper Grande Ronde,Side Channel and Wetland Habitat,5.0,1.0,5,False,No,2.75821428488,0.8196357140279001,2
-UGR5,Upper Grande Ronde,Summer Water Temperature,4.31,0.84475,3,False,Yes,1.23249025,0.424216555,11
-UGR5,Upper Grande Ronde,Water Quality,4.64,0.919,3,False,No,2.2033681433061405,0.6716636222695217,6
-UGR5,Upper Grande Ronde,Winter Water Temperature,3.91,0.75475,3,False,No,1.5664836252490675,0.4679665643786456,9
-UGR6,Upper Grande Ronde,Altered Flow Timing,1.59,0.23275,3,False,Yes,0.693694750072485,0.19643135755740282,13
-UGR6,Upper Grande Ronde,Altered Primary Productivity,1.82,0.2845,3,False,No,0.64748135717781,0.1860540585609102,14
-UGR6,Upper Grande Ronde,Anthropogenic Barriers,2.29,0.39025,3,False,No,1.1161986246158826,0.3708696273266621,8
-UGR6,Upper Grande Ronde,Channel and Habitat Structure,3.25,0.60625,5,False,No,3.3373629458716874,1.0604784818994737,1
-UGR6,Upper Grande Ronde,Decreased Sediment Quantity,2.3,0.3925,5,False,Yes,1.19757357172575,0.40066736440363254,7
-UGR6,Upper Grande Ronde,Decreased Water Quantity,2.0,0.325,3,False,Yes,1.3841982145095,0.42640742863413506,6
-UGR6,Upper Grande Ronde,Floodplain Condition,2.76,0.496,5,True,No,1.77482971394064,0.5223978284673536,3
-UGR6,Upper Grande Ronde,Increased Sediment Quantity,2.0,0.325,5,False,No,0.67801964276475,0.25123753573308,10
-UGR6,Upper Grande Ronde,Non-Native Species Interactions and Competition,2.88,0.523,3,False,No,1.32509521412732,0.5209655299887032,4
-UGR6,Upper Grande Ronde,Predation,1.59,0.23275,3,False,Yes,0.63923125027265,0.21077141757936776,12
-UGR6,Upper Grande Ronde,Riparian Condition,2.17,0.36325,5,False,Yes,1.4891952679214902,0.5038438367849567,5
-UGR6,Upper Grande Ronde,Side Channel and Wetland Habitat,3.18,0.5905,5,False,No,2.8137324994567403,0.8567294555210235,2
-UGR6,Upper Grande Ronde,Summer Water Temperature,1.59,0.23275,3,False,Yes,0.9845657499667501,0.3383267299916875,9
-UGR6,Upper Grande Ronde,Water Quality,1.59,0.23275,3,False,No,0.7658140002942626,0.21271355008134948,11
-UGR6,Upper Grande Ronde,Winter Water Temperature,1.59,0.23275,3,False,No,0.6473109999783875,0.18440749251043387,15
-UGR7,Upper Grande Ronde,Altered Flow Timing,5.0,1.0,3,False,Yes,1.32014285696,0.3934599999674,8
-UGR7,Upper Grande Ronde,Altered Primary Productivity,3.42,0.6445,3,False,No,0.684274856972525,0.20254885638515974,14
-UGR7,Upper Grande Ronde,Anthropogenic Barriers,2.71,0.48475,3,True,No,0.6929154998067926,0.21690311868854756,12
-UGR7,Upper Grande Ronde,Channel and Habitat Structure,4.78,0.9505,5,False,No,2.2104556428843,0.6807053274839365,1
-UGR7,Upper Grande Ronde,Decreased Sediment Quantity,2.83,0.51175,5,False,Yes,0.6397240536116375,0.19786594429931953,15
-UGR7,Upper Grande Ronde,Decreased Water Quantity,5.0,1.0,3,False,Yes,1.90192857143,0.5881428571859,3
-UGR7,Upper Grande Ronde,Floodplain Condition,5.0,1.0,5,False,No,1.84342857193,0.5565657144508,4
-UGR7,Upper Grande Ronde,Increased Sediment Quantity,4.16,0.811,5,False,No,0.8182990001216501,0.25160116429089313,11
-UGR7,Upper Grande Ronde,Non-Native Species Interactions and Competition,3.56,0.676,3,False,No,0.675130856998,0.20954551424098242,13
-UGR7,Upper Grande Ronde,Predation,4.64,0.919,3,False,Yes,1.5481867858495102,0.4711745821557494,7
-UGR7,Upper Grande Ronde,Riparian Condition,4.78,0.9505,5,False,Yes,1.639137250389705,0.5019101672823227,6
-UGR7,Upper Grande Ronde,Side Channel and Wetland Habitat,5.0,1.0,5,False,No,2.1294999993,0.6364728569307001,2
-UGR7,Upper Grande Ronde,Summer Water Temperature,5.0,1.0,3,False,Yes,0.9550000000000001,0.33388,10
-UGR7,Upper Grande Ronde,Water Quality,4.64,0.919,3,False,No,1.6503927146283703,0.5045421593802402,5
-UGR7,Upper Grande Ronde,Winter Water Temperature,3.91,0.75475,3,False,No,1.3025367680415174,0.38647297221049354,9
-UGR8,Upper Grande Ronde,Altered Flow Timing,2.71,0.48475,3,True,Yes,0.007825249998615,0.0026605849995291007,10
-UGR8,Upper Grande Ronde,Altered Primary Productivity,3.68,0.703,3,False,No,0.00592528570826,0.0020145971408084,12
-UGR8,Upper Grande Ronde,Anthropogenic Barriers,2.71,0.48475,3,True,No,0.00907175000277,0.0030843950009418,8
-UGR8,Upper Grande Ronde,Channel and Habitat Structure,4.32,0.847,5,False,No,0.014761999992740001,0.005019079997531601,1
-UGR8,Upper Grande Ronde,Decreased Sediment Quantity,3.62,0.6895,5,False,Yes,0.00492499999803,0.0016744999993302,13
-UGR8,Upper Grande Ronde,Decreased Water Quantity,2.71,0.48475,3,True,Yes,0.00907175000277,0.0030843950009418,8
-UGR8,Upper Grande Ronde,Floodplain Condition,3.59,0.68275,5,True,No,0.009265892862995,0.0031504035734183002,6
-UGR8,Upper Grande Ronde,Increased Sediment Quantity,1.9,0.3025,5,True,No,0.0025496428545499997,0.000866878570547,14
-UGR8,Upper Grande Ronde,Non-Native Species Interactions and Competition,4.64,0.919,3,False,No,0.010109000000000002,0.003437060000000001,4
-UGR8,Upper Grande Ronde,Predation,2.47,0.43075,3,True,Yes,0.008615000000000001,0.0029291000000000005,9
-UGR8,Upper Grande Ronde,Riparian Condition,4.78,0.9505,5,False,Yes,0.009233428576859999,0.0031393657161323998,7
-UGR8,Upper Grande Ronde,Side Channel and Wetland Habitat,4.32,0.847,5,False,No,0.01040599999516,0.0035380399983544002,3
-UGR8,Upper Grande Ronde,Summer Water Temperature,2.71,0.48475,3,True,Yes,0.009695,0.0032963000000000003,5
-UGR8,Upper Grande Ronde,Water Quality,4.31,0.84475,3,False,No,0.012550571430985001,0.004267194286534901,2
-UGR8,Upper Grande Ronde,Winter Water Temperature,3.63,0.69175,3,False,No,0.00671985714681,0.0022847514299154,11
-UGR9,Upper Grande Ronde,Altered Flow Timing,3.42,0.6445,3,False,Yes,0.8092157856038,0.24037179926704222,9
-UGR9,Upper Grande Ronde,Altered Primary Productivity,3.17,0.58825,3,False,No,0.6047209998647026,0.17857421210963786,14
-UGR9,Upper Grande Ronde,Anthropogenic Barriers,2.88,0.523,3,False,No,0.70776842835401,0.22141989493065023,10
-UGR9,Upper Grande Ronde,Channel and Habitat Structure,4.57,0.90325,5,False,No,2.03992560718931,0.6274548708848441,1
-UGR9,Upper Grande Ronde,Decreased Sediment Quantity,2.83,0.51175,5,False,Yes,0.6231287321874526,0.19273016751509664,13
-UGR9,Upper Grande Ronde,Decreased Water Quantity,3.11,0.57475,3,False,Yes,1.0508482678530375,0.3245596828797634,6
-UGR9,Upper Grande Ronde,Floodplain Condition,3.48,0.658,5,False,No,1.17725600030738,0.35487914010146365,4
-UGR9,Upper Grande Ronde,Increased Sediment Quantity,2.7,0.4825,5,False,No,0.469955000082025,0.14436882500661025,15
-UGR9,Upper Grande Ronde,Non-Native Species Interactions and Competition,4.22,0.8245,3,False,No,0.79034214268282,0.2448541206603163,8
-UGR9,Upper Grande Ronde,Predation,2.88,0.523,3,False,Yes,0.83990064293111,0.2550278750065898,7
-UGR9,Upper Grande Ronde,Riparian Condition,3.73,0.71425,5,False,Yes,1.2021337681418227,0.3678877272445154,3
-UGR9,Upper Grande Ronde,Side Channel and Wetland Habitat,4.32,0.847,5,False,No,1.75552849942162,0.5242433898252397,2
-UGR9,Upper Grande Ronde,Summer Water Temperature,3.68,0.703,3,False,Yes,0.627779,0.22002494,12
-UGR9,Upper Grande Ronde,Water Quality,3.42,0.6445,3,False,No,1.119128214518655,0.34167753184966715,5
-UGR9,Upper Grande Ronde,Winter Water Temperature,2.52,0.442,3,False,No,0.74675900010166,0.221159120037349,11
+bsr,basin,limiting_factor,fish_use_score,condition_score_raw_1_5,condition_score,condition_rating_n,condition_review_flag,vulnerability_review_flag,impact_score,risk_score,risk_rank_within_bsr
+CC1,Catherine Creek,Altered Flow Timing,0.4162,4.31,0.84475,3,False,Yes,1.8433096664787978,0.5020130822639564,10
+CC1,Catherine Creek,Altered Primary Productivity,0.4162,4.31,0.84475,3,False,No,1.2782624251060108,0.3587171017634994,14
+CC1,Catherine Creek,Anthropogenic Barriers,0.4162,3.68,0.703,3,False,No,1.5528094982370415,0.47758819179489087,11
+CC1,Catherine Creek,Channel and Habitat Structure,0.4162,4.57,0.90325,5,False,No,3.27598452094523,0.9874945143596977,1
+CC1,Catherine Creek,Decreased Sediment Quantity,0.4162,2.95,0.53875,5,True,Yes,1.1611794197389547,0.35216569769859374,15
+CC1,Catherine Creek,Decreased Water Quantity,0.4162,5.0,1.0,3,False,Yes,3.1185271433328,0.893670585849848,2
+CC1,Catherine Creek,Floodplain Condition,0.4162,4.78,0.9505,5,False,No,2.404671308026685,0.6836217738461375,6
+CC1,Catherine Creek,Increased Sediment Quantity,0.4162,4.51,0.88975,5,False,No,1.3463557179497758,0.44424448499458025,12
+CC1,Catherine Creek,Non-Native Species Interactions and Competition,0.4162,4.64,0.919,3,False,No,1.5381473669789338,0.5367943067166294,9
+CC1,Catherine Creek,Predation,0.4162,4.22,0.8245,3,False,Yes,1.8432427776821039,0.5566004919303997,8
+CC1,Catherine Creek,Riparian Condition,0.4162,4.57,0.90325,5,False,Yes,2.333467663536514,0.7463068673162447,4
+CC1,Catherine Creek,Side Channel and Wetland Habitat,0.4162,4.08,0.793,5,True,No,2.5366438680056347,0.7371119314051318,5
+CC1,Catherine Creek,Summer Water Temperature,0.4162,4.64,0.919,3,False,Yes,2.546275925659645,0.7861217112149113,3
+CC1,Catherine Creek,Water Quality,0.4162,5.0,1.0,3,False,No,2.4228785720826003,0.66838747160397,7
+CC1,Catherine Creek,Winter Water Temperature,0.4162,3.91,0.75475,3,False,No,1.505565596116304,0.41904535134711907,13
+CC2,Catherine Creek,Altered Flow Timing,0.2803,4.31,0.84475,3,False,Yes,1.2414216711052548,0.3380929047539331,10
+CC2,Catherine Creek,Altered Primary Productivity,0.2803,4.31,0.84475,3,False,No,0.8608768807237261,0.24158674585369744,14
+CC2,Catherine Creek,Anthropogenic Barriers,0.2803,4.64,0.919,3,False,No,1.367097178991319,0.42046978104115873,4
+CC2,Catherine Creek,Channel and Habitat Structure,0.2803,4.37,0.85825,5,False,No,2.0963737104049844,0.6319192065277216,1
+CC2,Catherine Creek,Decreased Sediment Quantity,0.2803,2.49,0.43525,5,True,Yes,0.6317886920165716,0.19161061739461158,15
+CC2,Catherine Creek,Decreased Water Quantity,0.2803,4.31,0.84475,3,False,Yes,1.774184377592038,0.5084247528574809,3
+CC2,Catherine Creek,Floodplain Condition,0.2803,3.95,0.76375,5,False,No,1.3012952527703197,0.36994401938717353,8
+CC2,Catherine Creek,Increased Sediment Quantity,0.2803,4.32,0.847,5,False,No,0.8631698348304184,0.2848121292350768,12
+CC2,Catherine Creek,Non-Native Species Interactions and Competition,0.2803,3.91,0.75475,3,False,No,0.8507590518736186,0.29690433129977895,11
+CC2,Catherine Creek,Predation,0.2803,4.22,0.8245,3,False,Yes,1.2413766232203114,0.3748561217878208,6
+CC2,Catherine Creek,Riparian Condition,0.2803,3.44,0.649,5,False,Yes,1.1291705308702127,0.36113966125521274,9
+CC2,Catherine Creek,Side Channel and Wetland Habitat,0.2803,4.37,0.85825,5,False,No,1.8489328788733128,0.5372730884987323,2
+CC2,Catherine Creek,Summer Water Temperature,0.2803,3.42,0.6445,3,False,Yes,1.202635158545621,0.3712942494864052,7
+CC2,Catherine Creek,Water Quality,0.2803,4.64,0.919,3,False,No,1.4995749682619361,0.413680294615701,5
+CC2,Catherine Creek,Winter Water Temperature,0.2803,3.91,0.75475,3,False,No,1.0139597227087938,0.28221627098173346,13
+CC3,Catherine Creek,Altered Flow Timing,0.1722,3.63,0.69175,3,False,Yes,0.6245257350170169,0.17008541477892897,7
+CC3,Catherine Creek,Altered Primary Productivity,0.1722,3.3,0.6175,3,False,No,0.3865982249240475,0.10849055097599901,15
+CC3,Catherine Creek,Anthropogenic Barriers,0.1722,3.63,0.69175,3,False,No,0.6321834073638635,0.19443681323975961,4
+CC3,Catherine Creek,Channel and Habitat Structure,0.1722,2.93,0.53425,5,False,No,0.801695549881717,0.2416586380775554,2
+CC3,Catherine Creek,Decreased Sediment Quantity,0.1722,2.86,0.5185,5,True,Yes,0.4623723750382653,0.14022956942219386,12
+CC3,Catherine Creek,Decreased Water Quantity,0.1722,3.63,0.69175,3,False,Yes,0.8925442726361362,0.25577477006379884,1
+CC3,Catherine Creek,Floodplain Condition,0.1722,2.35,0.40375,5,False,No,0.42261723752979674,0.12014546213185326,13
+CC3,Catherine Creek,Increased Sediment Quantity,0.1722,3.73,0.71425,5,False,No,0.44717049741214726,0.14754869361726897,10
+CC3,Catherine Creek,Non-Native Species Interactions and Competition,0.1722,2.62,0.4645,3,False,No,0.3216616049657199,0.11225590079451517,14
+CC3,Catherine Creek,Predation,0.1722,2.88,0.523,3,False,Yes,0.4837540801415238,0.14607829323422303,11
+CC3,Catherine Creek,Riparian Condition,0.1722,2.49,0.43525,5,True,Yes,0.46522566756424294,0.1487919099889193,9
+CC3,Catherine Creek,Side Channel and Wetland Habitat,0.1722,2.72,0.487,5,True,No,0.6445347598562375,0.1872924566541158,5
+CC3,Catherine Creek,Summer Water Temperature,0.1722,3.17,0.58825,3,False,Yes,0.674346269985529,0.20819355764638225,3
+CC3,Catherine Creek,Water Quality,0.1722,3.3,0.6175,3,False,No,0.6190128751670956,0.170764005794812,6
+CC3,Catherine Creek,Winter Water Temperature,0.1722,3.56,0.676,3,False,No,0.5579230800166296,0.15528720481746108,8
+CC4,Catherine Creek,Altered Flow Timing,0.2532,2.88,0.523,3,False,Yes,0.6942780171617748,0.18908198317501715,12
+CC4,Catherine Creek,Altered Primary Productivity,0.2532,2.52,0.442,3,False,No,0.406888782777204,0.11418466351759646,14
+CC4,Catherine Creek,Anthropogenic Barriers,0.2532,4.64,0.919,3,False,No,1.234923316876925,0.37981786856803923,3
+CC4,Catherine Creek,Channel and Habitat Structure,0.2532,3.73,0.71425,5,False,No,1.5759620140531954,0.4750492054424484,1
+CC4,Catherine Creek,Decreased Sediment Quantity,0.2532,3.18,0.5905,5,False,Yes,0.7742720357783633,0.23482335895145076,9
+CC4,Catherine Creek,Decreased Water Quantity,0.2532,3.63,0.69175,3,False,Yes,1.312382170914458,0.3760869441356206,4
+CC4,Catherine Creek,Floodplain Condition,0.2532,3.44,0.649,5,False,No,0.9988721914989972,0.28396844804476934,7
+CC4,Catherine Creek,Increased Sediment Quantity,0.2532,3.78,0.7255,5,False,No,0.6678683527259309,0.2203703140598819,11
+CC4,Catherine Creek,Non-Native Species Interactions and Competition,0.2532,1.59,0.23275,3,False,No,0.2369920349747433,0.08270727359595893,15
+CC4,Catherine Creek,Predation,0.2532,1.82,0.2845,3,False,Yes,0.38693300582748413,0.11684141882737342,13
+CC4,Catherine Creek,Riparian Condition,0.2532,3.31,0.61975,5,True,Yes,0.9740292022773607,0.31152121539342814,6
+CC4,Catherine Creek,Side Channel and Wetland Habitat,0.2532,3.73,0.71425,5,False,No,1.3899468254042604,0.4038983958081931,2
+CC4,Catherine Creek,Summer Water Temperature,0.2532,3.63,0.69175,3,False,Yes,1.1660058942606926,0.3599855536651731,5
+CC4,Catherine Creek,Water Quality,0.2532,3.3,0.6175,3,False,No,0.9101861788171229,0.25108853813731935,8
+CC4,Catherine Creek,Winter Water Temperature,0.2532,3.56,0.676,3,False,No,0.8203607657387375,0.22833170882567444,10
+CC5,Catherine Creek,Altered Flow Timing,0.4663,2.88,0.523,3,False,Yes,1.2786012614634106,0.3482185179877982,13
+CC5,Catherine Creek,Altered Primary Productivity,0.4663,2.71,0.48475,3,True,No,0.8218129485885437,0.2306242859989798,14
+CC5,Catherine Creek,Anthropogenic Barriers,0.4663,3.91,0.75475,3,False,No,1.8677954587049257,0.5744665116863046,6
+CC5,Catherine Creek,Channel and Habitat Structure,0.4663,3.81,0.73225,5,False,No,2.9754769531324237,0.8969111880828388,1
+CC5,Catherine Creek,Decreased Sediment Quantity,0.4663,3.44,0.649,5,False,Yes,1.5671843394154126,0.4752999897609392,9
+CC5,Catherine Creek,Decreased Water Quantity,0.4663,3.63,0.69175,3,False,Yes,2.4169186662615005,0.6926119354282777,2
+CC5,Catherine Creek,Floodplain Condition,0.4663,3.64,0.694,5,False,No,1.9670998729958336,0.5592249967890417,7
+CC5,Catherine Creek,Increased Sediment Quantity,0.4663,3.37,0.63325,5,False,No,1.0735699838962254,0.3542359112403678,12
+CC5,Catherine Creek,Non-Native Species Interactions and Competition,0.4663,1.59,0.23275,3,False,No,0.4364509712034866,0.15231596239255785,15
+CC5,Catherine Creek,Predation,0.4663,3.68,0.703,3,False,Yes,1.7608020919436993,0.5317060359245673,8
+CC5,Catherine Creek,Riparian Condition,0.4663,3.78,0.7255,5,False,Yes,2.099880463504258,0.6715992833092559,4
+CC5,Catherine Creek,Side Channel and Wetland Habitat,0.4663,3.48,0.658,5,False,No,2.358172359474014,0.6852506985321227,3
+CC5,Catherine Creek,Summer Water Temperature,0.4663,3.56,0.676,3,False,Yes,2.0984565828121116,0.6478646965030279,5
+CC5,Catherine Creek,Water Quality,0.4663,2.88,0.523,3,False,No,1.4197003110975177,0.3916456698670616,11
+CC5,Catherine Creek,Winter Water Temperature,0.4663,3.42,0.6445,3,False,No,1.44039903468579,0.4009074869450795,10
+CC6,Catherine Creek,Altered Flow Timing,0.6329,3.11,0.57475,3,False,Yes,1.9071379132662512,0.5193962791776272,10
+CC6,Catherine Creek,Altered Primary Productivity,0.6329,2.88,0.523,3,False,No,1.2034457876207096,0.33772140726814426,14
+CC6,Catherine Creek,Anthropogenic Barriers,0.6329,2.71,0.48475,3,False,No,1.6282222733993734,0.5007824412948477,11
+CC6,Catherine Creek,Channel and Habitat Structure,0.6329,3.03,0.55675,5,True,No,3.070627367404099,0.925592798612922,2
+CC6,Catherine Creek,Decreased Sediment Quantity,0.6329,3.29,0.61525,5,False,Yes,2.016492861774025,0.6115675179039345,6
+CC6,Catherine Creek,Decreased Water Quantity,0.6329,3.63,0.69175,3,False,Yes,3.2804371088932096,0.9400688267908147,1
+CC6,Catherine Creek,Floodplain Condition,0.6329,2.83,0.51175,5,False,No,1.9687676810316659,0.5596991363872832,7
+CC6,Catherine Creek,Increased Sediment Quantity,0.6329,3.1,0.5725,5,False,No,1.3173474443840463,0.43467289453079605,12
+CC6,Catherine Creek,Non-Native Species Interactions and Competition,0.6329,1.44,0.199,3,False,No,0.5064872663745941,0.17675775861993506,15
+CC6,Catherine Creek,Predation,0.6329,2.29,0.39025,3,False,Yes,1.326684980388126,0.40061652304385587,13
+CC6,Catherine Creek,Riparian Condition,0.6329,2.86,0.5185,5,True,Yes,2.036927620638422,0.6514652400216581,5
+CC6,Catherine Creek,Side Channel and Wetland Habitat,0.6329,2.99,0.54775,5,True,No,2.664414064405707,0.7742400980478215,4
+CC6,Catherine Creek,Summer Water Temperature,0.6329,3.56,0.676,3,False,Yes,2.8481946627960233,0.8793342620990058,3
+CC6,Catherine Creek,Water Quality,0.6329,2.88,0.523,3,False,No,1.9269318612344395,0.5315731170037815,9
+CC6,Catherine Creek,Winter Water Temperature,0.6329,3.42,0.6445,3,False,No,1.9550258397011289,0.5441440027611855,8
+CC7,Catherine Creek,Altered Flow Timing,1.0,3.11,0.57475,3,False,Yes,3.01333214293925,0.820660892996725,3
+CC7,Catherine Creek,Altered Primary Productivity,1.0,1.82,0.2845,3,False,No,1.0343607140825,0.29027128565007,14
+CC7,Catherine Creek,Anthropogenic Barriers,1.0,1.44,0.199,3,False,No,1.0561214283440001,0.32482485704222,13
+CC7,Catherine Creek,Channel and Habitat Structure,1.0,1.64,0.244,5,False,No,2.126285713972,0.6409357141598799,7
+CC7,Catherine Creek,Decreased Sediment Quantity,1.0,2.61,0.46225,5,True,Yes,2.39379464305525,0.725996642972045,5
+CC7,Catherine Creek,Decreased Water Quantity,1.0,2.88,0.523,3,False,Yes,3.9187642863120002,1.12299307159892,2
+CC7,Catherine Creek,Floodplain Condition,1.0,1.74,0.2665,5,False,No,1.6199392858285,0.46053103574055504,10
+CC7,Catherine Creek,Increased Sediment Quantity,1.0,1.89,0.30025,5,False,No,1.09162321407125,0.36019276783827,11
+CC7,Catherine Creek,Non-Native Species Interactions and Competition,1.0,1.59,0.23275,3,False,No,0.93598749990025,0.32664799998404004,12
+CC7,Catherine Creek,Predation,1.0,1.0,0.1,3,False,Yes,0.5371428573,0.162200000038,15
+CC7,Catherine Creek,Riparian Condition,1.0,1.64,0.244,5,False,Yes,1.5145428573520001,0.48439228575959997,8
+CC7,Catherine Creek,Side Channel and Wetland Habitat,1.0,2.0,0.325,5,False,No,2.4978571423,0.72584107125075,6
+CC7,Catherine Creek,Summer Water Temperature,1.0,3.11,0.57475,3,False,Yes,3.8261928570607497,1.1812754642651875,1
+CC7,Catherine Creek,Water Quality,1.0,2.71,0.48475,3,False,No,2.8219375007617504,0.7784738752042876,4
+CC7,Catherine Creek,Winter Water Temperature,1.0,2.15,0.35875,3,True,No,1.7194375000512498,0.47857250005381247,9
+CC8,Catherine Creek,Altered Flow Timing,0.2235,2.52,0.442,3,False,Yes,0.517926128585541,0.1410537235954197,4
+CC8,Catherine Creek,Altered Primary Productivity,0.2235,1.44,0.199,3,False,No,0.16170384639680252,0.04537873756138959,13
+CC8,Catherine Creek,Anthropogenic Barriers,0.2235,1.0,0.1,3,False,No,0.1186146428316,0.036481585702983,14
+CC8,Catherine Creek,Channel and Habitat Structure,0.2235,1.74,0.2665,5,False,No,0.5190468213519908,0.15645858077285407,1
+CC8,Catherine Creek,Decreased Sediment Quantity,0.2235,1.97,0.31825,5,True,Yes,0.3683459598519124,0.11171297883910916,8
+CC8,Catherine Creek,Decreased Water Quantity,0.2235,1.59,0.23275,3,False,Yes,0.38977561880945105,0.11169728195444355,9
+CC8,Catherine Creek,Floodplain Condition,0.2235,1.89,0.30025,5,False,No,0.40790785449304545,0.11596374528340045,7
+CC8,Catherine Creek,Increased Sediment Quantity,0.2235,1.78,0.2755,5,True,No,0.22386638031316125,0.07386710919255819,10
+CC8,Catherine Creek,Non-Native Species Interactions and Competition,0.2235,1.26,0.1585,3,False,No,0.14245810177053223,0.049716106283285155,12
+CC8,Catherine Creek,Predation,0.2235,1.0,0.1,3,False,Yes,0.12005142860655,0.036251700008493,15
+CC8,Catherine Creek,Riparian Condition,0.2235,1.89,0.30025,5,False,Yes,0.41653575273609084,0.1332195417178197,5
+CC8,Catherine Creek,Side Channel and Wetland Habitat,0.2235,1.89,0.30025,5,False,No,0.5157565820278186,0.1498713852222121,2
+CC8,Catherine Creek,Summer Water Temperature,0.2235,2.0,0.325,3,False,Yes,0.4835582142753375,0.14929081606883438,3
+CC8,Catherine Creek,Water Quality,0.2235,2.0,0.325,3,False,No,0.4228540179712876,0.11665063663775439,6
+CC8,Catherine Creek,Winter Water Temperature,0.2235,1.59,0.23275,3,False,No,0.2493226312574314,0.06939417975780295,11
+CC9,Catherine Creek,Altered Flow Timing,0.9056,1.0,0.1,3,False,Yes,0.47479314287008,0.129306742879136,14
+CC9,Catherine Creek,Altered Primary Productivity,0.9056,1.44,0.199,3,False,No,0.6552080684427041,0.18387017778789447,10
+CC9,Catherine Creek,Anthropogenic Barriers,0.9056,1.26,0.1585,3,False,No,0.7617745484073855,0.2342943738702681,9
+CC9,Catherine Creek,Channel and Habitat Structure,0.9056,1.15,0.13375,5,False,No,1.055509142701412,0.31816679279467747,3
+CC9,Catherine Creek,Decreased Sediment Quantity,0.9056,1.64,0.244,5,True,Yes,1.1442902858089856,0.3470435145692116,2
+CC9,Catherine Creek,Decreased Water Quantity,0.9056,1.26,0.1585,3,False,Yes,1.0755067315926143,0.3082059853038951,4
+CC9,Catherine Creek,Floodplain Condition,0.9056,1.43,0.19675,5,False,No,1.0830604057906472,0.30790223733184885,5
+CC9,Catherine Creek,Increased Sediment Quantity,0.9056,1.25,0.15625,5,False,No,0.5144535713274999,0.16974946427681997,11
+CC9,Catherine Creek,Non-Native Species Interactions and Competition,0.9056,1.44,0.199,3,False,No,0.7247193370656224,0.2529180379304996,7
+CC9,Catherine Creek,Predation,0.9056,1.0,0.1,3,False,Yes,0.48643657157088,0.1468883200344128,12
+CC9,Catherine Creek,Riparian Condition,0.9056,1.15,0.13375,5,False,Yes,0.751833971532392,0.24045709516535158,8
+CC9,Catherine Creek,Side Channel and Wetland Habitat,0.9056,1.43,0.19675,5,False,No,1.3694159768374112,0.39793242887394037,1
+CC9,Catherine Creek,Summer Water Temperature,0.9056,1.26,0.1585,3,False,Yes,0.9555503085509232,0.29501077873773074,6
+CC9,Catherine Creek,Water Quality,0.9056,1.0,0.1,3,False,No,0.5271885715708801,0.145432891466736,13
+CC9,Catherine Creek,Winter Water Temperature,0.9056,1.0,0.1,3,False,No,0.43404114287008,0.120807040013584,15
+UGR1,Upper Grande Ronde,Altered Flow Timing,0.9101,1.0,0.1,3,False,Yes,0.4771524285844301,0.1327900907378183,13
+UGR1,Upper Grande Ronde,Altered Primary Productivity,0.9101,1.0,0.1,3,False,No,0.33088635707785,0.09476091212153481,15
+UGR1,Upper Grande Ronde,Anthropogenic Barriers,0.9101,2.29,0.39025,3,False,No,1.8849194858440954,0.5969841902734315,2
+UGR1,Upper Grande Ronde,Channel and Habitat Structure,0.9101,1.32,0.172,5,False,No,1.3641098855130234,0.4129563147422523,5
+UGR1,Upper Grande Ronde,Decreased Sediment Quantity,0.9101,1.74,0.2665,5,False,Yes,1.2560192590325179,0.37415514399693617,6
+UGR1,Upper Grande Ronde,Decreased Water Quantity,0.9101,1.0,0.1,3,False,Yes,0.6819249286754401,0.19708865574418902,9
+UGR1,Upper Grande Ronde,Floodplain Condition,0.9101,1.74,0.2665,5,False,No,1.474306744032518,0.4185922391129535,4
+UGR1,Upper Grande Ronde,Increased Sediment Quantity,0.9101,1.32,0.172,5,False,No,0.569124534173902,0.18724085364417262,11
+UGR1,Upper Grande Ronde,Non-Native Species Interactions and Competition,0.9101,1.59,0.23275,3,False,No,0.8518422236592176,0.30048999223275136,8
+UGR1,Upper Grande Ronde,Predation,0.9101,2.88,0.523,3,False,Yes,2.556704926462258,0.7816989317257703,1
+UGR1,Upper Grande Ronde,Riparian Condition,0.9101,1.32,0.172,5,False,Yes,0.9716487629913175,0.3137340925132201,7
+UGR1,Upper Grande Ronde,Side Channel and Wetland Habitat,0.9101,1.74,0.2665,5,False,No,1.8641058238699288,0.5433279446754775,3
+UGR1,Upper Grande Ronde,Summer Water Temperature,0.9101,1.0,0.1,3,False,Yes,0.60586657141557,0.18959983285389254,10
+UGR1,Upper Grande Ronde,Water Quality,0.9101,1.0,0.1,3,False,No,0.52980821442873,0.14706565932588872,12
+UGR1,Upper Grande Ronde,Winter Water Temperature,0.9101,1.0,0.1,3,False,No,0.43619792858443,0.1188070543004059,14
+UGR10,Upper Grande Ronde,Altered Flow Timing,0.2541,1.59,0.23275,3,False,Yes,0.31007187750844883,0.08629207415279237,10
+UGR10,Upper Grande Ronde,Altered Primary Productivity,0.2541,1.82,0.2845,3,False,No,0.2628310574483632,0.07527089045806315,12
+UGR10,Upper Grande Ronde,Anthropogenic Barriers,0.2541,1.0,0.1,3,False,No,0.13485449997096,0.0427105799873676,15
+UGR10,Upper Grande Ronde,Channel and Habitat Structure,0.2541,1.89,0.30025,5,False,No,0.6648435749019084,0.20126776844542957,3
+UGR10,Upper Grande Ronde,Decreased Sediment Quantity,0.2541,1.89,0.30025,5,False,Yes,0.39509146878269724,0.11769366140788128,8
+UGR10,Upper Grande Ronde,Decreased Water Quantity,0.2541,1.82,0.2845,3,False,Yes,0.5416695075826188,0.1565522986737529,6
+UGR10,Upper Grande Ronde,Floodplain Condition,0.2541,2.55,0.44875,5,False,No,0.6931235437988688,0.19679495963444796,4
+UGR10,Upper Grande Ronde,Increased Sediment Quantity,0.2541,2.35,0.40375,5,False,No,0.37299838117671935,0.12271573461649946,7
+UGR10,Upper Grande Ronde,Non-Native Species Interactions and Competition,0.2541,1.44,0.199,3,False,No,0.20334715497832892,0.07173134099588249,13
+UGR10,Upper Grande Ronde,Predation,0.2541,1.26,0.1585,3,False,Yes,0.21633348006328906,0.06614281081547706,14
+UGR10,Upper Grande Ronde,Riparian Condition,0.2541,2.35,0.40375,5,False,Yes,0.6368086313379369,0.20561810570552705,2
+UGR10,Upper Grande Ronde,Side Channel and Wetland Habitat,0.2541,2.17,0.36325,5,False,No,0.7094054548417683,0.2067692739248933,1
+UGR10,Upper Grande Ronde,Summer Water Temperature,0.2541,2.08,0.343,3,False,Yes,0.5802119399875492,0.18157147469688728,5
+UGR10,Upper Grande Ronde,Water Quality,0.2541,1.44,0.199,3,False,No,0.2943657750794607,0.08171088257232124,11
+UGR10,Upper Grande Ronde,Winter Water Temperature,0.2541,1.82,0.2845,3,False,No,0.3464825925103273,0.09437132431166989,9
+UGR11,Upper Grande Ronde,Altered Flow Timing,0.4504,3.0,0.55,3,False,Yes,1.29876057146396,0.36144117434976764,10
+UGR11,Upper Grande Ronde,Altered Primary Productivity,0.4504,4.22,0.8245,3,False,No,1.3501399511633183,0.38665992274156835,9
+UGR11,Upper Grande Ronde,Anthropogenic Barriers,0.4504,2.29,0.39025,3,False,No,0.9328290697991215,0.2954419067126179,14
+UGR11,Upper Grande Ronde,Channel and Habitat Structure,0.4504,3.44,0.649,5,False,No,2.547269371052745,0.771133603895955,2
+UGR11,Upper Grande Ronde,Decreased Sediment Quantity,0.4504,3.73,0.71425,5,False,Yes,1.665937107280728,0.4962654304716538,6
+UGR11,Upper Grande Ronde,Decreased Water Quantity,0.4504,3.56,0.676,3,False,Yes,2.281353211776538,0.6593523991857546,3
+UGR11,Upper Grande Ronde,Floodplain Condition,0.4504,2.93,0.53425,5,False,No,1.4626635443888398,0.41528644604850906,8
+UGR11,Upper Grande Ronde,Increased Sediment Quantity,0.4504,3.37,0.63325,5,False,No,1.036963158367703,0.3411588418906536,11
+UGR11,Upper Grande Ronde,Non-Native Species Interactions and Competition,0.4504,2.88,0.523,3,False,No,0.9472844970419033,0.3341575508379616,12
+UGR11,Upper Grande Ronde,Predation,0.4504,1.82,0.2845,3,False,Yes,0.6882884116299324,0.21044052073495617,15
+UGR11,Upper Grande Ronde,Riparian Condition,0.4504,3.1,0.5725,5,False,Yes,1.6005366145067321,0.5167946704738802,5
+UGR11,Upper Grande Ronde,Side Channel and Wetland Habitat,0.4504,3.29,0.61525,5,False,No,2.129777525239242,0.6207628507924268,4
+UGR11,Upper Grande Ronde,Summer Water Temperature,0.4504,4.22,0.8245,3,False,Yes,2.472161954232664,0.773638149758166,1
+UGR11,Upper Grande Ronde,Water Quality,0.4504,3.3,0.6175,3,False,No,1.6190673575799064,0.4494252862656282,7
+UGR11,Upper Grande Ronde,Winter Water Temperature,0.4504,2.88,0.523,3,False,No,1.1290015943193656,0.30750570998088317,13
+UGR12,Upper Grande Ronde,Altered Flow Timing,0.2281,2.62,0.4645,3,False,Yes,0.5554935593008503,0.15459219260953913,8
+UGR12,Upper Grande Ronde,Altered Primary Productivity,0.2281,3.11,0.57475,3,False,No,0.47664386972778533,0.13650368740321359,10
+UGR12,Upper Grande Ronde,Anthropogenic Barriers,0.2281,2.15,0.35875,3,True,No,0.43428814365647894,0.13754601070931835,9
+UGR12,Upper Grande Ronde,Channel and Habitat Structure,0.2281,2.93,0.53425,5,False,No,1.061943989129034,0.3214817815417301,1
+UGR12,Upper Grande Ronde,Decreased Sediment Quantity,0.2281,3.1,0.5725,5,False,Yes,0.6762554018416802,0.201449488481314,5
+UGR12,Upper Grande Ronde,Decreased Water Quantity,0.2281,3.0,0.55,3,False,Yes,0.9400163930005201,0.2716817636126495,2
+UGR12,Upper Grande Ronde,Floodplain Condition,0.2281,2.77,0.49825,5,False,No,0.690834657727279,0.19614508812727394,6
+UGR12,Upper Grande Ronde,Increased Sediment Quantity,0.2281,2.77,0.49825,5,False,No,0.41320192795453514,0.1359426225227261,11
+UGR12,Upper Grande Ronde,Non-Native Species Interactions and Competition,0.2281,1.26,0.1585,3,False,No,0.14539012534164836,0.05128681863991319,14
+UGR12,Upper Grande Ronde,Predation,0.2281,1.0,0.1,3,False,Yes,0.12252228575013,0.0374605371516227,15
+UGR12,Upper Grande Ronde,Riparian Condition,0.2281,2.77,0.49825,5,False,Yes,0.7054469067045579,0.22778060706818437,3
+UGR12,Upper Grande Ronde,Side Channel and Wetland Habitat,0.2281,2.35,0.40375,5,False,No,0.7078187391278364,0.20630679643214822,4
+UGR12,Upper Grande Ronde,Summer Water Temperature,0.2281,2.08,0.343,3,False,Yes,0.5208435399888232,0.1629927326972058,7
+UGR12,Upper Grande Ronde,Water Quality,0.2281,2.0,0.325,3,False,No,0.4315570536879225,0.1197928248541528,12
+UGR12,Upper Grande Ronde,Winter Water Temperature,0.2281,2.0,0.325,3,False,No,0.3553064821534475,0.09677468358339568,13
+UGR13,Upper Grande Ronde,Altered Flow Timing,0.2831,3.3,0.6175,3,False,Yes,0.9165261393106879,0.2550664775273449,8
+UGR13,Upper Grande Ronde,Altered Primary Productivity,0.2831,3.91,0.75475,3,False,No,0.7768420714545218,0.22247597004458314,9
+UGR13,Upper Grande Ronde,Anthropogenic Barriers,0.2831,1.82,0.2845,3,False,No,0.4274476345508092,0.135379511917102,15
+UGR13,Upper Grande Ronde,Channel and Habitat Structure,0.2831,4.37,0.85825,5,False,No,2.117315010401895,0.6409737317570905,1
+UGR13,Upper Grande Ronde,Decreased Sediment Quantity,0.2831,4.0,0.775,5,False,Yes,1.1361915179511726,0.33845969952289756,7
+UGR13,Upper Grande Ronde,Decreased Water Quantity,0.2831,3.63,0.69175,3,False,Yes,1.4673593704023822,0.4240934355750599,3
+UGR13,Upper Grande Ronde,Floodplain Condition,0.2831,3.95,0.76375,5,False,No,1.3142942777712363,0.37316073253577237,6
+UGR13,Upper Grande Ronde,Increased Sediment Quantity,0.2831,3.25,0.60625,5,False,No,0.6239953704131218,0.20529325096792211,12
+UGR13,Upper Grande Ronde,Non-Native Species Interactions and Competition,0.2831,2.88,0.523,3,False,No,0.5954179420794024,0.21003552984508644,11
+UGR13,Upper Grande Ronde,Predation,0.2831,2.0,0.325,3,False,Yes,0.4942117144302975,0.15110260289250005,14
+UGR13,Upper Grande Ronde,Riparian Condition,0.2831,3.78,0.7255,5,False,Yes,1.274879174818905,0.41164366817537557,4
+UGR13,Upper Grande Ronde,Side Channel and Wetland Habitat,0.2831,4.18,0.8155,5,False,No,1.7743858696042263,0.5171774130246717,2
+UGR13,Upper Grande Ronde,Summer Water Temperature,0.2831,3.56,0.676,3,False,Yes,1.2740147085440894,0.3986900535360224,5
+UGR13,Upper Grande Ronde,Water Quality,0.2831,2.62,0.4645,3,False,No,0.7655175662780714,0.2124945264044764,10
+UGR13,Upper Grande Ronde,Winter Water Temperature,0.2831,2.62,0.4645,3,False,No,0.6302604746616429,0.17166379189265643,13
+UGR14,Upper Grande Ronde,Altered Flow Timing,0.7206,1.44,0.199,3,False,Yes,0.7518225685919142,0.2092299674513647,13
+UGR14,Upper Grande Ronde,Altered Primary Productivity,0.7206,3.11,0.57475,3,False,No,1.5057850614898822,0.43123435836368135,10
+UGR14,Upper Grande Ronde,Anthropogenic Barriers,0.7206,2.71,0.48475,3,False,No,1.8538425821007876,0.5871416371263426,5
+UGR14,Upper Grande Ronde,Channel and Habitat Structure,0.7206,3.0,0.55,5,False,No,3.45373285663329,1.0455468490671667,1
+UGR14,Upper Grande Ronde,Decreased Sediment Quantity,0.7206,2.93,0.53425,5,False,Yes,1.9936492769507062,0.5938874956992735,4
+UGR14,Upper Grande Ronde,Decreased Water Quantity,0.7206,2.08,0.343,3,False,Yes,1.8519780302824753,0.5352551946812116,7
+UGR14,Upper Grande Ronde,Floodplain Condition,0.7206,2.55,0.44875,5,False,No,1.9656230840671582,0.5580891299196507,6
+UGR14,Upper Grande Ronde,Increased Sediment Quantity,0.7206,2.49,0.43525,5,False,No,1.1403096094188279,0.37515962125258406,11
+UGR14,Upper Grande Ronde,Non-Native Species Interactions and Competition,0.7206,2.71,0.48475,3,True,No,1.4047286323502952,0.49552239147155613,8
+UGR14,Upper Grande Ronde,Predation,0.7206,2.29,0.39025,3,False,Yes,1.510521720441908,0.4618339813080666,9
+UGR14,Upper Grande Ronde,Riparian Condition,0.7206,2.55,0.44875,5,False,Yes,2.0071991306343167,0.648101270467535,3
+UGR14,Upper Grande Ronde,Side Channel and Wetland Habitat,0.7206,2.77,0.49825,5,False,No,2.7594707865273618,0.8042985390836646,2
+UGR14,Upper Grande Ronde,Summer Water Temperature,0.7206,1.59,0.23275,3,False,Yes,1.1165336699760402,0.3494079508440101,12
+UGR14,Upper Grande Ronde,Water Quality,0.7206,1.26,0.1585,3,False,No,0.6648950466080523,0.18456344342898925,14
+UGR14,Upper Grande Ronde,Winter Water Temperature,0.7206,1.0,0.1,3,False,No,0.34537328572458,0.0940691828687754,15
+UGR15,Upper Grande Ronde,Altered Flow Timing,0.6126,2.29,0.39025,3,False,Yes,1.2533949150341526,0.34881604813681594,12
+UGR15,Upper Grande Ronde,Altered Primary Productivity,0.6126,3.11,0.57475,3,False,No,1.2801053686770771,0.36660306402108134,11
+UGR15,Upper Grande Ronde,Anthropogenic Barriers,0.6126,2.62,0.4645,3,False,No,1.5101618289605114,0.47829243817282246,7
+UGR15,Upper Grande Ronde,Channel and Habitat Structure,0.6126,2.83,0.51175,5,False,No,2.73191157816836,0.8270302484449854,2
+UGR15,Upper Grande Ronde,Decreased Sediment Quantity,0.6126,4.78,0.9505,5,False,Yes,3.015359410963833,0.8982443752341225,1
+UGR15,Upper Grande Ronde,Decreased Water Quantity,0.6126,2.52,0.442,3,False,Yes,2.028834934595165,0.58637004334611,6
+UGR15,Upper Grande Ronde,Floodplain Condition,0.6126,3.06,0.5635,5,False,No,2.098323465147943,0.5957660583286023,5
+UGR15,Upper Grande Ronde,Increased Sediment Quantity,0.6126,2.3,0.3925,5,True,No,0.8741911391139676,0.28760716733722025,14
+UGR15,Upper Grande Ronde,Non-Native Species Interactions and Competition,0.6126,2.08,0.343,3,False,No,0.8449898099099479,0.2980727819828901,13
+UGR15,Upper Grande Ronde,Predation,0.6126,1.26,0.1585,3,False,Yes,0.5215501372954383,0.15946118026588446,15
+UGR15,Upper Grande Ronde,Riparian Condition,0.6126,2.05,0.33625,5,False,Yes,1.2785891841051313,0.41284158705405194,9
+UGR15,Upper Grande Ronde,Side Channel and Wetland Habitat,0.6126,2.55,0.44875,5,False,No,2.112835520957307,0.6158247918864805,4
+UGR15,Upper Grande Ronde,Summer Water Temperature,0.6126,3.17,0.58825,3,False,Yes,2.3989809813770915,0.7507369023942729,3
+UGR15,Upper Grande Ronde,Water Quality,0.6126,2.62,0.4645,3,False,No,1.6565032183042976,0.45981683813275265,8
+UGR15,Upper Grande Ronde,Winter Water Temperature,0.6126,2.62,0.4645,3,False,No,1.3638204407549364,0.37146322470307785,10
+UGR16,Upper Grande Ronde,Altered Flow Timing,0.327,1.26,0.1585,3,False,Yes,0.2717346642931185,0.07562294262054449,13
+UGR16,Upper Grande Ronde,Altered Primary Productivity,0.327,3.56,0.676,3,False,No,0.8036819141278201,0.23016250023392498,7
+UGR16,Upper Grande Ronde,Anthropogenic Barriers,0.327,1.82,0.2845,3,False,No,0.4937314606079639,0.1563726612394643,10
+UGR16,Upper Grande Ronde,Channel and Habitat Structure,0.327,3.1,0.5725,5,False,No,1.6313796426164475,0.4938667568610542,1
+UGR16,Upper Grande Ronde,Decreased Sediment Quantity,0.327,2.72,0.487,5,True,Yes,0.824682321496821,0.2456643323996851,6
+UGR16,Upper Grande Ronde,Decreased Water Quantity,0.327,1.82,0.2845,3,False,Yes,0.6970717393920359,0.20146635838771032,9
+UGR16,Upper Grande Ronde,Floodplain Condition,0.327,2.7,0.4825,5,False,No,0.9590618036390476,0.27230142537021584,4
+UGR16,Upper Grande Ronde,Increased Sediment Quantity,0.327,3.06,0.5635,5,False,No,0.6699330748683825,0.22040666548473237,8
+UGR16,Upper Grande Ronde,Non-Native Species Interactions and Competition,0.327,1.0,0.1,3,False,No,0.1315007142717,0.046387285711623,15
+UGR16,Upper Grande Ronde,Predation,0.327,1.0,0.1,3,False,Yes,0.1756457143371,0.053702742869709,14
+UGR16,Upper Grande Ronde,Riparian Condition,0.327,3.29,0.61525,5,False,Yes,1.2487948983867316,0.40322135848178,2
+UGR16,Upper Grande Ronde,Side Channel and Wetland Habitat,0.327,2.61,0.46225,5,True,No,1.161739906883733,0.33861047359651547,3
+UGR16,Upper Grande Ronde,Summer Water Temperature,0.327,2.29,0.39025,3,False,Yes,0.8495296499817697,0.2658517357454424,5
+UGR16,Upper Grande Ronde,Water Quality,0.327,1.26,0.1585,3,False,No,0.30172173222430354,0.08375276991573617,12
+UGR16,Upper Grande Ronde,Winter Water Temperature,0.327,1.59,0.23275,3,False,No,0.36478076251087277,0.09935518951228621,11
+UGR17,Upper Grande Ronde,Altered Flow Timing,0.6039,2.29,0.39025,3,False,Yes,1.2355944975336672,0.343862245298438,11
+UGR17,Upper Grande Ronde,Altered Primary Productivity,0.6039,4.64,0.919,3,False,No,2.0177636203178686,0.5778573731342609,6
+UGR17,Upper Grande Ronde,Anthropogenic Barriers,0.6039,2.47,0.43075,3,True,No,1.3805466730955658,0.4372412423778211,10
+UGR17,Upper Grande Ronde,Channel and Habitat Structure,0.6039,4.78,0.9505,5,False,No,5.002060563547706,1.514271334279905,1
+UGR17,Upper Grande Ronde,Decreased Sediment Quantity,0.6039,3.62,0.6895,5,False,Yes,2.1563004376784525,0.6423395938862354,5
+UGR17,Upper Grande Ronde,Decreased Water Quantity,0.6039,2.29,0.39025,3,False,Yes,1.7658564415193392,0.510364495652435,9
+UGR17,Upper Grande Ronde,Floodplain Condition,0.6039,2.89,0.52525,5,True,No,1.9281135874573705,0.547439253808425,8
+UGR17,Upper Grande Ronde,Increased Sediment Quantity,0.6039,4.08,0.793,5,True,No,1.7411170303722194,0.5728240824031775,7
+UGR17,Upper Grande Ronde,Non-Native Species Interactions and Competition,0.6039,2.08,0.343,3,False,No,0.8329894649112267,0.2938396229831331,14
+UGR17,Upper Grande Ronde,Predation,0.6039,1.26,0.1585,3,False,Yes,0.5141432058647,0.15719655037964025,15
+UGR17,Upper Grande Ronde,Riparian Condition,0.6039,4.51,0.88975,5,False,Yes,3.3352221556391317,1.0769044701997719,2
+UGR17,Upper Grande Ronde,Side Channel and Wetland Habitat,0.6039,3.76,0.721,5,True,No,3.3464514592535792,0.9753848574636335,3
+UGR17,Upper Grande Ronde,Summer Water Temperature,0.6039,3.17,0.58825,3,False,Yes,2.3649112220921085,0.7400751148480271,4
+UGR17,Upper Grande Ronde,Water Quality,0.6039,2.0,0.325,3,False,No,1.1425572324512776,0.3171542609794953,12
+UGR17,Upper Grande Ronde,Winter Water Temperature,0.6039,2.29,0.39025,3,False,No,1.1295421087836672,0.30765292968804414,13
+UGR18,Upper Grande Ronde,Altered Flow Timing,0.6511,1.44,0.199,3,False,Yes,0.6793112328756528,0.1890502800549314,10
+UGR18,Upper Grande Ronde,Altered Primary Productivity,0.6511,1.59,0.23275,3,False,No,0.5509689586417547,0.15778928310199553,12
+UGR18,Upper Grande Ronde,Anthropogenic Barriers,0.6511,1.59,0.23275,3,False,No,0.8042631360768074,0.25472301637466127,9
+UGR18,Upper Grande Ronde,Channel and Habitat Structure,0.6511,2.35,0.40375,5,False,No,2.290825588947724,0.6935005038639682,1
+UGR18,Upper Grande Ronde,Decreased Sediment Quantity,0.6511,2.09,0.34525,5,True,Yes,1.164102852774911,0.34677419742969456,5
+UGR18,Upper Grande Ronde,Decreased Water Quantity,0.6511,1.59,0.23275,3,False,Yes,1.1354939839231928,0.3281783279747929,7
+UGR18,Upper Grande Ronde,Floodplain Condition,0.6511,1.74,0.2665,5,False,No,1.0547424690029363,0.2994675386072344,8
+UGR18,Upper Grande Ronde,Increased Sediment Quantity,0.6511,2.49,0.43525,5,True,No,1.0303297067618633,0.33897644934437615,6
+UGR18,Upper Grande Ronde,Non-Native Species Interactions and Competition,0.6511,1.26,0.1585,3,False,No,0.4150088145986289,0.1463956493487395,13
+UGR18,Upper Grande Ronde,Predation,0.6511,1.0,0.1,3,False,Yes,0.34973371438802997,0.1069292228821637,15
+UGR18,Upper Grande Ronde,Riparian Condition,0.6511,2.55,0.44875,5,False,Yes,1.8136099832861552,0.5855935847924119,2
+UGR18,Upper Grande Ronde,Side Channel and Wetland Habitat,0.6511,2.17,0.36325,5,False,No,1.8177642331659793,0.5298208353108935,3
+UGR18,Upper Grande Ronde,Summer Water Temperature,0.6511,1.82,0.2845,3,False,Yes,1.233155495687823,0.38590357497195577,4
+UGR18,Upper Grande Ronde,Water Quality,0.6511,1.26,0.1585,3,False,No,0.6007676448050276,0.16676277826341232,11
+UGR18,Upper Grande Ronde,Winter Water Temperature,0.6511,1.26,0.1585,3,False,No,0.4946197418004571,0.13471938005951647,14
+UGR19,Upper Grande Ronde,Altered Flow Timing,0.7778,1.44,0.199,3,False,Yes,0.8115009628792547,0.22583828571145084,13
+UGR19,Upper Grande Ronde,Altered Primary Productivity,0.7778,3.42,0.6445,3,False,No,1.8225548489276486,0.5219524957182687,7
+UGR19,Upper Grande Ronde,Anthropogenic Barriers,0.7778,3.63,0.69175,3,False,No,2.8554718597422366,0.9043736715753729,1
+UGR19,Upper Grande Ronde,Channel and Habitat Structure,0.7778,2.35,0.40375,5,False,No,2.7366059638819533,0.8284513775232598,2
+UGR19,Upper Grande Ronde,Decreased Sediment Quantity,0.7778,2.99,0.54775,5,False,Yes,2.2062783126825884,0.6572274858388135,6
+UGR19,Upper Grande Ronde,Decreased Water Quantity,0.7778,1.82,0.2845,3,False,Yes,1.6580501495386102,0.47920652462985047,9
+UGR19,Upper Grande Ronde,Floodplain Condition,0.7778,2.0,0.325,5,True,No,1.5365716786797652,0.436270797878088,10
+UGR19,Upper Grande Ronde,Increased Sediment Quantity,0.7778,2.86,0.5185,5,False,No,1.4662446689976507,0.4823916155237275,8
+UGR19,Upper Grande Ronde,Non-Native Species Interactions and Competition,0.7778,1.0,0.1,3,False,No,0.31278671425238,0.11033648570795221,15
+UGR19,Upper Grande Ronde,Predation,0.7778,1.26,0.1585,3,False,Yes,0.6621966973365849,0.20246311787594667,14
+UGR19,Upper Grande Ronde,Riparian Condition,0.7778,2.86,0.5185,5,True,Yes,2.5032742982028195,0.8082781764065781,3
+UGR19,Upper Grande Ronde,Side Channel and Wetland Habitat,0.7778,2.3,0.3925,5,True,No,2.346344813762366,0.683885372191416,5
+UGR19,Upper Grande Ronde,Summer Water Temperature,0.7778,2.62,0.4645,3,False,Yes,2.405146494234102,0.7526663374585255,4
+UGR19,Upper Grande Ronde,Water Quality,0.7778,1.59,0.23275,3,False,No,1.0538703877844806,0.2925363163549132,11
+UGR19,Upper Grande Ronde,Winter Water Temperature,0.7778,1.59,0.23275,3,False,No,0.8676650675258619,0.23632558532922393,12
+UGR2,Upper Grande Ronde,Altered Flow Timing,0.1914,3.42,0.6445,3,False,Yes,0.6467447014461938,0.17998711196761094,3
+UGR2,Upper Grande Ronde,Altered Primary Productivity,0.1914,1.59,0.23275,3,False,No,0.16196507246817976,0.04638437841456296,15
+UGR2,Upper Grande Ronde,Anthropogenic Barriers,0.1914,2.29,0.39025,3,False,No,0.39641093241463554,0.12554969126286647,9
+UGR2,Upper Grande Ronde,Channel and Habitat Structure,0.1914,3.1,0.5725,5,False,No,0.9548809284305445,0.28907063383243353,1
+UGR2,Upper Grande Ronde,Decreased Sediment Quantity,0.1914,1.64,0.244,5,False,Yes,0.24184757144858637,0.07204388966961885,12
+UGR2,Upper Grande Ronde,Decreased Water Quantity,0.1914,2.29,0.39025,3,False,Yes,0.5596703475853644,0.16175486747454226,5
+UGR2,Upper Grande Ronde,Floodplain Condition,0.1914,2.27,0.38575,5,True,No,0.44879642896021393,0.1274244337989747,8
+UGR2,Upper Grande Ronde,Increased Sediment Quantity,0.1914,1.89,0.30025,5,False,No,0.20893668317323724,0.06873975828809552,13
+UGR2,Upper Grande Ronde,Non-Native Species Interactions and Competition,0.1914,1.59,0.23275,3,False,No,0.17914800748090784,0.06319501649637249,14
+UGR2,Upper Grande Ronde,Predation,0.1914,1.59,0.23275,3,False,Yes,0.23928828007000455,0.0731611188171193,11
+UGR2,Upper Grande Ronde,Riparian Condition,0.1914,2.49,0.43525,5,True,Yes,0.5170975189999774,0.16696477888249536,4
+UGR2,Upper Grande Ronde,Side Channel and Wetland Habitat,0.1914,2.64,0.469,5,True,No,0.6899204398461143,0.20109000775126953,2
+UGR2,Upper Grande Ronde,Summer Water Temperature,0.1914,2.0,0.325,3,False,Yes,0.414107571419685,0.12959078785492123,7
+UGR2,Upper Grande Ronde,Water Quality,0.1914,2.62,0.4645,3,False,No,0.5175558537111369,0.1436646144606739,6
+UGR2,Upper Grande Ronde,Winter Water Temperature,0.1914,2.29,0.39025,3,False,No,0.35799695251067054,0.09750748591205771,10
+UGR20,Upper Grande Ronde,Altered Flow Timing,0.8697,1.82,0.2845,3,False,Yes,1.2972383078924898,0.3610175329604068,12
+UGR20,Upper Grande Ronde,Altered Primary Productivity,0.8697,2.88,0.523,3,False,No,1.6537159132465336,0.47359954551486294,9
+UGR20,Upper Grande Ronde,Anthropogenic Barriers,0.8697,2.29,0.39025,3,False,No,1.8012465408621137,0.5704836284812695,7
+UGR20,Upper Grande Ronde,Channel and Habitat Structure,0.8697,2.05,0.33625,5,True,No,2.5483763031954387,0.7714687049190992,4
+UGR20,Upper Grande Ronde,Decreased Sediment Quantity,0.8697,3.81,0.73225,5,False,Yes,3.297910165451502,0.9824133220647695,2
+UGR20,Upper Grande Ronde,Decreased Water Quantity,0.8697,1.26,0.1585,3,False,Yes,1.0328712505146829,0.29851849926672136,13
+UGR20,Upper Grande Ronde,Floodplain Condition,0.8697,2.05,0.33625,5,True,No,1.7775969135181873,0.5047038381135162,8
+UGR20,Upper Grande Ronde,Increased Sediment Quantity,0.8697,1.58,0.2305,5,False,No,0.7288365544996673,0.23978579456196145,15
+UGR20,Upper Grande Ronde,Non-Native Species Interactions and Competition,0.8697,4.64,0.919,3,False,No,3.2141440775146055,1.1337993140777751,1
+UGR20,Upper Grande Ronde,Predation,0.8697,2.88,0.523,3,False,Yes,2.4432109378576263,0.746998748403365,5
+UGR20,Upper Grande Ronde,Riparian Condition,0.8697,1.64,0.244,5,False,Yes,1.3171979230390345,0.42530790012300207,10
+UGR20,Upper Grande Ronde,Side Channel and Wetland Habitat,0.8697,2.05,0.33625,5,True,No,2.2475843459272515,0.655099816501963,6
+UGR20,Upper Grande Ronde,Summer Water Temperature,0.8697,2.47,0.43075,3,True,Yes,2.493920659232197,0.7804473170330493,3
+UGR20,Upper Grande Ronde,Water Quality,0.8697,1.71,0.25975,3,True,No,1.3150873476764215,0.36504565725864935,11
+UGR20,Upper Grande Ronde,Winter Water Temperature,0.8697,1.59,0.23275,3,False,No,0.9701829637789177,0.26424834348267684,14
+UGR3,Upper Grande Ronde,Altered Flow Timing,0.6514,4.64,0.919,3,False,Yes,3.1385661743712334,0.8734535593119331,7
+UGR3,Upper Grande Ronde,Altered Primary Productivity,0.6514,2.88,0.523,3,False,No,1.238623141185227,0.3547231734487545,12
+UGR3,Upper Grande Ronde,Anthropogenic Barriers,0.6514,1.59,0.23275,3,False,No,0.8046337073267276,0.2548403822246265,15
+UGR3,Upper Grande Ronde,Channel and Habitat Structure,0.6514,2.83,0.51175,5,False,No,2.9049415638571165,0.8794115309126077,6
+UGR3,Upper Grande Ronde,Decreased Sediment Quantity,0.6514,1.97,0.31825,5,True,Yes,1.0735595447317032,0.3198022826160951,13
+UGR3,Upper Grande Ronde,Decreased Water Quantity,0.6514,4.64,0.919,3,False,Yes,4.48549852496987,1.2963903172538378,1
+UGR3,Upper Grande Ronde,Floodplain Condition,0.6514,2.72,0.487,5,True,No,1.9283161558502424,0.5474967679977135,11
+UGR3,Upper Grande Ronde,Increased Sediment Quantity,0.6514,2.05,0.33625,5,False,No,0.7963423159149762,0.2619950574461372,14
+UGR3,Upper Grande Ronde,Non-Native Species Interactions and Competition,0.6514,5.0,1.0,3,False,No,2.6195585711494,0.9240574285183859,5
+UGR3,Upper Grande Ronde,Predation,0.6514,5.0,1.0,3,False,Yes,3.4989485724522,1.0697849145360379,2
+UGR3,Upper Grande Ronde,Riparian Condition,0.6514,2.46,0.4285,5,False,Yes,1.7325681295249642,0.5594261121276177,10
+UGR3,Upper Grande Ronde,Side Channel and Wetland Habitat,0.6514,2.46,0.4285,5,False,No,2.1452742309500716,0.6252796508341893,8
+UGR3,Upper Grande Ronde,Summer Water Temperature,0.6514,4.0,0.775,3,False,Yes,3.3607587142135955,1.051715543553399,3
+UGR3,Upper Grande Ronde,Water Quality,0.6514,4.64,0.919,3,False,No,3.4849202080835715,0.9673539861071124,4
+UGR3,Upper Grande Ronde,Winter Water Temperature,0.6514,3.56,0.676,3,False,No,2.110517388634335,0.5748407719567988,9
+UGR4,Upper Grande Ronde,Altered Flow Timing,0.1873,3.3,0.6175,3,False,Yes,0.6063770607308082,0.16875291854776292,9
+UGR4,Upper Grande Ronde,Altered Primary Productivity,0.1873,2.0,0.325,3,False,No,0.22131501781366253,0.0633813165928813,15
+UGR4,Upper Grande Ronde,Anthropogenic Barriers,0.1873,3.42,0.6445,3,False,No,0.6406509537906115,0.20290441781141602,7
+UGR4,Upper Grande Ronde,Channel and Habitat Structure,0.1873,3.57,0.67825,5,False,No,1.1070299605509535,0.33513063549602,1
+UGR4,Upper Grande Ronde,Decreased Sediment Quantity,0.1873,2.05,0.33625,5,True,Yes,0.3261444866341341,0.09715506866861028,12
+UGR4,Upper Grande Ronde,Decreased Water Quantity,0.1873,2.88,0.523,3,False,Yes,0.7339845508262376,0.2121348294750433,6
+UGR4,Upper Grande Ronde,Floodplain Condition,0.1873,3.95,0.76375,5,False,No,0.869541922382736,0.24688451149399562,4
+UGR4,Upper Grande Ronde,Increased Sediment Quantity,0.1873,4.08,0.793,5,True,No,0.5400086434653365,0.17766178280197903,8
+UGR4,Upper Grande Ronde,Non-Native Species Interactions and Competition,0.1873,2.0,0.325,3,False,No,0.24479441068819752,0.08635198928075753,14
+UGR4,Upper Grande Ronde,Predation,0.1873,2.15,0.35875,3,True,Yes,0.36092710010559037,0.11035154102582165,11
+UGR4,Upper Grande Ronde,Riparian Condition,0.1873,3.52,0.667,5,False,Yes,0.7754527708213679,0.2503846869433804,3
+UGR4,Upper Grande Ronde,Side Channel and Wetland Habitat,0.1873,3.73,0.71425,5,False,No,1.028187363342093,0.2996841272166628,2
+UGR4,Upper Grande Ronde,Summer Water Temperature,0.1873,3.0,0.55,3,False,Yes,0.6857855714138551,0.21460967785346377,5
+UGR4,Upper Grande Ronde,Water Quality,0.1873,3.0,0.55,3,False,No,0.5996944644475951,0.16646488183118807,10
+UGR4,Upper Grande Ronde,Winter Water Temperature,0.1873,2.29,0.39025,3,False,No,0.350328261260442,0.09541876756179943,13
+UGR5,Upper Grande Ronde,Altered Flow Timing,0.5242,4.64,0.919,3,False,Yes,2.5256929514973914,0.7028927783102784,10
+UGR5,Upper Grande Ronde,Altered Primary Productivity,0.5242,3.42,0.6445,3,False,No,1.2283148004729665,0.35177101858513304,15
+UGR5,Upper Grande Ronde,Anthropogenic Barriers,0.5242,2.92,0.532,3,True,No,1.4800262796812866,0.46874802706135965,12
+UGR5,Upper Grande Ronde,Channel and Habitat Structure,0.5242,4.78,0.9505,5,False,No,4.341911156502247,1.314424628960964,1
+UGR5,Upper Grande Ronde,Decreased Sediment Quantity,0.5242,2.61,0.46225,5,True,Yes,1.254827151889562,0.3738000276111603,13
+UGR5,Upper Grande Ronde,Decreased Water Quantity,0.5242,5.0,1.0,3,False,Yes,3.9277557148847997,1.13519254302938,3
+UGR5,Upper Grande Ronde,Floodplain Condition,0.5242,5.0,1.0,5,False,No,3.1863871430818,0.904694314329148,6
+UGR5,Upper Grande Ronde,Increased Sediment Quantity,0.5242,3.13,0.57925,5,True,No,1.1039586472831124,0.3632002261248411,14
+UGR5,Upper Grande Ronde,Non-Native Species Interactions and Competition,0.5242,5.0,1.0,3,False,No,2.1080328569182,0.743615142814458,9
+UGR5,Upper Grande Ronde,Predation,0.5242,5.0,1.0,3,False,Yes,2.8157028579666,0.860886171630014,7
+UGR5,Upper Grande Ronde,Riparian Condition,0.5242,5.0,1.0,5,False,Yes,3.2537842861636,1.050609128663538,4
+UGR5,Upper Grande Ronde,Side Channel and Wetland Habitat,0.5242,5.0,1.0,5,False,No,4.0288514276728,1.17428288542972,2
+UGR5,Upper Grande Ronde,Summer Water Temperature,0.5242,4.31,0.84475,3,False,Yes,2.947902352793883,0.9225163092484708,5
+UGR5,Upper Grande Ronde,Water Quality,0.5242,4.64,0.919,3,False,No,2.8044138364713054,0.7784571070269395,8
+UGR5,Upper Grande Ronde,Winter Water Temperature,0.5242,3.91,0.75475,3,False,No,1.8962457604136629,0.516479694792439,11
+UGR6,Upper Grande Ronde,Altered Flow Timing,0.7643,1.59,0.23275,3,False,Yes,0.9326561825254129,0.2595554202084975,13
+UGR6,Upper Grande Ronde,Altered Primary Productivity,0.7643,1.82,0.2845,3,False,No,0.7905618937732546,0.22640512230262752,15
+UGR6,Upper Grande Ronde,Anthropogenic Barriers,0.7643,2.29,0.39025,3,False,No,1.582951283409122,0.501346024201718,7
+UGR6,Upper Grande Ronde,Channel and Habitat Structure,0.7643,3.25,0.60625,5,False,No,4.037824195832827,1.2223685329141345,1
+UGR6,Upper Grande Ronde,Decreased Sediment Quantity,0.7643,2.3,0.3925,5,False,Yes,1.5535079911999947,0.46277395984799674,8
+UGR6,Upper Grande Ronde,Decreased Water Quantity,0.7643,2.0,0.325,3,False,Yes,1.8612069824267399,0.5379225290101878,6
+UGR6,Upper Grande Ronde,Floodplain Condition,0.7643,2.76,0.496,5,True,No,2.3043426630196113,0.6542600167171249,3
+UGR6,Upper Grande Ronde,Increased Sediment Quantity,0.7643,2.0,0.325,5,False,No,0.9031023391082875,0.29711889533656133,10
+UGR6,Upper Grande Ronde,Non-Native Species Interactions and Competition,0.7643,2.88,0.523,3,False,No,1.607481219114402,0.5670439966817363,4
+UGR6,Upper Grande Ronde,Predation,0.7643,1.59,0.23275,3,False,Yes,0.9555278602795427,0.2921475606683609,11
+UGR6,Upper Grande Ronde,Riparian Condition,0.7643,2.17,0.36325,5,False,Yes,1.7233013307736849,0.5564339705148554,5
+UGR6,Upper Grande Ronde,Side Channel and Wetland Habitat,0.7643,3.18,0.5905,5,False,No,3.468710037797739,1.011019369919284,2
+UGR6,Upper Grande Ronde,Summer Water Temperature,0.7643,1.59,0.23275,3,False,Yes,1.184244634974587,0.3705974144186468,9
+UGR6,Upper Grande Ronde,Water Quality,0.7643,1.59,0.23275,3,False,No,1.0355787315295428,0.2874588667910261,12
+UGR6,Upper Grande Ronde,Winter Water Temperature,0.7643,1.59,0.23275,3,False,No,0.852605311275413,0.23222376557871666,14
+UGR7,Upper Grande Ronde,Altered Flow Timing,0.3375,5.0,1.0,3,False,Yes,1.7694642857625,0.49243660723012506,9
+UGR7,Upper Grande Ronde,Altered Primary Productivity,0.3375,3.42,0.6445,3,False,No,0.7908360266303438,0.22648362985975276,15
+UGR7,Upper Grande Ronde,Anthropogenic Barriers,0.3375,2.71,0.48475,3,True,No,0.868265156063025,0.2749934811686659,13
+UGR7,Upper Grande Ronde,Channel and Habitat Structure,0.3375,4.78,0.9505,5,False,No,2.7954883924446943,0.846276826162391,1
+UGR7,Upper Grande Ronde,Decreased Sediment Quantity,0.3375,2.83,0.51175,5,False,Yes,0.8944202009668781,0.2664385252693541,14
+UGR7,Upper Grande Ronde,Decreased Water Quantity,0.3375,5.0,1.0,3,False,Yes,2.5288392861,0.7308803572537501,3
+UGR7,Upper Grande Ronde,Floodplain Condition,0.3375,5.0,1.0,5,False,No,2.0515178572875,0.58247678574225,6
+UGR7,Upper Grande Ronde,Increased Sediment Quantity,0.3375,4.16,0.811,5,False,No,0.9951404462330625,0.32739925176303525,11
+UGR7,Upper Grande Ronde,Non-Native Species Interactions and Competition,0.3375,3.56,0.676,3,False,No,0.91748892847365,0.3236470714099935,12
+UGR7,Upper Grande Ronde,Predation,0.3375,4.64,0.919,3,False,Yes,1.6660157147731125,0.5093754429763339,7
+UGR7,Upper Grande Ronde,Riparian Condition,0.3375,4.78,0.9505,5,False,Yes,1.991212634203538,0.6429394165742254,5
+UGR7,Upper Grande Ronde,Side Channel and Wetland Habitat,0.3375,5.0,1.0,5,False,No,2.59392857085,0.7560482141025001,2
+UGR7,Upper Grande Ronde,Summer Water Temperature,0.3375,5.0,1.0,3,False,Yes,2.2467857142375003,0.703108928559375,4
+UGR7,Upper Grande Ronde,Water Quality,0.3375,4.64,0.919,3,False,No,1.8055888397731126,0.5012004456726289,8
+UGR7,Upper Grande Ronde,Winter Water Temperature,0.3375,3.91,0.75475,3,False,No,1.220875513429247,0.33252937236254904,10
+UGR8,Upper Grande Ronde,Altered Flow Timing,0.0044,2.71,0.48475,3,True,Yes,0.0111824900003047,0.003112053450551507,14
+UGR8,Upper Grande Ronde,Altered Primary Productivity,0.0044,3.68,0.703,3,False,No,0.011245991426362,0.003220684027846736,12
+UGR8,Upper Grande Ronde,Anthropogenic Barriers,0.0044,2.71,0.48475,3,True,No,0.011319604997562401,0.003585100198939644,11
+UGR8,Upper Grande Ronde,Channel and Habitat Structure,0.0044,4.32,0.847,5,False,No,0.032476399995208405,0.009831564597944938,1
+UGR8,Upper Grande Ronde,Decreased Sediment Quantity,0.0044,3.62,0.6895,5,False,Yes,0.015710750001300202,0.004680069900810459,7
+UGR8,Upper Grande Ronde,Decreased Water Quantity,0.0044,2.71,0.48475,3,True,Yes,0.0159815150024376,0.004618947300700811,8
+UGR8,Upper Grande Ronde,Floodplain Condition,0.0044,3.59,0.68275,5,True,No,0.018260636429858902,0.005184647443106054,6
+UGR8,Upper Grande Ronde,Increased Sediment Quantity,0.0044,1.9,0.3025,5,True,No,0.004839135713334999,0.0015920661427468597,15
+UGR8,Upper Grande Ronde,Non-Native Species Interactions and Competition,0.0044,4.64,0.919,3,False,No,0.016261048569695603,0.005736135428242165,5
+UGR8,Upper Grande Ronde,Predation,0.0044,2.47,0.43075,3,True,Yes,0.0101804685744069,0.0031126241150140513,13
+UGR8,Upper Grande Ronde,Riparian Condition,0.0044,4.78,0.9505,5,False,Yes,0.025959512860727604,0.008382024986449159,2
+UGR8,Upper Grande Ronde,Side Channel and Wetland Habitat,0.0044,4.32,0.847,5,False,No,0.028643119993611202,0.00834856439797688,3
+UGR8,Upper Grande Ronde,Summer Water Temperature,0.0044,2.71,0.48475,3,True,Yes,0.0141990199996953,0.004443440099923825,9
+UGR8,Upper Grande Ronde,Water Quality,0.0044,4.31,0.84475,3,False,No,0.0216376678629837,0.006006244908783604,4
+UGR8,Upper Grande Ronde,Winter Water Temperature,0.0044,3.63,0.69175,3,False,No,0.014588019286149098,0.003973332943348483,10
+UGR9,Upper Grande Ronde,Altered Flow Timing,0.3184,3.42,0.6445,3,False,Yes,1.0758804228864585,0.29941429702448974,9
+UGR9,Upper Grande Ronde,Altered Primary Productivity,0.3184,3.17,0.58825,3,False,No,0.6809649227233581,0.19501818621326145,13
+UGR9,Upper Grande Ronde,Anthropogenic Barriers,0.3184,2.88,0.523,3,False,No,0.8837624112382592,0.27990171008864273,10
+UGR9,Upper Grande Ronde,Channel and Habitat Structure,0.3184,4.57,0.90325,5,False,No,2.506183256773093,0.7586956247271265,1
+UGR9,Upper Grande Ronde,Decreased Sediment Quantity,0.3184,2.83,0.51175,5,False,Yes,0.8438026429269748,0.2513600783578143,12
+UGR9,Upper Grande Ronde,Decreased Water Quantity,0.3184,3.11,0.57475,3,False,Yes,1.3711958544948577,0.3963004377172716,5
+UGR9,Upper Grande Ronde,Floodplain Condition,0.3184,3.48,0.658,5,False,No,1.273504480089789,0.3615794976173592,7
+UGR9,Upper Grande Ronde,Increased Sediment Quantity,0.3184,2.7,0.4825,5,False,No,0.55854751417598,0.1837610348444137,14
+UGR9,Upper Grande Ronde,Non-Native Species Interactions and Competition,0.3184,4.22,0.8245,3,False,No,1.0557086456017768,0.3724045062643376,6
+UGR9,Upper Grande Ronde,Predation,0.3184,2.88,0.523,3,False,Yes,0.8944674745473936,0.27347867252113534,11
+UGR9,Upper Grande Ronde,Riparian Condition,0.3184,3.73,0.71425,5,False,Yes,1.4116110487663578,0.4557928010971034,4
+UGR9,Upper Grande Ronde,Side Channel and Wetland Habitat,0.3184,4.32,0.847,5,False,No,2.0727203195376833,0.6041324782535997,2
+UGR9,Upper Grande Ronde,Summer Water Temperature,0.3184,3.68,0.703,3,False,Yes,1.4901029028251664,0.46631267450629166,3
+UGR9,Upper Grande Ronde,Water Quality,0.3184,3.42,0.6445,3,False,No,1.1946083717510425,0.3316027631191565,8
+UGR9,Upper Grande Ronde,Winter Water Temperature,0.3184,2.52,0.442,3,False,No,0.6745122057343905,0.18371661807986117,15

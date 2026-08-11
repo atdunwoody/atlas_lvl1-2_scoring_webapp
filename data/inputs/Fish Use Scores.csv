@@ -1,4 +1,4 @@
-bsr,basin,bsr_crosswalk_status,species,life_stage,fish_use_rating,corrected_score,species_aggregate_score,fish_use_score,rank,fish_use_score_100,fish_use_score
+bsr,basin,bsr_crosswalk_status,species,life_stage,fish_use_rating,corrected_score,species_aggregate_score,fish_use_score,rank,fish_use_score_100,fish_use_score_decimal
 CC1,Catherine Creek,provisional_positional,Chinook,Spawning,0,0,0.77,1.722,16,41.62,0.4162
 CC1,Catherine Creek,provisional_positional,Chinook,Winter Rearing,1,0.9,0.77,1.722,16,41.62,0.4162
 CC1,Catherine Creek,provisional_positional,Chinook,Summer Rearing,0,0,0.77,1.722,16,41.62,0.4162
