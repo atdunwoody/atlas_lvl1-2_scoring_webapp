@@ -6,10 +6,10 @@ Required packages:
 Launch command:
     streamlit run atlas_streamlit_app.py
 
-The app reads the Level 1 and Level 2 outputs created by
-Atlas_Integrated_Scoring.ipynb, including the scored BSR GeoPackage. The BSR
-layer must contain the same identifiers used in bsr_scores.csv, such as CC1 or
-UGR11.
+The app reads the Level 1 and Level 2 CSV outputs created by
+Atlas_Integrated_Scoring.ipynb. A polygon layer is also required because the
+score outputs do not contain geometry. The polygon layer must contain the same
+BSR identifiers used in bsr_scores.csv, such as CC1 or UGR11.
 """
 
 from __future__ import annotations
@@ -41,7 +41,7 @@ CORE_SCORE_FILES = {
 }
 
 SUPPORTING_SCORE_FILES = {
-    "action_components": "QC/action_score_components.csv",
+    "action_components": "action_score_components.csv",
 }
 
 SCORE_FILES = {**CORE_SCORE_FILES, **SUPPORTING_SCORE_FILES}
@@ -50,34 +50,33 @@ REQUIRED_COLUMNS = {
     "bsr": {
         "bsr",
         "basin",
-        "fish_use_score",
+        "detailed_fish_use_score",
+        "source_fish_use_score_raw",
+        "source_fish_use_score_normalized",
+        "source_fish_use_score_100",
         "overall_impact_score",
         "overall_risk_score",
-        "highest_risk_species_life_stage",
-        "top_species_life_stage_risk_score",
-        "top_species_life_stage_risk_tie_count",
-        "highest_risk_limiting_factor",
-        "top_limiting_factor_risk_score",
-        "top_limiting_factor_risk_tie_count",
-        "highest_risk_aligned_action_type",
-        "highest_action_benefit_score",
-        "top_action_benefit_tie_count",
+        "highest_priority_life_stage",
+        "highest_priority_limiting_factor",
+        "highest_priority_action",
+        "highest_priority_action_benefit_score",
+        "sum_action_benefit_provisional",
     },
     "life_stage": {
         "bsr",
         "basin",
         "species",
         "life_stage",
-        "fish_use_score",
+        "fish_use_rating",
         "population_priority",
         "impact_score",
         "risk_score",
-        "species_life_stage_label",
     },
     "limiting_factor": {
         "bsr",
         "basin",
         "limiting_factor",
+        "condition_score_raw_1_5",
         "condition_score",
         "impact_score",
         "risk_score",
@@ -97,7 +96,7 @@ REQUIRED_COLUMNS = {
         "species",
         "life_stage",
         "limiting_factor",
-        "fish_use_score",
+        "fish_use_rating",
         "population_priority",
         "condition_score",
         "vulnerability_score",
@@ -125,31 +124,25 @@ ACTION_BENEFIT_COLOR_SCALE = "Greens"
 DISPLAY_LABELS = {
     "bsr": "BSR",
     "basin": "Basin",
-    "fish_use_score": "Fish Use Score",
+    "detailed_fish_use_score": "Detailed Fish Use Score",
+    "source_fish_use_score_raw": "Source Fish Use Score (raw)",
+    "source_fish_use_score_normalized": "Source Fish Use Score (normalized)",
+    "source_fish_use_score_100": "Fish Use Score /100",
     "overall_impact_score": "Overall Limiting-Factor Impact",
     "overall_risk_score": "Overall Risk Score",
-    "highest_risk_species_life_stage": "Highest-Risk Species/Life Stage",
-    "top_species_life_stage_risk_score": (
-        "Top Species/Life-Stage Risk Score"
-    ),
-    "top_species_life_stage_risk_tie_count": (
-        "Top Species/Life-Stage Risk Tie Count"
-    ),
-    "species_life_stage_label": "Species | Life Stage",
-    "highest_risk_limiting_factor": "Highest-Risk Limiting Factor",
+    "lf_sum_impact_score": "Summed Limiting-Factor Impact",
+    "lf_sum_risk_score": "Summed Limiting-Factor Risk",
+    "top_life_stage_risk_score": "Top Life-Stage Risk Score",
     "top_limiting_factor_risk_score": "Top Limiting-Factor Risk Score",
-    "top_limiting_factor_risk_tie_count": (
-        "Top Limiting-Factor Risk Tie Count"
-    ),
+    "condition_score_raw_1_5": "Raw Condition Score (1–5)",
     "condition_score": "Condition Score",
     "impact_score": "Impact Score",
     "risk_score": "Risk Score",
     "condition_improvement_score": "Condition Improvement Score",
     "limiting_factor_amelioration_score": "Limiting-Factor Amelioration Score",
     "overall_benefit_score": "Overall Benefit Score",
-    "highest_risk_aligned_action_type": "Highest Risk-Aligned Action Type",
-    "highest_action_benefit_score": "Highest Action Benefit Score",
-    "top_action_benefit_tie_count": "Top Action Benefit Tie Count",
+    "highest_priority_action_benefit_score": "Highest-Priority Action Benefit Score",
+    "sum_action_benefit_provisional": "Sum of Action Benefit Scores",
     "benefit_rank_within_bsr": "Benefit Rank Within BSR",
 }
 
@@ -583,12 +576,13 @@ def render_overall_risk(
         map_style,
         hover_columns=[
             "basin",
-            "fish_use_score",
+            "source_fish_use_score_100",
+            "detailed_fish_use_score",
             "overall_impact_score",
-            "highest_risk_species_life_stage",
-            "top_species_life_stage_risk_tie_count",
-            "highest_risk_limiting_factor",
-            "top_limiting_factor_risk_tie_count",
+            "lf_sum_impact_score",
+            "lf_sum_risk_score",
+            "highest_priority_life_stage",
+            "highest_priority_limiting_factor",
         ],
         color_scale=RISK_COLOR_SCALE,
     )
@@ -597,27 +591,26 @@ def render_overall_risk(
     metric_columns = st.columns(4)
     metric_columns[0].metric("Selected BSR", selected_bsr)
     metric_columns[1].metric("Overall risk", format_score(row["overall_risk_score"]))
-    metric_columns[2].metric(
-        "Fish use score", format_score(row["fish_use_score"])
-    )
+    metric_columns[2].metric("Fish Use Score /100", format_score(row["source_fish_use_score_100"]))
     metric_columns[3].metric("Overall LF impact", format_score(row["overall_impact_score"]))
 
     st.markdown(
-        "**Highest-risk species/life stage:** "
-        f"{row['highest_risk_species_life_stage']}  \n"
-        "**Highest-risk limiting factor:** "
-        f"{row['highest_risk_limiting_factor']}"
+        f"**Highest-priority life stage:** {row['highest_priority_life_stage']}  \n"
+        f"**Highest-priority limiting factor:** {row['highest_priority_limiting_factor']}"
     )
 
     left, right = st.columns(2)
     life_selected = life.loc[life["bsr"].eq(selected_bsr)].copy()
+    life_selected["fish_use"] = (
+        life_selected["species"] + " | " + life_selected["life_stage"]
+    )
     factor_selected = limiting.loc[limiting["bsr"].eq(selected_bsr)].copy()
 
     with left:
         horizontal_bar(
             life_selected,
             "risk_score",
-            "species_life_stage_label",
+            "fish_use",
             f"{selected_bsr}: risk by species and life stage",
             color="species",
             value_label="Risk score",
@@ -638,7 +631,7 @@ def render_overall_risk(
                 [
                     "species",
                     "life_stage",
-                    "fish_use_score",
+                    "fish_use_rating",
                     "population_priority",
                     "impact_score",
                     "risk_score",
@@ -665,7 +658,7 @@ def render_fish_use(
     selected_bsr: str,
     map_style: str,
 ) -> None:
-    """Render BSR-level fish use and related species/life-stage context."""
+    """Render overall fish-use mapping and species/life-stage drill-down."""
     bsr = filter_table(tables["bsr"], basin)
     life = filter_table(tables["life_stage"], basin)
 
@@ -673,31 +666,32 @@ def render_fish_use(
     render_choropleth(
         geometry,
         bsr,
-        "fish_use_score",
-        "Fish use score",
-        "Fish Use Score",
+        "source_fish_use_score_100",
+        "Fish Use Score /100",
+        "Fish Use Score /100",
         "map_fish_use",
         map_style,
         hover_columns=[
             "basin",
-            "fish_use_score",
+            "source_fish_use_score_raw",
+            "source_fish_use_score_normalized",
+            "source_fish_use_score_100",
+            "detailed_fish_use_score",
         ],
     )
 
     selected = life.loc[life["bsr"].eq(selected_bsr)].copy()
-    selected_bsr_row = bsr.loc[bsr["bsr"].eq(selected_bsr)].iloc[0]
-    summary_columns = st.columns(2)
-    summary_columns[0].metric("Selected BSR", selected_bsr)
-    summary_columns[1].metric(
-        "Fish use score", format_score(selected_bsr_row["fish_use_score"])
-    )
-    st.caption(
-        "The notebook uses one BSR-level fish-use score for every species and "
-        "life-stage pathway within the BSR. Species and life stage therefore "
-        "do not have separate fish-use scores in these outputs."
+    selected["fish_use"] = selected["species"] + " | " + selected["life_stage"]
+    horizontal_bar(
+        selected,
+        "fish_use_rating",
+        "fish_use",
+        f"{selected_bsr}: fish-use rating by species and life stage",
+        color="species",
+        value_label="Fish-use rating",
     )
 
-    with st.expander("Optional map: highest-risk species and life stage"):
+    with st.expander("Optional map: highest-priority life stage"):
         st.caption(
             "This categorical map is based on the population-weighted Level 1 "
             "risk score, not fish use alone."
@@ -705,17 +699,17 @@ def render_fish_use(
         render_choropleth(
             geometry,
             bsr,
-            "highest_risk_species_life_stage",
-            "Highest-risk species/life stage",
-            "Highest-Risk Species/Life Stage",
+            "highest_priority_life_stage",
+            "Highest-priority life stage",
+            "Highest-Priority Life Stage",
             "map_top_life_stage",
             map_style,
             categorical=True,
             hover_columns=[
                 "basin",
-                "fish_use_score",
-                "top_species_life_stage_risk_score",
-                "top_species_life_stage_risk_tie_count",
+                "source_fish_use_score_100",
+                "detailed_fish_use_score",
+                "top_life_stage_risk_score",
                 "overall_risk_score",
             ],
         )
@@ -726,7 +720,7 @@ def render_fish_use(
                 [
                     "species",
                     "life_stage",
-                    "fish_use_score",
+                    "fish_use_rating",
                     "population_priority",
                     "impact_score",
                     "risk_score",
@@ -773,10 +767,12 @@ def render_limiting_factors(
         map_style,
         hover_columns=[
             "basin",
-            "fish_use_score",
+            "source_fish_use_score_100",
             "overall_impact_score",
             "overall_risk_score",
-            "highest_risk_limiting_factor",
+            "lf_sum_impact_score",
+            "lf_sum_risk_score",
+            "highest_priority_limiting_factor",
             "top_limiting_factor_risk_score",
         ],
         color_scale=overall_color_scale,
@@ -834,9 +830,7 @@ def render_limiting_factors(
         grid["bsr"].eq(selected_bsr)
         & grid["limiting_factor"].eq(selected_factor)
     ].copy()
-    biological["species_life_stage_label"] = (
-        biological["species"] + " | " + biological["life_stage"]
-    )
+    biological["fish_use"] = biological["species"] + " | " + biological["life_stage"]
     component_labels = {
         "Impact component": "impact_component",
         "Population-weighted risk component": "risk_component",
@@ -850,29 +844,28 @@ def render_limiting_factors(
         horizontal_bar(
             biological,
             component_labels[component_label],
-            "species_life_stage_label",
+            "fish_use",
             f"{selected_bsr}: {selected_factor} by fish use",
             color="species",
             value_label=component_label,
         )
 
-    with st.expander("Highest-risk limiting factor map"):
+    with st.expander("Highest-priority limiting factor map"):
         render_choropleth(
             geometry,
             bsr,
-            "highest_risk_limiting_factor",
-            "Highest-risk limiting factor",
-            "Highest-Risk Limiting Factor",
+            "highest_priority_limiting_factor",
+            "Highest-priority limiting factor",
+            "Highest-Priority Limiting Factor",
             "map_top_limiting_factor",
             map_style,
             categorical=True,
             hover_columns=[
                 "basin",
-                "fish_use_score",
+                "source_fish_use_score_100",
                 "overall_impact_score",
                 "overall_risk_score",
                 "top_limiting_factor_risk_score",
-                "top_limiting_factor_risk_tie_count",
             ],
         )
 
@@ -882,7 +875,7 @@ def render_limiting_factors(
                 [
                     "species",
                     "life_stage",
-                    "fish_use_score",
+                    "fish_use_rating",
                     "population_priority",
                     "condition_score",
                     "vulnerability_score",
@@ -900,7 +893,7 @@ def render_actions(
     selected_bsr: str,
     map_style: str,
 ) -> None:
-    """Render Level 2 action maps, rankings, and score components."""
+    """Render Level 2 action maps, rankings, and the provisional summed score."""
     bsr = filter_table(tables["bsr"], basin)
     actions = filter_table(tables["action"], basin)
     action_components = (
@@ -982,20 +975,20 @@ def render_actions(
                 ].sort_values("benefit_component", ascending=False)
             )
 
-    st.subheader("Highest risk-aligned action type")
+    st.subheader("Highest-priority action type")
     render_choropleth(
         geometry,
         bsr,
-        "highest_risk_aligned_action_type",
-        "Highest risk-aligned action type",
-        "Highest Risk-Aligned Action Type",
+        "highest_priority_action",
+        "Highest-priority action type",
+        "Highest-Priority Action Type",
         "map_top_action",
         map_style,
         categorical=True,
         hover_columns=[
             "basin",
-            "highest_action_benefit_score",
-            "top_action_benefit_tie_count",
+            "highest_priority_action_benefit_score",
+            "sum_action_benefit_provisional",
             "overall_risk_score",
         ],
     )
