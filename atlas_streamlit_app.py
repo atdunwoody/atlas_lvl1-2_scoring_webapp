@@ -8,8 +8,8 @@ Launch command:
 
 The app reads the Level 1 and Level 2 CSV outputs created by
 Atlas_Integrated_Scoring.ipynb. A polygon layer is also required because the
-score outputs do not contain geometry. The polygon layer must contain either
-the fish-use BSR identifier or the condition BSR identifier.
+score outputs do not contain geometry. The polygon layer must contain the same
+BSR identifiers used in bsr_scores.csv, such as CC1 or UGR11.
 """
 
 from __future__ import annotations
@@ -35,10 +35,10 @@ DEFAULT_SCORE_DIR = Path(
     )
 )
 DEFAULT_BSR_LAYER = os.getenv("ATLAS_BSR_LAYER", "")
-DEFAULT_BSR_LAYER_NAME = os.getenv("ATLAS_BSR_LAYER_NAME", "")
+DEFAULT_BSR_LAYER_NAME = os.getenv("ATLAS_BSR_LAYER_NAME", "bsr")
 DEFAULT_BSR_ID_FIELD = os.getenv("ATLAS_BSR_ID_FIELD", "BSR")
 
-SCORE_FILES = {
+CORE_SCORE_FILES = {
     "bsr": "bsr_scores.csv",
     "life_stage": "life_stage_scores.csv",
     "limiting_factor": "limiting_factor_scores_integrated.csv",
@@ -46,19 +46,28 @@ SCORE_FILES = {
     "grid": "calculation_grid.csv",
 }
 
+REVIEW_SCORE_FILES = {
+    "action_components": "action_score_components.csv",
+    "vulnerability_review": "vulnerability_scores_for_review.csv",
+    "assumptions_review": "assumptions_for_review.csv",
+    "bsr_identifiers_review": "bsr_identifiers_for_review.csv",
+}
+
+SCORE_FILES = {**CORE_SCORE_FILES, **REVIEW_SCORE_FILES}
+
 REQUIRED_COLUMNS = {
     "bsr": {
         "bsr",
         "basin",
-        "condition_bsr",
-        "source_fish_use_score",
+        "detailed_fish_use_score",
+        "source_fish_use_score_raw",
+        "source_fish_use_score_normalized",
         "source_fish_use_score_100",
-        "workbook_fish_use_score",
         "overall_impact_score",
         "overall_risk_score",
         "highest_priority_life_stage",
         "highest_priority_limiting_factor",
-        "highest_priority_action_type",
+        "highest_priority_action",
         "highest_priority_action_benefit_score",
         "sum_action_benefit_provisional",
     },
@@ -103,6 +112,35 @@ REQUIRED_COLUMNS = {
         "impact_component",
         "risk_component",
     },
+    "action_components": {
+        "bsr",
+        "basin",
+        "limiting_factor",
+        "action_id",
+        "action_type",
+        "lfat_score",
+        "condition_improvement_component",
+        "amelioration_component",
+        "benefit_component",
+    },
+    "vulnerability_review": {
+        "species",
+        "life_stage",
+        "limiting_factor",
+        "vulnerability_score",
+        "vulnerability_review_flag",
+        "uncertainty_notes",
+    },
+    "assumptions_review": {
+        "component",
+        "field_or_rule",
+        "implementation",
+    },
+    "bsr_identifiers_review": {
+        "bsr",
+        "basin",
+        "bsr_crosswalk_status",
+    },
 }
 
 NUMERIC_COLOR_SCALE = [
@@ -146,11 +184,11 @@ def require_columns(table_name: str, table: pd.DataFrame) -> None:
 
 @st.cache_data(show_spinner=False)
 def load_score_tables(score_dir_text: str) -> dict[str, pd.DataFrame]:
-    """Load and validate the five scoring tables used by the app."""
+    """Load core scoring tables and any available review tables."""
     score_dir = Path(score_dir_text).expanduser()
     missing_files = [
         filename
-        for filename in SCORE_FILES.values()
+        for filename in CORE_SCORE_FILES.values()
         if not (score_dir / filename).is_file()
     ]
     if missing_files:
@@ -160,13 +198,23 @@ def load_score_tables(score_dir_text: str) -> dict[str, pd.DataFrame]:
 
     tables = {
         name: pd.read_csv(score_dir / filename)
-        for name, filename in SCORE_FILES.items()
+        for name, filename in CORE_SCORE_FILES.items()
     }
+    tables.update(
+        {
+            name: pd.read_csv(score_dir / filename)
+            for name, filename in REVIEW_SCORE_FILES.items()
+            if (score_dir / filename).is_file()
+        }
+    )
 
     for name, table in tables.items():
         require_columns(name, table)
-        table["bsr"] = table["bsr"].astype(str).str.strip()
-        table["basin"] = table["basin"].astype(str).str.strip()
+        for identifier_column in ("bsr", "basin"):
+            if identifier_column in table.columns:
+                table[identifier_column] = (
+                    table[identifier_column].astype(str).str.strip()
+                )
 
     if tables["bsr"]["bsr"].duplicated().any():
         duplicates = tables["bsr"].loc[
@@ -176,6 +224,18 @@ def load_score_tables(score_dir_text: str) -> dict[str, pd.DataFrame]:
 
     expected_bsrs = set(tables["bsr"]["bsr"])
     for name in ("life_stage", "limiting_factor", "action", "grid"):
+        table_bsrs = set(tables[name]["bsr"])
+        if table_bsrs != expected_bsrs:
+            missing = sorted(expected_bsrs - table_bsrs)
+            extra = sorted(table_bsrs - expected_bsrs)
+            raise ValueError(
+                f"{SCORE_FILES[name]} has inconsistent BSR coverage. "
+                f"Missing: {missing}; extra: {extra}"
+            )
+
+    for name in ("action_components", "bsr_identifiers_review"):
+        if name not in tables:
+            continue
         table_bsrs = set(tables[name]["bsr"])
         if table_bsrs != expected_bsrs:
             missing = sorted(expected_bsrs - table_bsrs)
@@ -233,10 +293,9 @@ def load_geometry_upload(
 def prepare_geometry(
     source: gpd.GeoDataFrame,
     spatial_id_field: str,
-    id_convention: str,
     bsr_scores: pd.DataFrame,
 ) -> tuple[gpd.GeoDataFrame, list[str]]:
-    """Standardize geometry and translate its identifier to the app's BSR key."""
+    """Standardize geometry and match its identifier to the scoring BSR key."""
     if spatial_id_field not in source.columns:
         raise ValueError(f"Spatial ID field not found: {spatial_id_field}")
     if source.crs is None:
@@ -261,28 +320,12 @@ def prepare_geometry(
         spatial[spatial_id_field].astype(str).str.strip()
     )
 
-    if id_convention == "Condition BSR identifier":
-        crosswalk = bsr_scores[["bsr", "condition_bsr"]].copy()
-        crosswalk["condition_bsr"] = (
-            crosswalk["condition_bsr"].astype(str).str.strip()
-        )
-        if crosswalk["condition_bsr"].duplicated().any():
-            raise ValueError(
-                "condition_bsr is not unique in bsr_scores.csv and cannot be "
-                "used as a spatial crosswalk."
-            )
-        spatial = spatial.merge(
-            crosswalk,
-            left_on="_spatial_id",
-            right_on="condition_bsr",
-            how="left",
-            validate="many_to_one",
-        )
-    else:
-        spatial["bsr"] = spatial["_spatial_id"]
-
-    unmatched_ids = sorted(spatial.loc[spatial["bsr"].isna(), "_spatial_id"].unique())
-    spatial = spatial.loc[spatial["bsr"].notna(), ["bsr", "geometry"]].copy()
+    score_bsrs = set(bsr_scores["bsr"])
+    unmatched_ids = sorted(set(spatial["_spatial_id"]) - score_bsrs)
+    spatial["bsr"] = spatial["_spatial_id"]
+    spatial = spatial.loc[
+        spatial["bsr"].isin(score_bsrs), ["bsr", "geometry"]
+    ].copy()
     if spatial.empty:
         raise ValueError(
             "No spatial identifiers matched the scoring outputs. Check the ID "
@@ -601,8 +644,9 @@ def render_fish_use(
     st.header("Level 1: Fish use")
     fish_metric_labels = {
         "Fish Use Score /100": "source_fish_use_score_100",
-        "Source Fish Use Score": "source_fish_use_score",
-        "Sum of detailed life-stage Score": "workbook_fish_use_score",
+        "Source Fish Use Score (raw)": "source_fish_use_score_raw",
+        "Source Fish Use Score (normalized)": "source_fish_use_score_normalized",
+        "Detailed life-stage Fish Use Score": "detailed_fish_use_score",
     }
     metric_label = st.radio(
         "Overall fish-use map value",
@@ -618,7 +662,13 @@ def render_fish_use(
         metric_label,
         "map_fish_use",
         map_style,
-        hover_columns=["basin", "source_fish_use_score", "source_fish_use_score_100"],
+        hover_columns=[
+            "basin",
+            "source_fish_use_score_raw",
+            "source_fish_use_score_normalized",
+            "source_fish_use_score_100",
+            "detailed_fish_use_score",
+        ],
     )
 
     selected = life.loc[life["bsr"].eq(selected_bsr)].copy()
@@ -802,6 +852,11 @@ def render_actions(
     """Render Level 2 action maps, rankings, and the provisional summed score."""
     bsr = filter_table(tables["bsr"], basin)
     actions = filter_table(tables["action"], basin)
+    action_components = (
+        filter_table(tables["action_components"], basin)
+        if "action_components" in tables
+        else None
+    )
 
     st.header("Level 2: Action-specific benefit")
     action_options = (
@@ -844,11 +899,38 @@ def render_actions(
         value_label=action_score_label,
     )
 
+    if action_components is not None:
+        component_rows = action_components.loc[
+            action_components["bsr"].eq(selected_bsr)
+            & action_components["action_type"].eq(selected_action)
+        ].copy()
+        with st.expander("Show limiting-factor contributions to the selected action"):
+            horizontal_bar(
+                component_rows,
+                "benefit_component",
+                "limiting_factor",
+                f"{selected_bsr}: benefit components for {selected_action}",
+                value_label="Benefit component",
+            )
+            st.dataframe(
+                component_rows[
+                    [
+                        "limiting_factor",
+                        "lfat_score",
+                        "condition_improvement_component",
+                        "amelioration_component",
+                        "benefit_component",
+                    ]
+                ].sort_values("benefit_component", ascending=False),
+                use_container_width=True,
+                hide_index=True,
+            )
+
     st.subheader("Highest-priority action type")
     render_choropleth(
         geometry,
         bsr,
-        "highest_priority_action_type",
+        "highest_priority_action",
         "Highest-priority action type",
         "Highest-Priority Action Type",
         "map_top_action",
@@ -872,7 +954,7 @@ def render_actions(
             "Provisional Overall Benefit Score",
             "map_action_sum",
             map_style,
-            hover_columns=["basin", "highest_priority_action_type"],
+            hover_columns=["basin", "highest_priority_action"],
         )
 
     with st.expander("Show selected BSR action table"):
@@ -892,9 +974,15 @@ def render_actions(
         )
 
 
-def geometry_controls(bsr_scores: pd.DataFrame) -> gpd.GeoDataFrame:
+def geometry_controls(
+    bsr_scores: pd.DataFrame,
+    score_dir_text: str,
+) -> gpd.GeoDataFrame:
     """Render sidebar spatial controls and return app-ready BSR polygons."""
     st.sidebar.subheader("BSR polygons")
+    default_geometry_path = DEFAULT_BSR_LAYER.strip() or str(
+        Path(score_dir_text).expanduser() / "bsr_scores.gpkg"
+    )
     source_mode = st.sidebar.radio(
         "Spatial source",
         ["File path", "Upload file"],
@@ -909,7 +997,7 @@ def geometry_controls(bsr_scores: pd.DataFrame) -> gpd.GeoDataFrame:
     if source_mode == "File path":
         path_text = st.sidebar.text_input(
             "GeoPackage or GeoJSON path",
-            value=DEFAULT_BSR_LAYER,
+            value=default_geometry_path,
         ).strip()
         if not path_text:
             st.info(
@@ -940,20 +1028,12 @@ def geometry_controls(bsr_scores: pd.DataFrame) -> gpd.GeoDataFrame:
         "Spatial BSR ID field",
         attribute_columns,
         index=default_index,
-    )
-    id_convention = st.sidebar.radio(
-        "Spatial identifier matches",
-        ["Fish-use BSR identifier", "Condition BSR identifier"],
-        help=(
-            "Choose Condition BSR when the polygons use CC1 through CC9. "
-            "Choose Fish-use BSR when they use identifiers such as CC2B or CC3B1."
-        ),
+        help="Use the field containing identifiers such as CC1 or UGR11.",
     )
 
     geometry, unmatched = prepare_geometry(
         source,
         spatial_id_field,
-        id_convention,
         bsr_scores,
     )
     if unmatched:
@@ -963,6 +1043,76 @@ def geometry_controls(bsr_scores: pd.DataFrame) -> gpd.GeoDataFrame:
             + (" ..." if len(unmatched) > 10 else "")
         )
     return geometry
+
+
+def render_review_tables(
+    tables: dict[str, pd.DataFrame],
+    selected_bsr: str,
+) -> None:
+    """Expose supporting review outputs when they are present."""
+    review_names = [
+        name
+        for name in (
+            "bsr_identifiers_review",
+            "vulnerability_review",
+            "assumptions_review",
+        )
+        if name in tables
+    ]
+    if not review_names:
+        return
+
+    with st.expander("Source review flags and scoring assumptions"):
+        if "bsr_identifiers_review" in tables:
+            identifier_row = tables["bsr_identifiers_review"].loc[
+                tables["bsr_identifiers_review"]["bsr"].eq(selected_bsr)
+            ]
+            if not identifier_row.empty:
+                status = identifier_row.iloc[0]["bsr_crosswalk_status"]
+                st.caption(f"{selected_bsr} crosswalk status: {status}")
+
+        tab_labels: list[str] = []
+        if "vulnerability_review" in tables:
+            tab_labels.append("Vulnerability review")
+        if "assumptions_review" in tables:
+            tab_labels.append("Assumptions")
+        if not tab_labels:
+            return
+
+        tabs = st.tabs(tab_labels)
+        tab_index = 0
+        if "vulnerability_review" in tables:
+            with tabs[tab_index]:
+                vulnerability = tables["vulnerability_review"].copy()
+                flagged = vulnerability.loc[
+                    vulnerability["vulnerability_review_flag"]
+                    .astype(str)
+                    .str.casefold()
+                    .eq("yes")
+                ].copy()
+                st.dataframe(
+                    flagged[
+                        [
+                            "species",
+                            "life_stage",
+                            "limiting_factor",
+                            "vulnerability_score",
+                            "vulnerability_review_flag",
+                            "uncertainty_notes",
+                        ]
+                    ].sort_values(["species", "life_stage", "limiting_factor"]),
+                    use_container_width=True,
+                    hide_index=True,
+                )
+            tab_index += 1
+
+        if "assumptions_review" in tables:
+            with tabs[tab_index]:
+                st.dataframe(
+                    tables["assumptions_review"],
+                    use_container_width=True,
+                    hide_index=True,
+                )
 
 
 def main() -> None:
@@ -985,7 +1135,7 @@ def main() -> None:
         st.stop()
 
     try:
-        geometry = geometry_controls(tables["bsr"])
+        geometry = geometry_controls(tables["bsr"], score_dir)
     except Exception as error:
         st.error(str(error))
         st.stop()
@@ -1035,6 +1185,8 @@ def main() -> None:
         render_limiting_factors(tables, geometry, basin, selected_bsr, map_style)
     else:
         render_actions(tables, geometry, basin, selected_bsr, map_style)
+
+    render_review_tables(tables, selected_bsr)
 
     st.divider()
     st.caption(
