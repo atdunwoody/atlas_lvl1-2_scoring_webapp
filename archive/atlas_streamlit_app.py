@@ -6,10 +6,10 @@ Required packages:
 Launch command:
     streamlit run atlas_streamlit_app.py
 
-The app reads the Level 1 and Level 2 CSV outputs created by
-Atlas_Integrated_Scoring.ipynb. A polygon layer is also required because the
-score outputs do not contain geometry. The polygon layer must contain the same
-BSR identifiers used in bsr_scores.csv, such as CC1 or UGR11.
+The app reads the Level 1 and Level 2 outputs created by
+Atlas_Integrated_Scoring.ipynb, including the scored BSR GeoPackage. The BSR
+layer must contain the same identifiers used in bsr_scores.csv, such as CC1 or
+UGR11.
 """
 
 from __future__ import annotations
@@ -41,42 +41,44 @@ CORE_SCORE_FILES = {
 }
 
 SUPPORTING_SCORE_FILES = {
-    "action_components": "action_score_components.csv",
+    "action_components": "QC/action_score_components.csv",
 }
 
 SCORE_FILES = {**CORE_SCORE_FILES, **SUPPORTING_SCORE_FILES}
+SCORE_SCHEMA_VERSION = "2026-08-11-current-score-fields-v1"
 
 REQUIRED_COLUMNS = {
     "bsr": {
         "bsr",
         "basin",
-        "detailed_fish_use_score",
-        "source_fish_use_score_raw",
-        "source_fish_use_score_normalized",
-        "source_fish_use_score_100",
+        "fish_use_score",
         "overall_impact_score",
         "overall_risk_score",
-        "highest_priority_life_stage",
-        "highest_priority_limiting_factor",
-        "highest_priority_action",
-        "highest_priority_action_benefit_score",
-        "sum_action_benefit_provisional",
+        "highest_risk_species_life_stage",
+        "top_species_life_stage_risk_score",
+        "top_species_life_stage_risk_tie_count",
+        "highest_risk_limiting_factor",
+        "top_limiting_factor_risk_score",
+        "top_limiting_factor_risk_tie_count",
+        "highest_risk_aligned_action_type",
+        "highest_action_benefit_score",
+        "top_action_benefit_tie_count",
     },
     "life_stage": {
         "bsr",
         "basin",
         "species",
         "life_stage",
-        "fish_use_rating",
+        "fish_use_score",
         "population_priority",
         "impact_score",
         "risk_score",
+        "species_life_stage_label",
     },
     "limiting_factor": {
         "bsr",
         "basin",
         "limiting_factor",
-        "condition_score_raw_1_5",
         "condition_score",
         "impact_score",
         "risk_score",
@@ -96,7 +98,7 @@ REQUIRED_COLUMNS = {
         "species",
         "life_stage",
         "limiting_factor",
-        "fish_use_rating",
+        "fish_use_score",
         "population_priority",
         "condition_score",
         "vulnerability_score",
@@ -116,6 +118,37 @@ REQUIRED_COLUMNS = {
     },
 }
 
+LEGACY_COLUMN_REPLACEMENTS = {
+    "fish_use_score": (
+        "source_fish_use_score_100",
+        "detailed_fish_use_score",
+        "fish_use_rating",
+    ),
+    "highest_risk_species_life_stage": (
+        "highest_priority_life_stage",
+    ),
+    "top_species_life_stage_risk_score": (
+        "top_life_stage_risk_score",
+    ),
+    "top_species_life_stage_risk_tie_count": (
+        "highest_priority_life_stage_tie_count",
+    ),
+    "species_life_stage_label": ("priority_label",),
+    "highest_risk_limiting_factor": (
+        "highest_priority_limiting_factor",
+    ),
+    "top_limiting_factor_risk_tie_count": (
+        "highest_priority_limiting_factor_tie_count",
+    ),
+    "highest_risk_aligned_action_type": ("highest_priority_action",),
+    "highest_action_benefit_score": (
+        "highest_priority_action_benefit_score",
+    ),
+    "top_action_benefit_tie_count": (
+        "highest_priority_action_tie_count",
+    ),
+}
+
 DEFAULT_COLOR_SCALE = "Blues"
 RISK_COLOR_SCALE = "Reds"
 LIMITING_IMPACT_COLOR_SCALE = "Purples"
@@ -124,25 +157,31 @@ ACTION_BENEFIT_COLOR_SCALE = "Greens"
 DISPLAY_LABELS = {
     "bsr": "BSR",
     "basin": "Basin",
-    "detailed_fish_use_score": "Detailed Fish Use Score",
-    "source_fish_use_score_raw": "Source Fish Use Score (raw)",
-    "source_fish_use_score_normalized": "Source Fish Use Score (normalized)",
-    "source_fish_use_score_100": "Fish Use Score /100",
+    "fish_use_score": "Fish Use Score",
     "overall_impact_score": "Overall Limiting-Factor Impact",
     "overall_risk_score": "Overall Risk Score",
-    "lf_sum_impact_score": "Summed Limiting-Factor Impact",
-    "lf_sum_risk_score": "Summed Limiting-Factor Risk",
-    "top_life_stage_risk_score": "Top Life-Stage Risk Score",
+    "highest_risk_species_life_stage": "Highest-Risk Species/Life Stage",
+    "top_species_life_stage_risk_score": (
+        "Top Species/Life-Stage Risk Score"
+    ),
+    "top_species_life_stage_risk_tie_count": (
+        "Top Species/Life-Stage Risk Tie Count"
+    ),
+    "species_life_stage_label": "Species | Life Stage",
+    "highest_risk_limiting_factor": "Highest-Risk Limiting Factor",
     "top_limiting_factor_risk_score": "Top Limiting-Factor Risk Score",
-    "condition_score_raw_1_5": "Raw Condition Score (1–5)",
+    "top_limiting_factor_risk_tie_count": (
+        "Top Limiting-Factor Risk Tie Count"
+    ),
     "condition_score": "Condition Score",
     "impact_score": "Impact Score",
     "risk_score": "Risk Score",
     "condition_improvement_score": "Condition Improvement Score",
     "limiting_factor_amelioration_score": "Limiting-Factor Amelioration Score",
     "overall_benefit_score": "Overall Benefit Score",
-    "highest_priority_action_benefit_score": "Highest-Priority Action Benefit Score",
-    "sum_action_benefit_provisional": "Sum of Action Benefit Scores",
+    "highest_risk_aligned_action_type": "Highest Risk-Aligned Action Type",
+    "highest_action_benefit_score": "Highest Action Benefit Score",
+    "top_action_benefit_tie_count": "Top Action Benefit Tie Count",
     "benefit_rank_within_bsr": "Benefit Rank Within BSR",
 }
 
@@ -172,14 +211,60 @@ def require_columns(table_name: str, table: pd.DataFrame) -> None:
     """Raise a readable error when an expected notebook output field is absent."""
     missing = sorted(REQUIRED_COLUMNS[table_name] - set(table.columns))
     if missing:
+        legacy_matches = []
+        for current_name in missing:
+            for legacy_name in LEGACY_COLUMN_REPLACEMENTS.get(
+                current_name, ()
+            ):
+                if legacy_name in table.columns:
+                    legacy_matches.append(
+                        f"{legacy_name} -> {current_name}"
+                    )
+        legacy_detail = (
+            " Legacy fields found: " + ", ".join(legacy_matches) + "."
+            if legacy_matches
+            else ""
+        )
         raise ValueError(
-            f"{SCORE_FILES[table_name]} is missing required columns: {missing}"
+            f"{SCORE_FILES[table_name]} is missing current scoring columns: "
+            f"{missing}.{legacy_detail} Re-run the revised integrated-scoring "
+            "notebook and deploy its updated data/outputs files. The app does "
+            "not substitute retired score fields."
         )
 
 
+def score_file_signature(
+    score_dir_text: str,
+) -> tuple[tuple[str, int, int], ...]:
+    """Return file metadata used to invalidate cached score tables."""
+    score_dir = Path(score_dir_text).expanduser()
+    signature = []
+    for filename in SCORE_FILES.values():
+        path = score_dir / filename
+        if path.is_file():
+            status = path.stat()
+            signature.append(
+                (filename, status.st_mtime_ns, status.st_size)
+            )
+        else:
+            signature.append((filename, -1, -1))
+    return tuple(signature)
+
+
 @st.cache_data(show_spinner=False)
-def load_score_tables(score_dir_text: str) -> dict[str, pd.DataFrame]:
+def load_score_tables(
+    score_dir_text: str,
+    schema_version: str,
+    file_signature: tuple[tuple[str, int, int], ...],
+) -> dict[str, pd.DataFrame]:
     """Load core scoring tables and available action components."""
+    if schema_version != SCORE_SCHEMA_VERSION:
+        raise ValueError("The requested score schema version is not supported.")
+    if file_signature != score_file_signature(score_dir_text):
+        raise ValueError(
+            "One or more scoring files changed while they were being loaded. "
+            "Refresh the app to reload a consistent set of outputs."
+        )
     score_dir = Path(score_dir_text).expanduser()
     missing_files = [
         filename
@@ -351,7 +436,7 @@ def show_score_table(table: pd.DataFrame) -> None:
     }
     st.dataframe(
         rounded,
-        use_container_width=True,
+        width="stretch",
         hide_index=True,
         column_config=column_config,
     )
@@ -422,6 +507,13 @@ def render_choropleth(
 ) -> None:
     """Render an interactive BSR choropleth and register click selection."""
     hover_columns = hover_columns or []
+    if metric not in values.columns:
+        st.error(
+            f"Cannot render {metric_label}: required field {metric!r} is "
+            "missing from the current score table. Re-run the revised "
+            "integrated-scoring notebook and deploy the updated outputs."
+        )
+        return
     requested = ["bsr", metric, *hover_columns]
     requested = list(dict.fromkeys(column for column in requested if column in values.columns))
     value_table = values[requested].drop_duplicates("bsr")
@@ -501,7 +593,7 @@ def render_choropleth(
     figure.update_traces(marker_line_width=1.1, marker_line_color="#ffffff")
     st.plotly_chart(
         figure,
-        use_container_width=True,
+        width="stretch",
         key=chart_key,
         on_select=partial(capture_map_selection, chart_key),
         selection_mode="points",
@@ -544,7 +636,7 @@ def horizontal_bar(
     )
     st.plotly_chart(
         figure,
-        use_container_width=True,
+        width="stretch",
         config={"displaylogo": False},
     )
 
@@ -576,13 +668,12 @@ def render_overall_risk(
         map_style,
         hover_columns=[
             "basin",
-            "source_fish_use_score_100",
-            "detailed_fish_use_score",
+            "fish_use_score",
             "overall_impact_score",
-            "lf_sum_impact_score",
-            "lf_sum_risk_score",
-            "highest_priority_life_stage",
-            "highest_priority_limiting_factor",
+            "highest_risk_species_life_stage",
+            "top_species_life_stage_risk_tie_count",
+            "highest_risk_limiting_factor",
+            "top_limiting_factor_risk_tie_count",
         ],
         color_scale=RISK_COLOR_SCALE,
     )
@@ -591,26 +682,27 @@ def render_overall_risk(
     metric_columns = st.columns(4)
     metric_columns[0].metric("Selected BSR", selected_bsr)
     metric_columns[1].metric("Overall risk", format_score(row["overall_risk_score"]))
-    metric_columns[2].metric("Fish Use Score /100", format_score(row["source_fish_use_score_100"]))
+    metric_columns[2].metric(
+        "Fish use score", format_score(row["fish_use_score"])
+    )
     metric_columns[3].metric("Overall LF impact", format_score(row["overall_impact_score"]))
 
     st.markdown(
-        f"**Highest-priority life stage:** {row['highest_priority_life_stage']}  \n"
-        f"**Highest-priority limiting factor:** {row['highest_priority_limiting_factor']}"
+        "**Highest-risk species/life stage:** "
+        f"{row['highest_risk_species_life_stage']}  \n"
+        "**Highest-risk limiting factor:** "
+        f"{row['highest_risk_limiting_factor']}"
     )
 
     left, right = st.columns(2)
     life_selected = life.loc[life["bsr"].eq(selected_bsr)].copy()
-    life_selected["fish_use"] = (
-        life_selected["species"] + " | " + life_selected["life_stage"]
-    )
     factor_selected = limiting.loc[limiting["bsr"].eq(selected_bsr)].copy()
 
     with left:
         horizontal_bar(
             life_selected,
             "risk_score",
-            "fish_use",
+            "species_life_stage_label",
             f"{selected_bsr}: risk by species and life stage",
             color="species",
             value_label="Risk score",
@@ -631,7 +723,7 @@ def render_overall_risk(
                 [
                     "species",
                     "life_stage",
-                    "fish_use_rating",
+                    "fish_use_score",
                     "population_priority",
                     "impact_score",
                     "risk_score",
@@ -658,7 +750,7 @@ def render_fish_use(
     selected_bsr: str,
     map_style: str,
 ) -> None:
-    """Render overall fish-use mapping and species/life-stage drill-down."""
+    """Render BSR-level fish use and related species/life-stage context."""
     bsr = filter_table(tables["bsr"], basin)
     life = filter_table(tables["life_stage"], basin)
 
@@ -666,32 +758,31 @@ def render_fish_use(
     render_choropleth(
         geometry,
         bsr,
-        "source_fish_use_score_100",
-        "Fish Use Score /100",
-        "Fish Use Score /100",
+        "fish_use_score",
+        "Fish use score",
+        "Fish Use Score",
         "map_fish_use",
         map_style,
         hover_columns=[
             "basin",
-            "source_fish_use_score_raw",
-            "source_fish_use_score_normalized",
-            "source_fish_use_score_100",
-            "detailed_fish_use_score",
+            "fish_use_score",
         ],
     )
 
     selected = life.loc[life["bsr"].eq(selected_bsr)].copy()
-    selected["fish_use"] = selected["species"] + " | " + selected["life_stage"]
-    horizontal_bar(
-        selected,
-        "fish_use_rating",
-        "fish_use",
-        f"{selected_bsr}: fish-use rating by species and life stage",
-        color="species",
-        value_label="Fish-use rating",
+    selected_bsr_row = bsr.loc[bsr["bsr"].eq(selected_bsr)].iloc[0]
+    summary_columns = st.columns(2)
+    summary_columns[0].metric("Selected BSR", selected_bsr)
+    summary_columns[1].metric(
+        "Fish use score", format_score(selected_bsr_row["fish_use_score"])
+    )
+    st.caption(
+        "The notebook uses one BSR-level fish-use score for every species and "
+        "life-stage pathway within the BSR. Species and life stage therefore "
+        "do not have separate fish-use scores in these outputs."
     )
 
-    with st.expander("Optional map: highest-priority life stage"):
+    with st.expander("Optional map: highest-risk species and life stage"):
         st.caption(
             "This categorical map is based on the population-weighted Level 1 "
             "risk score, not fish use alone."
@@ -699,17 +790,17 @@ def render_fish_use(
         render_choropleth(
             geometry,
             bsr,
-            "highest_priority_life_stage",
-            "Highest-priority life stage",
-            "Highest-Priority Life Stage",
+            "highest_risk_species_life_stage",
+            "Highest-risk species/life stage",
+            "Highest-Risk Species/Life Stage",
             "map_top_life_stage",
             map_style,
             categorical=True,
             hover_columns=[
                 "basin",
-                "source_fish_use_score_100",
-                "detailed_fish_use_score",
-                "top_life_stage_risk_score",
+                "fish_use_score",
+                "top_species_life_stage_risk_score",
+                "top_species_life_stage_risk_tie_count",
                 "overall_risk_score",
             ],
         )
@@ -720,7 +811,7 @@ def render_fish_use(
                 [
                     "species",
                     "life_stage",
-                    "fish_use_rating",
+                    "fish_use_score",
                     "population_priority",
                     "impact_score",
                     "risk_score",
@@ -767,12 +858,10 @@ def render_limiting_factors(
         map_style,
         hover_columns=[
             "basin",
-            "source_fish_use_score_100",
+            "fish_use_score",
             "overall_impact_score",
             "overall_risk_score",
-            "lf_sum_impact_score",
-            "lf_sum_risk_score",
-            "highest_priority_limiting_factor",
+            "highest_risk_limiting_factor",
             "top_limiting_factor_risk_score",
         ],
         color_scale=overall_color_scale,
@@ -830,7 +919,9 @@ def render_limiting_factors(
         grid["bsr"].eq(selected_bsr)
         & grid["limiting_factor"].eq(selected_factor)
     ].copy()
-    biological["fish_use"] = biological["species"] + " | " + biological["life_stage"]
+    biological["species_life_stage_label"] = (
+        biological["species"] + " | " + biological["life_stage"]
+    )
     component_labels = {
         "Impact component": "impact_component",
         "Population-weighted risk component": "risk_component",
@@ -844,28 +935,29 @@ def render_limiting_factors(
         horizontal_bar(
             biological,
             component_labels[component_label],
-            "fish_use",
+            "species_life_stage_label",
             f"{selected_bsr}: {selected_factor} by fish use",
             color="species",
             value_label=component_label,
         )
 
-    with st.expander("Highest-priority limiting factor map"):
+    with st.expander("Highest-risk limiting factor map"):
         render_choropleth(
             geometry,
             bsr,
-            "highest_priority_limiting_factor",
-            "Highest-priority limiting factor",
-            "Highest-Priority Limiting Factor",
+            "highest_risk_limiting_factor",
+            "Highest-risk limiting factor",
+            "Highest-Risk Limiting Factor",
             "map_top_limiting_factor",
             map_style,
             categorical=True,
             hover_columns=[
                 "basin",
-                "source_fish_use_score_100",
+                "fish_use_score",
                 "overall_impact_score",
                 "overall_risk_score",
                 "top_limiting_factor_risk_score",
+                "top_limiting_factor_risk_tie_count",
             ],
         )
 
@@ -875,7 +967,7 @@ def render_limiting_factors(
                 [
                     "species",
                     "life_stage",
-                    "fish_use_rating",
+                    "fish_use_score",
                     "population_priority",
                     "condition_score",
                     "vulnerability_score",
@@ -893,7 +985,7 @@ def render_actions(
     selected_bsr: str,
     map_style: str,
 ) -> None:
-    """Render Level 2 action maps, rankings, and the provisional summed score."""
+    """Render Level 2 action maps, rankings, and score components."""
     bsr = filter_table(tables["bsr"], basin)
     actions = filter_table(tables["action"], basin)
     action_components = (
@@ -975,20 +1067,20 @@ def render_actions(
                 ].sort_values("benefit_component", ascending=False)
             )
 
-    st.subheader("Highest-priority action type")
+    st.subheader("Highest risk-aligned action type")
     render_choropleth(
         geometry,
         bsr,
-        "highest_priority_action",
-        "Highest-priority action type",
-        "Highest-Priority Action Type",
+        "highest_risk_aligned_action_type",
+        "Highest risk-aligned action type",
+        "Highest Risk-Aligned Action Type",
         "map_top_action",
         map_style,
         categorical=True,
         hover_columns=[
             "basin",
-            "highest_priority_action_benefit_score",
-            "sum_action_benefit_provisional",
+            "highest_action_benefit_score",
+            "top_action_benefit_tie_count",
             "overall_risk_score",
         ],
     )
@@ -1028,7 +1120,10 @@ def main() -> None:
     st.caption("Interactive Level 1 risk and Level 2 action-benefit maps")
 
     try:
-        tables = load_score_tables(str(SCORE_DIR))
+        score_signature = score_file_signature(str(SCORE_DIR))
+        tables = load_score_tables(
+            str(SCORE_DIR), SCORE_SCHEMA_VERSION, score_signature
+        )
     except Exception as error:
         st.error(str(error))
         st.stop()
