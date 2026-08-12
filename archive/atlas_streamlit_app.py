@@ -155,6 +155,34 @@ RISK_COLOR_SCALE = "Reds"
 LIMITING_IMPACT_COLOR_SCALE = "Purples"
 ACTION_BENEFIT_COLOR_SCALE = "Greens"
 
+OVERALL_LIMITING_FACTOR_HELP = (
+    "Overall limiting-factor impact sums Overall Fish Use Score × LF condition "
+    "score × vulnerability score across species, life stages, and limiting "
+    "factors. \nPopulation-weighted limiting-factor risk uses the same "
+    "components after multiplying each species and life-stage pathway by its "
+    "population priority. \nBoth are relative aggregate scores, not "
+    "probabilities, and may exceed 1."
+)
+LIMITING_FACTOR_SELECTION_HELP = (
+    "Select the limiting factor used in the comparison chart, biological "
+    "drill-down, data table, and specific limiting-factor map."
+)
+FACTOR_SPECIFIC_MAP_HELP = (
+    "Impact score sums Overall Fish Use Score × LF condition score × "
+    "vulnerability score for the selected limiting factor. \nPopulation-weighted "
+    "risk score additionally weights each species and life-stage contribution "
+    "by population priority. \nLimiting factor condition score is the selected factor's "
+    "0.1-to-1 input score and does not include fish use, vulnerability, or "
+    "population priority."
+)
+ACTION_MAP_HELP = (
+    "Condition improvement score sums LF condition score × the action-to-factor "
+    "weight. \nLimiting-factor amelioration score applies that weight to factor "
+    "impact. \nOverall benefit score applies it to population-weighted factor "
+    "risk. These scores indicate relative alignment, not expected project "
+    "effectiveness, feasibility, or cost."
+)
+
 DISPLAY_LABELS = {
     "bsr": "BSR",
     "basin": "Basin",
@@ -235,12 +263,20 @@ def render_scoring_methodology() -> None:
 
             | Score component | Calculation |
             |---|---|
-            | Impact component | Overall Fish Use Score x condition score x vulnerability score |
+            | Impact component | Overall Fish Use Score x LF condition score x vulnerability score |
             | Risk component | Impact component x population priority |
             | Overall Limiting-Factor Impact | Sum of impact components across species, life stages, and limiting factors |
             | Overall Risk Score | Sum of risk components across species, life stages, and limiting factors |
 
-            The condition score maps the source 1-to-5 rating linearly to
+            Overall Limiting-Factor Impact does not use population priority.
+            Population-Weighted Limiting-Factor Risk uses the same impact
+            components after multiplying each species and life-stage pathway
+            by its population-priority value. It therefore gives more weight
+            to pathways associated with higher-priority populations. On the
+            Overall Risk page, this population-weighted total is labeled
+            Overall Risk Score.
+
+            The limiting factor (LF) condition score maps the source 1-to-5 rating linearly to
             0.1-to-1.0. The vulnerability score maps rank 1 to 1.0 and rank 15
             to 0.1. For the combined Migration life stage, the calculation
             uses the higher of the adult and juvenile vulnerability scores.
@@ -252,7 +288,7 @@ def render_scoring_methodology() -> None:
             The action-to-limiting-factor weight equals relationship
             directness x frequency. For each action type, the app sums:
 
-            - condition score x action weight for the **Condition Improvement Score**;
+            - LF condition score x action weight for the **Condition Improvement Score**;
             - limiting-factor impact x action weight for the **Limiting-Factor Amelioration Score**; and
             - limiting-factor risk x action weight for the **Overall Benefit Score**.
 
@@ -1106,7 +1142,7 @@ def render_fish_use(
             value_label="Life-stage fish use score",
         )
 
-    with st.expander("Optional map: Highest Priority Life Stage"):
+    with st.expander("Highest Priority Life Stage"):
         st.caption(
             "This placeholder indicator is based on the population-weighted "
             "Level 1 risk score, not fish use alone, and is retained for "
@@ -1125,7 +1161,6 @@ def render_fish_use(
                 "fish_use_score",
                 *species_hover_columns,
                 "top_species_life_stage_risk_score",
-                "top_species_life_stage_risk_tie_count",
                 "overall_risk_score",
             ],
         )
@@ -1167,6 +1202,7 @@ def render_limiting_factors(
         "Overall limiting-factor map value",
         options=list(overall_labels),
         horizontal=True,
+        help=OVERALL_LIMITING_FACTOR_HELP,
     )
     overall_metric = overall_labels[overall_label]
     overall_color_scale = (
@@ -1194,16 +1230,21 @@ def render_limiting_factors(
 
     st.subheader("Specific limiting-factor drill-down")
     factor_options = sorted(limiting["limiting_factor"].dropna().unique())
-    selected_factor = st.selectbox("Limiting factor", factor_options)
+    selected_factor = st.selectbox(
+        "Limiting factor",
+        factor_options,
+        help=LIMITING_FACTOR_SELECTION_HELP,
+    )
     factor_score_labels = {
         "Impact score": "impact_score",
         "Population-weighted risk score": "risk_score",
-        "Condition score": "condition_score",
+        "Limiting factor condition score": "condition_score",
     }
     factor_score_label = st.radio(
         "Factor-specific map value",
         options=list(factor_score_labels),
         horizontal=True,
+        help=FACTOR_SPECIFIC_MAP_HELP,
     )
     factor_score = factor_score_labels[factor_score_label]
     factor_color_scale = {
@@ -1343,6 +1384,7 @@ def render_actions(
         "Action map value",
         options=list(action_score_labels),
         horizontal=True,
+        help=ACTION_MAP_HELP,
     )
     action_score = action_score_labels[action_score_label]
     action_map = actions.loc[actions["action_type"].eq(selected_action)].copy()

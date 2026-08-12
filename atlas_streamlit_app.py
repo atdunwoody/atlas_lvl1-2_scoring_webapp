@@ -48,7 +48,7 @@ SUPPORTING_SCORE_FILES = {
 }
 
 SCORE_FILES = {**CORE_SCORE_FILES, **SUPPORTING_SCORE_FILES}
-SCORE_SCHEMA_VERSION = "2026-08-11-fish-use-levels-v2"
+SCORE_SCHEMA_VERSION = "2026-08-12-life-stage-risk-v3"
 
 REQUIRED_COLUMNS = {
     "bsr": {
@@ -158,10 +158,11 @@ ACTION_BENEFIT_COLOR_SCALE = "Greens"
 OVERALL_LIMITING_FACTOR_HELP = (
     "Overall limiting-factor impact sums Overall Fish Use Score × LF condition "
     "score × vulnerability score across species, life stages, and limiting "
-    "factors. \nPopulation-weighted limiting-factor risk uses the same "
-    "components after multiplying each species and life-stage pathway by its "
-    "population priority. \nBoth are relative aggregate scores, not "
-    "probabilities, and may exceed 1."
+    "factors. \nPopulation-weighted limiting-factor risk instead uses the "
+    "Life-Stage Fish Use Score × LF condition score × vulnerability score × "
+    "population priority for each species and life-stage pathway. \nA pathway "
+    "with a zero life-stage fish-use score therefore has zero risk. Both are "
+    "relative aggregate scores, not probabilities, and may exceed 1."
 )
 LIMITING_FACTOR_SELECTION_HELP = (
     "Select the limiting factor used in the comparison chart, biological "
@@ -170,10 +171,10 @@ LIMITING_FACTOR_SELECTION_HELP = (
 FACTOR_SPECIFIC_MAP_HELP = (
     "Impact score sums Overall Fish Use Score × LF condition score × "
     "vulnerability score for the selected limiting factor. \nPopulation-weighted "
-    "risk score additionally weights each species and life-stage contribution "
-    "by population priority. \nLimiting factor condition score is the selected factor's "
-    "0.1-to-1 input score and does not include fish use, vulnerability, or "
-    "population priority."
+    "risk score instead sums Life-Stage Fish Use Score × LF condition score × "
+    "vulnerability score × population priority. \nLimiting factor condition "
+    "score is the selected factor's 0.1-to-1 input score and does not include "
+    "fish use, vulnerability, or population priority."
 )
 ACTION_MAP_HELP = (
     "Condition improvement score sums LF condition score × the action-to-factor "
@@ -193,7 +194,7 @@ DISPLAY_LABELS = {
     "overall_risk_score": "Overall Risk Score",
     "highest_risk_species_life_stage": "Highest Priority Life Stage",
     "top_species_life_stage_risk_score": (
-        "Highest Priority Life Stage Score"
+        "Risk Score for Highest Priority Life Stage"
     ),
     "top_species_life_stage_risk_tie_count": (
         "Highest Priority Life Stage Tie Count"
@@ -244,7 +245,7 @@ def render_scoring_methodology() -> None:
     """Explain the score inputs, equations, aggregation, and interpretation."""
     with st.expander("How scores are calculated"):
         st.markdown(
-            """
+            r"""
             Each BSR is evaluated for every species, life stage, and limiting
             factor combination. Higher input values increase the calculated
             score.
@@ -252,45 +253,132 @@ def render_scoring_methodology() -> None:
             **Fish-use inputs**
 
             - **Overall Fish Use Score** is the BSR-level 0-to-1 fish-use
-              score. It is applied as the common fish-use multiplier in the
-              impact and risk calculations.
-            - **Species Fish Use Score** and **Life-Stage Fish Use Score** are
-              carried directly from the fish-use source data for reporting.
-              They are not substituted for the Overall Fish Use Score in the
-              current impact or risk equations.
+              score used in overall limiting-factor impact.
+            - **Life-Stage Fish Use Score** is the source
+              **LS_corrected_score** used in population-weighted risk.
+            - **Species Fish Use Score** is the source
+              **species_aggregate_score**. It is reported for context but is
+              not a direct multiplier in the impact or risk equations.
 
             **Level 1 calculations**
 
-            | Score component | Calculation |
-            |---|---|
-            | Impact component | Overall Fish Use Score x LF condition score x vulnerability score |
-            | Risk component | Impact component x population priority |
-            | Overall Limiting-Factor Impact | Sum of impact components across species, life stages, and limiting factors |
-            | Overall Risk Score | Sum of risk components across species, life stages, and limiting factors |
+            For BSR $b$, species $s$, life stage $k$, and limiting factor
+            $\ell$, let:
 
-            Overall Limiting-Factor Impact does not use population priority.
-            Population-Weighted Limiting-Factor Risk uses the same impact
-            components after multiplying each species and life-stage pathway
-            by its population-priority value. It therefore gives more weight
-            to pathways associated with higher-priority populations. On the
-            Overall Risk page, this population-weighted total is labeled
-            Overall Risk Score.
+            - $F_b$ = Overall Fish Use Score;
+            - $L_{b,s,k}$ = Life-Stage Fish Use Score;
+            - $C_{b,\ell}$ = limiting-factor condition score;
+            - $V_{s,k,\ell}$ = vulnerability score; and
+            - $P_{s,k}$ = population priority within the applicable basin.
 
-            The limiting factor (LF) condition score maps the source 1-to-5 rating linearly to
-            0.1-to-1.0. The vulnerability score maps rank 1 to 1.0 and rank 15
-            to 0.1. For the combined Migration life stage, the calculation
-            uses the higher of the adult and juvenile vulnerability scores.
-            Species/life-stage and limiting-factor summaries are different
-            groupings of the same components and reconcile to the BSR totals.
+            The row-level **impact component** is:
+
+            $$
+            I_{b,s,k,\ell}
+            =
+            F_b\,C_{b,\ell}\,V_{s,k,\ell}
+            $$
+
+            The row-level **population-weighted risk component** is:
+
+            $$
+            R_{b,s,k,\ell}
+            =
+            L_{b,s,k}\,C_{b,\ell}\,V_{s,k,\ell}\,P_{s,k}
+            $$
+
+            These are distinct calculations. Impact uses overall BSR fish use
+            and does not use population priority. Risk uses life-stage fish
+            use and population priority. A species and life-stage pathway with
+            $L_{b,s,k}=0$ therefore has zero risk.
+
+            Overall BSR scores sum all pathways:
+
+            $$
+            I_b^{\mathrm{overall}}
+            =
+            \sum_s\sum_k\sum_\ell I_{b,s,k,\ell}
+            $$
+
+            $$
+            R_b^{\mathrm{overall}}
+            =
+            \sum_s\sum_k\sum_\ell R_{b,s,k,\ell}
+            $$
+
+            On the Overall Risk page, $R_b^{\mathrm{overall}}$ is labeled
+            **Overall Risk Score**. Limiting-factor impact and risk are the
+            corresponding sums across species and life stages for one limiting
+            factor:
+
+            $$
+            I_{b,\ell}=\sum_s\sum_k I_{b,s,k,\ell}
+            \qquad
+            R_{b,\ell}=\sum_s\sum_k R_{b,s,k,\ell}
+            $$
+
+            The risk score for a species and life stage sums its risk
+            components across all 15 limiting factors:
+
+            $$
+            R_{b,s,k}
+            =
+            \sum_\ell R_{b,s,k,\ell}
+            $$
+
+            The **Highest Priority Life Stage** is the species and life-stage
+            combination with the largest $R_{b,s,k}$ within the BSR. The
+            displayed **Risk Score for Highest Priority Life Stage** is:
+
+            $$
+            R_b^{\mathrm{highest}}
+            =
+            \max_{s,k}\left(R_{b,s,k}\right)
+            $$
+
+            Tied maximum scores retain all tied species and life-stage
+            combinations.
+
+            The limiting-factor condition score maps the source 1-to-5 rating
+            linearly to 0.1-to-1.0. The vulnerability score maps rank 1 to 1.0
+            and rank 15 to 0.1. For the combined Migration life stage, the
+            calculation uses the higher of the adult and juvenile vulnerability
+            scores.
 
             **Level 2 action calculations**
 
-            The action-to-limiting-factor weight equals relationship
-            directness x frequency. For each action type, the app sums:
+            For action type $a$, the action-to-limiting-factor weight is:
 
-            - LF condition score x action weight for the **Condition Improvement Score**;
-            - limiting-factor impact x action weight for the **Limiting-Factor Amelioration Score**; and
-            - limiting-factor risk x action weight for the **Overall Benefit Score**.
+            $$
+            W_{a,\ell}
+            =
+            D_{a,\ell}\,Q_{a,\ell}
+            $$
+
+            where $D$ is relationship directness and $Q$ is frequency.
+            The action scores are:
+
+            $$
+            CI_{b,a}
+            =
+            \sum_\ell W_{a,\ell}\,C_{b,\ell}
+            $$
+
+            $$
+            LA_{b,a}
+            =
+            \sum_\ell W_{a,\ell}\,I_{b,\ell}
+            $$
+
+            $$
+            B_{b,a}
+            =
+            \sum_\ell W_{a,\ell}\,R_{b,\ell}
+            $$
+
+            Here, $CI$ is the **Condition Improvement Score**, $LA$ is the
+            **Limiting-Factor Amelioration Score**, and $B$ is the
+            **Overall Benefit Score**.
 
             Aggregate scores are relative prioritization indicators and may
             exceed 1 because components are summed. They are not probabilities.
