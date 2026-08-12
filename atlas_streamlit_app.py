@@ -2123,7 +2123,10 @@ def render_actions(
                     "action_benefit_score",
                     "benefit_rank_within_bsr",
                 ]
-            ].sort_values("benefit_rank_within_bsr").round(0)
+            # Only show the integer part of the rank for clarity in the table
+            ].sort_values("benefit_rank_within_bsr").assign(
+                benefit_rank_within_bsr=lambda df: df["benefit_rank_within_bsr"].astype(int)
+            )
         )
 
     st.subheader("Overall Benefit Score Map")
