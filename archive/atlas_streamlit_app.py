@@ -245,7 +245,7 @@ def render_scoring_methodology() -> None:
     """Explain the score inputs, equations, aggregation, and interpretation."""
     with st.expander("How scores are calculated"):
         st.markdown(
-            r"""
+            """
             Each BSR is evaluated for every species, life stage, and limiting
             factor combination. Higher input values increase the calculated
             score.
@@ -261,84 +261,140 @@ def render_scoring_methodology() -> None:
               not a direct multiplier in the impact or risk equations.
 
             **Level 1 calculations**
+            """
+        )
 
-            For BSR $b$, species $s$, life stage $k$, and limiting factor
-            $\ell$, let:
-
-            - $F_b$ = Overall Fish Use Score;
-            - $L_{b,s,k}$ = Life-Stage Fish Use Score;
-            - $C_{b,\ell}$ = limiting-factor condition score;
-            - $V_{s,k,\ell}$ = vulnerability score; and
-            - $P_{s,k}$ = population priority within the applicable basin.
-
-            The row-level **impact component** is:
-
-            $$
-            I_{b,s,k,\ell}
+        st.markdown("**Pathway components**")
+        st.latex(
+            r"""
+            \text{impact component}
             =
-            F_b\,C_{b,\ell}\,V_{s,k,\ell}
-            $$
+            \text{overall fish use}
+            \times \text{condition}
+            \times \text{vulnerability}
+            """
+        )
+        st.latex(
+            r"""
+            \begin{aligned}
+            \text{risk component}
+            ={}& \text{life-stage fish use}
+            \times \text{condition} \\
+            &{}\times \text{vulnerability}
+            \times \text{population priority}
+            \end{aligned}
+            """
+        )
 
-            The row-level **population-weighted risk component** is:
+        st.markdown(
+            """
+            These are distinct calculations:
+             
+            - **Impact** applies the same overall BSR fish-use score to every species and life-stage pathway.
+            - **Risk** uses the pathway-specific life-stage fish-use score and population priority.
 
-            $$
-            R_{b,s,k,\ell}
-            =
-            L_{b,s,k}\,C_{b,\ell}\,V_{s,k,\ell}\,P_{s,k}
-            $$
+            A species and life-stage pathway with a Life-Stage Fish Use Score of 0 therefore has zero risk.
 
-            These are distinct calculations. Impact uses overall BSR fish use
-            and does not use population priority. Risk uses life-stage fish
-            use and population priority. A species and life-stage pathway with
-            $L_{b,s,k}=0$ therefore has zero risk.
-
-            Overall BSR scores sum all pathways:
-
-            $$
-            I_b^{\mathrm{overall}}
-            =
-            \sum_s\sum_k\sum_\ell I_{b,s,k,\ell}
-            $$
-
-            $$
-            R_b^{\mathrm{overall}}
-            =
-            \sum_s\sum_k\sum_\ell R_{b,s,k,\ell}
-            $$
-
-            On the Overall Risk page, $R_b^{\mathrm{overall}}$ is labeled
-            **Overall Risk Score**. Limiting-factor impact and risk are the
-            corresponding sums across species and life stages for one limiting
-            factor:
-
-            $$
-            I_{b,\ell}=\sum_s\sum_k I_{b,s,k,\ell}
-            \qquad
-            R_{b,\ell}=\sum_s\sum_k R_{b,s,k,\ell}
-            $$
-
-            The risk score for a species and life stage sums its risk
-            components across all 15 limiting factors:
-
-            $$
-            R_{b,s,k}
-            =
-            \sum_\ell R_{b,s,k,\ell}
-            $$
-
+            **Species and life-stage score**
+            """
+        )
+        st.latex(
+            r"""
+            \begin{aligned}
+            \text{life-stage risk score}
+            ={}&
+            \sum_{\substack{\text{15 limiting}\\\text{factors}}}
+            \Bigl(
+            \text{life-stage fish use}
+            \times \text{condition} \\
+            &{}\qquad\times \text{vulnerability}
+            \times \text{population priority}
+            \Bigr)
+            \end{aligned}
+            """
+        )
+        st.latex(
+            r"""
+            \begin{aligned}
+            \text{risk score for highest priority life stage}
+            ={}&
+            \max_{\substack{\text{all species and}\\\text{life stages}}}
+            \left(\text{life-stage risk score}\right)
+            \end{aligned}
+            """
+        )
+        st.markdown(
+            """
             The **Highest Priority Life Stage** is the species and life-stage
-            combination with the largest $R_{b,s,k}$ within the BSR. The
-            displayed **Risk Score for Highest Priority Life Stage** is:
+            combination with the largest life-stage risk score within the BSR.
+            Tied maximum scores retain all tied combinations.
 
-            $$
-            R_b^{\mathrm{highest}}
-            =
-            \max_{s,k}\left(R_{b,s,k}\right)
-            $$
-
-            Tied maximum scores retain all tied species and life-stage
-            combinations.
-
+            **Limiting-factor scores**
+            """
+        )
+        st.latex(
+            r"""
+            \begin{aligned}
+            \text{limiting-factor impact}
+            ={}&
+            \sum_{\substack{\text{all species and}\\\text{life stages}}}
+            \Bigl(
+            \text{overall fish use}
+            \times \text{condition} \\
+            &{}\qquad\times \text{vulnerability}
+            \Bigr)
+            \end{aligned}
+            """
+        )
+        st.latex(
+            r"""
+            \begin{aligned}
+            \text{limiting-factor risk}
+            ={}&
+            \sum_{\substack{\text{all species and}\\\text{life stages}}}
+            \Bigl(
+            \text{life-stage fish use}
+            \times \text{condition} \\
+            &{}\qquad\times \text{vulnerability}
+            \times \text{population priority}
+            \Bigr)
+            \end{aligned}
+            """
+        )
+        st.markdown("**Overall BSR scores**")
+        st.latex(
+            r"""
+            \begin{aligned}
+            \text{overall limiting-factor impact}
+            ={}&
+            \sum_{\substack{\text{all species, life stages,}\\
+                            \text{and 15 limiting factors}}}
+            \Bigl(
+            \text{overall fish use}
+            \times \text{condition} \\
+            &{}\qquad\times \text{vulnerability}
+            \Bigr)
+            \end{aligned}
+            """
+        )
+        st.latex(
+            r"""
+            \begin{aligned}
+            \text{overall risk score}
+            ={}&
+            \sum_{\substack{\text{all species, life stages,}\\
+                            \text{and 15 limiting factors}}}
+            \Bigl(
+            \text{life-stage fish use}
+            \times \text{condition} \\
+            &{}\qquad\times \text{vulnerability}
+            \times \text{population priority}
+            \Bigr)
+            \end{aligned}
+            """
+        )
+        st.markdown(
+            """
             The limiting-factor condition score maps the source 1-to-5 rating
             linearly to 0.1-to-1.0. The vulnerability score maps rank 1 to 1.0
             and rank 15 to 0.1. For the combined Migration life stage, the
@@ -346,40 +402,58 @@ def render_scoring_methodology() -> None:
             scores.
 
             **Level 2 action calculations**
+            """
+        )
 
-            For action type $a$, the action-to-limiting-factor weight is:
-
-            $$
-            W_{a,\ell}
+        st.latex(
+            r"""
+            \text{action weight}
             =
-            D_{a,\ell}\,Q_{a,\ell}
-            $$
-
-            where $D$ is relationship directness and $Q$ is frequency.
-            The action scores are:
-
-            $$
-            CI_{b,a}
-            =
-            \sum_\ell W_{a,\ell}\,C_{b,\ell}
-            $$
-
-            $$
-            LA_{b,a}
-            =
-            \sum_\ell W_{a,\ell}\,I_{b,\ell}
-            $$
-
-            $$
-            B_{b,a}
-            =
-            \sum_\ell W_{a,\ell}\,R_{b,\ell}
-            $$
-
-            Here, $CI$ is the **Condition Improvement Score**, $LA$ is the
-            **Limiting-Factor Amelioration Score**, and $B$ is the
-            **Overall Benefit Score**.
-
+            \text{relationship directness}
+            \times \text{frequency}
+            """
+        )
+        st.latex(
+            r"""
+            \begin{aligned}
+            \text{condition improvement score}
+            ={}&
+            \sum_{\substack{\text{15 limiting}\\\text{factors}}}
+            \left(
+            \text{condition}
+            \times \text{action weight}
+            \right)
+            \end{aligned}
+            """
+        )
+        st.latex(
+            r"""
+            \begin{aligned}
+            \text{limiting-factor amelioration score}
+            ={}&
+            \sum_{\substack{\text{15 limiting}\\\text{factors}}}
+            \left(
+            \text{limiting-factor impact}
+            \times \text{action weight}
+            \right)
+            \end{aligned}
+            """
+        )
+        st.latex(
+            r"""
+            \begin{aligned}
+            \text{overall benefit score}
+            ={}&
+            \sum_{\substack{\text{15 limiting}\\\text{factors}}}
+            \left(
+            \text{limiting-factor risk}
+            \times \text{action weight}
+            \right)
+            \end{aligned}
+            """
+        )
+        st.markdown(
+            """
             Aggregate scores are relative prioritization indicators and may
             exceed 1 because components are summed. They are not probabilities.
             Action scores indicate alignment with calculated risk, not expected
