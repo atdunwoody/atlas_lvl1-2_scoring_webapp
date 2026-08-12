@@ -156,11 +156,11 @@ LIMITING_IMPACT_COLOR_SCALE = "Purples"
 ACTION_BENEFIT_COLOR_SCALE = "Greens"
 
 OVERALL_LIMITING_FACTOR_HELP = (
-    "Overall limiting-factor impact sums Overall Fish Use Score × condition "
+    "Overall limiting-factor impact sums Overall Fish Use Score × LF condition "
     "score × vulnerability score across species, life stages, and limiting "
-    "factors. Population-weighted limiting-factor risk uses the same "
+    "factors. \nPopulation-weighted limiting-factor risk uses the same "
     "components after multiplying each species and life-stage pathway by its "
-    "population priority. Both are relative aggregate scores, not "
+    "population priority. \nBoth are relative aggregate scores, not "
     "probabilities, and may exceed 1."
 )
 LIMITING_FACTOR_SELECTION_HELP = (
@@ -168,17 +168,17 @@ LIMITING_FACTOR_SELECTION_HELP = (
     "drill-down, data table, and specific limiting-factor map."
 )
 FACTOR_SPECIFIC_MAP_HELP = (
-    "Impact score sums Overall Fish Use Score × condition score × "
-    "vulnerability score for the selected limiting factor. Population-weighted "
+    "Impact score sums Overall Fish Use Score × LF condition score × "
+    "vulnerability score for the selected limiting factor. \nPopulation-weighted "
     "risk score additionally weights each species and life-stage contribution "
-    "by population priority. Condition score is the selected factor's "
+    "by population priority. \nLimiting factor condition score is the selected factor's "
     "0.1-to-1 input score and does not include fish use, vulnerability, or "
     "population priority."
 )
 ACTION_MAP_HELP = (
-    "Condition improvement score sums condition score × the action-to-factor "
-    "weight. Limiting-factor amelioration score applies that weight to factor "
-    "impact. Overall benefit score applies it to population-weighted factor "
+    "Condition improvement score sums LF condition score × the action-to-factor "
+    "weight. \nLimiting-factor amelioration score applies that weight to factor "
+    "impact. \nOverall benefit score applies it to population-weighted factor "
     "risk. These scores indicate relative alignment, not expected project "
     "effectiveness, feasibility, or cost."
 )
@@ -263,7 +263,7 @@ def render_scoring_methodology() -> None:
 
             | Score component | Calculation |
             |---|---|
-            | Impact component | Overall Fish Use Score x condition score x vulnerability score |
+            | Impact component | Overall Fish Use Score x LF condition score x vulnerability score |
             | Risk component | Impact component x population priority |
             | Overall Limiting-Factor Impact | Sum of impact components across species, life stages, and limiting factors |
             | Overall Risk Score | Sum of risk components across species, life stages, and limiting factors |
@@ -276,7 +276,7 @@ def render_scoring_methodology() -> None:
             Overall Risk page, this population-weighted total is labeled
             Overall Risk Score.
 
-            The condition score maps the source 1-to-5 rating linearly to
+            The limiting factor (LF) condition score maps the source 1-to-5 rating linearly to
             0.1-to-1.0. The vulnerability score maps rank 1 to 1.0 and rank 15
             to 0.1. For the combined Migration life stage, the calculation
             uses the higher of the adult and juvenile vulnerability scores.
@@ -288,7 +288,7 @@ def render_scoring_methodology() -> None:
             The action-to-limiting-factor weight equals relationship
             directness x frequency. For each action type, the app sums:
 
-            - condition score x action weight for the **Condition Improvement Score**;
+            - LF condition score x action weight for the **Condition Improvement Score**;
             - limiting-factor impact x action weight for the **Limiting-Factor Amelioration Score**; and
             - limiting-factor risk x action weight for the **Overall Benefit Score**.
 
@@ -1238,7 +1238,7 @@ def render_limiting_factors(
     factor_score_labels = {
         "Impact score": "impact_score",
         "Population-weighted risk score": "risk_score",
-        "Condition score": "condition_score",
+        "Limiting factor condition score": "condition_score",
     }
     factor_score_label = st.radio(
         "Factor-specific map value",
