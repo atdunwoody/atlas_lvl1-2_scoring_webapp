@@ -8,9 +8,11 @@ Launch command:
 
 The app reads the Level 1 and Level 2 outputs created by
 Atlas_Integrated_Scoring.ipynb, including the scored BSR GeoPackage. The BSR
-layer must contain the same identifiers used in bsr_scores.csv, such as CC1 or
-UGR11. Fish-use views distinguish the BSR-level fish_use_score, species-level
-species_aggregate_score, and life-stage LS_corrected_score fields.
+feature layer is detected from the score_bsr field written by the notebook.
+Fish-use views distinguish the BSR-level fish_use_score, species-level
+species_aggregate_score, and life-stage LS_corrected_score fields. Level 2
+views use action_benefit_score for individual actions and
+overall_benefit_score for the BSR-wide sum across actions.
 """
 
 from __future__ import annotations
@@ -27,13 +29,13 @@ import numpy as np
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
+import pyogrio
 import streamlit as st
 
 
 SCORE_DIR = Path("data/outputs")
 BSR_GPKG_PATH = SCORE_DIR / "bsr_scores.gpkg"
-BSR_LAYER_NAME = "bsr"
-BSR_ID_FIELD = "BSR"
+BSR_ID_FIELD_CANDIDATES = ("score_bsr", "BSR", "bsr")
 MAP_STYLE = "carto-positron"
 MAP_FILL_OPACITY = 0.78
 MAP_SELECTED_OPACITY = 0.90
@@ -55,7 +57,7 @@ CORE_SCORE_FILES = {
 SUPPORTING_SCORE_FILES: dict[str, str] = {}
 
 SCORE_FILES = {**CORE_SCORE_FILES, **SUPPORTING_SCORE_FILES}
-SCORE_SCHEMA_VERSION = "2026-08-12-action-benefit-v4"
+SCORE_SCHEMA_VERSION = "2026-08-12-notebook-174505-v5"
 
 REQUIRED_COLUMNS = {
     "bsr": {
@@ -73,6 +75,7 @@ REQUIRED_COLUMNS = {
         "highest_risk_aligned_action_type",
         "highest_action_benefit_score",
         "top_action_benefit_tie_count",
+        "overall_benefit_score",
     },
     "life_stage": {
         "bsr",
@@ -101,7 +104,7 @@ REQUIRED_COLUMNS = {
         "action_type",
         "condition_improvement_score",
         "limiting_factor_amelioration_score",
-        "overall_benefit_score",
+        "action_benefit_score",
     },
     "grid": {
         "bsr",
@@ -235,8 +238,8 @@ DISPLAY_LABELS = {
     "condition_improvement_component": "Condition Improvement Component",
     "amelioration_component": "Limiting-Factor Amelioration Component",
     "benefit_component": "Action-Specific Benefit Component",
-    "overall_benefit_score": "Action-Specific Benefit Score",
-    "overall_benefit_score_all_actions": "Overall Benefit Score",
+    "action_benefit_score": "Action-Specific Benefit Score",
+    "overall_benefit_score": "Overall Benefit Score",
     "action_count": "Number of Actions",
     "highest_risk_aligned_action_type": "Highest Risk-Aligned Action Type",
     "highest_action_benefit_score": "Highest Action-Specific Benefit Score",
@@ -730,13 +733,43 @@ def load_score_tables(
 
 
 @st.cache_data(show_spinner=False)
-def load_geometry_path(path_text: str, layer_name: str) -> gpd.GeoDataFrame:
-    """Read a configured GeoPackage or GeoJSON path."""
+def load_scored_bsr_layer(
+    path_text: str,
+) -> tuple[gpd.GeoDataFrame, str, str]:
+    """Find the notebook's scored feature layer and its BSR identifier."""
     path = Path(path_text).expanduser()
     if not path.is_file():
         raise FileNotFoundError(f"Spatial layer not found: {path}")
-    layer = layer_name.strip() or None
-    return gpd.read_file(path, layer=layer)
+
+    matches: list[tuple[str, str]] = []
+    for layer_name, geometry_type in pyogrio.list_layers(path):
+        if geometry_type is None:
+            continue
+        fields = [str(field) for field in pyogrio.read_info(
+            path, layer=str(layer_name)
+        )["fields"]]
+        field_lookup = {field.casefold(): field for field in fields}
+        identifier = next(
+            (
+                field_lookup[candidate.casefold()]
+                for candidate in BSR_ID_FIELD_CANDIDATES
+                if candidate.casefold() in field_lookup
+            ),
+            None,
+        )
+        if identifier is not None:
+            matches.append((str(layer_name), identifier))
+
+    if len(matches) != 1:
+        raise ValueError(
+            "Expected exactly one scored polygon layer containing score_bsr "
+            "or BSR in bsr_scores.gpkg; found "
+            f"{len(matches)}."
+        )
+
+    layer_name, identifier = matches[0]
+    source = gpd.read_file(path, layer=layer_name, engine="pyogrio")
+    return source, identifier, layer_name
 
 
 def prepare_geometry(
@@ -1718,24 +1751,60 @@ def summarize_action_benefits(
     action_components: pd.DataFrame,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     """Build highest-component hover fields and BSR-wide benefit totals."""
+    bsr_values = bsr.copy()
+    for column in ("highest_action_benefit_score", "overall_benefit_score"):
+        bsr_values[column] = pd.to_numeric(
+            bsr_values[column], errors="coerce"
+        )
+    if bsr_values[
+        ["highest_action_benefit_score", "overall_benefit_score"]
+    ].isna().any().any():
+        raise ValueError(
+            "bsr_scores.csv contains missing or nonnumeric action-benefit "
+            "summary scores."
+        )
+
     action_values = actions.copy()
-    action_values["overall_benefit_score"] = pd.to_numeric(
-        action_values["overall_benefit_score"], errors="coerce"
+    action_values["action_benefit_score"] = pd.to_numeric(
+        action_values["action_benefit_score"], errors="coerce"
     )
-    if action_values["overall_benefit_score"].isna().any():
+    if action_values["action_benefit_score"].isna().any():
         raise ValueError(
             "action_scores.csv contains missing or nonnumeric "
             "Action-Specific Benefit Scores."
         )
     action_values["_highest_action_score"] = action_values.groupby("bsr")[
-        "overall_benefit_score"
+        "action_benefit_score"
     ].transform("max")
     top_actions = action_values.loc[
-        action_values["overall_benefit_score"].eq(
+        action_values["action_benefit_score"].eq(
             action_values["_highest_action_score"]
         ),
         ["bsr", "action_id", "action_type"],
     ].drop_duplicates()
+    calculated_top_scores = (
+        action_values.groupby("bsr", as_index=False)["action_benefit_score"]
+        .max()
+        .rename(columns={"action_benefit_score": "_calculated_top_score"})
+    )
+    top_score_check = bsr_values[
+        ["bsr", "highest_action_benefit_score"]
+    ].merge(
+        calculated_top_scores,
+        on="bsr",
+        how="left",
+        validate="one_to_one",
+    )
+    if top_score_check["_calculated_top_score"].isna().any() or not np.allclose(
+        top_score_check["highest_action_benefit_score"],
+        top_score_check["_calculated_top_score"],
+        rtol=1e-9,
+        atol=1e-12,
+    ):
+        raise ValueError(
+            "Highest Action-Specific Benefit Scores in bsr_scores.csv do not "
+            "match action_scores.csv."
+        )
 
     components = action_components.copy()
     for column in ("lfat_score", "benefit_component"):
@@ -1760,7 +1829,7 @@ def summarize_action_benefits(
         validate="one_to_one",
     )
     if action_reconciliation["_component_total"].isna().any() or not np.allclose(
-        action_reconciliation["overall_benefit_score"],
+        action_reconciliation["action_benefit_score"],
         action_reconciliation["_component_total"],
         rtol=1e-9,
         atol=1e-12,
@@ -1842,28 +1911,53 @@ def summarize_action_benefits(
             highest_benefit_component_score=("benefit_component", "max"),
         )
     )
-    missing_component_bsrs = sorted(set(bsr["bsr"]) - set(component_summary["bsr"]))
+    missing_component_bsrs = sorted(
+        set(bsr_values["bsr"]) - set(component_summary["bsr"])
+    )
     if missing_component_bsrs:
         raise ValueError(
             "No highest-benefit component could be identified for BSRs: "
             + ", ".join(missing_component_bsrs)
         )
-    highest_action_map = bsr.merge(
+    highest_action_map = bsr_values.merge(
         component_summary,
         on="bsr",
         how="left",
         validate="one_to_one",
     )
 
-    overall_benefit_map = (
-        action_values.groupby(["bsr", "basin"], as_index=False)
+    action_totals = (
+        action_values.groupby("bsr", as_index=False)
         .agg(
-            overall_benefit_score_all_actions=(
-                "overall_benefit_score",
+            _calculated_overall_benefit_score=(
+                "action_benefit_score",
                 "sum",
             ),
             action_count=("action_type", "nunique"),
         )
+    )
+    overall_benefit_map = bsr_values[
+        ["bsr", "basin", "overall_benefit_score"]
+    ].merge(
+        action_totals,
+        on="bsr",
+        how="left",
+        validate="one_to_one",
+    )
+    if overall_benefit_map[
+        "_calculated_overall_benefit_score"
+    ].isna().any() or not np.allclose(
+        overall_benefit_map["overall_benefit_score"],
+        overall_benefit_map["_calculated_overall_benefit_score"],
+        rtol=1e-9,
+        atol=1e-12,
+    ):
+        raise ValueError(
+            "Overall Benefit Scores in bsr_scores.csv do not equal the sum "
+            "of Action-Specific Benefit Scores in action_scores.csv."
+        )
+    overall_benefit_map = overall_benefit_map.drop(
+        columns="_calculated_overall_benefit_score"
     )
     return highest_action_map, overall_benefit_map
 
@@ -1897,7 +1991,7 @@ def render_actions(
     selected_action = st.selectbox("Action type", list(action_lookup))
 
     action_score_labels = {
-        "Action-Specific Benefit Score": "overall_benefit_score",
+        "Action-Specific Benefit Score": "action_benefit_score",
         "Limiting-Factor Amelioration Score": "limiting_factor_amelioration_score",
         "Condition Improvement Score": "condition_improvement_score",
     }
@@ -1911,12 +2005,12 @@ def render_actions(
     action_map = actions.loc[actions["action_type"].eq(selected_action)].copy()
     action_map_heading = (
         "Action-Specific Benefit Scores Map"
-        if action_score == "overall_benefit_score"
+        if action_score == "action_benefit_score"
         else f"{action_score_label} Map"
     )
     action_map_title = (
         f"Action-Specific Benefit Scores Map: {selected_action}"
-        if action_score == "overall_benefit_score"
+        if action_score == "action_benefit_score"
         else f"{selected_action}: {action_score_label}"
     )
     st.subheader(action_map_heading)
@@ -1931,7 +2025,7 @@ def render_actions(
         hover_columns=[
             "condition_improvement_score",
             "limiting_factor_amelioration_score",
-            "overall_benefit_score",
+            "action_benefit_score",
             "benefit_rank_within_bsr",
         ],
         color_scale=ACTION_BENEFIT_COLOR_SCALE,
@@ -2026,7 +2120,7 @@ def render_actions(
                     "action_type",
                     "condition_improvement_score",
                     "limiting_factor_amelioration_score",
-                    "overall_benefit_score",
+                    "action_benefit_score",
                     "benefit_rank_within_bsr",
                 ]
             ].sort_values("benefit_rank_within_bsr")
@@ -2040,7 +2134,7 @@ def render_actions(
     render_choropleth(
         geometry,
         overall_benefit_map,
-        "overall_benefit_score_all_actions",
+        "overall_benefit_score",
         "Overall Benefit Score",
         "Overall Benefit Score Map",
         "map_overall_benefit",
@@ -2051,9 +2145,9 @@ def render_actions(
 
 
 def load_bsr_geometry(bsr_scores: pd.DataFrame) -> gpd.GeoDataFrame:
-    """Load and prepare the hardcoded BSR GeoPackage layer."""
-    source = load_geometry_path(str(BSR_GPKG_PATH), BSR_LAYER_NAME)
-    geometry, unmatched = prepare_geometry(source, BSR_ID_FIELD, bsr_scores)
+    """Load the scored BSR feature layer written by the notebook."""
+    source, identifier, _ = load_scored_bsr_layer(str(BSR_GPKG_PATH))
+    geometry, unmatched = prepare_geometry(source, identifier, bsr_scores)
     if unmatched:
         st.warning(
             f"{len(unmatched)} spatial identifiers did not match scoring BSRs: "
