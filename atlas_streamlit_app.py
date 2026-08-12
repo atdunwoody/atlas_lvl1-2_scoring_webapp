@@ -57,7 +57,7 @@ CORE_SCORE_FILES = {
 SUPPORTING_SCORE_FILES: dict[str, str] = {}
 
 SCORE_FILES = {**CORE_SCORE_FILES, **SUPPORTING_SCORE_FILES}
-SCORE_SCHEMA_VERSION = "2026-08-12-notebook-174505-v5"
+SCORE_SCHEMA_VERSION = "2026-08-12-normalized-notebook-v1"
 
 REQUIRED_COLUMNS = {
     "bsr": {
@@ -65,17 +65,23 @@ REQUIRED_COLUMNS = {
         "basin",
         "fish_use_score",
         "overall_impact_score",
+        "overall_impact_score_normalized",
         "overall_risk_score",
+        "overall_risk_score_normalized",
         "highest_risk_species_life_stage",
         "top_species_life_stage_risk_score",
+        "top_species_life_stage_risk_score_normalized",
         "top_species_life_stage_risk_tie_count",
         "highest_risk_limiting_factor",
         "top_limiting_factor_risk_score",
+        "top_limiting_factor_risk_score_normalized",
         "top_limiting_factor_risk_tie_count",
         "highest_risk_aligned_action_type",
         "highest_action_benefit_score",
+        "highest_action_benefit_score_normalized",
         "top_action_benefit_tie_count",
         "overall_benefit_score",
+        "overall_benefit_score_normalized",
     },
     "life_stage": {
         "bsr",
@@ -86,7 +92,9 @@ REQUIRED_COLUMNS = {
         "species_aggregate_score",
         "population_priority",
         "impact_score",
+        "impact_score_normalized",
         "risk_score",
+        "risk_score_normalized",
         "species_life_stage_label",
     },
     "limiting_factor": {
@@ -95,7 +103,9 @@ REQUIRED_COLUMNS = {
         "limiting_factor",
         "condition_score",
         "impact_score",
+        "impact_score_normalized",
         "risk_score",
+        "risk_score_normalized",
     },
     "action": {
         "bsr",
@@ -103,8 +113,11 @@ REQUIRED_COLUMNS = {
         "action_id",
         "action_type",
         "condition_improvement_score",
+        "condition_improvement_score_normalized",
         "limiting_factor_amelioration_score",
+        "limiting_factor_amelioration_score_normalized",
         "action_benefit_score",
+        "action_benefit_score_normalized",
     },
     "grid": {
         "bsr",
@@ -119,7 +132,9 @@ REQUIRED_COLUMNS = {
         "condition_score",
         "vulnerability_score",
         "impact_component",
+        "impact_component_normalized",
         "risk_component",
+        "risk_component_normalized",
     },
     "action_components": {
         "bsr",
@@ -129,9 +144,51 @@ REQUIRED_COLUMNS = {
         "action_type",
         "lfat_score",
         "condition_improvement_component",
+        "condition_improvement_component_normalized",
         "amelioration_component",
+        "amelioration_component_normalized",
         "benefit_component",
+        "benefit_component_normalized",
     },
+}
+
+NORMALIZED_SCORE_FIELDS = {
+    "overall_impact_score": "overall_impact_score_normalized",
+    "overall_risk_score": "overall_risk_score_normalized",
+    "top_species_life_stage_risk_score": (
+        "top_species_life_stage_risk_score_normalized"
+    ),
+    "top_limiting_factor_risk_score": (
+        "top_limiting_factor_risk_score_normalized"
+    ),
+    "highest_action_benefit_score": (
+        "highest_action_benefit_score_normalized"
+    ),
+    "overall_benefit_score": "overall_benefit_score_normalized",
+    "impact_score": "impact_score_normalized",
+    "risk_score": "risk_score_normalized",
+    "impact_component": "impact_component_normalized",
+    "risk_component": "risk_component_normalized",
+    "condition_improvement_score": (
+        "condition_improvement_score_normalized"
+    ),
+    "limiting_factor_amelioration_score": (
+        "limiting_factor_amelioration_score_normalized"
+    ),
+    "action_benefit_score": "action_benefit_score_normalized",
+    "condition_improvement_component": (
+        "condition_improvement_component_normalized"
+    ),
+    "amelioration_component": "amelioration_component_normalized",
+    "benefit_component": "benefit_component_normalized",
+}
+
+DERIVED_NORMALIZED_SCORE_FIELDS = {
+    "highest_benefit_limiting_factor_risk",
+    "highest_benefit_component_score",
+    "priority_life_stage_1_risk_score",
+    "priority_life_stage_2_risk_score",
+    "priority_life_stage_3_risk_score",
 }
 
 LEGACY_COLUMN_REPLACEMENTS = {
@@ -198,6 +255,13 @@ ACTION_MAP_HELP = (
     "actions in a BSR.\n\n"
     "These scores indicate relative alignment, not expected project "
     "effectiveness, feasibility, or cost."
+)
+NORMALIZED_SCORE_HELP = (
+    "When selected, maps, charts, summary metrics, and tables use the "
+    "parallel `*_normalized` fields produced by the normalized scoring "
+    "notebook. These values use fixed theoretical score-framework maxima and "
+    "remain additive. They are not min-max scaled to the highest observed BSR. "
+    "Fish-use and other source-input fields remain unchanged."
 )
 
 DISPLAY_LABELS = {
@@ -573,8 +637,18 @@ def render_scoring_methodology() -> None:
             identify the largest Action-Specific Benefit Component and report
             the corresponding Limiting-Factor Risk and Action Weight.
 
-            Aggregate scores are relative prioritization indicators and may
-            exceed 1 because components are summed. They are not probabilities.
+            **Normalized score display**
+
+            The sidebar checkbox replaces displayed impact, risk, and action
+            scores with the notebook's parallel `_normalized` fields. These
+            fields divide raw scores by fixed theoretical framework maxima,
+            preserve additivity, and remain within 0 to 1. They are not
+            min-max scaled against observed BSRs. Fish-use and other source
+            inputs remain unchanged.
+
+            Raw aggregate scores are relative prioritization indicators and
+            may exceed 1 because components are summed. Neither raw nor
+            normalized scores are probabilities.
             Action scores indicate alignment with calculated risk, not expected
             project effectiveness, feasibility, cost, or realized benefit.
             The Highest Priority Life Stage and Highest Priority Limiting Factor
@@ -734,6 +808,29 @@ def load_score_tables(
                 table[identifier_column] = (
                     table[identifier_column].astype(str).str.strip()
                 )
+        normalized_columns = sorted(
+            set(NORMALIZED_SCORE_FIELDS.values()) & set(table.columns)
+        )
+        if normalized_columns:
+            table[normalized_columns] = table[normalized_columns].apply(
+                pd.to_numeric,
+                errors="coerce",
+            )
+            if table[normalized_columns].isna().any().any():
+                raise ValueError(
+                    f"{SCORE_FILES[name]} contains missing or nonnumeric "
+                    "normalized score values."
+                )
+            tolerance = 1e-12
+            outside_unit_interval = (
+                table[normalized_columns].lt(-tolerance)
+                | table[normalized_columns].gt(1.0 + tolerance)
+            )
+            if outside_unit_interval.any().any():
+                raise ValueError(
+                    f"{SCORE_FILES[name]} contains normalized scores outside "
+                    "the expected 0-to-1 range."
+                )
 
     if tables["bsr"]["bsr"].duplicated().any():
         duplicates = tables["bsr"].loc[
@@ -768,14 +865,17 @@ def load_score_tables(
         tables["life_stage"], tables["grid"]
     )
 
-    if {
+    balance_fields = [
         "risk_balance_difference",
         "impact_balance_difference",
-    }.issubset(tables["bsr"].columns):
-        balance = tables["bsr"][[
-            "risk_balance_difference",
-            "impact_balance_difference",
-        ]].abs().max()
+        "risk_balance_difference_normalized",
+        "impact_balance_difference_normalized",
+    ]
+    available_balance_fields = [
+        field for field in balance_fields if field in tables["bsr"].columns
+    ]
+    if available_balance_fields:
+        balance = tables["bsr"][available_balance_fields].abs().max()
         if (balance > 1e-9).any():
             raise ValueError(
                 "The BSR summary does not reconcile between life-stage and "
@@ -884,6 +984,47 @@ def filter_table(table: pd.DataFrame, basin: str) -> pd.DataFrame:
     return table.loc[table["basin"].eq(basin)].copy()
 
 
+def apply_score_display_mode(
+    tables: dict[str, pd.DataFrame],
+    show_normalized: bool,
+) -> dict[str, pd.DataFrame]:
+    """Alias notebook-normalized outputs to the app's display score fields."""
+    if not show_normalized:
+        return tables
+
+    display_tables: dict[str, pd.DataFrame] = {}
+    for table_name, source in tables.items():
+        display = source.copy()
+        for raw_field, normalized_field in NORMALIZED_SCORE_FIELDS.items():
+            if raw_field in display.columns and normalized_field in display.columns:
+                display[raw_field] = display[normalized_field]
+        display_tables[table_name] = display
+    return display_tables
+
+
+def score_display_label(
+    column: str,
+    show_normalized: bool,
+    label: str | None = None,
+) -> str:
+    """Return a readable label that identifies normalized score displays."""
+    display_label = label or DISPLAY_LABELS.get(
+        column,
+        column.replace("_", " ").title(),
+    )
+    is_normalized_score = (
+        column in NORMALIZED_SCORE_FIELDS
+        or column in DERIVED_NORMALIZED_SCORE_FIELDS
+    )
+    if (
+        show_normalized
+        and is_normalized_score
+        and not display_label.endswith(" (Normalized)")
+    ):
+        return f"{display_label} (Normalized)"
+    return display_label
+
+
 def natural_sort_key(value: Any) -> tuple[Any, ...]:
     """Sort identifiers by text and embedded integer components."""
     return tuple(
@@ -900,11 +1041,14 @@ def format_score(value: Any, digits: int = 2) -> str:
     return f"{float(value):,.{digits}f}"
 
 
-def round_float_columns(table: pd.DataFrame) -> pd.DataFrame:
+def round_float_columns(
+    table: pd.DataFrame,
+    digits: int = 2,
+) -> pd.DataFrame:
     """Round floating-point values for display without changing source tables."""
     rounded = table.copy()
     float_columns = rounded.select_dtypes(include=["floating"]).columns
-    rounded[float_columns] = rounded[float_columns].round(2)
+    rounded[float_columns] = rounded[float_columns].round(digits)
     return rounded
 
 
@@ -916,6 +1060,7 @@ def is_rank_field(column: str) -> bool:
 def summarize_priority_life_stages(
     bsr: pd.DataFrame,
     life_stage: pd.DataFrame,
+    show_normalized: bool = False,
 ) -> pd.DataFrame:
     """Add the three highest-risk species/life-stage records for each BSR."""
     ranked = life_stage.copy()
@@ -947,6 +1092,7 @@ def summarize_priority_life_stages(
             + " | "
             + detail["life_stage"].astype(str)
             + " Life-Stage Risk Score"
+            + (" (Normalized)" if show_normalized else "")
         )
         detail = detail.rename(columns={"risk_score": score_column})[
             ["bsr", score_column, label_column]
@@ -1000,20 +1146,24 @@ def summarize_priority_limiting_factors(
 def show_score_table(
     table: pd.DataFrame,
     column_labels: dict[str, str] | None = None,
+    *,
+    show_normalized: bool = False,
 ) -> None:
     """Display score tables with calculation-consistent, readable labels."""
+    column_labels = column_labels or {}
     labels = {
-        column: DISPLAY_LABELS.get(
+        column: score_display_label(
             column,
-            column.replace("_", " ").title(),
+            show_normalized,
+            column_labels.get(column),
         )
         for column in table.columns
     }
-    labels.update(column_labels or {})
-    rounded = round_float_columns(table).rename(columns=labels)
+    digits = 4 if show_normalized else 2
+    rounded = round_float_columns(table, digits=digits).rename(columns=labels)
     float_columns = rounded.select_dtypes(include=["floating"]).columns
     column_config = {
-        column: st.column_config.NumberColumn(format="%.2f")
+        column: st.column_config.NumberColumn(format=f"%.{digits}f")
         for column in float_columns
     }
     st.dataframe(
@@ -1187,8 +1337,21 @@ def render_choropleth(
     hover_label_overrides: dict[str, str] | None = None,
     hover_label_columns: dict[str, str] | None = None,
     color_scale: str = DEFAULT_COLOR_SCALE,
+    show_normalized: bool = False,
 ) -> None:
     """Render an interactive BSR choropleth and register click selection."""
+    raw_metric_label = metric_label
+    metric_label = score_display_label(
+        metric,
+        show_normalized,
+        raw_metric_label,
+    )
+    if (
+        show_normalized
+        and metric in NORMALIZED_SCORE_FIELDS
+        and "normalized" not in title.casefold()
+    ):
+        title = f"{title} (Normalized)"
     hover_columns = [
         column
         for column in (hover_columns or [])
@@ -1223,7 +1386,11 @@ def render_choropleth(
         return
 
     geojson = json.loads(mapped[["bsr", "geometry"]].to_json())
-    plot_data = round_float_columns(pd.DataFrame(mapped.drop(columns="geometry")))
+    digits = 4 if show_normalized else 2
+    plot_data = round_float_columns(
+        pd.DataFrame(mapped.drop(columns="geometry")),
+        digits=digits,
+    )
     center, zoom = map_center_zoom(mapped)
 
     hover_fields = list(dict.fromkeys(["bsr", *hover_columns]))
@@ -1233,14 +1400,23 @@ def render_choropleth(
         column for column in hover_fields if column in plot_data.columns
     ]
     hover_labels = {
-        column: DISPLAY_LABELS.get(
+        column: score_display_label(
             column,
-            column.replace("_", " ").title(),
+            show_normalized,
         )
         for column in hover_fields
     }
     hover_labels[metric] = metric_label
-    hover_labels.update(hover_label_overrides)
+    hover_labels.update(
+        {
+            column: score_display_label(
+                column,
+                show_normalized,
+                label,
+            )
+            for column, label in hover_label_overrides.items()
+        }
+    )
 
     def hover_text(row: pd.Series) -> str:
         lines = []
@@ -1254,7 +1430,7 @@ def render_choropleth(
                 except (TypeError, ValueError):
                     displayed = str(value)
             elif pd.api.types.is_numeric_dtype(plot_data[column]):
-                displayed = f"{float(value):,.2f}"
+                displayed = f"{float(value):,.{digits}f}"
             else:
                 displayed = str(value)
             label_column = hover_label_columns.get(column)
@@ -1285,9 +1461,9 @@ def render_choropleth(
         "center": center,
         "title": title,
         "labels": {
-            column: DISPLAY_LABELS.get(
+            column: score_display_label(
                 column,
-                column.replace("_", " ").title(),
+                show_normalized,
             )
             for column in requested
         }
@@ -1298,14 +1474,17 @@ def render_choropleth(
         common["color_discrete_sequence"] = px.colors.qualitative.Safe
     else:
         common["color_continuous_scale"] = color_scale
-        numeric = pd.to_numeric(plot_data[metric], errors="coerce")
-        minimum = float(numeric.min())
-        maximum = float(numeric.max())
-        if np.isclose(minimum, maximum):
-            pad = max(abs(minimum) * 0.05, 0.5)
-            common["range_color"] = (minimum - pad, maximum + pad)
+        if show_normalized and metric in NORMALIZED_SCORE_FIELDS:
+            common["range_color"] = (0.0, 1.0)
         else:
-            common["range_color"] = (minimum, maximum)
+            numeric = pd.to_numeric(plot_data[metric], errors="coerce")
+            minimum = float(numeric.min())
+            maximum = float(numeric.max())
+            if np.isclose(minimum, maximum):
+                pad = max(abs(minimum) * 0.05, 0.5)
+                common["range_color"] = (minimum - pad, maximum + pad)
+            else:
+                common["range_color"] = (minimum, maximum)
 
     if hasattr(px, "choropleth_map"):
         figure = px.choropleth_map(map_style=map_style, **common)
@@ -1357,9 +1536,25 @@ def horizontal_bar(
     *,
     color: str | None = None,
     value_label: str | None = None,
+    show_normalized: bool = False,
 ) -> None:
     """Render a consistently formatted horizontal comparison chart."""
-    ordered = round_float_columns(table).sort_values(value, ascending=True)
+    display_value_label = score_display_label(
+        value,
+        show_normalized,
+        value_label,
+    )
+    if (
+        show_normalized
+        and value in NORMALIZED_SCORE_FIELDS
+        and "normalized" not in title.casefold()
+    ):
+        title = f"{title} (Normalized)"
+    digits = 4 if show_normalized else 2
+    ordered = round_float_columns(table, digits=digits).sort_values(
+        value,
+        ascending=True,
+    )
     figure = px.bar(
         ordered,
         x=value,
@@ -1367,8 +1562,8 @@ def horizontal_bar(
         color=color,
         orientation="h",
         title=title,
-        labels={value: value_label or value, category: ""},
-        text_auto=".2f",
+        labels={value: display_value_label, category: ""},
+        text_auto=f".{digits}f",
     )
     figure.update_layout(
         height=max(360, 30 * len(ordered) + 110),
@@ -1379,7 +1574,8 @@ def horizontal_bar(
         textposition="outside",
         cliponaxis=False,
         hovertemplate=(
-            f"%{{y}}<br>{value_label or value}: %{{x:.2f}}<extra></extra>"
+            f"%{{y}}<br>{display_value_label}: "
+            f"%{{x:.{digits}f}}<extra></extra>"
         ),
     )
     st.plotly_chart(
@@ -1395,6 +1591,7 @@ def render_overall_risk(
     basin: str,
     selected_bsr: str,
     map_style: str,
+    show_normalized: bool = False,
 ) -> None:
     """Render the overall risk map and its two principal drill-downs."""
     bsr = filter_table(tables["bsr"], basin)
@@ -1422,20 +1619,31 @@ def render_overall_risk(
             "highest_risk_limiting_factor",
         ],
         color_scale=RISK_COLOR_SCALE,
+        show_normalized=show_normalized,
     )
 
     row = bsr.loc[bsr["bsr"].eq(selected_bsr)].iloc[0]
+    score_digits = 4 if show_normalized else 2
     metric_columns = st.columns(4)
     metric_columns[0].metric("Selected BSR", selected_bsr)
     metric_columns[1].metric(
-        "Overall Risk Score", format_score(row["overall_risk_score"])
+        score_display_label(
+            "overall_risk_score",
+            show_normalized,
+            "Overall Risk Score",
+        ),
+        format_score(row["overall_risk_score"], digits=score_digits),
     )
     metric_columns[2].metric(
         "Overall Fish Use Score", format_score(row["fish_use_score"])
     )
     metric_columns[3].metric(
-        "Overall Limiting-Factor Impact",
-        format_score(row["overall_impact_score"]),
+        score_display_label(
+            "overall_impact_score",
+            show_normalized,
+            "Overall Limiting-Factor Impact",
+        ),
+        format_score(row["overall_impact_score"], digits=score_digits),
     )
 
     st.markdown(
@@ -1461,6 +1669,7 @@ def render_overall_risk(
             f"{selected_bsr}: risk by species and life stage",
             color="species",
             value_label="Life-Stage Risk Score",
+            show_normalized=show_normalized,
         )
     with right:
         horizontal_bar(
@@ -1469,6 +1678,7 @@ def render_overall_risk(
             "limiting_factor",
             f"{selected_bsr}: risk by limiting factor",
             value_label="Limiting-Factor Risk",
+            show_normalized=show_normalized,
         )
 
     with st.expander(f"Show score tables for BSR: {selected_bsr}"):
@@ -1489,6 +1699,7 @@ def render_overall_risk(
                 "impact_score": "Life-Stage Impact Score",
                 "risk_score": "Life-Stage Risk Score",
             },
+            show_normalized=show_normalized,
         )
         st.subheader("Limiting factors")
         show_score_table(
@@ -1504,6 +1715,7 @@ def render_overall_risk(
                 "impact_score": "Limiting-Factor Impact",
                 "risk_score": "Limiting-Factor Risk",
             },
+            show_normalized=show_normalized,
         )
 
 
@@ -1513,6 +1725,7 @@ def render_fish_use(
     basin: str,
     selected_bsr: str,
     map_style: str,
+    show_normalized: bool = False,
 ) -> None:
     """Render overall, species, and life-stage fish-use scores."""
     bsr = filter_table(tables["bsr"], basin)
@@ -1540,7 +1753,11 @@ def render_fish_use(
         how="left",
         validate="one_to_one",
     )
-    priority_life_stage_map = summarize_priority_life_stages(bsr, life)
+    priority_life_stage_map = summarize_priority_life_stages(
+        bsr,
+        life,
+        show_normalized=show_normalized,
+    )
     priority_life_stage_scores = [
         f"priority_life_stage_{position}_risk_score"
         for position in range(1, 4)
@@ -1656,6 +1873,7 @@ def render_fish_use(
         "map_fish_use",
         map_style,
         hover_columns=hover_columns,
+        show_normalized=show_normalized,
     )
 
     selected = life.loc[life["bsr"].eq(selected_bsr)].copy()
@@ -1690,6 +1908,7 @@ def render_fish_use(
             "species",
             f"{selected_bsr}: fish use by species",
             value_label="Species Fish Use Score",
+            show_normalized=show_normalized,
         )
     with right:
         selected_species_options = sorted(selected["species"].unique())
@@ -1714,6 +1933,7 @@ def render_fish_use(
             "life_stage",
             f"{selected_bsr}: {chart_species} fish use by life stage",
             value_label="Life-Stage Fish Use Score",
+            show_normalized=show_normalized,
         )
 
     with st.expander("Highest Priority Life Stage"):
@@ -1737,6 +1957,7 @@ def render_fish_use(
                 *priority_life_stage_scores,
             ],
             hover_label_columns=priority_life_stage_labels,
+            show_normalized=show_normalized,
         )
 
     with st.expander(f"Show species and life-stage data for BSR: {selected_bsr}"):
@@ -1751,7 +1972,8 @@ def render_fish_use(
             ].sort_values(
                 ["species_aggregate_score", "species", "LS_corrected_score"],
                 ascending=[False, True, False],
-            )
+            ),
+            show_normalized=show_normalized,
         )
 
 
@@ -1761,6 +1983,7 @@ def render_limiting_factors(
     basin: str,
     selected_bsr: str,
     map_style: str,
+    show_normalized: bool = False,
 ) -> None:
     """Render overall and factor-specific maps with biological drill-down."""
     bsr = filter_table(tables["bsr"], basin)
@@ -1801,6 +2024,7 @@ def render_limiting_factors(
             "top_limiting_factor_risk_score",
         ],
         color_scale=overall_color_scale,
+        show_normalized=show_normalized,
     )
 
     with st.expander("Highest Priority Limiting Factor map"):
@@ -1831,6 +2055,7 @@ def render_limiting_factors(
                     "Factor"
                 ),
             },
+            show_normalized=show_normalized,
         )
 
     st.subheader("Specific Limiting-Factor Drill-Down")
@@ -1868,6 +2093,7 @@ def render_limiting_factors(
             "limiting_factor",
             f"{selected_bsr}: limiting-factor comparison",
             value_label=factor_score_label,
+            show_normalized=show_normalized,
         )
 
     biological = grid.loc[
@@ -1894,6 +2120,7 @@ def render_limiting_factors(
             f"{selected_bsr}: {selected_factor} by species and life stage",
             color="species",
             value_label=component_label,
+            show_normalized=show_normalized,
         )
 
     with st.expander(f"Show limiting-factor data for: {selected_factor} in {selected_bsr}"):
@@ -1915,6 +2142,7 @@ def render_limiting_factors(
             column_labels={
                 "condition_score": "Limiting-Factor Condition Score",
             },
+            show_normalized=show_normalized,
         )
 
     st.subheader("Specific Limiting-Factor Map")
@@ -1932,6 +2160,7 @@ def render_limiting_factors(
             "risk_score",
         ],
         color_scale=factor_color_scale,
+        show_normalized=show_normalized,
     )
 
 
@@ -1940,6 +2169,7 @@ def summarize_action_benefits(
     actions: pd.DataFrame,
     limiting: pd.DataFrame,
     action_components: pd.DataFrame,
+    show_normalized: bool = False,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     """Build highest-component hover fields and BSR-wide benefit totals."""
     bsr_values = bsr.copy()
@@ -2058,20 +2288,21 @@ def summarize_action_benefits(
             "One or more highest-action benefit components have no matching "
             "Limiting-Factor Risk value."
         )
-    expected_benefit = (
-        candidates["highest_benefit_limiting_factor_risk"]
-        * candidates["lfat_score"]
-    )
-    if not np.allclose(
-        candidates["benefit_component"],
-        expected_benefit,
-        rtol=1e-9,
-        atol=1e-12,
-    ):
-        raise ValueError(
-            "Action-Specific Benefit Components do not equal "
-            "Limiting-Factor Risk × Action Weight."
+    if not show_normalized:
+        expected_benefit = (
+            candidates["highest_benefit_limiting_factor_risk"]
+            * candidates["lfat_score"]
         )
+        if not np.allclose(
+            candidates["benefit_component"],
+            expected_benefit,
+            rtol=1e-9,
+            atol=1e-12,
+        ):
+            raise ValueError(
+                "Action-Specific Benefit Components do not equal "
+                "Limiting-Factor Risk × Action Weight."
+            )
     candidates["_highest_component_score"] = candidates.groupby("bsr")[
         "benefit_component"
     ].transform("max")
@@ -2085,8 +2316,11 @@ def summarize_action_benefits(
         return " | ".join(dict.fromkeys(values.dropna().astype(str)))
 
     def join_scores(values: pd.Series) -> str:
+        digits = 4 if show_normalized else 2
         return " | ".join(
-            dict.fromkeys(f"{float(value):,.2f}" for value in values.dropna())
+            dict.fromkeys(
+                f"{float(value):,.{digits}f}" for value in values.dropna()
+            )
         )
 
     component_summary = (
@@ -2159,6 +2393,7 @@ def render_actions(
     basin: str,
     selected_bsr: str,
     map_style: str,
+    show_normalized: bool = False,
 ) -> None:
     """Render Level 2 action maps, rankings, and score components."""
     bsr = filter_table(tables["bsr"], basin)
@@ -2170,6 +2405,7 @@ def render_actions(
         actions,
         limiting,
         action_components,
+        show_normalized=show_normalized,
     )
 
     st.header("Level 2: Action Benefits")
@@ -2220,6 +2456,7 @@ def render_actions(
             "benefit_rank_within_bsr",
         ],
         color_scale=ACTION_BENEFIT_COLOR_SCALE,
+        show_normalized=show_normalized,
     )
 
     selected = actions.loc[actions["bsr"].eq(selected_bsr)].copy()
@@ -2229,6 +2466,7 @@ def render_actions(
         "action_type",
         f"{selected_bsr}: {action_score_label} by action",
         value_label=action_score_label,
+        show_normalized=show_normalized,
     )
 
     component_rows = action_components.loc[
@@ -2263,6 +2501,7 @@ def render_actions(
             "limiting_factor",
             f"{selected_bsr}: benefit components for {selected_action}",
             value_label="Action-Specific Benefit Component",
+            show_normalized=show_normalized,
         )
         show_score_table(
             component_rows[
@@ -2281,6 +2520,7 @@ def render_actions(
                 "impact_score": "Limiting-Factor Impact",
                 "risk_score": "Limiting-Factor Risk",
             },
+            show_normalized=show_normalized,
         )
 
     st.subheader("Highest Risk-Aligned Action Type")
@@ -2301,6 +2541,7 @@ def render_actions(
             "highest_benefit_component_score",
             "highest_action_benefit_score",
         ],
+        show_normalized=show_normalized,
     )
 
     with st.expander(f"Show action table for BSR: {selected_bsr}"):
@@ -2317,7 +2558,8 @@ def render_actions(
             # Only show the integer part of the rank for clarity in the table
             ].sort_values("benefit_rank_within_bsr").assign(
                 benefit_rank_within_bsr=lambda df: df["benefit_rank_within_bsr"].astype(int)
-            )
+            ),
+            show_normalized=show_normalized,
         )
 
     st.subheader("Overall Benefit Score Map")
@@ -2335,6 +2577,7 @@ def render_actions(
         map_style,
         hover_columns=["action_count"],
         color_scale=ACTION_BENEFIT_COLOR_SCALE,
+        show_normalized=show_normalized,
     )
 
 
@@ -2360,7 +2603,7 @@ def main() -> None:
 
     try:
         score_signature = score_file_signature(str(SCORE_DIR))
-        tables = load_score_tables(
+        raw_tables = load_score_tables(
             str(SCORE_DIR), SCORE_SCHEMA_VERSION, score_signature
         )
     except Exception as error:
@@ -2368,12 +2611,23 @@ def main() -> None:
         st.stop()
 
     try:
-        geometry = load_bsr_geometry(tables["bsr"])
+        geometry = load_bsr_geometry(raw_tables["bsr"])
     except Exception as error:
         st.error(str(error))
         st.stop()
 
     st.sidebar.header("Map and drill-down")
+    show_normalized = st.sidebar.checkbox(
+        "Display normalized scores",
+        value=False,
+        help=NORMALIZED_SCORE_HELP,
+    )
+    tables = apply_score_display_mode(raw_tables, show_normalized)
+    if show_normalized:
+        st.caption(
+            "Displaying notebook-normalized score outputs based on fixed "
+            "theoretical maxima. Source-input scores remain unchanged."
+        )
     basin_options = ["All basins", *sorted(tables["bsr"]["basin"].unique())]
     basin = st.sidebar.selectbox("Basin", basin_options)
     available_bsrs = sorted(
@@ -2410,13 +2664,41 @@ def main() -> None:
         )
 
     if page == "Overall risk":
-        render_overall_risk(tables, geometry, basin, selected_bsr, MAP_STYLE)
+        render_overall_risk(
+            tables,
+            geometry,
+            basin,
+            selected_bsr,
+            MAP_STYLE,
+            show_normalized=show_normalized,
+        )
     elif page == "Fish use":
-        render_fish_use(tables, geometry, basin, selected_bsr, MAP_STYLE)
+        render_fish_use(
+            tables,
+            geometry,
+            basin,
+            selected_bsr,
+            MAP_STYLE,
+            show_normalized=show_normalized,
+        )
     elif page == "Limiting factors":
-        render_limiting_factors(tables, geometry, basin, selected_bsr, MAP_STYLE)
+        render_limiting_factors(
+            tables,
+            geometry,
+            basin,
+            selected_bsr,
+            MAP_STYLE,
+            show_normalized=show_normalized,
+        )
     else:
-        render_actions(tables, geometry, basin, selected_bsr, MAP_STYLE)
+        render_actions(
+            tables,
+            geometry,
+            basin,
+            selected_bsr,
+            MAP_STYLE,
+            show_normalized=show_normalized,
+        )
 
     st.divider()
     st.caption(

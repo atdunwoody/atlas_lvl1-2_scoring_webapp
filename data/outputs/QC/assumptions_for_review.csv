@@ -1,13 +1,10 @@
 component,field_or_rule,implementation
-Life-stage fish use,LS_corrected_score,Used as supplied in population-weighted risk and retained in detailed outputs.
-Species fish use,species_aggregate_score,Retained under its source field name for reporting and quality control.
-BSR fish use,fish_use_score_decimal,BSR-level 0-to-1 aggregate used as supplied in overall limiting-factor impact.
-Population priority,population_priority,Retained as a decimal proportion.
-Limiting-factor condition,condition_score,Source 1-to-5 score already mapped to 0.1-to-1 in the CSV.
-Vulnerability,vulnerability_score,Rank 1-to-15 already mapped to 1.0-to-0.1 in the CSV.
-Combined migration,maximum vulnerability_score,Uses the higher adult or juvenile migration value without counting migration twice.
-LFAT,lfat_score,Raw directness multiplied by frequency; no D/I/N replacement.
-Normalization,LIFE_STAGE_FISH_USE_MAX,Fixed theoretical upper bound of 1.0 for LS_corrected_score; QC fails rather than deriving the bound from observed scores.
-Level 1 normalization,*_normalized,Raw impact and risk are divided by common BSR-level theoretical maxima so detailed normalized contributions still sum to normalized BSR totals.
-Level 2 normalization,*_normalized,Raw action scores are divided by maxima based on the complete LFAT crosswalk so normalized action contributions still sum to normalized overall action scores.
-BSR identifiers,bsr,The fish-use and limiting-factor files use the same CC1/CC2/etc. identifiers.
+Life-stage fish use,LS_corrected_score,Used in both impact and risk.
+Species fish use,species_aggregate_score,Context only; not a direct multiplier.
+BSR fish use,fish_use_score_decimal,Context only; not a direct multiplier.
+Population priority,population_priority,Risk equals impact multiplied by priority.
+Limiting-factor condition,condition_score,Raw 1 maps to 0.01 and 5 maps to 1.0.
+Vulnerability,vulnerability_score,Rank 1 maps to 1.0 and 15 maps to 0.01.
+Combined migration,maximum vulnerability_score,Uses the higher adult or juvenile value.
+LFAT,lfat_score,Directness multiplied by frequency.
+BSR identifiers,bsr,Fish-use and condition files use the same identifiers.
