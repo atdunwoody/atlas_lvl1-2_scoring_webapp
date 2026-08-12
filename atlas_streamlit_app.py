@@ -38,7 +38,7 @@ BSR_GPKG_PATH = SCORE_DIR / "bsr_scores.gpkg"
 BSR_ID_FIELD_CANDIDATES = ("score_bsr", "BSR", "bsr")
 MAP_STYLE = "carto-positron"
 MAP_FILL_OPACITY = 0.78
-MAP_SELECTED_OPACITY = 0.90
+MAP_SELECTED_OPACITY = 0.95
 MAP_UNSELECTED_OPACITY = 0.6
 MAP_BOUNDARY_COLOR = "#334155"
 MAP_BOUNDARY_WIDTH = 0.4
@@ -2123,7 +2123,7 @@ def render_actions(
                     "action_benefit_score",
                     "benefit_rank_within_bsr",
                 ]
-            ].sort_values("benefit_rank_within_bsr")
+            ].sort_values("benefit_rank_within_bsr").round(0)
         )
 
     st.subheader("Overall Benefit Score Map")
