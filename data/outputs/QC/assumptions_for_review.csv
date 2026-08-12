@@ -7,4 +7,7 @@ Limiting-factor condition,condition_score,Source 1-to-5 score already mapped to 
 Vulnerability,vulnerability_score,Rank 1-to-15 already mapped to 1.0-to-0.1 in the CSV.
 Combined migration,maximum vulnerability_score,Uses the higher adult or juvenile migration value without counting migration twice.
 LFAT,lfat_score,Raw directness multiplied by frequency; no D/I/N replacement.
+Normalization,LIFE_STAGE_FISH_USE_MAX,Fixed theoretical upper bound of 1.0 for LS_corrected_score; QC fails rather than deriving the bound from observed scores.
+Level 1 normalization,*_normalized,Raw impact and risk are divided by common BSR-level theoretical maxima so detailed normalized contributions still sum to normalized BSR totals.
+Level 2 normalization,*_normalized,Raw action scores are divided by maxima based on the complete LFAT crosswalk so normalized action contributions still sum to normalized overall action scores.
 BSR identifiers,bsr,The fish-use and limiting-factor files use the same CC1/CC2/etc. identifiers.
