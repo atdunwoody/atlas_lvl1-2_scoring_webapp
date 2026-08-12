@@ -310,8 +310,8 @@ def render_scoring_methodology() -> None:
             r"""
             \text{impact component}
             =
-            \text{overall fish use}
-            \times \text{condition}
+            \text{fish use}
+            \times \text{limiting-factor condition}
             \times \text{vulnerability}
             """
         )
@@ -319,8 +319,8 @@ def render_scoring_methodology() -> None:
             r"""
             \begin{aligned}
             \text{risk component}
-            ={}& \text{life-stage fish use}
-            \times \text{condition} \\
+            ={}& \text{fish use}
+            \times \text{limiting-factor condition} \\
             &{}\times \text{vulnerability}
             \times \text{population priority}
             \end{aligned}
@@ -329,13 +329,10 @@ def render_scoring_methodology() -> None:
 
         st.markdown(
             """
-            These are distinct calculations:
-             
-            - **Impact** applies the same overall BSR fish-use score to every species and life-stage pathway.
-            - **Risk** uses the pathway-specific life-stage fish-use score and population priority.
-
-            A species and life-stage pathway with a Life-Stage Fish Use Score of 0 therefore has zero risk.
-
+            Impact and risk can be calculated across species and life stages for a given limiting factor, or across limiting factors for a given species and life stage. 
+            
+            These methods will produce the same overall impact and risk scores within a BSR, but the intermediate scores may differ.
+            
             **Species and life-stage score**
             """
         )
@@ -347,7 +344,7 @@ def render_scoring_methodology() -> None:
             \sum_{\substack{\text{15 limiting}\\\text{factors}}}
             \Bigl(
             \text{life-stage fish use}
-            \times \text{condition} \\
+            \times \text{limiting-factor condition} \\
             &{}\qquad\times \text{vulnerability}
             \times \text{population priority}
             \Bigr)
@@ -380,8 +377,8 @@ def render_scoring_methodology() -> None:
             ={}&
             \sum_{\substack{\text{all species and}\\\text{life stages}}}
             \Bigl(
-            \text{overall fish use}
-            \times \text{condition} \\
+            \text{life-stage fish use}
+            \times \text{limiting-factor condition} \\
             &{}\qquad\times \text{vulnerability}
             \Bigr)
             \end{aligned}
@@ -395,7 +392,7 @@ def render_scoring_methodology() -> None:
             \sum_{\substack{\text{all species and}\\\text{life stages}}}
             \Bigl(
             \text{life-stage fish use}
-            \times \text{condition} \\
+            \times \text{limiting-factor condition} \\
             &{}\qquad\times \text{vulnerability}
             \times \text{population priority}
             \Bigr)
@@ -411,8 +408,8 @@ def render_scoring_methodology() -> None:
             \sum_{\substack{\text{all species, life stages,}\\
                             \text{and 15 limiting factors}}}
             \Bigl(
-            \text{overall fish use}
-            \times \text{condition} \\
+            \text{life-stage fish use}
+            \times \text{limiting-factor condition} \\
             &{}\qquad\times \text{vulnerability}
             \Bigr)
             \end{aligned}
@@ -427,7 +424,7 @@ def render_scoring_methodology() -> None:
                             \text{and 15 limiting factors}}}
             \Bigl(
             \text{life-stage fish use}
-            \times \text{condition} \\
+            \times \text{limiting-factor condition} \\
             &{}\qquad\times \text{vulnerability}
             \times \text{population priority}
             \Bigr)
@@ -461,7 +458,7 @@ def render_scoring_methodology() -> None:
             ={}&
             \sum_{\substack{\text{15 limiting}\\\text{factors}}}
             \left(
-            \text{condition}
+            \text{limiting-factor condition}
             \times \text{action weight}
             \right)
             \end{aligned}
