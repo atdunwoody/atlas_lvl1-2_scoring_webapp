@@ -34,6 +34,9 @@ BSR_GPKG_PATH = SCORE_DIR / "bsr_scores.gpkg"
 BSR_LAYER_NAME = "bsr"
 BSR_ID_FIELD = "BSR"
 MAP_STYLE = "carto-positron"
+MAP_FILL_OPACITY = 0.78
+MAP_SELECTED_OPACITY = 0.90
+MAP_UNSELECTED_OPACITY = 0.72
 
 CORE_SCORE_FILES = {
     "bsr": "bsr_scores.csv",
@@ -825,6 +828,48 @@ def capture_map_selection(chart_key: str) -> None:
         st.session_state["selected_bsr"] = clicked_bsr
 
 
+def apply_bsr_selection_style(
+    figure: Any,
+    selected_bsr: str | None,
+    chart_key: str,
+) -> None:
+    """Select the sidebar BSR on the map without obscuring other polygons."""
+    selected_value = None if selected_bsr is None else str(selected_bsr)
+    trace_locations: list[tuple[Any, list[str]]] = []
+
+    for trace in figure.data:
+        locations = getattr(trace, "locations", None)
+        if locations is None:
+            continue
+        trace_locations.append((trace, [str(location) for location in locations]))
+
+    selection_is_mapped = selected_value is not None and any(
+        selected_value in locations for _, locations in trace_locations
+    )
+
+    for trace, locations in trace_locations:
+        selected_indices = (
+            [
+                index
+                for index, location in enumerate(locations)
+                if location == selected_value
+            ]
+            if selection_is_mapped
+            else None
+        )
+        trace.update(
+            selectedpoints=selected_indices,
+            selected={"marker": {"opacity": MAP_SELECTED_OPACITY}},
+            unselected={"marker": {"opacity": MAP_UNSELECTED_OPACITY}},
+        )
+
+    # Changing this value tells Plotly to accept the dropdown-controlled
+    # selection instead of retaining a previous map click.
+    figure.update_layout(
+        selectionrevision=f"{chart_key}:{selected_value or 'none'}"
+    )
+
+
 def render_choropleth(
     geometry: gpd.GeoDataFrame,
     values: pd.DataFrame,
@@ -902,7 +947,7 @@ def render_choropleth(
         "hover_name": None,
         "hover_data": {"bsr": False, "_hover_text": False},
         "custom_data": ["bsr", "_hover_text"],
-        "opacity": 0.78,
+        "opacity": MAP_FILL_OPACITY,
         "zoom": zoom,
         "center": center,
         "title": title,
@@ -949,6 +994,11 @@ def render_choropleth(
         marker_line_width=1.1,
         marker_line_color="#ffffff",
         hovertemplate="%{customdata[1]}<extra></extra>",
+    )
+    apply_bsr_selection_style(
+        figure,
+        st.session_state.get("selected_bsr"),
+        chart_key,
     )
     st.plotly_chart(
         figure,
@@ -1682,7 +1732,7 @@ def main() -> None:
         "Drill-down BSR",
         available_bsrs,
         key="selected_bsr",
-        help="Map clicks update this selector.",
+        help="Map clicks and this selector stay synchronized.",
     )
     page = st.sidebar.radio(
         "View",
