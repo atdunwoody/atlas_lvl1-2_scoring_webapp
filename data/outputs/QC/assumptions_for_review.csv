@@ -1,7 +1,7 @@
 component,field_or_rule,implementation
-Life-stage fish use,LS_corrected_score,Retained under its source field name in detailed outputs.
-Species fish use,species_aggregate_score,Retained under its source field name in detailed outputs.
-BSR fish use,fish_use_score_decimal,BSR-level 0-to-1 aggregate used as supplied in all impact and risk components.
+Life-stage fish use,LS_corrected_score,Used as supplied in population-weighted risk and retained in detailed outputs.
+Species fish use,species_aggregate_score,Retained under its source field name for reporting and quality control.
+BSR fish use,fish_use_score_decimal,BSR-level 0-to-1 aggregate used as supplied in overall limiting-factor impact.
 Population priority,population_priority,Retained as a decimal proportion.
 Limiting-factor condition,condition_score,Source 1-to-5 score already mapped to 0.1-to-1 in the CSV.
 Vulnerability,vulnerability_score,Rank 1-to-15 already mapped to 1.0-to-0.1 in the CSV.
