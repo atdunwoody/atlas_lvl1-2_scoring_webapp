@@ -16,6 +16,7 @@ species_aggregate_score, and life-stage LS_corrected_score fields.
 from __future__ import annotations
 
 import json
+import re
 from functools import partial
 from pathlib import Path
 from typing import Any
@@ -156,7 +157,7 @@ ACTION_BENEFIT_COLOR_SCALE = "Greens"
 DISPLAY_LABELS = {
     "bsr": "BSR",
     "basin": "Basin",
-    "fish_use_score": "BSR Fish Use Score",
+    "fish_use_score": "Overall Fish Use Score",
     "species_aggregate_score": "Species Fish Use Score",
     "LS_corrected_score": "Life-Stage Fish Use Score",
     "overall_impact_score": "Overall Limiting-Factor Impact",
@@ -480,6 +481,15 @@ def filter_table(table: pd.DataFrame, basin: str) -> pd.DataFrame:
     return table.loc[table["basin"].eq(basin)].copy()
 
 
+def natural_sort_key(value: Any) -> tuple[Any, ...]:
+    """Sort identifiers by text and embedded integer components."""
+    return tuple(
+        int(part) if part.isdigit() else part.casefold()
+        for part in re.split(r"(\d+)", str(value))
+        if part
+    )
+
+
 def format_score(value: Any, digits: int = 2) -> str:
     """Format numeric KPI values without implying unnecessary precision."""
     if pd.isna(value):
@@ -575,7 +585,11 @@ def render_choropleth(
     color_scale: str = DEFAULT_COLOR_SCALE,
 ) -> None:
     """Render an interactive BSR choropleth and register click selection."""
-    hover_columns = hover_columns or []
+    hover_columns = [
+        column
+        for column in (hover_columns or [])
+        if column not in {"bsr", "basin"}
+    ]
     if metric not in values.columns:
         st.error(
             f"Cannot render {metric_label}: required field {metric!r} is "
@@ -598,14 +612,31 @@ def render_choropleth(
     center, zoom = map_center_zoom(mapped)
 
     hover_fields = list(dict.fromkeys([metric, *hover_columns]))
-    hover_data = {}
-    for column in hover_fields:
-        if column not in plot_data.columns or column == "bsr":
-            continue
-        if pd.api.types.is_float_dtype(plot_data[column]):
-            hover_data[column] = ":.2f"
-        else:
-            hover_data[column] = True
+    hover_fields = [
+        column for column in hover_fields if column in plot_data.columns
+    ]
+    hover_labels = {
+        column: DISPLAY_LABELS.get(
+            column,
+            column.replace("_", " ").title(),
+        )
+        for column in hover_fields
+    } | {metric: metric_label}
+
+    def hover_text(row: pd.Series) -> str:
+        lines = []
+        for column in hover_fields:
+            value = row[column]
+            if pd.isna(value):
+                displayed = "Not available"
+            elif pd.api.types.is_numeric_dtype(plot_data[column]):
+                displayed = f"{float(value):,.2f}"
+            else:
+                displayed = str(value)
+            lines.append(f"{hover_labels[column]}: {displayed}")
+        return "<br>".join(lines)
+
+    plot_data["_hover_text"] = plot_data.apply(hover_text, axis=1)
 
     common = {
         "data_frame": plot_data,
@@ -613,9 +644,9 @@ def render_choropleth(
         "locations": "bsr",
         "featureidkey": "properties.bsr",
         "color": metric,
-        "hover_name": "bsr",
-        "hover_data": hover_data,
-        "custom_data": ["bsr"],
+        "hover_name": None,
+        "hover_data": {"bsr": False, "_hover_text": False},
+        "custom_data": ["bsr", "_hover_text"],
         "opacity": 0.78,
         "zoom": zoom,
         "center": center,
@@ -659,7 +690,11 @@ def render_choropleth(
             legend_title_text=metric_label,
         )
 
-    figure.update_traces(marker_line_width=1.1, marker_line_color="#ffffff")
+    figure.update_traces(
+        marker_line_width=1.1,
+        marker_line_color="#ffffff",
+        hovertemplate="%{customdata[1]}<extra></extra>",
+    )
     st.plotly_chart(
         figure,
         width="stretch",
@@ -737,13 +772,10 @@ def render_overall_risk(
         "map_overall_risk",
         map_style,
         hover_columns=[
-            "basin",
             "fish_use_score",
             "overall_impact_score",
             "highest_risk_species_life_stage",
-            "top_species_life_stage_risk_tie_count",
             "highest_risk_limiting_factor",
-            "top_limiting_factor_risk_tie_count",
         ],
         color_scale=RISK_COLOR_SCALE,
     )
@@ -753,7 +785,7 @@ def render_overall_risk(
     metric_columns[0].metric("Selected BSR", selected_bsr)
     metric_columns[1].metric("Overall risk", format_score(row["overall_risk_score"]))
     metric_columns[2].metric(
-        "BSR fish use score", format_score(row["fish_use_score"])
+        "Overall fish use score", format_score(row["fish_use_score"])
     )
     metric_columns[3].metric("Overall LF impact", format_score(row["overall_impact_score"]))
 
@@ -825,32 +857,55 @@ def render_fish_use(
     selected_bsr: str,
     map_style: str,
 ) -> None:
-    """Render BSR, species, and life-stage fish-use scores."""
+    """Render overall, species, and life-stage fish-use scores."""
     bsr = filter_table(tables["bsr"], basin)
     life = filter_table(tables["life_stage"], basin)
 
+    species_hover_scores = (
+        life[["bsr", "species", "species_aggregate_score"]]
+        .drop_duplicates()
+        .pivot(
+            index="bsr",
+            columns="species",
+            values="species_aggregate_score",
+        )
+        .sort_index(axis=1)
+    )
+    species_hover_scores.columns = [
+        f"{species} Fish Use Score"
+        for species in species_hover_scores.columns
+    ]
+    species_hover_scores.columns.name = None
+    species_hover_columns = species_hover_scores.columns.tolist()
+    fish_hover_values = bsr.merge(
+        species_hover_scores.reset_index(),
+        on="bsr",
+        how="left",
+        validate="one_to_one",
+    )
+
     st.header("Level 1: Fish use")
     st.caption(
-        "BSR fish use is reported as fish_use_score. Species scores use "
+        "Overall fish use is reported as fish_use_score. Species scores use "
         "species_aggregate_score, and life-stage scores use "
         "LS_corrected_score."
     )
 
     map_level = st.radio(
         "Fish-use map level",
-        options=["BSR", "Species", "Life stage"],
+        options=["Overall", "Species", "Life stage"],
         horizontal=True,
     )
     species_options = sorted(life["species"].dropna().unique())
     map_species = None
     map_life_stage = None
 
-    if map_level == "BSR":
-        map_values = bsr
+    if map_level == "Overall":
+        map_values = fish_hover_values
         map_metric = "fish_use_score"
-        map_metric_label = "BSR fish use score"
-        map_title = "BSR Fish Use Score"
-        hover_columns = ["basin", "fish_use_score"]
+        map_metric_label = "Overall fish use score"
+        map_title = "Overall Fish Use Score"
+        hover_columns = ["fish_use_score", *species_hover_columns]
     else:
         map_species = st.selectbox(
             "Species",
@@ -862,18 +917,29 @@ def render_fish_use(
             map_values = species_rows[
                 [
                     "bsr",
-                    "basin",
                     "species",
                     "species_aggregate_score",
                 ]
-            ].drop_duplicates("bsr")
+            ].drop_duplicates("bsr").merge(
+                fish_hover_values[
+                    ["bsr", "fish_use_score", *species_hover_columns]
+                ],
+                on="bsr",
+                how="left",
+                validate="one_to_one",
+            )
             map_metric = "species_aggregate_score"
-            map_metric_label = "Species fish use score"
+            map_metric_label = f"{map_species} fish use score"
             map_title = f"{map_species}: Species Fish Use Score"
+            selected_species_hover = f"{map_species} Fish Use Score"
             hover_columns = [
-                "basin",
                 "species",
-                "species_aggregate_score",
+                "fish_use_score",
+                *[
+                    column
+                    for column in species_hover_columns
+                    if column != selected_species_hover
+                ],
             ]
         else:
             life_stage_options = sorted(
@@ -888,13 +954,19 @@ def render_fish_use(
                 species_rows["life_stage"].eq(map_life_stage),
                 [
                     "bsr",
-                    "basin",
                     "species",
                     "life_stage",
                     "LS_corrected_score",
                     "species_aggregate_score",
                 ],
-            ]
+            ].merge(
+                fish_hover_values[
+                    ["bsr", "fish_use_score", *species_hover_columns]
+                ],
+                on="bsr",
+                how="left",
+                validate="one_to_one",
+            )
             map_metric = "LS_corrected_score"
             map_metric_label = "Life-stage fish use score"
             map_title = (
@@ -902,11 +974,10 @@ def render_fish_use(
                 "Life-Stage Fish Use Score"
             )
             hover_columns = [
-                "basin",
                 "species",
                 "life_stage",
-                "LS_corrected_score",
-                "species_aggregate_score",
+                "fish_use_score",
+                *species_hover_columns,
             ]
 
     render_choropleth(
@@ -931,7 +1002,7 @@ def render_fish_use(
     summary_columns = st.columns(3)
     summary_columns[0].metric("Selected BSR", selected_bsr)
     summary_columns[1].metric(
-        "BSR fish use score",
+        "Overall fish use score",
         format_score(selected_bsr_row["fish_use_score"]),
     )
     summary_columns[2].metric(
@@ -986,7 +1057,7 @@ def render_fish_use(
         )
         render_choropleth(
             geometry,
-            bsr,
+            fish_hover_values,
             "highest_risk_species_life_stage",
             "Highest Priority Life Stage",
             "Highest Priority Life Stage",
@@ -994,8 +1065,8 @@ def render_fish_use(
             map_style,
             categorical=True,
             hover_columns=[
-                "basin",
                 "fish_use_score",
+                *species_hover_columns,
                 "top_species_life_stage_risk_score",
                 "top_species_life_stage_risk_tie_count",
                 "overall_risk_score",
@@ -1055,7 +1126,6 @@ def render_limiting_factors(
         "map_limiting_factor_overall",
         map_style,
         hover_columns=[
-            "basin",
             "fish_use_score",
             "overall_impact_score",
             "overall_risk_score",
@@ -1065,7 +1135,7 @@ def render_limiting_factors(
         color_scale=overall_color_scale,
     )
 
-    st.subheader("Specific limiting factor")
+    st.subheader("Specific limiting-factor drill-down")
     factor_options = sorted(limiting["limiting_factor"].dropna().unique())
     selected_factor = st.selectbox("Limiting factor", factor_options)
     factor_score_labels = {
@@ -1085,22 +1155,6 @@ def render_limiting_factors(
         "condition_score": DEFAULT_COLOR_SCALE,
     }[factor_score]
     factor_map = limiting.loc[limiting["limiting_factor"].eq(selected_factor)].copy()
-    render_choropleth(
-        geometry,
-        factor_map,
-        factor_score,
-        factor_score_label,
-        f"{selected_factor}: {factor_score_label}",
-        "map_specific_limiting_factor",
-        map_style,
-        hover_columns=[
-            "basin",
-            "condition_score",
-            "impact_score",
-            "risk_score",
-        ],
-        color_scale=factor_color_scale,
-    )
 
     left, right = st.columns(2)
     bsr_factors = limiting.loc[limiting["bsr"].eq(selected_bsr)].copy()
@@ -1154,7 +1208,6 @@ def render_limiting_factors(
             map_style,
             categorical=True,
             hover_columns=[
-                "basin",
                 "fish_use_score",
                 "overall_impact_score",
                 "overall_risk_score",
@@ -1180,6 +1233,23 @@ def render_limiting_factors(
                 ]
             ].sort_values("risk_component", ascending=False)
         )
+
+    st.subheader("Specific limiting factor map")
+    render_choropleth(
+        geometry,
+        factor_map,
+        factor_score,
+        factor_score_label,
+        f"{selected_factor}: {factor_score_label}",
+        "map_specific_limiting_factor",
+        map_style,
+        hover_columns=[
+            "condition_score",
+            "impact_score",
+            "risk_score",
+        ],
+        color_scale=factor_color_scale,
+    )
 
 
 def render_actions(
@@ -1228,7 +1298,6 @@ def render_actions(
         "map_action_specific",
         map_style,
         hover_columns=[
-            "basin",
             "condition_improvement_score",
             "limiting_factor_amelioration_score",
             "overall_benefit_score",
@@ -1282,7 +1351,6 @@ def render_actions(
         map_style,
         categorical=True,
         hover_columns=[
-            "basin",
             "highest_action_benefit_score",
             "top_action_benefit_tie_count",
             "overall_risk_score",
@@ -1341,7 +1409,10 @@ def main() -> None:
     st.sidebar.header("Map and drill-down")
     basin_options = ["All basins", *sorted(tables["bsr"]["basin"].unique())]
     basin = st.sidebar.selectbox("Basin", basin_options)
-    available_bsrs = sorted(filter_table(tables["bsr"], basin)["bsr"].unique())
+    available_bsrs = sorted(
+        filter_table(tables["bsr"], basin)["bsr"].unique(),
+        key=natural_sort_key,
+    )
     st.session_state["available_bsrs"] = available_bsrs
     if st.session_state.get("selected_bsr") not in available_bsrs:
         st.session_state["selected_bsr"] = available_bsrs[0]
