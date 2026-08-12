@@ -18,6 +18,7 @@ from __future__ import annotations
 import json
 import re
 from functools import partial
+from html import escape
 from pathlib import Path
 from typing import Any
 
@@ -209,6 +210,61 @@ def configure_page() -> None:
         """,
         unsafe_allow_html=True,
     )
+
+
+def render_scoring_methodology() -> None:
+    """Explain the score inputs, equations, aggregation, and interpretation."""
+    with st.expander("How scores are calculated"):
+        st.markdown(
+            """
+            Each BSR is evaluated for every species, life stage, and limiting
+            factor combination. Higher input values increase the calculated
+            score.
+
+            **Fish-use inputs**
+
+            - **Overall Fish Use Score** is the BSR-level 0-to-1 fish-use
+              score. It is applied as the common fish-use multiplier in the
+              impact and risk calculations.
+            - **Species Fish Use Score** and **Life-Stage Fish Use Score** are
+              carried directly from the fish-use source data for reporting.
+              They are not substituted for the Overall Fish Use Score in the
+              current impact or risk equations.
+
+            **Level 1 calculations**
+
+            | Score component | Calculation |
+            |---|---|
+            | Impact component | Overall Fish Use Score x condition score x vulnerability score |
+            | Risk component | Impact component x population priority |
+            | Overall Limiting-Factor Impact | Sum of impact components across species, life stages, and limiting factors |
+            | Overall Risk Score | Sum of risk components across species, life stages, and limiting factors |
+
+            The condition score maps the source 1-to-5 rating linearly to
+            0.1-to-1.0. The vulnerability score maps rank 1 to 1.0 and rank 15
+            to 0.1. For the combined Migration life stage, the calculation
+            uses the higher of the adult and juvenile vulnerability scores.
+            Species/life-stage and limiting-factor summaries are different
+            groupings of the same components and reconcile to the BSR totals.
+
+            **Level 2 action calculations**
+
+            The action-to-limiting-factor weight equals relationship
+            directness x frequency. For each action type, the app sums:
+
+            - condition score x action weight for the **Condition Improvement Score**;
+            - limiting-factor impact x action weight for the **Limiting-Factor Amelioration Score**; and
+            - limiting-factor risk x action weight for the **Overall Benefit Score**.
+
+            Aggregate scores are relative prioritization indicators and may
+            exceed 1 because components are summed. They are not probabilities.
+            Action scores indicate alignment with calculated risk, not expected
+            project effectiveness, feasibility, cost, or realized benefit.
+            The Highest Priority Life Stage and Highest Priority Limiting Factor
+            identify the largest risk contributions within each BSR and are
+            placeholders for future consideration.
+            """
+        )
 
 
 def require_columns(table_name: str, table: pd.DataFrame) -> None:
@@ -611,7 +667,7 @@ def render_choropleth(
     plot_data = round_float_columns(pd.DataFrame(mapped.drop(columns="geometry")))
     center, zoom = map_center_zoom(mapped)
 
-    hover_fields = list(dict.fromkeys([metric, *hover_columns]))
+    hover_fields = list(dict.fromkeys(["bsr", metric, *hover_columns]))
     hover_fields = [
         column for column in hover_fields if column in plot_data.columns
     ]
@@ -633,7 +689,8 @@ def render_choropleth(
                 displayed = f"{float(value):,.2f}"
             else:
                 displayed = str(value)
-            lines.append(f"{hover_labels[column]}: {displayed}")
+            label = escape(str(hover_labels[column]))
+            lines.append(f"<b>{label}:</b> {escape(displayed)}")
         return "<br>".join(lines)
 
     plot_data["_hover_text"] = plot_data.apply(hover_text, axis=1)
@@ -1390,6 +1447,7 @@ def main() -> None:
     configure_page()
     st.title("Atlas Integrated Scoring")
     st.caption("Interactive Level 1 risk and Level 2 action-benefit maps")
+    render_scoring_methodology()
 
     try:
         score_signature = score_file_signature(str(SCORE_DIR))
