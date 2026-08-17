@@ -1,0 +1,7 @@
+bsr_join_key,species,species_risk_score,BSR,overall_risk_score,species_risk_rank,species_selection_order,scenario_ii_tier,selection_basis
+UGR20,Bull Trout,1.4577477921607642,UGR20,2.449949240642161,1,1,Tier 1,Species top-two requirement
+UGR14,Bull Trout,1.306968868185436,UGR14,2.115091090378532,2,2,Tier 1,Species top-two requirement
+UGR5,Chinook,3.0676684202238365,UGR5,5.141376368517708,1,1,Tier 1,Species top-two requirement
+UGR3,Chinook,2.123330256076403,UGR3,4.360242957476622,2,2,Tier 1,Species top-two requirement
+UGR5,Steelhead,1.7123283807451253,UGR5,5.141376368517708,1,1,Tier 1,Species top-two requirement
+UGR3,Steelhead,1.460670823007859,UGR3,4.360242957476622,2,2,Tier 1,Species top-two requirement

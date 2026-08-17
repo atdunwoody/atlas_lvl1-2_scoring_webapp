@@ -1,5 +1,6 @@
 component,field_or_rule,implementation
-Life-stage fish use,LS_corrected_score,Used in both impact and risk.
+Life-stage fish use,LS_corrected_score,Source score divided by the maximum source score; ranges from 0 to 1.
+Source life-stage fish use,LS_corrected_score_source,Retained for audit; not used directly in impact or risk.
 Species fish use,species_aggregate_score,Context only; not a direct multiplier.
 BSR fish use,fish_use_score_decimal,Context only; not a direct multiplier.
 Population priority,population_priority,Risk equals impact multiplied by priority.

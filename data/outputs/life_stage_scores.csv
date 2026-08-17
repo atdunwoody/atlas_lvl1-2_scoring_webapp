@@ -1,291 +1,291 @@
-bsr,basin,species,life_stage,LS_corrected_score,species_aggregate_score,fish_use_score,population_priority,condition_vulnerability_sum,vulnerability_review_flag,impact_score,risk_score,risk_rank_within_bsr,species_life_stage_label
-CC1,Catherine Creek,Bull Trout,FMO,0.93,0.37,0.4162,0.4,6.585797303571428,Yes,6.124791492321428,2.4499165969285714,3,Bull Trout | FMO
-CC1,Catherine Creek,Bull Trout,Spawning & Resident,0.0,0.37,0.4162,0.6,6.336396857142857,Yes,0.0,0.0,6,Bull Trout | Spawning & Resident
-CC1,Catherine Creek,Chinook,Migration,1.92,0.77,0.4162,0.3,8.396758339285714,No,16.121776011428572,4.836532803428572,1,Chinook | Migration
-CC1,Catherine Creek,Chinook,Spawning,0.0,0.77,0.4162,0.12,6.3607243392857145,No,0.0,0.0,6,Chinook | Spawning
-CC1,Catherine Creek,Chinook,Summer Rearing,0.0,0.77,0.4162,0.21,6.553769035714286,No,0.0,0.0,6,Chinook | Summer Rearing
-CC1,Catherine Creek,Chinook,Winter Rearing,0.9,0.77,0.4162,0.36,6.144738160714286,No,5.530264344642857,1.9908951640714285,4,Chinook | Winter Rearing
-CC1,Catherine Creek,Steelhead,Migration,1.94,0.58,0.4162,0.25,7.612607625,No,14.768458792499999,3.6921146981249997,2,Steelhead | Migration
-CC1,Catherine Creek,Steelhead,Spawning,0.0,0.58,0.4162,0.25,6.319070089285715,No,0.0,0.0,6,Steelhead | Spawning
-CC1,Catherine Creek,Steelhead,Summer Rearing,0.0,0.58,0.4162,0.25,6.479386446428571,No,0.0,0.0,6,Steelhead | Summer Rearing
-CC1,Catherine Creek,Steelhead,Winter Rearing,0.37,0.58,0.4162,0.25,6.475011,No,2.39575407,0.5989385175,5,Steelhead | Winter Rearing
-CC2,Catherine Creek,Bull Trout,FMO,0.93,0.37,0.2803,0.4,5.892291696428571,Yes,5.479831277678572,2.1919325110714287,1,Bull Trout | FMO
-CC2,Catherine Creek,Bull Trout,Spawning & Resident,0.0,0.37,0.2803,0.6,5.472073821428571,Yes,0.0,0.0,6,Bull Trout | Spawning & Resident
-CC2,Catherine Creek,Chinook,Migration,0.88,0.46,0.2803,0.3,7.695901982142856,No,6.772393744285713,2.0317181232857138,2,Chinook | Migration
-CC2,Catherine Creek,Chinook,Spawning,0.0,0.46,0.2803,0.12,5.536480392857142,No,0.0,0.0,6,Chinook | Spawning
-CC2,Catherine Creek,Chinook,Summer Rearing,0.0,0.46,0.2803,0.21,5.848012178571428,No,0.0,0.0,6,Chinook | Summer Rearing
-CC2,Catherine Creek,Chinook,Winter Rearing,0.9,0.46,0.2803,0.36,5.5658692499999995,No,5.009282325,1.803341637,3,Chinook | Winter Rearing
-CC2,Catherine Creek,Steelhead,Migration,0.96,0.33,0.2803,0.25,7.248310607142857,No,6.9583781828571425,1.7395945457142856,4,Steelhead | Migration
-CC2,Catherine Creek,Steelhead,Spawning,0.0,0.33,0.2803,0.25,5.632740214285715,No,0.0,0.0,6,Steelhead | Spawning
-CC2,Catherine Creek,Steelhead,Summer Rearing,0.0,0.33,0.2803,0.25,6.009203625,No,0.0,0.0,6,Steelhead | Summer Rearing
-CC2,Catherine Creek,Steelhead,Winter Rearing,0.37,0.33,0.2803,0.25,5.903142803571428,No,2.1841628373214284,0.5460407093303571,5,Steelhead | Winter Rearing
-CC3,Catherine Creek,Bull Trout,FMO,0.0,0.0,0.1722,0.4,4.006773053571428,Yes,0.0,0.0,7,Bull Trout | FMO
-CC3,Catherine Creek,Bull Trout,Spawning & Resident,0.0,0.0,0.1722,0.6,3.8543325,Yes,0.0,0.0,7,Bull Trout | Spawning & Resident
-CC3,Catherine Creek,Chinook,Migration,0.2,0.12,0.1722,0.3,5.328034124999999,No,1.065606825,0.31968204749999996,6,Chinook | Migration
-CC3,Catherine Creek,Chinook,Spawning,0.0,0.12,0.1722,0.12,4.037226160714286,No,0.0,0.0,7,Chinook | Spawning
-CC3,Catherine Creek,Chinook,Summer Rearing,0.0,0.12,0.1722,0.21,4.030400464285714,No,0.0,0.0,7,Chinook | Summer Rearing
-CC3,Catherine Creek,Chinook,Winter Rearing,0.3,0.12,0.1722,0.36,3.8068885178571428,No,1.1420665553571427,0.4111439599285714,4,Chinook | Winter Rearing
-CC3,Catherine Creek,Steelhead,Migration,0.54,0.59,0.1722,0.25,4.892343964285714,No,2.6418657407142856,0.6604664351785714,3,Steelhead | Migration
-CC3,Catherine Creek,Steelhead,Spawning,0.71,0.59,0.1722,0.25,3.8501320714285714,No,2.7335937707142857,0.6833984426785714,2,Steelhead | Spawning
-CC3,Catherine Creek,Steelhead,Summer Rearing,0.35,0.59,0.1722,0.25,4.113883982142857,No,1.43985939375,0.3599648484375,5,Steelhead | Summer Rearing
-CC3,Catherine Creek,Steelhead,Winter Rearing,0.75,0.59,0.1722,0.25,3.895286678571429,No,2.9214650089285716,0.7303662522321429,1,Steelhead | Winter Rearing
-CC4,Catherine Creek,Bull Trout,FMO,0.0,0.0,0.2532,0.4,4.552204714285714,Yes,0.0,0.0,8,Bull Trout | FMO
-CC4,Catherine Creek,Bull Trout,Spawning & Resident,0.0,0.0,0.2532,0.6,4.282152160714285,Yes,0.0,0.0,8,Bull Trout | Spawning & Resident
-CC4,Catherine Creek,Chinook,Migration,0.2,0.3,0.2532,0.3,5.670795107142857,No,1.1341590214285715,0.34024770642857144,6,Chinook | Migration
-CC4,Catherine Creek,Chinook,Spawning,0.0,0.3,0.2532,0.12,4.462595571428571,No,0.0,0.0,8,Chinook | Spawning
-CC4,Catherine Creek,Chinook,Summer Rearing,0.5,0.3,0.2532,0.21,4.585458107142857,No,2.2927290535714286,0.48147310125,4,Chinook | Summer Rearing
-CC4,Catherine Creek,Chinook,Winter Rearing,0.3,0.3,0.2532,0.36,4.4296780714285715,No,1.3289034214285713,0.4784052317142857,5,Chinook | Winter Rearing
-CC4,Catherine Creek,Steelhead,Migration,0.11,0.75,0.2532,0.25,5.337140357142857,No,0.5870854392857143,0.14677135982142858,7,Steelhead | Migration
-CC4,Catherine Creek,Steelhead,Spawning,1.06,0.75,0.2532,0.25,4.532252678571429,No,4.804187839285715,1.2010469598214288,2,Steelhead | Spawning
-CC4,Catherine Creek,Steelhead,Summer Rearing,1.06,0.75,0.2532,0.25,4.617836410714285,No,4.894906595357143,1.2237266488392857,1,Steelhead | Summer Rearing
-CC4,Catherine Creek,Steelhead,Winter Rearing,0.75,0.75,0.2532,0.25,4.339207982142857,No,3.254405986607143,0.8136014966517857,3,Steelhead | Winter Rearing
-CC5,Catherine Creek,Bull Trout,FMO,0.93,0.37,0.4663,0.4,4.678516339285714,Yes,4.351020195535715,1.7404080782142861,1,Bull Trout | FMO
-CC5,Catherine Creek,Bull Trout,Spawning & Resident,0.0,0.37,0.4663,0.6,4.462194267857143,Yes,0.0,0.0,10,Bull Trout | Spawning & Resident
-CC5,Catherine Creek,Chinook,Migration,0.92,0.93,0.4663,0.3,5.919269196428571,No,5.445727660714286,1.6337182982142857,2,Chinook | Migration
-CC5,Catherine Creek,Chinook,Spawning,0.74,0.93,0.4663,0.12,4.621110482142857,No,3.4196217567857143,0.4103546108142857,9,Chinook | Spawning
-CC5,Catherine Creek,Chinook,Summer Rearing,1.01,0.93,0.4663,0.21,4.5878570892857145,No,4.633735660178572,0.9730844886375001,5,Chinook | Summer Rearing
-CC5,Catherine Creek,Chinook,Winter Rearing,0.9,0.93,0.4663,0.36,4.544963571428571,No,4.090467214285714,1.472568197142857,3,Chinook | Winter Rearing
-CC5,Catherine Creek,Steelhead,Migration,0.74,0.63,0.4663,0.25,5.556211446428571,No,4.111596470357142,1.0278991175892855,4,Steelhead | Migration
-CC5,Catherine Creek,Steelhead,Spawning,0.71,0.63,0.4663,0.25,4.664339892857143,No,3.311681323928571,0.8279203309821428,6,Steelhead | Spawning
-CC5,Catherine Creek,Steelhead,Summer Rearing,0.71,0.63,0.4663,0.25,4.615334892857143,No,3.2768877739285713,0.8192219434821428,7,Steelhead | Summer Rearing
-CC5,Catherine Creek,Steelhead,Winter Rearing,0.37,0.63,0.4663,0.25,4.532901482142857,No,1.6771735483928571,0.4192933870982143,8,Steelhead | Winter Rearing
-CC6,Catherine Creek,Bull Trout,FMO,1.38,0.55,0.6329,0.4,3.7632684107142853,Yes,5.193310406785713,2.077324162714285,1,Bull Trout | FMO
-CC6,Catherine Creek,Bull Trout,Spawning & Resident,0.0,0.55,0.6329,0.6,3.638830714285714,Yes,0.0,0.0,10,Bull Trout | Spawning & Resident
-CC6,Catherine Creek,Chinook,Migration,0.83,1.26,0.6329,0.3,4.841429678571428,No,4.018386633214285,1.2055159899642856,4,Chinook | Migration
-CC6,Catherine Creek,Chinook,Spawning,2.26,1.26,0.6329,0.12,4.060798767857142,No,9.17740521535714,1.1012886258428567,5,Chinook | Spawning
-CC6,Catherine Creek,Chinook,Summer Rearing,1.5,1.26,0.6329,0.21,3.9008324464285713,No,5.851248669642857,1.228762220625,2,Chinook | Summer Rearing
-CC6,Catherine Creek,Chinook,Winter Rearing,0.9,1.26,0.6329,0.36,3.778830857142857,No,3.400947771428571,1.2243411977142855,3,Chinook | Winter Rearing
-CC6,Catherine Creek,Steelhead,Migration,0.69,0.81,0.6329,0.25,4.420616035714286,No,3.050225064642857,0.7625562661607143,8,Steelhead | Migration
-CC6,Catherine Creek,Steelhead,Spawning,0.35,0.81,0.6329,0.25,3.930410464285714,No,1.3756436625,0.343910915625,9,Steelhead | Spawning
-CC6,Catherine Creek,Steelhead,Summer Rearing,1.06,0.81,0.6329,0.25,3.8218993928571425,No,4.051213356428572,1.012803339107143,7,Steelhead | Summer Rearing
-CC6,Catherine Creek,Steelhead,Winter Rearing,1.13,0.81,0.6329,0.25,3.767468839285714,No,4.257239788392856,1.064309947098214,6,Steelhead | Winter Rearing
-CC7,Catherine Creek,Bull Trout,FMO,1.38,2.0,1.0,0.4,2.1724515535714284,Yes,2.997983143928571,1.1991932575714284,2,Bull Trout | FMO
-CC7,Catherine Creek,Bull Trout,Spawning & Resident,2.41,2.0,1.0,0.6,2.0562396964285714,Yes,4.955537668392857,2.973322601035714,1,Bull Trout | Spawning & Resident
-CC7,Catherine Creek,Chinook,Migration,0.6,1.19,1.0,0.3,2.802742125,No,1.681645275,0.5044935825,9,Chinook | Migration
-CC7,Catherine Creek,Chinook,Spawning,2.26,1.19,1.0,0.12,2.5132113214285714,No,5.679857586428571,0.6815829103714285,4,Chinook | Spawning
-CC7,Catherine Creek,Chinook,Summer Rearing,1.5,1.19,1.0,0.21,2.380022732142857,No,3.5700340982142853,0.7497071606249999,3,Chinook | Summer Rearing
-CC7,Catherine Creek,Chinook,Winter Rearing,0.9,1.19,1.0,0.36,1.9849932857142856,No,1.786493957142857,0.6431378245714285,5,Chinook | Winter Rearing
-CC7,Catherine Creek,Steelhead,Migration,0.56,0.95,1.0,0.25,2.3873540357142855,No,1.33691826,0.334229565,10,Steelhead | Migration
-CC7,Catherine Creek,Steelhead,Spawning,1.06,0.95,1.0,0.25,2.2428087321428567,No,2.377377256071428,0.594344314017857,7,Steelhead | Spawning
-CC7,Catherine Creek,Steelhead,Summer Rearing,1.06,0.95,1.0,0.25,2.2652110178571427,No,2.4011236789285713,0.6002809197321428,6,Steelhead | Summer Rearing
-CC7,Catherine Creek,Steelhead,Winter Rearing,1.13,0.95,1.0,0.25,1.990432982142857,No,2.249189269821428,0.562297317455357,8,Steelhead | Winter Rearing
-CC8,Catherine Creek,Bull Trout,FMO,0.0,0.0,0.2235,0.4,1.33926225,Yes,0.0,0.0,8,Bull Trout | FMO
-CC8,Catherine Creek,Bull Trout,Spawning & Resident,0.0,0.0,0.2235,0.6,1.3765410535714284,Yes,0.0,0.0,8,Bull Trout | Spawning & Resident
-CC8,Catherine Creek,Chinook,Migration,0.08,0.27,0.2235,0.3,1.7535807857142856,No,0.14028646285714286,0.04208593885714285,7,Chinook | Migration
-CC8,Catherine Creek,Chinook,Spawning,0.0,0.27,0.2235,0.12,1.5554093035714285,No,0.0,0.0,8,Chinook | Spawning
-CC8,Catherine Creek,Chinook,Summer Rearing,0.5,0.27,0.2235,0.21,1.5226809642857142,No,0.7613404821428571,0.15988150124999997,4,Chinook | Summer Rearing
-CC8,Catherine Creek,Chinook,Winter Rearing,0.3,0.27,0.2235,0.36,1.4731367678571428,No,0.44194103035714283,0.15909877092857141,5,Chinook | Winter Rearing
-CC8,Catherine Creek,Steelhead,Migration,0.11,0.66,0.2235,0.25,1.6201464642857142,No,0.17821611107142857,0.04455402776785714,6,Steelhead | Migration
-CC8,Catherine Creek,Steelhead,Spawning,1.06,0.66,0.2235,0.25,1.6798469999999999,No,1.78063782,0.445159455,1,Steelhead | Spawning
-CC8,Catherine Creek,Steelhead,Summer Rearing,0.71,0.66,0.2235,0.25,1.4026187142857143,No,0.9958592871428571,0.24896482178571427,3,Steelhead | Summer Rearing
-CC8,Catherine Creek,Steelhead,Winter Rearing,0.75,0.66,0.2235,0.25,1.4523237857142857,No,1.0892428392857143,0.2723107098214286,2,Steelhead | Winter Rearing
-CC9,Catherine Creek,Bull Trout,FMO,0.46,2.34,0.9056,0.4,0.503749982142857,Yes,0.23172499178571426,0.09268999671428571,6,Bull Trout | FMO
-CC9,Catherine Creek,Bull Trout,Spawning & Resident,3.59,2.34,0.9056,0.6,0.6131361428571427,Yes,2.2011587528571424,1.3206952517142854,1,Bull Trout | Spawning & Resident
-CC9,Catherine Creek,Chinook,Migration,0.38,0.7,0.9056,0.3,0.6238634999999999,No,0.23706812999999996,0.07112043899999998,7,Chinook | Migration
-CC9,Catherine Creek,Chinook,Spawning,0.74,0.7,0.9056,0.12,0.5499546964285713,No,0.40696647535714275,0.04883597704285713,9,Chinook | Spawning
-CC9,Catherine Creek,Chinook,Summer Rearing,1.01,0.7,0.9056,0.21,0.5450541964285713,No,0.5505047383928571,0.11560599506249998,5,Chinook | Summer Rearing
-CC9,Catherine Creek,Chinook,Winter Rearing,0.6,0.7,0.9056,0.36,0.5413646785714284,No,0.32481880714285705,0.11693477057142854,4,Chinook | Winter Rearing
-CC9,Catherine Creek,Steelhead,Migration,0.35,0.71,0.9056,0.25,0.6131166964285713,No,0.21459084374999993,0.05364771093749998,8,Steelhead | Migration
-CC9,Catherine Creek,Steelhead,Spawning,1.06,0.71,0.9056,0.25,0.5497796785714285,No,0.5827664592857142,0.14569161482142856,2,Steelhead | Spawning
-CC9,Catherine Creek,Steelhead,Summer Rearing,1.06,0.71,0.9056,0.25,0.5146010892857142,No,0.5454771546428572,0.1363692886607143,3,Steelhead | Summer Rearing
-CC9,Catherine Creek,Steelhead,Winter Rearing,0.37,0.71,0.9056,0.25,0.48642321428571417,No,0.17997658928571425,0.04499414732142856,10,Steelhead | Winter Rearing
-UGR1,Upper Grande Ronde,Bull Trout,FMO,1.48,1.93,0.9101,0.4,0.9961936607142857,Yes,1.4743666178571428,0.5897466471428572,2,Bull Trout | FMO
-UGR1,Upper Grande Ronde,Bull Trout,Spawning & Resident,2.22,1.93,0.9101,0.6,1.0016192142857143,Yes,2.223594655714286,1.3341567934285714,1,Bull Trout | Spawning & Resident
-UGR1,Upper Grande Ronde,Chinook,Migration,0.05,1.12,0.9101,0.34,1.3427802857142859,No,0.0671390142857143,0.022827264857142864,10,Chinook | Migration
-UGR1,Upper Grande Ronde,Chinook,Spawning,2.36,1.12,0.9101,0.08,0.7865222678571429,No,1.856192552142857,0.14849540417142856,7,Chinook | Spawning
-UGR1,Upper Grande Ronde,Chinook,Summer Rearing,1.54,1.12,0.9101,0.24,0.7555441071428572,No,1.1635379250000002,0.279249102,4,Chinook | Summer Rearing
-UGR1,Upper Grande Ronde,Chinook,Winter Rearing,1.25,1.12,0.9101,0.34,0.8720918571428572,No,1.0901148214285714,0.3706390392857143,3,Chinook | Winter Rearing
-UGR1,Upper Grande Ronde,Steelhead,Migration,0.2,0.72,0.9101,0.25,1.4165671071428572,No,0.28331342142857147,0.07082835535714287,9,Steelhead | Migration
-UGR1,Upper Grande Ronde,Steelhead,Spawning,1.03,0.72,0.9101,0.25,0.8306267678571428,No,0.8555455708928571,0.21388639272321427,6,Steelhead | Spawning
-UGR1,Upper Grande Ronde,Steelhead,Summer Rearing,1.05,0.72,0.9101,0.25,0.9358125,No,0.9826031250000001,0.24565078125000003,5,Steelhead | Summer Rearing
-UGR1,Upper Grande Ronde,Steelhead,Winter Rearing,0.58,0.72,0.9101,0.25,0.8309768035714286,No,0.4819665460714285,0.12049163651785713,8,Steelhead | Winter Rearing
-UGR10,Upper Grande Ronde,Bull Trout,FMO,0.0,0.0,0.2541,0.4,1.5548860178571429,Yes,0.0,0.0,7,Bull Trout | FMO
-UGR10,Upper Grande Ronde,Bull Trout,Spawning & Resident,0.0,0.0,0.2541,0.6,1.7647324285714285,Yes,0.0,0.0,7,Bull Trout | Spawning & Resident
-UGR10,Upper Grande Ronde,Chinook,Migration,0.0,0.27,0.2541,0.34,1.963603982142857,No,0.0,0.0,7,Chinook | Migration
-UGR10,Upper Grande Ronde,Chinook,Spawning,0.0,0.27,0.2541,0.08,1.7783838214285712,No,0.0,0.0,7,Chinook | Spawning
-UGR10,Upper Grande Ronde,Chinook,Summer Rearing,0.51,0.27,0.2541,0.24,1.6917499821428572,No,0.8627924908928571,0.2070701978142857,5,Chinook | Summer Rearing
-UGR10,Upper Grande Ronde,Chinook,Winter Rearing,0.41,0.27,0.2541,0.34,1.8289498392857142,No,0.7498694341071428,0.25495560759642855,4,Chinook | Winter Rearing
-UGR10,Upper Grande Ronde,Steelhead,Migration,0.17,0.78,0.2541,0.25,1.8305196964285713,No,0.31118834839285714,0.07779708709821428,6,Steelhead | Migration
-UGR10,Upper Grande Ronde,Steelhead,Spawning,1.03,0.78,0.2541,0.25,1.9155978214285714,No,1.9730657560714286,0.49326643901785716,1,Steelhead | Spawning
-UGR10,Upper Grande Ronde,Steelhead,Summer Rearing,1.05,0.78,0.2541,0.25,1.5111315535714285,No,1.58668813125,0.3966720328125,2,Steelhead | Summer Rearing
-UGR10,Upper Grande Ronde,Steelhead,Winter Rearing,0.87,0.78,0.2541,0.25,1.778733857142857,No,1.5474984557142857,0.3868746139285714,3,Steelhead | Winter Rearing
-UGR11,Upper Grande Ronde,Bull Trout,FMO,0.99,0.4,0.4504,0.4,4.208112535714285,Yes,4.166031410357142,1.666412564142857,3,Bull Trout | FMO
-UGR11,Upper Grande Ronde,Bull Trout,Spawning & Resident,0.0,0.4,0.4504,0.6,4.335525535714286,Yes,0.0,0.0,8,Bull Trout | Spawning & Resident
-UGR11,Upper Grande Ronde,Chinook,Migration,1.24,0.83,0.4504,0.34,5.2992251249999995,No,6.571039154999999,2.2341533126999997,1,Chinook | Migration
-UGR11,Upper Grande Ronde,Chinook,Spawning,0.0,0.83,0.4504,0.08,4.453312553571428,No,0.0,0.0,8,Chinook | Spawning
-UGR11,Upper Grande Ronde,Chinook,Summer Rearing,0.51,0.83,0.4504,0.24,4.4954918571428575,No,2.292700847142857,0.5502482033142857,6,Chinook | Summer Rearing
-UGR11,Upper Grande Ronde,Chinook,Winter Rearing,1.25,0.83,0.4504,0.34,4.155768053571428,No,5.194710066964285,1.766201422767857,2,Chinook | Winter Rearing
-UGR11,Upper Grande Ronde,Steelhead,Migration,1.36,0.64,0.4504,0.25,4.715469857142857,No,6.413039005714285,1.6032597514285714,4,Steelhead | Migration
-UGR11,Upper Grande Ronde,Steelhead,Spawning,0.34,0.64,0.4504,0.25,4.325199482142857,No,1.4705678239285713,0.36764195598214283,7,Steelhead | Spawning
-UGR11,Upper Grande Ronde,Steelhead,Summer Rearing,0.0,0.64,0.4504,0.25,4.318898839285715,No,0.0,0.0,8,Steelhead | Summer Rearing
-UGR11,Upper Grande Ronde,Steelhead,Winter Rearing,0.87,0.64,0.4504,0.25,4.150181625,No,3.61065801375,0.9026645034375,5,Steelhead | Winter Rearing
-UGR12,Upper Grande Ronde,Bull Trout,FMO,0.0,0.0,0.2281,0.4,2.630257607142857,Yes,0.0,0.0,8,Bull Trout | FMO
-UGR12,Upper Grande Ronde,Bull Trout,Spawning & Resident,0.0,0.0,0.2281,0.6,2.648459464285714,Yes,0.0,0.0,8,Bull Trout | Spawning & Resident
-UGR12,Upper Grande Ronde,Chinook,Migration,0.01,0.27,0.2281,0.34,3.3008022857142856,No,0.033008022857142855,0.011222727771428572,7,Chinook | Migration
-UGR12,Upper Grande Ronde,Chinook,Spawning,0.0,0.27,0.2281,0.08,2.7870736071428572,No,0.0,0.0,8,Chinook | Spawning
-UGR12,Upper Grande Ronde,Chinook,Summer Rearing,0.51,0.27,0.2281,0.24,2.9162367857142857,No,1.4872807607142857,0.35694738257142855,4,Chinook | Summer Rearing
-UGR12,Upper Grande Ronde,Chinook,Winter Rearing,0.41,0.27,0.2281,0.34,2.8710680357142855,No,1.177137894642857,0.4002268841785714,3,Chinook | Winter Rearing
-UGR12,Upper Grande Ronde,Steelhead,Migration,0.32,0.67,0.2281,0.25,3.2429756785714283,No,1.037752217142857,0.25943805428571426,5,Steelhead | Migration
-UGR12,Upper Grande Ronde,Steelhead,Spawning,1.03,0.67,0.2281,0.25,3.029998392857143,No,3.1208983446428573,0.7802245861607143,1,Steelhead | Spawning
-UGR12,Upper Grande Ronde,Steelhead,Summer Rearing,1.05,0.67,0.2281,0.25,2.708840625,No,2.8442826562500003,0.7110706640625001,2,Steelhead | Summer Rearing
-UGR12,Upper Grande Ronde,Steelhead,Winter Rearing,0.29,0.67,0.2281,0.25,2.7940743214285715,No,0.8102815532142856,0.2025703883035714,6,Steelhead | Winter Rearing
-UGR13,Upper Grande Ronde,Bull Trout,FMO,0.0,0.0,0.2831,0.4,4.412536928571429,Yes,0.0,0.0,8,Bull Trout | FMO
-UGR13,Upper Grande Ronde,Bull Trout,Spawning & Resident,0.0,0.0,0.2831,0.6,4.706741946428571,Yes,0.0,0.0,8,Bull Trout | Spawning & Resident
-UGR13,Upper Grande Ronde,Chinook,Migration,0.19,0.33,0.2831,0.34,5.539878214285714,No,1.0525768607142858,0.3578761326428572,7,Chinook | Migration
-UGR13,Upper Grande Ronde,Chinook,Spawning,0.0,0.33,0.2831,0.08,4.738595196428571,No,0.0,0.0,8,Chinook | Spawning
-UGR13,Upper Grande Ronde,Chinook,Summer Rearing,0.51,0.33,0.2831,0.24,4.819628464285714,No,2.458010516785714,0.5899225240285714,5,Chinook | Summer Rearing
-UGR13,Upper Grande Ronde,Chinook,Winter Rearing,0.41,0.33,0.2831,0.34,4.749607178571429,No,1.9473389432142858,0.6620952406928572,4,Chinook | Winter Rearing
-UGR13,Upper Grande Ronde,Steelhead,Migration,0.43,0.84,0.2831,0.25,5.211123964285714,No,2.240783304642857,0.5601958261607143,6,Steelhead | Migration
-UGR13,Upper Grande Ronde,Steelhead,Spawning,1.03,0.84,0.2831,0.25,5.0221241249999995,No,5.17278784875,1.2931969621875,1,Steelhead | Spawning
-UGR13,Upper Grande Ronde,Steelhead,Summer Rearing,1.05,0.84,0.2831,0.25,4.487794607142857,No,4.7121843375,1.178046084375,2,Steelhead | Summer Rearing
-UGR13,Upper Grande Ronde,Steelhead,Winter Rearing,0.87,0.84,0.2831,0.25,4.7165429464285715,No,4.1033923633928575,1.0258480908482144,3,Steelhead | Winter Rearing
-UGR14,Upper Grande Ronde,Bull Trout,FMO,0.99,1.73,0.7206,0.4,2.5157570357142855,Yes,2.4905994653571426,0.9962397861428571,2,Bull Trout | FMO
-UGR14,Upper Grande Ronde,Bull Trout,Spawning & Resident,2.22,1.73,0.7206,0.6,2.7746084464285716,Yes,6.15963075107143,3.695778450642858,1,Bull Trout | Spawning & Resident
-UGR14,Upper Grande Ronde,Chinook,Migration,0.01,0.56,0.7206,0.34,3.1066685892857144,No,0.031066685892857146,0.01056267320357143,10,Chinook | Migration
-UGR14,Upper Grande Ronde,Chinook,Spawning,0.78,0.56,0.7206,0.08,2.2527051964285714,No,1.7571100532142858,0.14056880425714288,8,Chinook | Spawning
-UGR14,Upper Grande Ronde,Chinook,Summer Rearing,1.03,0.56,0.7206,0.24,2.5687874464285714,No,2.6458510698214286,0.6350042567571429,5,Chinook | Summer Rearing
-UGR14,Upper Grande Ronde,Chinook,Winter Rearing,0.41,0.56,0.7206,0.34,2.539895357142857,No,1.0413570964285714,0.3540614127857143,7,Chinook | Winter Rearing
-UGR14,Upper Grande Ronde,Steelhead,Migration,0.11,0.69,0.7206,0.25,3.1512274285714286,No,0.34663501714285716,0.08665875428571429,9,Steelhead | Migration
-UGR14,Upper Grande Ronde,Steelhead,Spawning,1.03,0.69,0.7206,0.25,2.5428848035714284,No,2.6191713476785714,0.6547928369196429,4,Steelhead | Spawning
-UGR14,Upper Grande Ronde,Steelhead,Summer Rearing,1.05,0.69,0.7206,0.25,2.5315086428571427,No,2.658084075,0.66452101875,3,Steelhead | Summer Rearing
-UGR14,Upper Grande Ronde,Steelhead,Winter Rearing,0.58,0.69,0.7206,0.25,2.4482001428571425,No,1.4199560828571425,0.3549890207142856,6,Steelhead | Winter Rearing
-UGR15,Upper Grande Ronde,Bull Trout,FMO,1.48,0.59,0.6126,0.4,3.039599625,Yes,4.498607445,1.799442978,1,Bull Trout | FMO
-UGR15,Upper Grande Ronde,Bull Trout,Spawning & Resident,0.0,0.59,0.6126,0.6,3.2511962142857143,Yes,0.0,0.0,10,Bull Trout | Spawning & Resident
-UGR15,Upper Grande Ronde,Chinook,Migration,0.8,1.35,0.6126,0.34,3.903189,No,3.1225512,1.0616674080000001,4,Chinook | Migration
-UGR15,Upper Grande Ronde,Chinook,Spawning,2.36,1.35,0.6126,0.08,3.5424259285714284,No,8.36012519142857,0.6688100153142856,5,Chinook | Spawning
-UGR15,Upper Grande Ronde,Chinook,Summer Rearing,1.54,1.35,0.6126,0.24,3.2261686607142854,No,4.9682997375,1.1923919369999998,3,Chinook | Summer Rearing
-UGR15,Upper Grande Ronde,Chinook,Winter Rearing,1.25,1.35,0.6126,0.34,3.3369408214285716,No,4.171176026785714,1.4181998491071428,2,Chinook | Winter Rearing
-UGR15,Upper Grande Ronde,Steelhead,Migration,0.44,0.59,0.6126,0.25,3.6048878571428573,No,1.5861506571428572,0.3965376642857143,8,Steelhead | Migration
-UGR15,Upper Grande Ronde,Steelhead,Spawning,0.34,0.59,0.6126,0.25,3.4426657499999997,No,1.1705063549999999,0.29262658874999997,9,Steelhead | Spawning
-UGR15,Upper Grande Ronde,Steelhead,Summer Rearing,0.7,0.59,0.6126,0.25,3.155811482142857,No,2.2090680375,0.552267009375,7,Steelhead | Summer Rearing
-UGR15,Upper Grande Ronde,Steelhead,Winter Rearing,0.87,0.59,0.6126,0.25,3.0711028392857145,No,2.6718594701785716,0.6679648675446429,6,Steelhead | Winter Rearing
-UGR16,Upper Grande Ronde,Bull Trout,FMO,0.0,0.0,0.327,0.4,2.2660419107142857,Yes,0.0,0.0,9,Bull Trout | FMO
-UGR16,Upper Grande Ronde,Bull Trout,Spawning & Resident,0.0,0.0,0.327,0.6,2.5455454285714287,Yes,0.0,0.0,9,Bull Trout | Spawning & Resident
-UGR16,Upper Grande Ronde,Chinook,Migration,0.03,0.66,0.327,0.34,2.689286357142857,No,0.08067859071428571,0.027430720842857144,8,Chinook | Migration
-UGR16,Upper Grande Ronde,Chinook,Spawning,0.78,0.66,0.327,0.08,2.2824935892857146,No,1.7803449996428573,0.1424275999714286,6,Chinook | Spawning
-UGR16,Upper Grande Ronde,Chinook,Summer Rearing,1.03,0.66,0.327,0.24,2.5467705535714287,No,2.6231736701785717,0.6295616808428572,3,Chinook | Summer Rearing
-UGR16,Upper Grande Ronde,Chinook,Winter Rearing,0.84,0.66,0.327,0.34,2.628139714285714,No,2.2076373599999997,0.7505967024,1,Chinook | Winter Rearing
-UGR16,Upper Grande Ronde,Steelhead,Migration,0.13,0.7,0.327,0.25,2.647561392857143,No,0.3441829810714286,0.08604574526785715,7,Steelhead | Migration
-UGR16,Upper Grande Ronde,Steelhead,Spawning,1.03,0.7,0.327,0.25,2.692035375,No,2.77279643625,0.6931991090625,2,Steelhead | Spawning
-UGR16,Upper Grande Ronde,Steelhead,Summer Rearing,1.05,0.7,0.327,0.25,2.324322857142857,No,2.4405390000000002,0.6101347500000001,4,Steelhead | Summer Rearing
-UGR16,Upper Grande Ronde,Steelhead,Winter Rearing,0.58,0.7,0.327,0.25,2.4779885357142857,No,1.4372333507142856,0.3593083376785714,5,Steelhead | Winter Rearing
-UGR17,Upper Grande Ronde,Bull Trout,FMO,1.48,0.59,0.6039,0.4,3.880852125,Yes,5.743661145,2.297464458,1,Bull Trout | FMO
-UGR17,Upper Grande Ronde,Bull Trout,Spawning & Resident,0.0,0.59,0.6039,0.6,4.352875285714286,Yes,0.0,0.0,10,Bull Trout | Spawning & Resident
-UGR17,Upper Grande Ronde,Chinook,Migration,0.56,1.28,0.6039,0.34,4.708037785714286,No,2.6365011600000003,0.8964103944000001,5,Chinook | Migration
-UGR17,Upper Grande Ronde,Chinook,Spawning,2.36,1.28,0.6039,0.08,3.8439233571428573,No,9.071659122857143,0.7257327298285715,7,Chinook | Spawning
-UGR17,Upper Grande Ronde,Chinook,Summer Rearing,1.54,1.28,0.6039,0.24,4.319096839285714,No,6.6514091324999995,1.5963381918,3,Chinook | Summer Rearing
-UGR17,Upper Grande Ronde,Chinook,Winter Rearing,1.25,1.28,0.6039,0.34,4.328533660714285,No,5.410667075892857,1.8396268058035714,2,Chinook | Winter Rearing
-UGR17,Upper Grande Ronde,Steelhead,Migration,0.25,0.63,0.6039,0.25,4.537849714285714,No,1.1344624285714284,0.2836156071428571,9,Steelhead | Migration
-UGR17,Upper Grande Ronde,Steelhead,Spawning,0.69,0.63,0.6039,0.25,4.445809767857143,No,3.0676087398214285,0.7669021849553571,6,Steelhead | Spawning
-UGR17,Upper Grande Ronde,Steelhead,Summer Rearing,0.7,0.63,0.6039,0.25,4.0231416428571425,No,2.8161991499999997,0.7040497874999999,8,Steelhead | Summer Rearing
-UGR17,Upper Grande Ronde,Steelhead,Winter Rearing,0.87,0.63,0.6039,0.25,4.157730375,No,3.6172254262499997,0.9043063565624999,4,Steelhead | Winter Rearing
-UGR18,Upper Grande Ronde,Bull Trout,FMO,0.49,1.53,0.6511,0.4,1.5044879464285714,Yes,0.73719909375,0.2948796375,5,Bull Trout | FMO
-UGR18,Upper Grande Ronde,Bull Trout,Spawning & Resident,2.22,1.53,0.6511,0.6,1.749862982142857,Yes,3.884695820357143,2.3308174922142855,1,Bull Trout | Spawning & Resident
-UGR18,Upper Grande Ronde,Chinook,Migration,0.06,0.66,0.6511,0.34,1.7698662857142857,No,0.10619197714285714,0.036105272228571426,9,Chinook | Migration
-UGR18,Upper Grande Ronde,Chinook,Spawning,0.78,0.66,0.6511,0.08,1.4871611785714285,No,1.1599857192857144,0.09279885754285715,8,Chinook | Spawning
-UGR18,Upper Grande Ronde,Chinook,Summer Rearing,1.03,0.66,0.6511,0.24,1.6364514107142856,No,1.6855449530357143,0.4045307887285714,3,Chinook | Summer Rearing
-UGR18,Upper Grande Ronde,Chinook,Winter Rearing,0.84,0.66,0.6511,0.34,1.6724909464285713,No,1.4048923949999998,0.4776634143,2,Chinook | Winter Rearing
-UGR18,Upper Grande Ronde,Steelhead,Migration,0.03,0.5,0.6511,0.25,1.7522937857142857,No,0.05256881357142857,0.013142203392857143,10,Steelhead | Migration
-UGR18,Upper Grande Ronde,Steelhead,Spawning,0.69,0.5,0.6511,0.25,1.7495129464285712,No,1.207163933035714,0.3017909832589285,4,Steelhead | Spawning
-UGR18,Upper Grande Ronde,Steelhead,Summer Rearing,0.7,0.5,0.6511,0.25,1.4908365535714285,No,1.0435855875,0.260896396875,6,Steelhead | Summer Rearing
-UGR18,Upper Grande Ronde,Steelhead,Winter Rearing,0.58,0.5,0.6511,0.25,1.506063107142857,No,0.873516602142857,0.21837915053571424,7,Steelhead | Winter Rearing
-UGR19,Upper Grande Ronde,Bull Trout,FMO,0.99,1.73,0.7778,0.4,2.4970990714285715,Yes,2.4721280807142856,0.9888512322857143,2,Bull Trout | FMO
-UGR19,Upper Grande Ronde,Bull Trout,Spawning & Resident,2.22,1.73,0.7778,0.6,2.5005994285714284,Yes,5.551330731428571,3.3307984388571428,1,Bull Trout | Spawning & Resident
-UGR19,Upper Grande Ronde,Chinook,Migration,0.24,0.72,0.7778,0.34,2.972498839285714,No,0.7133997214285713,0.24255590528571427,8,Chinook | Migration
-UGR19,Upper Grande Ronde,Chinook,Spawning,0.78,0.72,0.7778,0.08,2.1887176071428573,No,1.7071997335714288,0.1365759786857143,9,Chinook | Spawning
-UGR19,Upper Grande Ronde,Chinook,Summer Rearing,1.03,0.72,0.7778,0.24,2.5945840178571427,No,2.672421538392857,0.6413811692142857,5,Chinook | Summer Rearing
-UGR19,Upper Grande Ronde,Chinook,Winter Rearing,0.84,0.72,0.7778,0.34,2.3131411607142858,No,1.9430385749999999,0.6606331155,4,Chinook | Winter Rearing
-UGR19,Upper Grande Ronde,Steelhead,Migration,0.13,0.77,0.7778,0.25,2.8663673035714283,No,0.3726277494642857,0.09315693736607142,10,Steelhead | Migration
-UGR19,Upper Grande Ronde,Steelhead,Spawning,1.03,0.77,0.7778,0.25,2.352184285714286,No,2.4227498142857145,0.6056874535714286,6,Steelhead | Spawning
-UGR19,Upper Grande Ronde,Steelhead,Summer Rearing,1.05,0.77,0.7778,0.25,2.608060392857143,No,2.7384634125000002,0.6846158531250001,3,Steelhead | Summer Rearing
-UGR19,Upper Grande Ronde,Steelhead,Winter Rearing,0.87,0.77,0.7778,0.25,2.150563714285714,No,1.8709904314285712,0.4677476078571428,7,Steelhead | Winter Rearing
-UGR2,Upper Grande Ronde,Bull Trout,FMO,0.0,0.0,0.1914,0.4,2.5586558571428575,Yes,0.0,0.0,6,Bull Trout | FMO
-UGR2,Upper Grande Ronde,Bull Trout,Spawning & Resident,0.0,0.0,0.1914,0.6,2.295604017857143,Yes,0.0,0.0,6,Bull Trout | Spawning & Resident
-UGR2,Upper Grande Ronde,Chinook,Migration,0.01,0.0,0.1914,0.34,3.2799557142857143,No,0.03279955714285714,0.01115184942857143,5,Chinook | Migration
-UGR2,Upper Grande Ronde,Chinook,Spawning,0.0,0.0,0.1914,0.08,2.468521660714286,No,0.0,0.0,6,Chinook | Spawning
-UGR2,Upper Grande Ronde,Chinook,Summer Rearing,0.0,0.0,0.1914,0.24,2.70462075,No,0.0,0.0,6,Chinook | Summer Rearing
-UGR2,Upper Grande Ronde,Chinook,Winter Rearing,0.0,0.0,0.1914,0.34,2.5351893214285717,No,0.0,0.0,6,Chinook | Winter Rearing
-UGR2,Upper Grande Ronde,Steelhead,Migration,0.22,0.79,0.1914,0.25,3.141445875,No,0.6911180925,0.172779523125,4,Steelhead | Migration
-UGR2,Upper Grande Ronde,Steelhead,Spawning,1.03,0.79,0.1914,0.25,2.766052017857143,No,2.8490335783928575,0.7122583945982144,1,Steelhead | Spawning
-UGR2,Upper Grande Ronde,Steelhead,Summer Rearing,1.05,0.79,0.1914,0.25,2.659641160714286,No,2.7926232187500006,0.6981558046875002,2,Steelhead | Summer Rearing
-UGR2,Upper Grande Ronde,Steelhead,Winter Rearing,0.87,0.79,0.1914,0.25,2.6760928392857144,No,2.3282007701785714,0.5820501925446429,3,Steelhead | Winter Rearing
-UGR20,Upper Grande Ronde,Bull Trout,FMO,1.48,1.93,0.8697,0.4,2.326106625,Yes,3.442637805,1.377055122,2,Bull Trout | FMO
-UGR20,Upper Grande Ronde,Bull Trout,Spawning & Resident,2.22,1.93,0.8697,0.6,2.8950896785714284,Yes,6.427099086428572,3.856259451857143,1,Bull Trout | Spawning & Resident
-UGR20,Upper Grande Ronde,Chinook,Migration,0.17,1.16,0.8697,0.34,3.1228391785714287,No,0.5308826603571429,0.18050010452142862,9,Chinook | Migration
-UGR20,Upper Grande Ronde,Chinook,Spawning,2.36,1.16,0.8697,0.08,2.387012839285714,No,5.6333503007142856,0.45066802405714285,5,Chinook | Spawning
-UGR20,Upper Grande Ronde,Chinook,Summer Rearing,1.54,1.16,0.8697,0.24,2.263450232142857,No,3.4857133575,0.8365712058,4,Chinook | Summer Rearing
-UGR20,Upper Grande Ronde,Chinook,Winter Rearing,1.25,1.16,0.8697,0.34,2.2312328035714284,No,2.7890410044642855,0.9482739415178572,3,Chinook | Winter Rearing
-UGR20,Upper Grande Ronde,Steelhead,Migration,0.07,0.51,0.8697,0.25,2.78253375,No,0.1947773625,0.048694340625,10,Steelhead | Migration
-UGR20,Upper Grande Ronde,Steelhead,Spawning,0.69,0.51,0.8697,0.25,2.202193982142857,No,1.5195138476785712,0.3798784619196428,7,Steelhead | Spawning
-UGR20,Upper Grande Ronde,Steelhead,Summer Rearing,0.7,0.51,0.8697,0.25,2.3299570178571427,No,1.6309699125,0.407742478125,6,Steelhead | Summer Rearing
-UGR20,Upper Grande Ronde,Steelhead,Winter Rearing,0.58,0.51,0.8697,0.25,2.135687196428571,No,1.2386985739285712,0.3096746434821428,8,Steelhead | Winter Rearing
-UGR3,Upper Grande Ronde,Bull Trout,FMO,1.48,0.59,0.6514,0.4,4.707277607142857,Yes,6.9667708585714285,2.7867083434285718,3,Bull Trout | FMO
-UGR3,Upper Grande Ronde,Bull Trout,Spawning & Resident,0.0,0.59,0.6514,0.6,4.346390785714285,Yes,0.0,0.0,6,Bull Trout | Spawning & Resident
-UGR3,Upper Grande Ronde,Chinook,Migration,3.56,1.08,0.6514,0.34,6.297716142857142,No,22.419869468571427,7.622755619314286,1,Chinook | Migration
-UGR3,Upper Grande Ronde,Chinook,Spawning,0.0,1.08,0.6514,0.08,4.770984107142857,No,0.0,0.0,6,Chinook | Spawning
-UGR3,Upper Grande Ronde,Chinook,Summer Rearing,0.0,1.08,0.6514,0.24,4.556062178571429,No,0.0,0.0,6,Chinook | Summer Rearing
-UGR3,Upper Grande Ronde,Chinook,Winter Rearing,0.0,1.08,0.6514,0.34,3.9643126607142856,No,0.0,0.0,6,Chinook | Winter Rearing
-UGR3,Upper Grande Ronde,Steelhead,Migration,3.17,1.02,0.6514,0.25,5.3422229464285715,No,16.93484674017857,4.233711685044643,2,Steelhead | Migration
-UGR3,Upper Grande Ronde,Steelhead,Spawning,0.34,1.02,0.6514,0.25,4.155271285714285,No,1.412792237142857,0.35319805928571424,5,Steelhead | Spawning
-UGR3,Upper Grande Ronde,Steelhead,Summer Rearing,0.0,1.02,0.6514,0.25,4.579164535714285,No,0.0,0.0,6,Steelhead | Summer Rearing
-UGR3,Upper Grande Ronde,Steelhead,Winter Rearing,0.58,1.02,0.6514,0.25,4.530334553571429,No,2.6275940410714282,0.6568985102678571,4,Steelhead | Winter Rearing
-UGR4,Upper Grande Ronde,Bull Trout,FMO,0.0,0.0,0.1873,0.4,4.02369675,Yes,0.0,0.0,5,Bull Trout | FMO
-UGR4,Upper Grande Ronde,Bull Trout,Spawning & Resident,0.0,0.0,0.1873,0.6,3.878606946428571,Yes,0.0,0.0,5,Bull Trout | Spawning & Resident
-UGR4,Upper Grande Ronde,Chinook,Migration,0.0,0.0,0.1873,0.34,5.055303267857142,No,0.0,0.0,5,Chinook | Migration
-UGR4,Upper Grande Ronde,Chinook,Spawning,0.0,0.0,0.1873,0.08,3.7741212857142856,No,0.0,0.0,5,Chinook | Spawning
-UGR4,Upper Grande Ronde,Chinook,Summer Rearing,0.0,0.0,0.1873,0.24,4.0851280178571425,No,0.0,0.0,5,Chinook | Summer Rearing
-UGR4,Upper Grande Ronde,Chinook,Winter Rearing,0.0,0.0,0.1873,0.34,3.923572392857143,No,0.0,0.0,5,Chinook | Winter Rearing
-UGR4,Upper Grande Ronde,Steelhead,Migration,0.15,0.77,0.1873,0.25,4.843810982142857,No,0.7265716473214285,0.18164291183035713,4,Steelhead | Migration
-UGR4,Upper Grande Ronde,Steelhead,Spawning,1.03,0.77,0.1873,0.25,4.1712368035714285,No,4.296373907678571,1.0740934769196429,1,Steelhead | Spawning
-UGR4,Upper Grande Ronde,Steelhead,Summer Rearing,1.05,0.77,0.1873,0.25,4.035422946428572,No,4.23719409375,1.0592985234375,2,Steelhead | Summer Rearing
-UGR4,Upper Grande Ronde,Steelhead,Winter Rearing,0.87,0.77,0.1873,0.25,3.9311123035714286,No,3.420067704107143,0.8550169260267857,3,Steelhead | Winter Rearing
-UGR5,Upper Grande Ronde,Bull Trout,FMO,0.49,0.2,0.5242,0.4,6.619146160714285,Yes,3.2433816187499995,1.2973526475,4,Bull Trout | FMO
-UGR5,Upper Grande Ronde,Bull Trout,Spawning & Resident,0.0,0.2,0.5242,0.6,6.3410427857142855,Yes,0.0,0.0,6,Bull Trout | Spawning & Resident
-UGR5,Upper Grande Ronde,Chinook,Migration,3.23,1.16,0.5242,0.34,8.407004839285714,No,27.154625630892856,9.232572714503572,1,Chinook | Migration
-UGR5,Upper Grande Ronde,Chinook,Spawning,0.0,1.16,0.5242,0.08,6.395123303571428,No,0.0,0.0,6,Chinook | Spawning
-UGR5,Upper Grande Ronde,Chinook,Summer Rearing,0.0,1.16,0.5242,0.24,6.595868785714285,No,0.0,0.0,6,Chinook | Summer Rearing
-UGR5,Upper Grande Ronde,Chinook,Winter Rearing,0.84,1.16,0.5242,0.34,6.233742696428571,No,5.236343864999999,1.7803569141,3,Chinook | Winter Rearing
-UGR5,Upper Grande Ronde,Steelhead,Migration,2.68,0.82,0.5242,0.25,7.720164053571428,No,20.690039663571426,5.1725099158928565,2,Steelhead | Migration
-UGR5,Upper Grande Ronde,Steelhead,Spawning,0.0,0.82,0.5242,0.25,6.513960428571428,No,0.0,0.0,6,Steelhead | Spawning
-UGR5,Upper Grande Ronde,Steelhead,Summer Rearing,0.0,0.82,0.5242,0.25,6.443078196428571,No,0.0,0.0,6,Steelhead | Summer Rearing
-UGR5,Upper Grande Ronde,Steelhead,Winter Rearing,0.58,0.82,0.5242,0.25,6.722406696428571,No,3.898995883928571,0.9747489709821427,5,Steelhead | Winter Rearing
-UGR6,Upper Grande Ronde,Bull Trout,FMO,0.99,1.73,0.7643,0.4,2.3395865357142855,Yes,2.316190670357143,0.9264762681428572,2,Bull Trout | FMO
-UGR6,Upper Grande Ronde,Bull Trout,Spawning & Resident,2.22,1.73,0.7643,0.6,2.5662346607142856,Yes,5.697040946785715,3.418224568071429,1,Bull Trout | Spawning & Resident
-UGR6,Upper Grande Ronde,Chinook,Migration,0.2,0.62,0.7643,0.34,2.889368892857143,No,0.5778737785714286,0.19647708471428574,9,Chinook | Migration
-UGR6,Upper Grande Ronde,Chinook,Spawning,0.78,0.62,0.7643,0.08,2.264153839285714,No,1.766039994642857,0.14128319957142857,10,Chinook | Spawning
-UGR6,Upper Grande Ronde,Chinook,Summer Rearing,1.03,0.62,0.7643,0.24,2.4164193750000003,No,2.4889119562500004,0.5973388695,5,Chinook | Summer Rearing
-UGR6,Upper Grande Ronde,Chinook,Winter Rearing,0.41,0.62,0.7643,0.34,2.540317875,No,1.04153032875,0.35412031177500003,7,Chinook | Winter Rearing
-UGR6,Upper Grande Ronde,Steelhead,Migration,0.32,0.82,0.7643,0.25,2.88999825,No,0.92479944,0.23119986,8,Steelhead | Migration
-UGR6,Upper Grande Ronde,Steelhead,Spawning,1.03,0.82,0.7643,0.25,2.5655345892857144,No,2.642500626964286,0.6606251567410715,3,Steelhead | Spawning
-UGR6,Upper Grande Ronde,Steelhead,Summer Rearing,1.05,0.82,0.7643,0.25,2.3499125892857142,No,2.46740821875,0.6168520546875,4,Steelhead | Summer Rearing
-UGR6,Upper Grande Ronde,Steelhead,Winter Rearing,0.87,0.82,0.7643,0.25,2.481701035714286,No,2.1590799010714288,0.5397699752678572,6,Steelhead | Winter Rearing
-UGR7,Upper Grande Ronde,Bull Trout,FMO,0.49,0.2,0.3375,0.4,6.580290428571428,Yes,3.2243423099999995,1.2897369239999998,4,Bull Trout | FMO
-UGR7,Upper Grande Ronde,Bull Trout,Spawning & Resident,0.0,0.2,0.3375,0.6,6.297461571428571,Yes,0.0,0.0,6,Bull Trout | Spawning & Resident
-UGR7,Upper Grande Ronde,Chinook,Migration,1.56,0.65,0.3375,0.34,8.415578946428571,No,13.128303156428572,4.4636230731857145,1,Chinook | Migration
-UGR7,Upper Grande Ronde,Chinook,Spawning,0.0,0.65,0.3375,0.08,6.593066732142857,No,0.0,0.0,6,Chinook | Spawning
-UGR7,Upper Grande Ronde,Chinook,Summer Rearing,0.0,0.65,0.3375,0.24,6.670074589285714,No,0.0,0.0,6,Chinook | Summer Rearing
-UGR7,Upper Grande Ronde,Chinook,Winter Rearing,0.84,0.65,0.3375,0.34,6.275920232142857,No,5.271772995,1.7924028183000003,3,Chinook | Winter Rearing
-UGR7,Upper Grande Ronde,Steelhead,Migration,1.62,0.55,0.3375,0.25,7.659781124999999,No,12.4088454225,3.102211355625,2,Steelhead | Migration
-UGR7,Upper Grande Ronde,Steelhead,Spawning,0.0,0.55,0.3375,0.25,6.6690244821428575,No,0.0,0.0,6,Steelhead | Spawning
-UGR7,Upper Grande Ronde,Steelhead,Summer Rearing,0.0,0.55,0.3375,0.25,6.508008053571428,No,0.0,0.0,6,Steelhead | Summer Rearing
-UGR7,Upper Grande Ronde,Steelhead,Winter Rearing,0.58,0.55,0.3375,0.25,6.620894571428571,No,3.8401188514285707,0.9600297128571427,5,Steelhead | Winter Rearing
-UGR8,Upper Grande Ronde,Bull Trout,FMO,0.0,0.0,0.0044,0.4,4.727837785714286,Yes,0.0,0.0,2,Bull Trout | FMO
-UGR8,Upper Grande Ronde,Bull Trout,Spawning & Resident,0.0,0.0,0.0044,0.6,4.844574696428571,Yes,0.0,0.0,2,Bull Trout | Spawning & Resident
-UGR8,Upper Grande Ronde,Chinook,Migration,0.06,0.02,0.0044,0.34,5.841877714285714,No,0.35051266285714283,0.11917430537142858,1,Chinook | Migration
-UGR8,Upper Grande Ronde,Chinook,Spawning,0.0,0.02,0.0044,0.08,4.628952696428572,No,0.0,0.0,2,Chinook | Spawning
-UGR8,Upper Grande Ronde,Chinook,Summer Rearing,0.0,0.02,0.0044,0.24,4.844574696428571,No,0.0,0.0,2,Chinook | Summer Rearing
-UGR8,Upper Grande Ronde,Chinook,Winter Rearing,0.0,0.02,0.0044,0.34,5.1062122500000005,No,0.0,0.0,2,Chinook | Winter Rearing
-UGR8,Upper Grande Ronde,Steelhead,Migration,0.0,0.0,0.0044,0.25,5.624959875,No,0.0,0.0,2,Steelhead | Migration
-UGR8,Upper Grande Ronde,Steelhead,Spawning,0.0,0.0,0.0044,0.25,5.1022009821428576,No,0.0,0.0,2,Steelhead | Spawning
-UGR8,Upper Grande Ronde,Steelhead,Summer Rearing,0.0,0.0,0.0044,0.25,4.665531428571429,No,0.0,0.0,2,Steelhead | Summer Rearing
-UGR8,Upper Grande Ronde,Steelhead,Winter Rearing,0.0,0.0,0.0044,0.25,5.271793285714286,No,0.0,0.0,2,Steelhead | Winter Rearing
-UGR9,Upper Grande Ronde,Bull Trout,FMO,0.49,0.2,0.3184,0.4,4.8318779464285715,Yes,2.36762019375,0.9470480775000001,4,Bull Trout | FMO
-UGR9,Upper Grande Ronde,Bull Trout,Spawning & Resident,0.0,0.2,0.3184,0.6,4.878782732142858,Yes,0.0,0.0,6,Bull Trout | Spawning & Resident
-UGR9,Upper Grande Ronde,Chinook,Migration,1.35,0.59,0.3184,0.34,6.014699892857143,No,8.119844855357144,2.7607472508214292,1,Chinook | Migration
-UGR9,Upper Grande Ronde,Chinook,Spawning,0.0,0.59,0.3184,0.08,4.585977857142857,No,0.0,0.0,6,Chinook | Spawning
-UGR9,Upper Grande Ronde,Chinook,Summer Rearing,0.0,0.59,0.3184,0.24,4.966641696428572,No,0.0,0.0,6,Chinook | Summer Rearing
-UGR9,Upper Grande Ronde,Chinook,Winter Rearing,0.84,0.59,0.3184,0.34,4.598389982142857,No,3.8626475849999995,1.3133001788999998,3,Chinook | Winter Rearing
-UGR9,Upper Grande Ronde,Steelhead,Migration,1.55,0.53,0.3184,0.25,5.536830428571428,No,8.582087164285713,2.1455217910714284,2,Steelhead | Migration
-UGR9,Upper Grande Ronde,Steelhead,Spawning,0.0,0.53,0.3184,0.25,4.8252272678571435,No,0.0,0.0,6,Steelhead | Spawning
-UGR9,Upper Grande Ronde,Steelhead,Summer Rearing,0.0,0.53,0.3184,0.25,4.866006428571429,No,0.0,0.0,6,Steelhead | Summer Rearing
-UGR9,Upper Grande Ronde,Steelhead,Winter Rearing,0.58,0.53,0.3184,0.25,4.767471375,No,2.7651333975,0.691283349375,5,Steelhead | Winter Rearing
+bsr,basin,species,life_stage,LS_corrected_score_source,LS_corrected_score,species_aggregate_score,fish_use_score,population_priority,condition_vulnerability_sum,vulnerability_review_flag,impact_score,risk_score,risk_rank_within_bsr,species_life_stage_label
+CC1,Catherine Creek,Bull Trout,FMO,0.93,0.2590529247910864,0.37,0.4162,0.4,6.585797303571428,Yes,1.7060700535714286,0.6824280214285715,3,Bull Trout | FMO
+CC1,Catherine Creek,Bull Trout,Spawning & Resident,0.0,0.0,0.37,0.4162,0.6,6.336396857142857,Yes,0.0,0.0,6,Bull Trout | Spawning & Resident
+CC1,Catherine Creek,Chinook,Migration,1.92,0.5348189415041783,0.77,0.4162,0.3,8.396758339285714,No,4.490745407083168,1.3472236221249503,1,Chinook | Migration
+CC1,Catherine Creek,Chinook,Spawning,0.0,0.0,0.77,0.4162,0.12,6.3607243392857145,No,0.0,0.0,6,Chinook | Spawning
+CC1,Catherine Creek,Chinook,Summer Rearing,0.0,0.0,0.77,0.4162,0.21,6.553769035714286,No,0.0,0.0,6,Chinook | Summer Rearing
+CC1,Catherine Creek,Chinook,Winter Rearing,0.9,0.25069637883008355,0.77,0.4162,0.36,6.144738160714286,No,1.5404636057500993,0.5545668980700358,4,Chinook | Winter Rearing
+CC1,Catherine Creek,Steelhead,Migration,1.94,0.5403899721448469,0.58,0.4162,0.25,7.612607625,No,4.113776822423398,1.0284442056058496,2,Steelhead | Migration
+CC1,Catherine Creek,Steelhead,Spawning,0.0,0.0,0.58,0.4162,0.25,6.319070089285715,No,0.0,0.0,6,Steelhead | Spawning
+CC1,Catherine Creek,Steelhead,Summer Rearing,0.0,0.0,0.58,0.4162,0.25,6.479386446428571,No,0.0,0.0,6,Steelhead | Summer Rearing
+CC1,Catherine Creek,Steelhead,Winter Rearing,0.37,0.10306406685236769,0.58,0.4162,0.25,6.475011,No,0.6673409665738161,0.16683524164345404,5,Steelhead | Winter Rearing
+CC2,Catherine Creek,Bull Trout,FMO,0.93,0.2590529247910864,0.37,0.2803,0.4,5.892291696428571,Yes,1.5264153976820534,0.6105661590728214,1,Bull Trout | FMO
+CC2,Catherine Creek,Bull Trout,Spawning & Resident,0.0,0.0,0.37,0.2803,0.6,5.472073821428571,Yes,0.0,0.0,6,Bull Trout | Spawning & Resident
+CC2,Catherine Creek,Chinook,Migration,0.88,0.24512534818941506,0.46,0.2803,0.3,7.695901982142856,No,1.886460653004377,0.5659381959013131,2,Chinook | Migration
+CC2,Catherine Creek,Chinook,Spawning,0.0,0.0,0.46,0.2803,0.12,5.536480392857142,No,0.0,0.0,6,Chinook | Spawning
+CC2,Catherine Creek,Chinook,Summer Rearing,0.0,0.0,0.46,0.2803,0.21,5.848012178571428,No,0.0,0.0,6,Chinook | Summer Rearing
+CC2,Catherine Creek,Chinook,Winter Rearing,0.9,0.25069637883008355,0.46,0.2803,0.36,5.5658692499999995,No,1.3953432660167129,0.5023235757660166,3,Chinook | Winter Rearing
+CC2,Catherine Creek,Steelhead,Migration,0.96,0.26740947075208915,0.33,0.2803,0.25,7.248310607142857,No,1.9382669033028253,0.4845667258257063,4,Steelhead | Migration
+CC2,Catherine Creek,Steelhead,Spawning,0.0,0.0,0.33,0.2803,0.25,5.632740214285715,No,0.0,0.0,6,Steelhead | Spawning
+CC2,Catherine Creek,Steelhead,Summer Rearing,0.0,0.0,0.33,0.2803,0.25,6.009203625,No,0.0,0.0,6,Steelhead | Summer Rearing
+CC2,Catherine Creek,Steelhead,Winter Rearing,0.37,0.10306406685236769,0.33,0.2803,0.25,5.903142803571428,No,0.6084019045463589,0.15210047613658972,5,Steelhead | Winter Rearing
+CC3,Catherine Creek,Bull Trout,FMO,0.0,0.0,0.0,0.1722,0.4,4.006773053571428,Yes,0.0,0.0,7,Bull Trout | FMO
+CC3,Catherine Creek,Bull Trout,Spawning & Resident,0.0,0.0,0.0,0.1722,0.6,3.8543325,Yes,0.0,0.0,7,Bull Trout | Spawning & Resident
+CC3,Catherine Creek,Chinook,Migration,0.2,0.05571030640668524,0.12,0.1722,0.3,5.328034124999999,No,0.29682641364902507,0.08904792409470752,6,Chinook | Migration
+CC3,Catherine Creek,Chinook,Spawning,0.0,0.0,0.12,0.1722,0.12,4.037226160714286,No,0.0,0.0,7,Chinook | Spawning
+CC3,Catherine Creek,Chinook,Summer Rearing,0.0,0.0,0.12,0.1722,0.21,4.030400464285714,No,0.0,0.0,7,Chinook | Summer Rearing
+CC3,Catherine Creek,Chinook,Winter Rearing,0.3,0.08356545961002786,0.12,0.1722,0.36,3.8068885178571428,No,0.3181243886788699,0.11452477992439315,4,Chinook | Winter Rearing
+CC3,Catherine Creek,Steelhead,Migration,0.54,0.15041782729805014,0.59,0.1722,0.25,4.892343964285714,No,0.7358957495025865,0.18397393737564663,3,Steelhead | Migration
+CC3,Catherine Creek,Steelhead,Spawning,0.71,0.1977715877437326,0.59,0.1722,0.25,3.8501320714285714,No,0.7614467327894947,0.19036168319737368,2,Steelhead | Spawning
+CC3,Catherine Creek,Steelhead,Summer Rearing,0.35,0.09749303621169916,0.59,0.1722,0.25,4.113883982142857,No,0.40107504004178274,0.10026876001044568,5,Steelhead | Summer Rearing
+CC3,Catherine Creek,Steelhead,Winter Rearing,0.75,0.20891364902506965,0.59,0.1722,0.25,3.895286678571429,No,0.8137785540191008,0.2034446385047752,1,Steelhead | Winter Rearing
+CC4,Catherine Creek,Bull Trout,FMO,0.0,0.0,0.0,0.2532,0.4,4.552204714285714,Yes,0.0,0.0,8,Bull Trout | FMO
+CC4,Catherine Creek,Bull Trout,Spawning & Resident,0.0,0.0,0.0,0.2532,0.6,4.282152160714285,Yes,0.0,0.0,8,Bull Trout | Spawning & Resident
+CC4,Catherine Creek,Chinook,Migration,0.2,0.05571030640668524,0.3,0.2532,0.3,5.670795107142857,No,0.31592173298846005,0.09477651989653801,6,Chinook | Migration
+CC4,Catherine Creek,Chinook,Spawning,0.0,0.0,0.3,0.2532,0.12,4.462595571428571,No,0.0,0.0,8,Chinook | Spawning
+CC4,Catherine Creek,Chinook,Summer Rearing,0.5,0.1392757660167131,0.3,0.2532,0.21,4.585458107142857,No,0.6386431904098687,0.13411506998607242,4,Chinook | Summer Rearing
+CC4,Catherine Creek,Chinook,Winter Rearing,0.3,0.08356545961002786,0.3,0.2532,0.36,4.4296780714285715,No,0.3701680839633904,0.13326051022682053,5,Chinook | Winter Rearing
+CC4,Catherine Creek,Steelhead,Migration,0.11,0.030640668523676882,0.75,0.2532,0.25,5.337140357142857,No,0.16353354854755275,0.04088338713688819,7,Steelhead | Migration
+CC4,Catherine Creek,Steelhead,Spawning,1.06,0.2952646239554318,0.75,0.2532,0.25,4.532252678571429,No,1.3382138828093915,0.33455347070234787,2,Steelhead | Spawning
+CC4,Catherine Creek,Steelhead,Summer Rearing,1.06,0.2952646239554318,0.75,0.2532,0.25,4.617836410714285,No,1.3634837312972543,0.3408709328243136,1,Steelhead | Summer Rearing
+CC4,Catherine Creek,Steelhead,Winter Rearing,0.75,0.20891364902506965,0.75,0.2532,0.25,4.339207982142857,No,0.9065197734281735,0.22662994335704337,3,Steelhead | Winter Rearing
+CC5,Catherine Creek,Bull Trout,FMO,0.93,0.2590529247910864,0.37,0.4663,0.4,4.678516339285714,Yes,1.2119833413748509,0.4847933365499404,1,Bull Trout | FMO
+CC5,Catherine Creek,Bull Trout,Spawning & Resident,0.0,0.0,0.37,0.4663,0.6,4.462194267857143,Yes,0.0,0.0,10,Bull Trout | Spawning & Resident
+CC5,Catherine Creek,Chinook,Migration,0.92,0.2562674094707521,0.93,0.4663,0.3,5.919269196428571,No,1.5169157829287705,0.45507473487863115,2,Chinook | Migration
+CC5,Catherine Creek,Chinook,Spawning,0.74,0.20612813370473537,0.93,0.4663,0.12,4.621110482142857,No,0.952540879327497,0.11430490551929963,9,Chinook | Spawning
+CC5,Catherine Creek,Chinook,Summer Rearing,1.01,0.28133704735376047,0.93,0.4663,0.21,4.5878570892857145,No,1.2907341671806607,0.2710541751079387,5,Chinook | Summer Rearing
+CC5,Catherine Creek,Chinook,Winter Rearing,0.9,0.25069637883008355,0.93,0.4663,0.36,4.544963571428571,No,1.1394059092717865,0.41018612733784315,3,Chinook | Winter Rearing
+CC5,Catherine Creek,Steelhead,Migration,0.74,0.20612813370473537,0.63,0.4663,0.25,5.556211446428571,No,1.1452914959212095,0.2863228739803024,4,Steelhead | Migration
+CC5,Catherine Creek,Steelhead,Spawning,0.71,0.1977715877437326,0.63,0.4663,0.25,4.664339892857143,No,0.9224739063867887,0.23061847659669718,6,Steelhead | Spawning
+CC5,Catherine Creek,Steelhead,Summer Rearing,0.71,0.1977715877437326,0.63,0.4663,0.25,4.615334892857143,No,0.9127821097294071,0.22819552743235177,7,Steelhead | Summer Rearing
+CC5,Catherine Creek,Steelhead,Winter Rearing,0.37,0.10306406685236769,0.63,0.4663,0.25,4.532901482142857,No,0.467179261390768,0.116794815347692,8,Steelhead | Winter Rearing
+CC6,Catherine Creek,Bull Trout,FMO,1.38,0.3844011142061281,0.55,0.6329,0.4,3.7632684107142853,Yes,1.446604570135296,0.5786418280541185,1,Bull Trout | FMO
+CC6,Catherine Creek,Bull Trout,Spawning & Resident,0.0,0.0,0.55,0.6329,0.6,3.638830714285714,Yes,0.0,0.0,10,Bull Trout | Spawning & Resident
+CC6,Catherine Creek,Chinook,Migration,0.83,0.23119777158774374,1.26,0.6329,0.3,4.841429678571428,No,1.1193277529844807,0.3357983258953442,4,Chinook | Migration
+CC6,Catherine Creek,Chinook,Spawning,2.26,0.6295264623955431,1.26,0.6329,0.12,4.060798767857142,No,2.556380282829287,0.30676563393951445,5,Chinook | Spawning
+CC6,Catherine Creek,Chinook,Summer Rearing,1.5,0.4178272980501393,1.26,0.6329,0.21,3.9008324464285713,No,1.6298742812375646,0.3422735990598886,2,Chinook | Summer Rearing
+CC6,Catherine Creek,Chinook,Winter Rearing,0.9,0.25069637883008355,1.26,0.6329,0.36,3.778830857142857,No,0.947339212097095,0.3410421163549542,3,Chinook | Winter Rearing
+CC6,Catherine Creek,Steelhead,Migration,0.69,0.19220055710306405,0.81,0.6329,0.25,4.420616035714286,No,0.8496448648030241,0.21241121620075604,8,Steelhead | Migration
+CC6,Catherine Creek,Steelhead,Spawning,0.35,0.09749303621169916,0.81,0.6329,0.25,3.930410464285714,No,0.3831876497214484,0.0957969124303621,9,Steelhead | Spawning
+CC6,Catherine Creek,Steelhead,Summer Rearing,1.06,0.2952646239554318,0.81,0.6329,0.25,3.8218993928571425,No,1.1284716870274574,0.28211792175686434,7,Steelhead | Summer Rearing
+CC6,Catherine Creek,Steelhead,Winter Rearing,1.13,0.31476323119777155,0.81,0.6329,0.25,3.767468839285714,No,1.1858606652904893,0.2964651663226223,6,Steelhead | Winter Rearing
+CC7,Catherine Creek,Bull Trout,FMO,1.38,0.3844011142061281,2.0,1.0,0.4,2.1724515535714284,Yes,0.8350927977516911,0.33403711910067646,2,Bull Trout | FMO
+CC7,Catherine Creek,Bull Trout,Spawning & Resident,2.41,0.6713091922005572,2.0,1.0,0.6,2.0562396964285714,Yes,1.3803726095801832,0.8282235657481098,1,Bull Trout | Spawning & Resident
+CC7,Catherine Creek,Chinook,Migration,0.6,0.1671309192200557,1.19,1.0,0.3,2.802742125,No,0.4684248676880223,0.14052746030640667,9,Chinook | Migration
+CC7,Catherine Creek,Chinook,Spawning,2.26,0.6295264623955431,1.19,1.0,0.12,2.5132113214285714,No,1.5821330324313567,0.1898559638917628,4,Chinook | Spawning
+CC7,Catherine Creek,Chinook,Summer Rearing,1.5,0.4178272980501393,1.19,1.0,0.21,2.380022732142857,No,0.9944384674691603,0.20883207816852367,3,Chinook | Summer Rearing
+CC7,Catherine Creek,Chinook,Winter Rearing,0.9,0.25069637883008355,1.19,1.0,0.36,1.9849932857142856,No,0.4976306287306008,0.1791470263430163,5,Chinook | Winter Rearing
+CC7,Catherine Creek,Steelhead,Migration,0.56,0.1559888579387187,0.95,1.0,0.25,2.3873540357142855,No,0.3724006295264624,0.0931001573816156,10,Steelhead | Migration
+CC7,Catherine Creek,Steelhead,Spawning,1.06,0.2952646239554318,0.95,1.0,0.25,2.2428087321428567,No,0.6622220769001194,0.16555551922502984,7,Steelhead | Spawning
+CC7,Catherine Creek,Steelhead,Summer Rearing,1.06,0.2952646239554318,0.95,1.0,0.25,2.2652110178571427,No,0.6688366793672902,0.16720916984182255,6,Steelhead | Summer Rearing
+CC7,Catherine Creek,Steelhead,Winter Rearing,1.13,0.31476323119777155,0.95,1.0,0.25,1.990432982142857,No,0.626515116941902,0.1566287792354755,8,Steelhead | Winter Rearing
+CC8,Catherine Creek,Bull Trout,FMO,0.0,0.0,0.0,0.2235,0.4,1.33926225,Yes,0.0,0.0,8,Bull Trout | FMO
+CC8,Catherine Creek,Bull Trout,Spawning & Resident,0.0,0.0,0.0,0.2235,0.6,1.3765410535714284,Yes,0.0,0.0,8,Bull Trout | Spawning & Resident
+CC8,Catherine Creek,Chinook,Migration,0.08,0.022284122562674095,0.27,0.2235,0.3,1.7535807857142856,No,0.03907700915240748,0.011723102745722244,7,Chinook | Migration
+CC8,Catherine Creek,Chinook,Spawning,0.0,0.0,0.27,0.2235,0.12,1.5554093035714285,No,0.0,0.0,8,Chinook | Spawning
+CC8,Catherine Creek,Chinook,Summer Rearing,0.5,0.1392757660167131,0.27,0.2235,0.21,1.5226809642857142,No,0.2120725576999602,0.04453523711699164,4,Chinook | Summer Rearing
+CC8,Catherine Creek,Chinook,Winter Rearing,0.3,0.08356545961002786,0.27,0.2235,0.36,1.4731367678571428,No,0.12310335107441304,0.044317206386788696,5,Chinook | Winter Rearing
+CC8,Catherine Creek,Steelhead,Migration,0.11,0.030640668523676882,0.66,0.2235,0.25,1.6201464642857142,No,0.049642370771985675,0.012410592692996419,6,Steelhead | Migration
+CC8,Catherine Creek,Steelhead,Spawning,1.06,0.2952646239554318,0.66,0.2235,0.25,1.6798469999999999,No,0.4959993927576602,0.12399984818941505,1,Steelhead | Spawning
+CC8,Catherine Creek,Steelhead,Summer Rearing,0.71,0.1977715877437326,0.66,0.2235,0.25,1.4026187142857143,No,0.27739813012335857,0.06934953253083964,3,Steelhead | Summer Rearing
+CC8,Catherine Creek,Steelhead,Winter Rearing,0.75,0.20891364902506965,0.66,0.2235,0.25,1.4523237857142857,No,0.3034102616394747,0.07585256540986868,2,Steelhead | Winter Rearing
+CC9,Catherine Creek,Bull Trout,FMO,0.46,0.12813370473537605,2.34,0.9056,0.4,0.503749982142857,Yes,0.0645473514723438,0.025818940588937522,6,Bull Trout | FMO
+CC9,Catherine Creek,Bull Trout,Spawning & Resident,3.59,1.0,2.34,0.9056,0.6,0.6131361428571427,Yes,0.6131361428571427,0.3678816857142856,1,Bull Trout | Spawning & Resident
+CC9,Catherine Creek,Chinook,Migration,0.38,0.10584958217270196,0.7,0.9056,0.3,0.6238634999999999,No,0.06603569080779945,0.019810707242339833,7,Chinook | Migration
+CC9,Catherine Creek,Chinook,Spawning,0.74,0.20612813370473537,0.7,0.9056,0.12,0.5499546964285713,No,0.1133611351969757,0.013603336223637083,9,Chinook | Spawning
+CC9,Catherine Creek,Chinook,Summer Rearing,1.01,0.28133704735376047,0.7,0.9056,0.21,0.5450541964285713,No,0.15334393827099083,0.032202227036908074,5,Chinook | Summer Rearing
+CC9,Catherine Creek,Chinook,Winter Rearing,0.6,0.1671309192200557,0.7,0.9056,0.36,0.5413646785714284,No,0.09047877636291284,0.03257235949064862,4,Chinook | Winter Rearing
+CC9,Catherine Creek,Steelhead,Migration,0.35,0.09749303621169916,0.71,0.9056,0.25,0.6131166964285713,No,0.05977460828690806,0.014943652071727015,8,Steelhead | Migration
+CC9,Catherine Creek,Steelhead,Spawning,1.06,0.2952646239554318,0.71,0.9056,0.25,0.5497796785714285,No,0.162330490051731,0.04058262251293275,2,Steelhead | Spawning
+CC9,Catherine Creek,Steelhead,Summer Rearing,1.06,0.2952646239554318,0.71,0.9056,0.25,0.5146010892857142,No,0.151943497115002,0.0379858742787505,3,Steelhead | Summer Rearing
+CC9,Catherine Creek,Steelhead,Winter Rearing,0.37,0.10306406685236769,0.71,0.9056,0.25,0.48642321428571417,No,0.05013275467568642,0.012533188668921605,10,Steelhead | Winter Rearing
+UGR1,Upper Grande Ronde,Bull Trout,FMO,1.48,0.41225626740947074,1.93,0.9101,0.4,0.9961936607142857,Yes,0.41068708018304817,0.16427483207321927,2,Bull Trout | FMO
+UGR1,Upper Grande Ronde,Bull Trout,Spawning & Resident,2.22,0.6183844011142062,1.93,0.9101,0.6,1.0016192142857143,Yes,0.6193856979705532,0.3716314187823319,1,Bull Trout | Spawning & Resident
+UGR1,Upper Grande Ronde,Chinook,Migration,0.05,0.01392757660167131,1.12,0.9101,0.34,1.3427802857142859,No,0.018701675288499805,0.006358569598089934,10,Chinook | Migration
+UGR1,Upper Grande Ronde,Chinook,Spawning,2.36,0.6573816155988857,1.12,0.9101,0.08,0.7865222678571429,No,0.5170452791484281,0.04136362233187425,7,Chinook | Spawning
+UGR1,Upper Grande Ronde,Chinook,Summer Rearing,1.54,0.42896935933147634,1.12,0.9101,0.24,0.7555441071428572,No,0.32410527158774377,0.07778526518105851,4,Chinook | Summer Rearing
+UGR1,Upper Grande Ronde,Chinook,Winter Rearing,1.25,0.34818941504178275,1.12,0.9101,0.34,0.8720918571428572,No,0.30365315360127343,0.10324207222443298,3,Chinook | Winter Rearing
+UGR1,Upper Grande Ronde,Steelhead,Migration,0.2,0.05571030640668524,0.72,0.9101,0.25,1.4165671071428572,No,0.0789173875845603,0.019729346896140074,9,Steelhead | Migration
+UGR1,Upper Grande Ronde,Steelhead,Spawning,1.03,0.28690807799442897,0.72,0.9101,0.25,0.8306267678571428,No,0.23831352949661758,0.059578382374154394,6,Steelhead | Spawning
+UGR1,Upper Grande Ronde,Steelhead,Summer Rearing,1.05,0.2924791086350975,0.72,0.9101,0.25,0.9358125,No,0.2737056058495822,0.06842640146239555,5,Steelhead | Summer Rearing
+UGR1,Upper Grande Ronde,Steelhead,Winter Rearing,0.58,0.1615598885793872,0.72,0.9101,0.25,0.8309768035714286,No,0.13425251979705533,0.03356312994926383,8,Steelhead | Winter Rearing
+UGR10,Upper Grande Ronde,Bull Trout,FMO,0.0,0.0,0.0,0.2541,0.4,1.5548860178571429,Yes,0.0,0.0,7,Bull Trout | FMO
+UGR10,Upper Grande Ronde,Bull Trout,Spawning & Resident,0.0,0.0,0.0,0.2541,0.6,1.7647324285714285,Yes,0.0,0.0,7,Bull Trout | Spawning & Resident
+UGR10,Upper Grande Ronde,Chinook,Migration,0.0,0.0,0.27,0.2541,0.34,1.963603982142857,No,0.0,0.0,7,Chinook | Migration
+UGR10,Upper Grande Ronde,Chinook,Spawning,0.0,0.0,0.27,0.2541,0.08,1.7783838214285712,No,0.0,0.0,7,Chinook | Spawning
+UGR10,Upper Grande Ronde,Chinook,Summer Rearing,0.51,0.14206128133704737,0.27,0.2541,0.24,1.6917499821428572,No,0.2403321701651413,0.05767972083963391,5,Chinook | Summer Rearing
+UGR10,Upper Grande Ronde,Chinook,Winter Rearing,0.41,0.11420612813370473,0.27,0.2541,0.34,1.8289498392857142,No,0.20887727969558295,0.0710182750964982,4,Chinook | Winter Rearing
+UGR10,Upper Grande Ronde,Steelhead,Migration,0.17,0.04735376044568246,0.78,0.2541,0.25,1.8305196964285713,No,0.08668199119578193,0.021670497798945483,6,Steelhead | Migration
+UGR10,Upper Grande Ronde,Steelhead,Spawning,1.03,0.28690807799442897,0.78,0.2541,0.25,1.9155978214285714,No,0.5496004891563868,0.1374001222890967,1,Steelhead | Spawning
+UGR10,Upper Grande Ronde,Steelhead,Summer Rearing,1.05,0.2924791086350975,0.78,0.2541,0.25,1.5111315535714285,No,0.44197440981894154,0.11049360245473538,2,Steelhead | Summer Rearing
+UGR10,Upper Grande Ronde,Steelhead,Winter Rearing,0.87,0.24233983286908078,0.78,0.2541,0.25,1.778733857142857,No,0.4310580656585754,0.10776451641464385,3,Steelhead | Winter Rearing
+UGR11,Upper Grande Ronde,Bull Trout,FMO,0.99,0.2757660167130919,0.4,0.4504,0.4,4.208112535714285,Yes,1.1604544318543573,0.46418177274174294,3,Bull Trout | FMO
+UGR11,Upper Grande Ronde,Bull Trout,Spawning & Resident,0.0,0.0,0.4,0.4504,0.6,4.335525535714286,Yes,0.0,0.0,8,Bull Trout | Spawning & Resident
+UGR11,Upper Grande Ronde,Chinook,Migration,1.24,0.34540389972144847,0.83,0.4504,0.34,5.2992251249999995,No,1.83037302367688,0.6223268280501393,1,Chinook | Migration
+UGR11,Upper Grande Ronde,Chinook,Spawning,0.0,0.0,0.83,0.4504,0.08,4.453312553571428,No,0.0,0.0,8,Chinook | Spawning
+UGR11,Upper Grande Ronde,Chinook,Summer Rearing,0.51,0.14206128133704737,0.83,0.4504,0.24,4.4954918571428575,No,0.638635333465977,0.15327248003183447,6,Chinook | Summer Rearing
+UGR11,Upper Grande Ronde,Chinook,Winter Rearing,1.25,0.34818941504178275,0.83,0.4504,0.34,4.155768053571428,No,1.4469944476223637,0.4919781121916037,2,Chinook | Winter Rearing
+UGR11,Upper Grande Ronde,Steelhead,Migration,1.36,0.37883008356545966,0.64,0.4504,0.25,4.715469857142857,No,1.7863618400318346,0.44659046000795866,4,Steelhead | Migration
+UGR11,Upper Grande Ronde,Steelhead,Spawning,0.34,0.09470752089136492,0.64,0.4504,0.25,4.325199482142857,No,0.4096289203143653,0.10240723007859133,7,Steelhead | Spawning
+UGR11,Upper Grande Ronde,Steelhead,Summer Rearing,0.0,0.0,0.64,0.4504,0.25,4.318898839285715,No,0.0,0.0,8,Steelhead | Summer Rearing
+UGR11,Upper Grande Ronde,Steelhead,Winter Rearing,0.87,0.24233983286908078,0.64,0.4504,0.25,4.150181625,No,1.00575432137883,0.2514385803447075,5,Steelhead | Winter Rearing
+UGR12,Upper Grande Ronde,Bull Trout,FMO,0.0,0.0,0.0,0.2281,0.4,2.630257607142857,Yes,0.0,0.0,8,Bull Trout | FMO
+UGR12,Upper Grande Ronde,Bull Trout,Spawning & Resident,0.0,0.0,0.0,0.2281,0.6,2.648459464285714,Yes,0.0,0.0,8,Bull Trout | Spawning & Resident
+UGR12,Upper Grande Ronde,Chinook,Migration,0.01,0.002785515320334262,0.27,0.2281,0.34,3.3008022857142856,No,0.009194435336251493,0.0031261080143255076,7,Chinook | Migration
+UGR12,Upper Grande Ronde,Chinook,Spawning,0.0,0.0,0.27,0.2281,0.08,2.7870736071428572,No,0.0,0.0,8,Chinook | Spawning
+UGR12,Upper Grande Ronde,Chinook,Summer Rearing,0.51,0.14206128133704737,0.27,0.2281,0.24,2.9162367857142857,No,0.41428433446080387,0.09942824027059292,4,Chinook | Summer Rearing
+UGR12,Upper Grande Ronde,Chinook,Winter Rearing,0.41,0.11420612813370473,0.27,0.2281,0.34,2.8710680357142855,No,0.32789356396736963,0.11148381174890568,3,Chinook | Winter Rearing
+UGR12,Upper Grande Ronde,Steelhead,Migration,0.32,0.08913649025069638,0.67,0.2281,0.25,3.2429756785714283,No,0.2890674699562276,0.0722668674890569,5,Steelhead | Migration
+UGR12,Upper Grande Ronde,Steelhead,Spawning,1.03,0.28690807799442897,0.67,0.2281,0.25,3.029998392857143,No,0.8693310152208515,0.21733275380521289,1,Steelhead | Spawning
+UGR12,Upper Grande Ronde,Steelhead,Summer Rearing,1.05,0.2924791086350975,0.67,0.2281,0.25,2.708840625,No,0.7922792914345405,0.19806982285863511,2,Steelhead | Summer Rearing
+UGR12,Upper Grande Ronde,Steelhead,Winter Rearing,0.29,0.0807799442896936,0.67,0.2281,0.25,2.7940743214285715,No,0.22570516802626345,0.05642629200656586,6,Steelhead | Winter Rearing
+UGR13,Upper Grande Ronde,Bull Trout,FMO,0.0,0.0,0.0,0.2831,0.4,4.412536928571429,Yes,0.0,0.0,8,Bull Trout | FMO
+UGR13,Upper Grande Ronde,Bull Trout,Spawning & Resident,0.0,0.0,0.0,0.2831,0.6,4.706741946428571,Yes,0.0,0.0,8,Bull Trout | Spawning & Resident
+UGR13,Upper Grande Ronde,Chinook,Migration,0.19,0.05292479108635098,0.33,0.2831,0.34,5.539878214285714,No,0.29319689713489855,0.09968694502586552,7,Chinook | Migration
+UGR13,Upper Grande Ronde,Chinook,Spawning,0.0,0.0,0.33,0.2831,0.08,4.738595196428571,No,0.0,0.0,8,Chinook | Spawning
+UGR13,Upper Grande Ronde,Chinook,Summer Rearing,0.51,0.14206128133704737,0.33,0.2831,0.24,4.819628464285714,No,0.6846825952049344,0.16432382284918423,5,Chinook | Summer Rearing
+UGR13,Upper Grande Ronde,Chinook,Winter Rearing,0.41,0.11420612813370473,0.33,0.2831,0.34,4.749607178571429,No,0.5424342460206925,0.18442764364703546,4,Chinook | Winter Rearing
+UGR13,Upper Grande Ronde,Steelhead,Migration,0.43,0.11977715877437327,0.84,0.2831,0.25,5.211123964285714,No,0.6241736224631914,0.15604340561579785,6,Steelhead | Migration
+UGR13,Upper Grande Ronde,Steelhead,Spawning,1.03,0.28690807799442897,0.84,0.2831,0.25,5.0221241249999995,No,1.4408879801532033,0.3602219950383008,1,Steelhead | Spawning
+UGR13,Upper Grande Ronde,Steelhead,Summer Rearing,1.05,0.2924791086350975,0.84,0.2831,0.25,4.487794607142857,No,1.3125861664345404,0.3281465416086351,2,Steelhead | Summer Rearing
+UGR13,Upper Grande Ronde,Steelhead,Winter Rearing,0.87,0.24233983286908078,0.84,0.2831,0.25,4.7165429464285715,No,1.143006229357342,0.2857515573393355,3,Steelhead | Winter Rearing
+UGR14,Upper Grande Ronde,Bull Trout,FMO,0.99,0.2757660167130919,1.73,0.7206,0.4,2.5157570357142855,Yes,0.6937602967568642,0.2775041187027457,2,Bull Trout | FMO
+UGR14,Upper Grande Ronde,Bull Trout,Spawning & Resident,2.22,0.6183844011142062,1.73,0.7206,0.6,2.7746084464285716,Yes,1.7157745824711503,1.02946474948269,1,Bull Trout | Spawning & Resident
+UGR14,Upper Grande Ronde,Chinook,Migration,0.01,0.002785515320334262,0.56,0.7206,0.34,3.1066685892857144,No,0.008653672950656586,0.0029422488032232394,10,Chinook | Migration
+UGR14,Upper Grande Ronde,Chinook,Spawning,0.78,0.21727019498607245,0.56,0.7206,0.08,2.2527051964285714,No,0.4894456972741743,0.039155655781933946,8,Chinook | Spawning
+UGR14,Upper Grande Ronde,Chinook,Summer Rearing,1.03,0.28690807799442897,0.56,0.7206,0.24,2.5687874464285714,No,0.7370058690310386,0.17688140856744924,5,Chinook | Summer Rearing
+UGR14,Upper Grande Ronde,Chinook,Winter Rearing,0.41,0.11420612813370473,0.56,0.7206,0.34,2.539895357142857,No,0.2900716146040589,0.09862434896538003,7,Chinook | Winter Rearing
+UGR14,Upper Grande Ronde,Steelhead,Migration,0.11,0.030640668523676882,0.69,0.7206,0.25,3.1512274285714286,No,0.09655571508157582,0.024138928770393954,9,Steelhead | Migration
+UGR14,Upper Grande Ronde,Steelhead,Spawning,1.03,0.28690807799442897,0.69,0.7206,0.25,2.5428848035714284,No,0.7295741915539196,0.1823935478884799,4,Steelhead | Spawning
+UGR14,Upper Grande Ronde,Steelhead,Summer Rearing,1.05,0.2924791086350975,0.69,0.7206,0.25,2.5315086428571427,No,0.7404133913649026,0.18510334784122565,3,Steelhead | Summer Rearing
+UGR14,Upper Grande Ronde,Steelhead,Winter Rearing,0.58,0.1615598885793872,0.69,0.7206,0.25,2.4482001428571425,No,0.39553094230003977,0.09888273557500994,6,Steelhead | Winter Rearing
+UGR15,Upper Grande Ronde,Bull Trout,FMO,1.48,0.41225626740947074,0.59,0.6126,0.4,3.039599625,Yes,1.253093995821727,0.5012375983286909,1,Bull Trout | FMO
+UGR15,Upper Grande Ronde,Bull Trout,Spawning & Resident,0.0,0.0,0.59,0.6126,0.6,3.2511962142857143,Yes,0.0,0.0,10,Bull Trout | Spawning & Resident
+UGR15,Upper Grande Ronde,Chinook,Migration,0.8,0.22284122562674097,1.35,0.6126,0.34,3.903189,No,0.8697914206128134,0.2957290830083566,4,Chinook | Migration
+UGR15,Upper Grande Ronde,Chinook,Spawning,2.36,0.6573816155988857,1.35,0.6126,0.08,3.5424259285714284,No,2.3287256800636684,0.18629805440509348,5,Chinook | Spawning
+UGR15,Upper Grande Ronde,Chinook,Summer Rearing,1.54,0.42896935933147634,1.35,0.6126,0.24,3.2261686607142854,No,1.383927503481894,0.33214260083565456,3,Chinook | Summer Rearing
+UGR15,Upper Grande Ronde,Chinook,Winter Rearing,1.25,0.34818941504178275,1.35,0.6126,0.34,3.3369408214285716,No,1.1618874726422603,0.39504174069836856,2,Chinook | Winter Rearing
+UGR15,Upper Grande Ronde,Steelhead,Migration,0.44,0.12256267409470753,0.59,0.6126,0.25,3.6048878571428573,No,0.4418246955829686,0.11045617389574215,8,Steelhead | Migration
+UGR15,Upper Grande Ronde,Steelhead,Spawning,0.34,0.09470752089136492,0.59,0.6126,0.25,3.4426657499999997,No,0.32604633844011144,0.08151158461002786,9,Steelhead | Spawning
+UGR15,Upper Grande Ronde,Steelhead,Summer Rearing,0.7,0.19498607242339833,0.59,0.6126,0.25,3.155811482142857,No,0.6153392862116992,0.1538348215529248,7,Steelhead | Summer Rearing
+UGR15,Upper Grande Ronde,Steelhead,Winter Rearing,0.87,0.24233983286908078,0.59,0.6126,0.25,3.0711028392857145,No,0.7442505487962595,0.18606263719906488,6,Steelhead | Winter Rearing
+UGR16,Upper Grande Ronde,Bull Trout,FMO,0.0,0.0,0.0,0.327,0.4,2.2660419107142857,Yes,0.0,0.0,9,Bull Trout | FMO
+UGR16,Upper Grande Ronde,Bull Trout,Spawning & Resident,0.0,0.0,0.0,0.327,0.6,2.5455454285714287,Yes,0.0,0.0,9,Bull Trout | Spawning & Resident
+UGR16,Upper Grande Ronde,Chinook,Migration,0.03,0.008356545961002786,0.66,0.327,0.34,2.689286357142857,No,0.02247314504576204,0.007640869315559094,8,Chinook | Migration
+UGR16,Upper Grande Ronde,Chinook,Spawning,0.78,0.21727019498607245,0.66,0.327,0.08,2.2824935892857146,No,0.4959178271985676,0.03967342617588541,6,Chinook | Spawning
+UGR16,Upper Grande Ronde,Chinook,Summer Rearing,1.03,0.28690807799442897,0.66,0.327,0.24,2.5467705535714287,No,0.7306890446179864,0.17536537070831673,3,Chinook | Summer Rearing
+UGR16,Upper Grande Ronde,Chinook,Winter Rearing,0.84,0.233983286908078,0.66,0.327,0.34,2.628139714285714,No,0.6149407688022284,0.20907986139275767,1,Chinook | Winter Rearing
+UGR16,Upper Grande Ronde,Steelhead,Migration,0.13,0.036211699164345405,0.7,0.327,0.25,2.647561392857143,No,0.09587269667727816,0.02396817416931954,7,Steelhead | Migration
+UGR16,Upper Grande Ronde,Steelhead,Spawning,1.03,0.28690807799442897,0.7,0.327,0.25,2.692035375,No,0.7723666953342618,0.19309167383356546,2,Steelhead | Spawning
+UGR16,Upper Grande Ronde,Steelhead,Summer Rearing,1.05,0.2924791086350975,0.7,0.327,0.25,2.324322857142857,No,0.679815877437326,0.1699539693593315,4,Steelhead | Summer Rearing
+UGR16,Upper Grande Ronde,Steelhead,Winter Rearing,0.58,0.1615598885793872,0.7,0.327,0.25,2.4779885357142857,No,0.4003435517309988,0.1000858879327497,5,Steelhead | Winter Rearing
+UGR17,Upper Grande Ronde,Bull Trout,FMO,1.48,0.41225626740947074,0.59,0.6039,0.4,3.880852125,Yes,1.5999056114206127,0.6399622445682451,1,Bull Trout | FMO
+UGR17,Upper Grande Ronde,Bull Trout,Spawning & Resident,0.0,0.0,0.59,0.6039,0.6,4.352875285714286,Yes,0.0,0.0,10,Bull Trout | Spawning & Resident
+UGR17,Upper Grande Ronde,Chinook,Migration,0.56,0.1559888579387187,1.28,0.6039,0.34,4.708037785714286,No,0.7344014373259055,0.24969648869080788,5,Chinook | Migration
+UGR17,Upper Grande Ronde,Chinook,Spawning,2.36,0.6573816155988857,1.28,0.6039,0.08,3.8439233571428573,No,2.5269245467568644,0.20215396374054917,7,Chinook | Spawning
+UGR17,Upper Grande Ronde,Chinook,Summer Rearing,1.54,0.42896935933147634,1.28,0.6039,0.24,4.319096839285714,No,1.8527602040389972,0.4446624489693593,3,Chinook | Summer Rearing
+UGR17,Upper Grande Ronde,Chinook,Winter Rearing,1.25,0.34818941504178275,1.28,0.6039,0.34,4.328533660714285,No,1.5071496033127736,0.5124308651263431,2,Chinook | Winter Rearing
+UGR17,Upper Grande Ronde,Steelhead,Migration,0.25,0.06963788300835655,0.63,0.6039,0.25,4.537849714285714,No,0.3160062475129327,0.07900156187823318,9,Steelhead | Migration
+UGR17,Upper Grande Ronde,Steelhead,Spawning,0.69,0.19220055710306405,0.63,0.6039,0.25,4.445809767857143,No,0.8544871141563867,0.21362177853909667,6,Steelhead | Spawning
+UGR17,Upper Grande Ronde,Steelhead,Summer Rearing,0.7,0.19498607242339833,0.63,0.6039,0.25,4.0231416428571425,No,0.7844565877437325,0.19611414693593313,8,Steelhead | Summer Rearing
+UGR17,Upper Grande Ronde,Steelhead,Winter Rearing,0.87,0.24233983286908078,0.63,0.6039,0.25,4.157730375,No,1.0075836841922006,0.25189592104805014,4,Steelhead | Winter Rearing
+UGR18,Upper Grande Ronde,Bull Trout,FMO,0.49,0.13649025069637882,1.53,0.6511,0.4,1.5044879464285714,Yes,0.20534793697771586,0.08213917479108634,5,Bull Trout | FMO
+UGR18,Upper Grande Ronde,Bull Trout,Spawning & Resident,2.22,0.6183844011142062,1.53,0.6511,0.6,1.749862982142857,Yes,1.0820879722443295,0.6492527833465976,1,Bull Trout | Spawning & Resident
+UGR18,Upper Grande Ronde,Chinook,Migration,0.06,0.016713091922005572,0.66,0.6511,0.34,1.7698662857142857,No,0.029579937922801433,0.010057178893752489,9,Chinook | Migration
+UGR18,Upper Grande Ronde,Chinook,Spawning,0.78,0.21727019498607245,0.66,0.6511,0.08,1.4871611785714285,No,0.3231157992439316,0.025849263939514526,8,Chinook | Spawning
+UGR18,Upper Grande Ronde,Chinook,Summer Rearing,1.03,0.28690807799442897,0.66,0.6511,0.24,1.6364514107142856,No,0.4695111289793076,0.11268267095503381,3,Chinook | Summer Rearing
+UGR18,Upper Grande Ronde,Chinook,Winter Rearing,0.84,0.233983286908078,0.66,0.6511,0.34,1.6724909464285713,No,0.3913349289693593,0.13305387584958217,2,Chinook | Winter Rearing
+UGR18,Upper Grande Ronde,Steelhead,Migration,0.03,0.008356545961002786,0.5,0.6511,0.25,1.7522937857142857,No,0.014643123557500996,0.003660780889375249,10,Steelhead | Migration
+UGR18,Upper Grande Ronde,Steelhead,Spawning,0.69,0.19220055710306405,0.5,0.6511,0.25,1.7495129464285712,No,0.33625736296259445,0.08406434074064861,4,Steelhead | Spawning
+UGR18,Upper Grande Ronde,Steelhead,Summer Rearing,0.7,0.19498607242339833,0.5,0.6511,0.25,1.4908365535714285,No,0.2906923642061281,0.07267309105153202,6,Steelhead | Summer Rearing
+UGR18,Upper Grande Ronde,Steelhead,Winter Rearing,0.58,0.1615598885793872,0.5,0.6511,0.25,1.506063107142857,No,0.24331938778352563,0.06082984694588141,7,Steelhead | Winter Rearing
+UGR19,Upper Grande Ronde,Bull Trout,FMO,0.99,0.2757660167130919,1.73,0.7778,0.4,2.4970990714285715,Yes,0.6886150642658178,0.2754460257063271,2,Bull Trout | FMO
+UGR19,Upper Grande Ronde,Bull Trout,Spawning & Resident,2.22,0.6183844011142062,1.73,0.7778,0.6,2.5005994285714284,Yes,1.546331680063669,0.9277990080382014,1,Bull Trout | Spawning & Resident
+UGR19,Upper Grande Ronde,Chinook,Migration,0.24,0.06685236768802229,0.72,0.7778,0.34,2.972498839285714,No,0.19871858535614803,0.06756431902109034,8,Chinook | Migration
+UGR19,Upper Grande Ronde,Chinook,Spawning,0.78,0.21727019498607245,0.72,0.7778,0.08,2.1887176071428573,No,0.4755431012733785,0.038043448101870284,9,Chinook | Spawning
+UGR19,Upper Grande Ronde,Chinook,Summer Rearing,1.03,0.28690807799442897,0.72,0.7778,0.24,2.5945840178571427,No,0.7444071137584559,0.1786577073020294,5,Chinook | Summer Rearing
+UGR19,Upper Grande Ronde,Chinook,Winter Rearing,0.84,0.233983286908078,0.72,0.7778,0.34,2.3131411607142858,No,0.5412363718662953,0.1840203664345404,4,Chinook | Winter Rearing
+UGR19,Upper Grande Ronde,Steelhead,Migration,0.13,0.036211699164345405,0.77,0.7778,0.25,2.8663673035714283,No,0.10379603049144448,0.02594900762286112,10,Steelhead | Migration
+UGR19,Upper Grande Ronde,Steelhead,Spawning,1.03,0.28690807799442897,0.77,0.7778,0.25,2.352184285714286,No,0.6748606725029845,0.16871516812574613,6,Steelhead | Spawning
+UGR19,Upper Grande Ronde,Steelhead,Summer Rearing,1.05,0.2924791086350975,0.77,0.7778,0.25,2.608060392857143,No,0.7628031789693595,0.19070079474233986,3,Steelhead | Summer Rearing
+UGR19,Upper Grande Ronde,Steelhead,Winter Rearing,0.87,0.24233983286908078,0.77,0.7778,0.25,2.150563714285714,No,0.5211672510943096,0.1302918127735774,7,Steelhead | Winter Rearing
+UGR2,Upper Grande Ronde,Bull Trout,FMO,0.0,0.0,0.0,0.1914,0.4,2.5586558571428575,Yes,0.0,0.0,6,Bull Trout | FMO
+UGR2,Upper Grande Ronde,Bull Trout,Spawning & Resident,0.0,0.0,0.0,0.1914,0.6,2.295604017857143,Yes,0.0,0.0,6,Bull Trout | Spawning & Resident
+UGR2,Upper Grande Ronde,Chinook,Migration,0.01,0.002785515320334262,0.0,0.1914,0.34,3.2799557142857143,No,0.009136366892160764,0.00310636474333466,5,Chinook | Migration
+UGR2,Upper Grande Ronde,Chinook,Spawning,0.0,0.0,0.0,0.1914,0.08,2.468521660714286,No,0.0,0.0,6,Chinook | Spawning
+UGR2,Upper Grande Ronde,Chinook,Summer Rearing,0.0,0.0,0.0,0.1914,0.24,2.70462075,No,0.0,0.0,6,Chinook | Summer Rearing
+UGR2,Upper Grande Ronde,Chinook,Winter Rearing,0.0,0.0,0.0,0.1914,0.34,2.5351893214285717,No,0.0,0.0,6,Chinook | Winter Rearing
+UGR2,Upper Grande Ronde,Steelhead,Migration,0.22,0.061281337047353765,0.79,0.1914,0.25,3.141445875,No,0.19251200348189418,0.048128000870473545,4,Steelhead | Migration
+UGR2,Upper Grande Ronde,Steelhead,Spawning,1.03,0.28690807799442897,0.79,0.1914,0.25,2.766052017857143,No,0.7936026680760049,0.19840066701900122,1,Steelhead | Spawning
+UGR2,Upper Grande Ronde,Steelhead,Summer Rearing,1.05,0.2924791086350975,0.79,0.1914,0.25,2.659641160714286,No,0.7778894759749305,0.19447236899373263,2,Steelhead | Summer Rearing
+UGR2,Upper Grande Ronde,Steelhead,Winter Rearing,0.87,0.24233983286908078,0.79,0.1914,0.25,2.6760928392857144,No,0.6485238914146438,0.16213097285366096,3,Steelhead | Winter Rearing
+UGR20,Upper Grande Ronde,Bull Trout,FMO,1.48,0.41225626740947074,1.93,0.8697,0.4,2.326106625,Yes,0.9589520348189415,0.38358081392757665,2,Bull Trout | FMO
+UGR20,Upper Grande Ronde,Bull Trout,Spawning & Resident,2.22,0.6183844011142062,1.93,0.8697,0.6,2.8950896785714284,Yes,1.7902782970553126,1.0741669782331875,1,Bull Trout | Spawning & Resident
+UGR20,Upper Grande Ronde,Chinook,Migration,0.17,0.04735376044568246,1.16,0.8697,0.34,3.1228391785714287,No,0.14787817837246323,0.050278580646637504,9,Chinook | Migration
+UGR20,Upper Grande Ronde,Chinook,Spawning,2.36,0.6573816155988857,1.16,0.8697,0.08,2.387012839285714,No,1.5691783567449262,0.1255342685395941,5,Chinook | Spawning
+UGR20,Upper Grande Ronde,Chinook,Summer Rearing,1.54,0.42896935933147634,1.16,0.8697,0.24,2.263450232142857,No,0.9709507959610029,0.23302819103064068,4,Chinook | Summer Rearing
+UGR20,Upper Grande Ronde,Chinook,Winter Rearing,1.25,0.34818941504178275,1.16,0.8697,0.34,2.2312328035714284,No,0.7768916446975725,0.2641431591971747,3,Chinook | Winter Rearing
+UGR20,Upper Grande Ronde,Steelhead,Migration,0.07,0.019498607242339837,0.51,0.8697,0.25,2.78253375,No,0.054255532729805024,0.013563883182451256,10,Steelhead | Migration
+UGR20,Upper Grande Ronde,Steelhead,Spawning,0.69,0.19220055710306405,0.51,0.8697,0.25,2.202193982142857,No,0.42326291021687223,0.10581572755421806,7,Steelhead | Spawning
+UGR20,Upper Grande Ronde,Steelhead,Summer Rearing,0.7,0.19498607242339833,0.51,0.8697,0.25,2.3299570178571427,No,0.454309167827298,0.1135772919568245,6,Steelhead | Summer Rearing
+UGR20,Upper Grande Ronde,Steelhead,Winter Rearing,0.58,0.1615598885793872,0.51,0.8697,0.25,2.135687196428571,No,0.34504138549542374,0.08626034637385593,8,Steelhead | Winter Rearing
+UGR3,Upper Grande Ronde,Bull Trout,FMO,1.48,0.41225626740947074,0.59,0.6514,0.4,4.707277607142857,Yes,1.9406046959808994,0.7762418783923598,3,Bull Trout | FMO
+UGR3,Upper Grande Ronde,Bull Trout,Spawning & Resident,0.0,0.0,0.59,0.6514,0.6,4.346390785714285,Yes,0.0,0.0,6,Bull Trout | Spawning & Resident
+UGR3,Upper Grande Ronde,Chinook,Migration,3.56,0.9916434540389972,1.08,0.6514,0.34,6.297716142857142,No,6.245088988460008,2.123330256076403,1,Chinook | Migration
+UGR3,Upper Grande Ronde,Chinook,Spawning,0.0,0.0,1.08,0.6514,0.08,4.770984107142857,No,0.0,0.0,6,Chinook | Spawning
+UGR3,Upper Grande Ronde,Chinook,Summer Rearing,0.0,0.0,1.08,0.6514,0.24,4.556062178571429,No,0.0,0.0,6,Chinook | Summer Rearing
+UGR3,Upper Grande Ronde,Chinook,Winter Rearing,0.0,0.0,1.08,0.6514,0.34,3.9643126607142856,No,0.0,0.0,6,Chinook | Winter Rearing
+UGR3,Upper Grande Ronde,Steelhead,Migration,3.17,0.883008356545961,1.02,0.6514,0.25,5.3422229464285715,No,4.717227504228014,1.1793068760570036,2,Steelhead | Migration
+UGR3,Upper Grande Ronde,Steelhead,Spawning,0.34,0.09470752089136492,1.02,0.6514,0.25,4.155271285714285,No,0.3935354421010744,0.0983838605252686,5,Steelhead | Spawning
+UGR3,Upper Grande Ronde,Steelhead,Summer Rearing,0.0,0.0,1.02,0.6514,0.25,4.579164535714285,No,0.0,0.0,6,Steelhead | Summer Rearing
+UGR3,Upper Grande Ronde,Steelhead,Winter Rearing,0.58,0.1615598885793872,1.02,0.6514,0.25,4.530334553571429,No,0.7319203457023478,0.18298008642558694,4,Steelhead | Winter Rearing
+UGR4,Upper Grande Ronde,Bull Trout,FMO,0.0,0.0,0.0,0.1873,0.4,4.02369675,Yes,0.0,0.0,5,Bull Trout | FMO
+UGR4,Upper Grande Ronde,Bull Trout,Spawning & Resident,0.0,0.0,0.0,0.1873,0.6,3.878606946428571,Yes,0.0,0.0,5,Bull Trout | Spawning & Resident
+UGR4,Upper Grande Ronde,Chinook,Migration,0.0,0.0,0.0,0.1873,0.34,5.055303267857142,No,0.0,0.0,5,Chinook | Migration
+UGR4,Upper Grande Ronde,Chinook,Spawning,0.0,0.0,0.0,0.1873,0.08,3.7741212857142856,No,0.0,0.0,5,Chinook | Spawning
+UGR4,Upper Grande Ronde,Chinook,Summer Rearing,0.0,0.0,0.0,0.1873,0.24,4.0851280178571425,No,0.0,0.0,5,Chinook | Summer Rearing
+UGR4,Upper Grande Ronde,Chinook,Winter Rearing,0.0,0.0,0.0,0.1873,0.34,3.923572392857143,No,0.0,0.0,5,Chinook | Winter Rearing
+UGR4,Upper Grande Ronde,Steelhead,Migration,0.15,0.04178272980501393,0.77,0.1873,0.25,4.843810982142857,No,0.20238764549343416,0.05059691137335854,4,Steelhead | Migration
+UGR4,Upper Grande Ronde,Steelhead,Spawning,1.03,0.28690807799442897,0.77,0.1873,0.25,4.1712368035714285,No,1.196761534172304,0.299190383543076,1,Steelhead | Spawning
+UGR4,Upper Grande Ronde,Steelhead,Summer Rearing,1.05,0.2924791086350975,0.77,0.1873,0.25,4.035422946428572,No,1.1802769063370475,0.2950692265842619,2,Steelhead | Summer Rearing
+UGR4,Upper Grande Ronde,Steelhead,Winter Rearing,0.87,0.24233983286908078,0.77,0.1873,0.25,3.9311123035714286,No,0.9526650986370871,0.2381662746592718,3,Steelhead | Winter Rearing
+UGR5,Upper Grande Ronde,Bull Trout,FMO,0.49,0.13649025069637882,0.2,0.5242,0.4,6.619146160714285,Yes,0.9034489188718662,0.3613795675487465,4,Bull Trout | FMO
+UGR5,Upper Grande Ronde,Bull Trout,Spawning & Resident,0.0,0.0,0.2,0.5242,0.6,6.3410427857142855,Yes,0.0,0.0,6,Bull Trout | Spawning & Resident
+UGR5,Upper Grande Ronde,Chinook,Migration,3.23,0.8997214484679666,1.16,0.5242,0.34,8.407004839285714,No,7.5639625712793475,2.5717472742349785,1,Chinook | Migration
+UGR5,Upper Grande Ronde,Chinook,Spawning,0.0,0.0,1.16,0.5242,0.08,6.395123303571428,No,0.0,0.0,6,Chinook | Spawning
+UGR5,Upper Grande Ronde,Chinook,Summer Rearing,0.0,0.0,1.16,0.5242,0.24,6.595868785714285,No,0.0,0.0,6,Chinook | Summer Rearing
+UGR5,Upper Grande Ronde,Chinook,Winter Rearing,0.84,0.233983286908078,1.16,0.5242,0.34,6.233742696428571,No,1.458591605849582,0.49592114598885795,3,Chinook | Winter Rearing
+UGR5,Upper Grande Ronde,Steelhead,Migration,2.68,0.7465181058495822,0.82,0.5242,0.25,7.720164053571428,No,5.763242246120175,1.4408105615300437,2,Steelhead | Migration
+UGR5,Upper Grande Ronde,Steelhead,Spawning,0.0,0.0,0.82,0.5242,0.25,6.513960428571428,No,0.0,0.0,6,Steelhead | Spawning
+UGR5,Upper Grande Ronde,Steelhead,Summer Rearing,0.0,0.0,0.82,0.5242,0.25,6.443078196428571,No,0.0,0.0,6,Steelhead | Summer Rearing
+UGR5,Upper Grande Ronde,Steelhead,Winter Rearing,0.58,0.1615598885793872,0.82,0.5242,0.25,6.722406696428571,No,1.0860712768603262,0.27151781921508156,5,Steelhead | Winter Rearing
+UGR6,Upper Grande Ronde,Bull Trout,FMO,0.99,0.2757660167130919,1.73,0.7643,0.4,2.3395865357142855,Yes,0.6451784597095105,0.2580713838838042,2,Bull Trout | FMO
+UGR6,Upper Grande Ronde,Bull Trout,Spawning & Resident,2.22,0.6183844011142062,1.73,0.7643,0.6,2.5662346607142856,Yes,1.5869194837843217,0.952151690270593,1,Bull Trout | Spawning & Resident
+UGR6,Upper Grande Ronde,Chinook,Migration,0.2,0.05571030640668524,0.62,0.7643,0.34,2.889368892857143,No,0.16096762634301634,0.05472899295662556,9,Chinook | Migration
+UGR6,Upper Grande Ronde,Chinook,Spawning,0.78,0.21727019498607245,0.62,0.7643,0.08,2.264153839285714,No,0.49193314614007166,0.039354651691205736,10,Chinook | Spawning
+UGR6,Upper Grande Ronde,Chinook,Summer Rearing,1.03,0.28690807799442897,0.62,0.7643,0.24,2.4164193750000003,No,0.6932902385097494,0.16638965724233984,5,Chinook | Summer Rearing
+UGR6,Upper Grande Ronde,Chinook,Winter Rearing,0.41,0.11420612813370473,0.62,0.7643,0.34,2.540317875,No,0.2901198687325905,0.09864075536908078,7,Chinook | Winter Rearing
+UGR6,Upper Grande Ronde,Steelhead,Migration,0.32,0.08913649025069638,0.82,0.7643,0.25,2.88999825,No,0.2576043008356546,0.06440107520891365,8,Steelhead | Migration
+UGR6,Upper Grande Ronde,Steelhead,Spawning,1.03,0.28690807799442897,0.82,0.7643,0.25,2.5655345892857144,No,0.7360725980401911,0.18401814951004777,3,Steelhead | Spawning
+UGR6,Upper Grande Ronde,Steelhead,Summer Rearing,1.05,0.2924791086350975,0.82,0.7643,0.25,2.3499125892857142,No,0.6873003394846797,0.17182508487116993,4,Steelhead | Summer Rearing
+UGR6,Upper Grande Ronde,Steelhead,Winter Rearing,0.87,0.24233983286908078,0.82,0.7643,0.25,2.481701035714286,No,0.6014150142260247,0.15035375355650618,6,Steelhead | Winter Rearing
+UGR7,Upper Grande Ronde,Bull Trout,FMO,0.49,0.13649025069637882,0.2,0.3375,0.4,6.580290428571428,Yes,0.8981454902506962,0.35925819610027854,4,Bull Trout | FMO
+UGR7,Upper Grande Ronde,Bull Trout,Spawning & Resident,0.0,0.0,0.2,0.3375,0.6,6.297461571428571,Yes,0.0,0.0,6,Bull Trout | Spawning & Resident
+UGR7,Upper Grande Ronde,Chinook,Migration,1.56,0.4345403899721449,0.65,0.3375,0.34,8.415578946428571,No,3.6569089572224436,1.2433490454556309,1,Chinook | Migration
+UGR7,Upper Grande Ronde,Chinook,Spawning,0.0,0.0,0.65,0.3375,0.08,6.593066732142857,No,0.0,0.0,6,Chinook | Spawning
+UGR7,Upper Grande Ronde,Chinook,Summer Rearing,0.0,0.0,0.65,0.3375,0.24,6.670074589285714,No,0.0,0.0,6,Chinook | Summer Rearing
+UGR7,Upper Grande Ronde,Chinook,Winter Rearing,0.84,0.233983286908078,0.65,0.3375,0.34,6.275920232142857,No,1.4684604442896936,0.49927655105849583,3,Chinook | Winter Rearing
+UGR7,Upper Grande Ronde,Steelhead,Migration,1.62,0.4512534818941505,0.55,0.3375,0.25,7.659781124999999,No,3.4565029032033427,0.8641257258008357,2,Steelhead | Migration
+UGR7,Upper Grande Ronde,Steelhead,Spawning,0.0,0.0,0.55,0.3375,0.25,6.6690244821428575,No,0.0,0.0,6,Steelhead | Spawning
+UGR7,Upper Grande Ronde,Steelhead,Summer Rearing,0.0,0.0,0.55,0.3375,0.25,6.508008053571428,No,0.0,0.0,6,Steelhead | Summer Rearing
+UGR7,Upper Grande Ronde,Steelhead,Winter Rearing,0.58,0.1615598885793872,0.55,0.3375,0.25,6.620894571428571,No,1.0696709892558693,0.26741774731396734,5,Steelhead | Winter Rearing
+UGR8,Upper Grande Ronde,Bull Trout,FMO,0.0,0.0,0.0,0.0044,0.4,4.727837785714286,Yes,0.0,0.0,2,Bull Trout | FMO
+UGR8,Upper Grande Ronde,Bull Trout,Spawning & Resident,0.0,0.0,0.0,0.0044,0.6,4.844574696428571,Yes,0.0,0.0,2,Bull Trout | Spawning & Resident
+UGR8,Upper Grande Ronde,Chinook,Migration,0.06,0.016713091922005572,0.02,0.0044,0.34,5.841877714285714,No,0.09763583923597295,0.033196185340230805,1,Chinook | Migration
+UGR8,Upper Grande Ronde,Chinook,Spawning,0.0,0.0,0.02,0.0044,0.08,4.628952696428572,No,0.0,0.0,2,Chinook | Spawning
+UGR8,Upper Grande Ronde,Chinook,Summer Rearing,0.0,0.0,0.02,0.0044,0.24,4.844574696428571,No,0.0,0.0,2,Chinook | Summer Rearing
+UGR8,Upper Grande Ronde,Chinook,Winter Rearing,0.0,0.0,0.02,0.0044,0.34,5.1062122500000005,No,0.0,0.0,2,Chinook | Winter Rearing
+UGR8,Upper Grande Ronde,Steelhead,Migration,0.0,0.0,0.0,0.0044,0.25,5.624959875,No,0.0,0.0,2,Steelhead | Migration
+UGR8,Upper Grande Ronde,Steelhead,Spawning,0.0,0.0,0.0,0.0044,0.25,5.1022009821428576,No,0.0,0.0,2,Steelhead | Spawning
+UGR8,Upper Grande Ronde,Steelhead,Summer Rearing,0.0,0.0,0.0,0.0044,0.25,4.665531428571429,No,0.0,0.0,2,Steelhead | Summer Rearing
+UGR8,Upper Grande Ronde,Steelhead,Winter Rearing,0.0,0.0,0.0,0.0044,0.25,5.271793285714286,No,0.0,0.0,2,Steelhead | Winter Rearing
+UGR9,Upper Grande Ronde,Bull Trout,FMO,0.49,0.13649025069637882,0.2,0.3184,0.4,4.8318779464285715,Yes,0.6595042322423398,0.26380169289693595,4,Bull Trout | FMO
+UGR9,Upper Grande Ronde,Bull Trout,Spawning & Resident,0.0,0.0,0.2,0.3184,0.6,4.878782732142858,Yes,0.0,0.0,6,Bull Trout | Spawning & Resident
+UGR9,Upper Grande Ronde,Chinook,Migration,1.35,0.3760445682451254,0.59,0.3184,0.34,6.014699892857143,No,2.2617952243334662,0.7690103762733785,1,Chinook | Migration
+UGR9,Upper Grande Ronde,Chinook,Spawning,0.0,0.0,0.59,0.3184,0.08,4.585977857142857,No,0.0,0.0,6,Chinook | Spawning
+UGR9,Upper Grande Ronde,Chinook,Summer Rearing,0.0,0.0,0.59,0.3184,0.24,4.966641696428572,No,0.0,0.0,6,Chinook | Summer Rearing
+UGR9,Upper Grande Ronde,Chinook,Winter Rearing,0.84,0.233983286908078,0.59,0.3184,0.34,4.598389982142857,No,1.0759464025069636,0.36582177685236766,3,Chinook | Winter Rearing
+UGR9,Upper Grande Ronde,Steelhead,Migration,1.55,0.4317548746518106,0.53,0.3184,0.25,5.536830428571428,No,2.390553527656188,0.597638381914047,2,Steelhead | Migration
+UGR9,Upper Grande Ronde,Steelhead,Spawning,0.0,0.0,0.53,0.3184,0.25,4.8252272678571435,No,0.0,0.0,6,Steelhead | Spawning
+UGR9,Upper Grande Ronde,Steelhead,Summer Rearing,0.0,0.0,0.53,0.3184,0.25,4.866006428571429,No,0.0,0.0,6,Steelhead | Summer Rearing
+UGR9,Upper Grande Ronde,Steelhead,Winter Rearing,0.58,0.1615598885793872,0.53,0.3184,0.25,4.767471375,No,0.7702321441504179,0.19255803603760446,5,Steelhead | Winter Rearing

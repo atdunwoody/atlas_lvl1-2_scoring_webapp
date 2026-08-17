@@ -1,0 +1,30 @@
+bsr_join_key,BSR,overall_risk_score,overall_risk_rank,overall_sort_position,tier,tier1_species_top_two_for,tier_assignment_basis
+UGR11,UGR11,2.5321954634465778,8,8,Tier 1,,Overall risk score
+UGR12,UGR12,0.7581338961932949,24,24,Tier 3,,Overall risk score
+UGR14,UGR14,2.115091090378532,16,16,Tier 1,Bull Trout,Top-two species risk requirement
+UGR16,UGR16,0.9188592328874851,21,21,Tier 3,,Overall risk score
+UGR13,UGR13,1.5786019111241545,17,17,Tier 2,,Overall risk score
+UGR15,UGR15,2.242314294533924,12,12,Tier 2,,Overall risk score
+UGR20,UGR20,2.449949240642161,10,10,Tier 1,Bull Trout,Top-two species risk requirement
+UGR19,UGR19,2.1871876578685834,14,14,Tier 2,,Overall risk score
+UGR18,UGR18,1.2342630074030043,19,19,Tier 2,,Overall risk score
+UGR6,UGR6,2.1399351945602865,15,15,Tier 2,,Overall risk score
+UGR4,UGR4,0.8830227961599681,22,22,Tier 3,,Overall risk score
+UGR10,UGR10,0.5060267348935535,27,27,Tier 3,,Overall risk score
+CC6,CC6,2.7913127200144245,5,5,Tier 1,,Overall risk score
+UGR7,UGR7,3.2334272657292082,4,4,Tier 1,,Overall risk score
+UGR9,UGR9,2.1888302639743333,13,13,Tier 2,,Overall risk score
+UGR17,UGR17,2.7895394194966174,6,6,Tier 1,,Overall risk score
+UGR2,UGR2,0.606238374480203,25,25,Tier 3,,Overall risk score
+UGR1,UGR1,0.9459530408729606,20,20,Tier 3,,Overall risk score
+UGR3,UGR3,4.360242957476622,2,2,Tier 1,Chinook; Steelhead,Top-two species risk requirement
+UGR5,UGR5,5.141376368517708,1,1,Tier 1,Chinook; Steelhead,Top-two species risk requirement
+UGR8,UGR8,0.033196185340230805,,,Not included,,Excluded from analysis
+CC8,CC8,0.38218808507262236,28,28,Tier 3,,Overall risk score
+CC9,CC9,0.5979345938290885,26,26,Tier 3,,Overall risk score
+CC1,CC1,3.7794979888728615,3,3,Tier 1,,Overall risk score
+CC2,CC2,2.315495132702447,11,11,Tier 2,,Overall risk score
+CC5,CC5,2.5973449727506965,7,7,Tier 1,,Overall risk score
+CC7,CC7,2.4631168392424394,9,9,Tier 2,,Overall risk score
+CC4,CC4,1.3050898341300239,18,18,Tier 2,,Overall risk score
+CC3,CC3,0.8816217231073419,23,23,Tier 3,,Overall risk score
