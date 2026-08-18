@@ -1134,7 +1134,13 @@ def scenario_ii_tiers(
     bsr: gpd.GeoDataFrame,
     species_scores: pd.DataFrame,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
-    """Assign thirds while requiring each species' top two BSRs in Tier 1."""
+    """Assign Scenario II tiers using species risk, then overall risk.
+
+    Exactly two BSRs are selected independently for each species and forced
+    into Tier 1. The remaining Tier 1 capacity is filled in descending overall
+    risk order. All remaining BSRs are assigned to Tiers 2 and 3 in the same
+    descending overall-risk order.
+    """
     ordered = ordered_overall_risk(bsr)
     sizes = tier_sizes(len(ordered))
     included_keys = set(ordered["_bsr_key"])
@@ -1195,16 +1201,22 @@ def scenario_ii_tiers(
 
     overall_order = ordered["_bsr_key"].tolist()
     tier_one_keys = set(required_tier_one_keys)
+    tier_one_fill_keys: list[str] = []
     for bsr_key in overall_order:
         if len(tier_one_keys) >= tier_one_target:
             break
+        if bsr_key in tier_one_keys:
+            continue
         tier_one_keys.add(bsr_key)
+        tier_one_fill_keys.append(bsr_key)
 
     remaining = [
         bsr_key for bsr_key in overall_order if bsr_key not in tier_one_keys
     ]
-    tier_two_keys = set(remaining[: sizes[1]])
-    tier_three_keys = set(remaining[sizes[1] :])
+    tier_two_order = remaining[: sizes[1]]
+    tier_three_order = remaining[sizes[1] :]
+    tier_two_keys = set(tier_two_order)
+    tier_three_keys = set(tier_three_order)
 
     tier_lookup = {
         **{key: "Tier 1" for key in tier_one_keys},
@@ -1230,16 +1242,40 @@ def scenario_ii_tiers(
     assignment["tier1_species_top_two_for"] = assignment["_bsr_key"].map(
         required_species
     )
-    assignment["tier_assignment_basis"] = "Overall risk score"
+    assignment["species_top_two_required"] = assignment["_bsr_key"].isin(
+        required_tier_one_keys
+    )
+    assignment["tier_assignment_basis"] = "Overall risk rank"
+    tier_one_fill = assignment["_bsr_key"].isin(tier_one_fill_keys)
+    assignment.loc[
+        tier_one_fill, "tier_assignment_basis"
+    ] = "Overall risk rank (Tier 1 fill)"
     required = assignment["_bsr_key"].isin(required_tier_one_keys)
     assignment.loc[
         required, "tier_assignment_basis"
-    ] = "Top-two species risk requirement"
+    ] = "Top-two risk score for at least one species"
     excluded = assignment["_bsr_key"].isin(
         set(bsr.loc[exclusion_mask(bsr), "_bsr_key"])
     )
     assignment.loc[excluded, "tier"] = "Not included"
+    assignment.loc[excluded, "species_top_two_required"] = False
     assignment.loc[excluded, "tier_assignment_basis"] = "Excluded from analysis"
+
+    included_assignment = assignment.loc[~excluded]
+    actual_sizes = tuple(
+        int(included_assignment["tier"].eq(f"Tier {tier}").sum())
+        for tier in (1, 2, 3)
+    )
+    if actual_sizes != sizes:
+        raise RuntimeError(
+            "Scenario II tier-size validation failed: expected "
+            f"{sizes}, assigned {actual_sizes}."
+        )
+    if not assignment.loc[required, "tier"].eq("Tier 1").all():
+        raise RuntimeError(
+            "Scenario II validation failed: a species top-two BSR was not "
+            "assigned to Tier 1."
+        )
     return assignment, species_top_two
 
 
@@ -1477,7 +1513,7 @@ def create_all_maps(
         ),
         (
             "_scenario_ii_tier",
-            "Preliminary BSR Tiers, Scenario II: Species Top-Two Requirement",
+            "Preliminary BSR Tiers, Scenario II: Species Top-Two and Overall Risk Rank",
             output_dir / "preliminary_bsr_tiers_scenario_ii.png",
         ),
     ]

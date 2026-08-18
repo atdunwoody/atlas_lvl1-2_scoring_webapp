@@ -5,6 +5,7 @@ The scoring notebook writes a scored BSR feature layer plus the
 ``data/outputs/bsr_scores.gpkg``. This script reads those outputs and creates:
 
 * overall risk;
+* overall benefit;
 * one risk map per species;
 * highest risk-aligned species/life stage;
 * highest risk-aligned limiting factor;
@@ -211,6 +212,7 @@ def read_scoring_outputs(
         bsr,
         [
             "overall_risk_score",
+            "overall_benefit_score",
             "highest_risk_species_life_stage",
             "highest_risk_limiting_factor",
             "highest_risk_aligned_action_type",
@@ -1324,6 +1326,34 @@ def create_all_maps(
             "scale_min": 0.0,
             "scale_max": overall_max,
             "output_file": str(overall_path),
+        }
+    )
+
+    overall_benefit_max = nonzero_max(
+        bsr.loc[~exclusion_mask(bsr), "overall_benefit_score"]
+    )
+    overall_benefit_path = output_dir / "overall_benefit_score.png"
+    plot_numeric_map(
+        bsr,
+        value_field="overall_benefit_score",
+        title="Overall Benefit Score",
+        legend_title="Overall benefit score (sum across action types)",
+        output_path=overall_benefit_path,
+        cmap=BENEFIT_CMAP,
+        scale_min=0.0,
+        scale_max=overall_benefit_max,
+        dpi=dpi,
+        use_basemap=use_basemap,
+        basemap_zoom=basemap_zoom,
+    )
+    manifest.append(
+        {
+            "map_group": "Overall benefit",
+            "category": pd.NA,
+            "score_field": "overall_benefit_score",
+            "scale_min": 0.0,
+            "scale_max": overall_benefit_max,
+            "output_file": str(overall_benefit_path),
         }
     )
 
