@@ -5,10 +5,12 @@ The scoring notebook writes a scored BSR feature layer plus the
 ``data/outputs/bsr_scores.gpkg``. This script reads those outputs and creates:
 
 * overall risk;
+* overall benefit;
 * one risk map per species;
 * highest risk-aligned species/life stage;
 * highest risk-aligned limiting factor;
 * highest risk-aligned benefit action type; and
+* benefit score of the highest risk-aligned action type;
 * one benefit-score map per action type;
 * preliminary BSR tiers based on overall-risk thirds; and
 * preliminary BSR tiers seeded by each species' two highest-risk BSRs.
@@ -18,7 +20,10 @@ arrow, a ground-distance scale bar, and a legend. UGR 8 is excluded from score
 colors and shared scale calculations and is shown with a neutral hatch. Species
 maps share one color scale; action-type benefit maps share a second color scale
 so maps within each group can be compared directly. Overall and species risk
-maps also label each analyzed BSR's rank beneath its BSR identifier.
+maps also label each analyzed BSR's rank beneath its BSR identifier. The script
+also writes ``score_theoretical_maxima.csv``, which documents the maximum
+possible value for each mapped numeric score under the configured population
+priorities and LFAT action weights.
 
 Required packages: geopandas, pandas, numpy, matplotlib, contextily, certifi.
 """
@@ -69,8 +74,8 @@ EXCLUDED_BSR_IDS = {"UGR8", "UGR08"}
 EXCLUDED_BSR_COLOR = "#f1efeb"
 EXCLUDED_BSR_HATCH = "////"
 TIER_COLORS = {
-    "Tier 1": "#c94f62",
-    "Tier 2": "#e5b567",
+    "Tier 1": "#21918C",
+    "Tier 2": "#440154",
     "Tier 3": "#A7AAA5",
 }
 
@@ -187,8 +192,8 @@ def require_columns(
 
 def read_scoring_outputs(
     gpkg_path: str | Path,
-) -> tuple[gpd.GeoDataFrame, pd.DataFrame, pd.DataFrame]:
-    """Read BSR geometry, species scores, and action scores."""
+) -> tuple[gpd.GeoDataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    """Read BSR geometry, species, action, and population scores."""
     gpkg_path = Path(gpkg_path).expanduser().resolve()
     if not gpkg_path.is_file():
         raise FileNotFoundError(f"Scoring GeoPackage not found: {gpkg_path}")
@@ -197,6 +202,7 @@ def read_scoring_outputs(
         layer_name = feature_layer_with_bsr(connection)
         species_scores = read_attribute_table(connection, "species_scores")
         action_scores = read_attribute_table(connection, "action_type_scores")
+        population_scores = read_attribute_table(connection, "population_scores")
 
     bsr = gpd.read_file(gpkg_path, layer=layer_name)
     if bsr.crs is None:
@@ -206,9 +212,11 @@ def read_scoring_outputs(
         bsr,
         [
             "overall_risk_score",
+            "overall_benefit_score",
             "highest_risk_species_life_stage",
             "highest_risk_limiting_factor",
             "highest_risk_aligned_action_type",
+            "highest_action_benefit_score",
         ],
         layer_name,
     )
@@ -219,6 +227,11 @@ def read_scoring_outputs(
         action_scores,
         ["bsr", "action_type", "action_benefit_score"],
         "action_type_scores",
+    )
+    require_columns(
+        population_scores,
+        ["basin", "species", "life_stage", "population_priority"],
+        "population_scores",
     )
 
     normalized_columns = {column.lower(): column for column in bsr.columns}
@@ -247,7 +260,81 @@ def read_scoring_outputs(
 
     # CartoDB tiles use Web Mercator. Keeping all map layers in this CRS also
     # makes the basemap request and the scale-bar drawing deterministic.
-    return bsr.to_crs(WEB_MERCATOR_CRS), species_scores, action_scores
+    return (
+        bsr.to_crs(WEB_MERCATOR_CRS),
+        species_scores,
+        action_scores,
+        population_scores,
+    )
+
+
+def locate_lfat_csv(
+    gpkg_path: str | Path,
+    supplied_path: str | Path | None = None,
+) -> Path:
+    """Resolve the LFAT source table used for theoretical action maxima."""
+    if supplied_path is not None:
+        resolved = Path(supplied_path).expanduser().resolve()
+        if not resolved.is_file():
+            raise FileNotFoundError(f"LFAT CSV not found: {resolved}")
+        return resolved
+
+    gpkg_path = Path(gpkg_path).expanduser().resolve()
+    candidate_directories = [
+        gpkg_path.parent.parent / "inputs",
+        Path.cwd().resolve() / "data" / "inputs",
+        Path.cwd().resolve(),
+    ]
+    seen_directories: set[Path] = set()
+    for directory in candidate_directories:
+        if directory in seen_directories or not directory.is_dir():
+            continue
+        seen_directories.add(directory)
+
+        preferred = directory / "LFAT.csv"
+        if preferred.is_file():
+            return preferred.resolve()
+
+        matches = sorted(
+            path.resolve()
+            for path in directory.glob("LFAT(*).csv")
+            if path.is_file()
+        )
+        if len(matches) == 1:
+            return matches[0]
+        if len(matches) > 1:
+            raise ValueError(
+                "More than one parenthetically suffixed LFAT CSV was found in "
+                f"{directory}. Specify the intended file with --lfat-csv."
+            )
+
+    raise FileNotFoundError(
+        "Could not find LFAT.csv in data/inputs. Supply the scoring model's "
+        "LFAT table with --lfat-csv so theoretical action-score maxima can "
+        "be calculated."
+    )
+
+
+def read_lfat_scores(path: str | Path) -> pd.DataFrame:
+    """Read and validate the LFAT action-weight table."""
+    resolved = Path(path).expanduser().resolve()
+    lfat = pd.read_csv(resolved)
+    require_columns(
+        lfat,
+        ["action_id", "action_type", "limiting_factor", "lfat_score"],
+        resolved.name,
+    )
+    lfat = lfat.copy()
+    lfat["lfat_score"] = pd.to_numeric(lfat["lfat_score"], errors="coerce")
+    if lfat["lfat_score"].isna().any():
+        raise ValueError(f"{resolved.name} contains nonnumeric LFAT scores.")
+    if not lfat["lfat_score"].between(0.0, 1.0).all():
+        raise ValueError(f"{resolved.name} LFAT scores must range from 0 to 1.")
+    if lfat.duplicated(["action_id", "limiting_factor"]).any():
+        raise ValueError(
+            f"{resolved.name} contains duplicate action/limiting-factor rows."
+        )
+    return lfat
 
 
 def join_one_score(
@@ -747,6 +834,220 @@ def nonzero_max(values: pd.Series) -> float:
     return float(maximum)
 
 
+def theoretical_maxima_table(
+    population_scores: pd.DataFrame,
+    action_scores: pd.DataFrame,
+    lfat: pd.DataFrame,
+) -> pd.DataFrame:
+    """Calculate theoretical maxima for the mapped numeric score outputs.
+
+    The calculation sets normalized fish use, condition, and vulnerability to
+    1 while retaining the configured population priorities, life-stage
+    structure, and LFAT action weights. If several action IDs share an action
+    type, their values are summed to match the action-type maps.
+    """
+    population = population_scores[
+        ["basin", "species", "life_stage", "population_priority"]
+    ].copy()
+    population["population_priority"] = pd.to_numeric(
+        population["population_priority"], errors="coerce"
+    )
+    if population["population_priority"].isna().any():
+        raise ValueError("population_scores contains nonnumeric priorities.")
+    if not population["population_priority"].between(0.0, 1.0).all():
+        raise ValueError("Population priorities must range from 0 to 1.")
+    if population.duplicated(["basin", "species", "life_stage"]).any():
+        raise ValueError(
+            "population_scores contains duplicate basin/species/life-stage rows."
+        )
+
+    factor_count = int(lfat["limiting_factor"].nunique())
+    if factor_count <= 0:
+        raise ValueError("LFAT contains no limiting factors.")
+    factor_coverage = lfat.groupby("action_id")["limiting_factor"].nunique()
+    if not factor_coverage.eq(factor_count).all():
+        raise ValueError(
+            "Every LFAT action must contain one row for every limiting factor."
+        )
+
+    population_by_basin_species = (
+        population.groupby(["basin", "species"], as_index=False)
+        .agg(population_priority_total=("population_priority", "sum"))
+    )
+    population_by_basin = (
+        population_by_basin_species.groupby("basin")[
+            "population_priority_total"
+        ].sum()
+    )
+    maximum_basin_priority_total = float(population_by_basin.max())
+    maximum_life_stage_priority = float(
+        population["population_priority"].max()
+    )
+
+    action_score_types = set(
+        action_scores["action_type"].dropna().astype(str).str.strip()
+    )
+    lfat_types = set(lfat["action_type"].dropna().astype(str).str.strip())
+    if action_score_types != lfat_types:
+        raise ValueError(
+            "Action types differ between action_type_scores and LFAT. "
+            f"Only in score table: {sorted(action_score_types - lfat_types)}; "
+            f"only in LFAT: {sorted(lfat_types - action_score_types)}"
+        )
+
+    common_assumption = (
+        "Normalized fish use, limiting-factor condition, and vulnerability "
+        "are all 1; configured population priorities are retained."
+    )
+    action_assumption = (
+        common_assumption
+        + " Configured LFAT weights are retained; action IDs sharing a type "
+        "are summed."
+    )
+    rows: list[dict[str, object]] = []
+
+    def add_row(
+        score_group: str,
+        score_name: str,
+        output_field: str,
+        category: object,
+        theoretical_maximum: float,
+        calculation: str,
+        assumptions: str,
+    ) -> None:
+        rows.append(
+            {
+                "score_group": score_group,
+                "score_name": score_name,
+                "output_field": output_field,
+                "category": category,
+                "theoretical_maximum": float(theoretical_maximum),
+                "calculation": calculation,
+                "assumptions": assumptions,
+            }
+        )
+
+    add_row(
+        "Level 1 risk",
+        "Overall risk score",
+        "overall_risk_score",
+        pd.NA,
+        factor_count * maximum_basin_priority_total,
+        (
+            f"{factor_count} limiting factors × maximum basin-wide "
+            f"population-priority total ({maximum_basin_priority_total:g})"
+        ),
+        common_assumption,
+    )
+
+    for species in sorted(
+        population_by_basin_species["species"].astype(str).unique(),
+        key=str.casefold,
+    ):
+        species_priority_total = float(
+            population_by_basin_species.loc[
+                population_by_basin_species["species"].astype(str).eq(species),
+                "population_priority_total",
+            ].max()
+        )
+        add_row(
+            "Level 1 risk",
+            "Species risk score",
+            "species_scores.risk_score",
+            species,
+            factor_count * species_priority_total,
+            (
+                f"{factor_count} limiting factors × maximum configured "
+                f"{species} priority total ({species_priority_total:g})"
+            ),
+            common_assumption,
+        )
+
+    add_row(
+        "Level 1 risk",
+        "Highest species/life-stage risk score",
+        "top_species_life_stage_risk_score",
+        pd.NA,
+        factor_count * maximum_life_stage_priority,
+        (
+            f"{factor_count} limiting factors × maximum life-stage "
+            f"population priority ({maximum_life_stage_priority:g})"
+        ),
+        common_assumption,
+    )
+    add_row(
+        "Level 1 risk",
+        "Highest limiting-factor risk score",
+        "top_limiting_factor_risk_score",
+        pd.NA,
+        maximum_basin_priority_total,
+        (
+            "1 limiting factor × maximum basin-wide population-priority "
+            f"total ({maximum_basin_priority_total:g})"
+        ),
+        common_assumption,
+    )
+
+    action_weight_by_id = (
+        lfat.groupby(["action_id", "action_type"], as_index=False)
+        .agg(action_weight_sum=("lfat_score", "sum"))
+    )
+    action_weight_by_type = (
+        action_weight_by_id.groupby("action_type", as_index=False)
+        .agg(action_weight_sum=("action_weight_sum", "sum"))
+    )
+    action_weight_by_type = action_weight_by_type.sort_values(
+        "action_type", key=lambda values: values.astype(str).str.casefold()
+    )
+    for row in action_weight_by_type.itertuples(index=False):
+        action_maximum = maximum_basin_priority_total * row.action_weight_sum
+        add_row(
+            "Level 2 benefit",
+            "Action-type benefit score",
+            "action_type_scores.action_benefit_score",
+            row.action_type,
+            action_maximum,
+            (
+                "Maximum limiting-factor risk "
+                f"({maximum_basin_priority_total:g}) × summed LFAT weight "
+                f"({row.action_weight_sum:g})"
+            ),
+            action_assumption,
+        )
+
+    maximum_action_score = float(
+        (
+            maximum_basin_priority_total
+            * action_weight_by_id["action_weight_sum"]
+        ).max()
+    )
+    add_row(
+        "Level 2 benefit",
+        "Highest action benefit score",
+        "highest_action_benefit_score",
+        pd.NA,
+        maximum_action_score,
+        "Maximum theoretical action-specific benefit score",
+        action_assumption,
+    )
+
+    total_action_weight = float(action_weight_by_id["action_weight_sum"].sum())
+    add_row(
+        "Level 2 benefit",
+        "Overall benefit score",
+        "overall_benefit_score",
+        pd.NA,
+        maximum_basin_priority_total * total_action_weight,
+        (
+            "Maximum limiting-factor risk "
+            f"({maximum_basin_priority_total:g}) × total LFAT weight across "
+            f"all actions ({total_action_weight:g})"
+        ),
+        action_assumption,
+    )
+    return pd.DataFrame(rows)
+
+
 def rank_included_scores(
     gdf: gpd.GeoDataFrame, value_field: str
 ) -> pd.Series:
@@ -954,6 +1255,7 @@ def create_all_maps(
     gpkg_path: str | Path = DEFAULT_GPKG,
     output_dir: str | Path = DEFAULT_OUTPUT_DIR,
     *,
+    lfat_csv_path: str | Path | None = None,
     dpi: int = 300,
     use_basemap: bool = True,
     basemap_zoom: int | str = "auto",
@@ -966,6 +1268,10 @@ def create_all_maps(
         Scored GeoPackage written by ``atlas_integrated_scoring``.
     output_dir:
         Parent directory for map PNGs and ``map_manifest.csv``.
+    lfat_csv_path:
+        LFAT source CSV used to calculate theoretical action-score maxima.
+        When omitted, the script searches ``data/inputs`` for ``LFAT.csv`` or
+        one parenthetically suffixed copy.
     dpi:
         Output resolution. The default is suitable for reports and posters.
     use_basemap:
@@ -973,9 +1279,19 @@ def create_all_maps(
     basemap_zoom:
         Contextily zoom level or ``"auto"``.
     """
+    gpkg_path = Path(gpkg_path).expanduser().resolve()
     output_dir = Path(output_dir).expanduser().resolve()
     output_dir.mkdir(parents=True, exist_ok=True)
-    bsr, species_scores, action_scores = read_scoring_outputs(gpkg_path)
+    lfat_path = locate_lfat_csv(gpkg_path, lfat_csv_path)
+    lfat = read_lfat_scores(lfat_path)
+    bsr, species_scores, action_scores, population_scores = (
+        read_scoring_outputs(gpkg_path)
+    )
+    theoretical_maxima = theoretical_maxima_table(
+        population_scores,
+        action_scores,
+        lfat,
+    )
     manifest: list[dict[str, object]] = []
     included_bsr_keys = set(
         bsr.loc[~exclusion_mask(bsr), "_bsr_key"].astype(str)
@@ -1010,6 +1326,34 @@ def create_all_maps(
             "scale_min": 0.0,
             "scale_max": overall_max,
             "output_file": str(overall_path),
+        }
+    )
+
+    overall_benefit_max = nonzero_max(
+        bsr.loc[~exclusion_mask(bsr), "overall_benefit_score"]
+    )
+    overall_benefit_path = output_dir / "overall_benefit_score.png"
+    plot_numeric_map(
+        bsr,
+        value_field="overall_benefit_score",
+        title="Overall Benefit Score",
+        legend_title="Overall benefit score (sum across action types)",
+        output_path=overall_benefit_path,
+        cmap=BENEFIT_CMAP,
+        scale_min=0.0,
+        scale_max=overall_benefit_max,
+        dpi=dpi,
+        use_basemap=use_basemap,
+        basemap_zoom=basemap_zoom,
+    )
+    manifest.append(
+        {
+            "map_group": "Overall benefit",
+            "category": pd.NA,
+            "score_field": "overall_benefit_score",
+            "scale_min": 0.0,
+            "scale_max": overall_benefit_max,
+            "output_file": str(overall_benefit_path),
         }
     )
 
@@ -1173,6 +1517,34 @@ def create_all_maps(
         ]
     )
     action_dir = output_dir / "benefit_by_action_type"
+
+    highest_action_path = (
+        output_dir / "highest_risk_aligned_action_benefit_score.png"
+    )
+    plot_numeric_map(
+        bsr,
+        value_field="highest_action_benefit_score",
+        title="Benefit Score of Highest Risk-Aligned Action Type",
+        legend_title="Highest action-type benefit score",
+        output_path=highest_action_path,
+        cmap=BENEFIT_CMAP,
+        scale_min=0.0,
+        scale_max=action_max,
+        dpi=dpi,
+        use_basemap=use_basemap,
+        basemap_zoom=basemap_zoom,
+    )
+    manifest.append(
+        {
+            "map_group": "Highest risk-aligned action benefit score",
+            "category": pd.NA,
+            "score_field": "highest_action_benefit_score",
+            "scale_min": 0.0,
+            "scale_max": action_max,
+            "output_file": str(highest_action_path),
+        }
+    )
+
     for action_type in sorted(
         action_by_type["action_type"].dropna().astype(str).unique(),
         key=str.casefold,
@@ -1210,6 +1582,9 @@ def create_all_maps(
     manifest_table = pd.DataFrame(manifest)
     output_dir.mkdir(parents=True, exist_ok=True)
     manifest_table.to_csv(output_dir / "map_manifest.csv", index=False)
+    theoretical_maxima.to_csv(
+        output_dir / "score_theoretical_maxima.csv", index=False
+    )
     return manifest_table
 
 
@@ -1226,6 +1601,15 @@ def parse_arguments() -> argparse.Namespace:
         type=Path,
         default=DEFAULT_OUTPUT_DIR,
         help="Directory for PNG maps and map_manifest.csv.",
+    )
+    parser.add_argument(
+        "--lfat-csv",
+        type=Path,
+        default=None,
+        help=(
+            "LFAT source CSV for theoretical action-score maxima. By default "
+            "the script searches data/inputs."
+        ),
     )
     parser.add_argument("--dpi", type=int, default=300)
     parser.add_argument(
@@ -1249,11 +1633,16 @@ def main() -> None:
     manifest = create_all_maps(
         gpkg_path=arguments.gpkg,
         output_dir=arguments.output_dir,
+        lfat_csv_path=arguments.lfat_csv,
         dpi=arguments.dpi,
         use_basemap=not arguments.no_basemap,
         basemap_zoom=zoom,
     )
     print(manifest.to_string(index=False))
+    print(
+        "\nTheoretical maxima table: "
+        f"{Path(arguments.output_dir).expanduser().resolve() / 'score_theoretical_maxima.csv'}"
+    )
 
 
 if __name__ == "__main__":
