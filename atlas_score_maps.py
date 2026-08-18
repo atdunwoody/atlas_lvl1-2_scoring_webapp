@@ -11,19 +11,24 @@ The scoring notebook writes a scored BSR feature layer plus the
 * highest risk-aligned limiting factor;
 * highest risk-aligned benefit action type; and
 * benefit score of the highest risk-aligned action type;
-* one benefit-score map per action type;
+* three benefit-score map sets per action type: a shared scale across action
+  types, a scale based on each action type's observed maximum, and the same
+  action-specific scale with opacity based on the rank of that maximum;
 * preliminary BSR tiers based on overall-risk thirds; and
 * preliminary BSR tiers seeded by each species' two highest-risk BSRs.
 
 All maps include a CartoDB Positron basemap, BSR outlines and labels, a north
 arrow, a ground-distance scale bar, and a legend. UGR 8 is excluded from score
 colors and shared scale calculations and is shown with a neutral hatch. Species
-maps share one color scale; action-type benefit maps share a second color scale
-so maps within each group can be compared directly. Overall and species risk
-maps also label each analyzed BSR's rank beneath its BSR identifier. The script
-also writes ``score_theoretical_maxima.csv``, which documents the maximum
-possible value for each mapped numeric score under the configured population
-priorities and LFAT action weights.
+maps share one color scale. The first action-type benefit set also shares one
+scale so actions can be compared directly. The second set stretches each
+action's color ramp to its own observed maximum. The third set uses the same
+action-specific color scaling while varying opacity from 0.35 to 0.90 according
+to how the action's observed maximum ranks among action types. Overall and
+species risk maps also label each analyzed BSR's rank beneath its BSR
+identifier. The script also writes ``score_theoretical_maxima.csv``, which
+documents the maximum possible value for each mapped numeric score under the
+configured population priorities and LFAT action weights.
 
 Required packages: geopandas, pandas, numpy, matplotlib, contextily, certifi.
 """
@@ -73,6 +78,8 @@ MAP_FACE_COLOR = "#f7f7f4"
 EXCLUDED_BSR_IDS = {"UGR8", "UGR08"}
 EXCLUDED_BSR_COLOR = "#f1efeb"
 EXCLUDED_BSR_HATCH = "////"
+ACTION_RANK_ALPHA_MIN = 0.35
+ACTION_RANK_ALPHA_MAX = 0.90
 TIER_COLORS = {
     "Tier 1": "#21918C",
     "Tier 2": "#440154",
@@ -640,9 +647,13 @@ def plot_numeric_map(
     dpi: int,
     use_basemap: bool,
     basemap_zoom: int | str,
+    fill_alpha: float = 0.84,
     rank_field: str | None = None,
 ) -> None:
     """Plot a continuous score map with a color-bar legend."""
+    if not np.isfinite(fill_alpha) or not 0.0 <= fill_alpha <= 1.0:
+        raise ValueError("fill_alpha must be a finite value from 0 to 1.")
+
     mapped = gdf.copy()
     mapped[value_field] = pd.to_numeric(mapped[value_field], errors="coerce")
     excluded = exclusion_mask(mapped)
@@ -665,7 +676,7 @@ def plot_numeric_map(
             cmap=cmap,
             vmin=scale_min,
             vmax=scale_max,
-            alpha=0.84,
+            alpha=fill_alpha,
             edgecolor=BOUNDARY_COLOR,
             linewidth=0.55,
             zorder=3,
@@ -685,6 +696,7 @@ def plot_numeric_map(
     colorbar.set_label(legend_title, fontsize=10, labelpad=9)
     colorbar.ax.yaxis.set_major_formatter(mpl.ticker.FuncFormatter(score_formatter))
     colorbar.outline.set_edgecolor("#9aa4a9")
+    colorbar.solids.set_alpha(fill_alpha)
 
     special_handles = []
     if missing.any():
@@ -832,6 +844,84 @@ def nonzero_max(values: pd.Series) -> float:
     if pd.isna(maximum) or maximum <= 0:
         return 1.0
     return float(maximum)
+
+
+def action_type_display_settings(
+    action_by_type: pd.DataFrame,
+    included_bsr_keys: set[str],
+) -> pd.DataFrame:
+    """Summarize per-action scale maxima, maximum ranks, and map opacity.
+
+    Ranking uses the highest observed BSR benefit score for each action type.
+    Rank 1 receives ``ACTION_RANK_ALPHA_MAX``. The lowest ranked maximum
+    receives ``ACTION_RANK_ALPHA_MIN``. Tied maxima receive the same rank and
+    opacity. If all action maxima are tied, all actions use the maximum opacity.
+    """
+    action_types = (
+        action_by_type[["action_type"]]
+        .dropna()
+        .drop_duplicates()
+        .reset_index(drop=True)
+    )
+    eligible = action_by_type.loc[
+        action_by_type["_bsr_key"].isin(included_bsr_keys),
+        ["action_type", "action_benefit_score"],
+    ].copy()
+    eligible["action_benefit_score"] = pd.to_numeric(
+        eligible["action_benefit_score"], errors="coerce"
+    )
+    observed_maxima = (
+        eligible.groupby("action_type", as_index=False)
+        .agg(action_observed_max=("action_benefit_score", "max"))
+    )
+    settings = action_types.merge(
+        observed_maxima,
+        on="action_type",
+        how="left",
+        validate="one_to_one",
+    )
+    settings["action_scale_max"] = settings["action_observed_max"].map(
+        lambda value: (
+            float(value)
+            if pd.notna(value) and np.isfinite(value) and value > 0
+            else 1.0
+        )
+    )
+
+    valid_maximum = settings["action_observed_max"].notna()
+    settings["action_max_rank"] = pd.Series(
+        pd.NA, index=settings.index, dtype="Int64"
+    )
+    settings.loc[valid_maximum, "action_max_rank"] = (
+        settings.loc[valid_maximum, "action_observed_max"]
+        .rank(method="min", ascending=False)
+        .astype("Int64")
+    )
+    settings["action_type_count"] = int(valid_maximum.sum())
+    settings["ranked_fill_alpha"] = ACTION_RANK_ALPHA_MIN
+
+    if valid_maximum.any():
+        lowest_rank = int(
+            settings.loc[valid_maximum, "action_max_rank"].max()
+        )
+        if lowest_rank == 1:
+            settings.loc[valid_maximum, "ranked_fill_alpha"] = (
+                ACTION_RANK_ALPHA_MAX
+            )
+        else:
+            rank_fraction = (
+                settings.loc[valid_maximum, "action_max_rank"].astype(float)
+                - 1.0
+            ) / (lowest_rank - 1.0)
+            settings.loc[valid_maximum, "ranked_fill_alpha"] = (
+                ACTION_RANK_ALPHA_MAX
+                - rank_fraction
+                * (ACTION_RANK_ALPHA_MAX - ACTION_RANK_ALPHA_MIN)
+            )
+
+    return settings.sort_values(
+        "action_type", key=lambda values: values.astype(str).str.casefold()
+    ).reset_index(drop=True)
 
 
 def theoretical_maxima_table(
@@ -1552,7 +1642,16 @@ def create_all_maps(
             "action_benefit_score",
         ]
     )
+    action_settings = action_type_display_settings(
+        action_by_type,
+        included_bsr_keys,
+    ).set_index("action_type")
     action_dir = output_dir / "benefit_by_action_type"
+    action_scaled_dir = output_dir / "benefit_by_action_type_action_scaled"
+    action_scaled_ranked_alpha_dir = (
+        output_dir
+        / "benefit_by_action_type_action_scaled_ranked_transparency"
+    )
 
     highest_action_path = (
         output_dir / "highest_risk_aligned_action_benefit_score.png"
@@ -1585,17 +1684,53 @@ def create_all_maps(
         action_by_type["action_type"].dropna().astype(str).unique(),
         key=str.casefold,
     ):
+        observed_max_value = action_settings.at[
+            action_type, "action_observed_max"
+        ]
+        action_observed_max = (
+            float(observed_max_value)
+            if pd.notna(observed_max_value)
+            else np.nan
+        )
+        action_scale_max = float(
+            action_settings.at[action_type, "action_scale_max"]
+        )
+        action_max_rank_value = action_settings.at[
+            action_type, "action_max_rank"
+        ]
+        action_max_rank = (
+            int(action_max_rank_value)
+            if pd.notna(action_max_rank_value)
+            else pd.NA
+        )
+        action_type_count = int(
+            action_settings.at[action_type, "action_type_count"]
+        )
+        ranked_fill_alpha = float(
+            action_settings.at[action_type, "ranked_fill_alpha"]
+        )
+        maximum_rank_label = (
+            f"Maximum Rank {action_max_rank} of {action_type_count}"
+            if pd.notna(action_max_rank)
+            else "Maximum Rank Not Available"
+        )
         selected = action_by_type.loc[
             action_by_type["action_type"].astype(str).eq(action_type),
             ["_bsr_key", "action_benefit_score"],
         ]
         mapped = join_one_score(bsr, selected, "action_benefit_score")
+
+        # Set 1 retains the original shared scale so absolute benefit scores
+        # remain directly comparable across action types.
         output_path = action_dir / f"benefit_{slugify(action_type)}.png"
         plot_numeric_map(
             mapped,
             value_field="action_benefit_score",
-            title=f"Benefit Score by Action Type: {action_type}",
-            legend_title="Action benefit score",
+            title=(
+                "Benefit Score by Action Type: "
+                f"{action_type} (Shared Scale)"
+            ),
+            legend_title="Action benefit score (shared scale)",
             output_path=output_path,
             cmap=BENEFIT_CMAP,
             scale_min=0.0,
@@ -1606,12 +1741,101 @@ def create_all_maps(
         )
         manifest.append(
             {
-                "map_group": "Benefit score by action type",
+                "map_group": (
+                    "Benefit score by action type, shared scale"
+                ),
                 "category": action_type,
                 "score_field": "action_benefit_score",
                 "scale_min": 0.0,
                 "scale_max": action_max,
+                "scale_basis": "Maximum across all action types",
+                "action_observed_max": action_observed_max,
+                "action_max_rank": action_max_rank,
+                "action_type_count": action_type_count,
+                "fill_alpha": 0.84,
                 "output_file": str(output_path),
+            }
+        )
+
+        # Set 2 uses the observed maximum for this action type, emphasizing
+        # relative differences among BSRs within the action.
+        action_scaled_path = (
+            action_scaled_dir / f"benefit_{slugify(action_type)}.png"
+        )
+        plot_numeric_map(
+            mapped,
+            value_field="action_benefit_score",
+            title=(
+                "Benefit Score by Action Type: "
+                f"{action_type} (Action-Specific Scale)"
+            ),
+            legend_title="Action benefit score (action-specific scale)",
+            output_path=action_scaled_path,
+            cmap=BENEFIT_CMAP,
+            scale_min=0.0,
+            scale_max=action_scale_max,
+            dpi=dpi,
+            use_basemap=use_basemap,
+            basemap_zoom=basemap_zoom,
+        )
+        manifest.append(
+            {
+                "map_group": (
+                    "Benefit score by action type, action-specific scale"
+                ),
+                "category": action_type,
+                "score_field": "action_benefit_score",
+                "scale_min": 0.0,
+                "scale_max": action_scale_max,
+                "scale_basis": "Maximum for this action type",
+                "action_observed_max": action_observed_max,
+                "action_max_rank": action_max_rank,
+                "action_type_count": action_type_count,
+                "fill_alpha": 0.84,
+                "output_file": str(action_scaled_path),
+            }
+        )
+
+        # Set 3 keeps the action-specific scale but makes actions with lower
+        # ranked maxima more transparent. Opacity is constant within each map.
+        ranked_alpha_path = (
+            action_scaled_ranked_alpha_dir
+            / f"benefit_{slugify(action_type)}.png"
+        )
+        plot_numeric_map(
+            mapped,
+            value_field="action_benefit_score",
+            title=(
+                "Benefit Score by Action Type: "
+                f"{action_type} (Action-Specific Scale; "
+                f"{maximum_rank_label})"
+            ),
+            legend_title="Action benefit score (action-specific scale)",
+            output_path=ranked_alpha_path,
+            cmap=BENEFIT_CMAP,
+            scale_min=0.0,
+            scale_max=action_scale_max,
+            dpi=dpi,
+            use_basemap=use_basemap,
+            basemap_zoom=basemap_zoom,
+            fill_alpha=ranked_fill_alpha,
+        )
+        manifest.append(
+            {
+                "map_group": (
+                    "Benefit score by action type, action-specific scale "
+                    "and ranked transparency"
+                ),
+                "category": action_type,
+                "score_field": "action_benefit_score",
+                "scale_min": 0.0,
+                "scale_max": action_scale_max,
+                "scale_basis": "Maximum for this action type",
+                "action_observed_max": action_observed_max,
+                "action_max_rank": action_max_rank,
+                "action_type_count": action_type_count,
+                "fill_alpha": ranked_fill_alpha,
+                "output_file": str(ranked_alpha_path),
             }
         )
 
