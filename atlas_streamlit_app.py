@@ -31,6 +31,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import pyogrio
 import streamlit as st
+from shapely.geometry import LineString
 
 
 SCORE_DIR = Path("data/outputs")
@@ -44,6 +45,9 @@ MAP_BOUNDARY_COLOR = "#334155"
 MAP_BOUNDARY_WIDTH = 0.4
 MAP_SELECTED_OUTLINE_COLOR = "rgba(107, 114, 128, 0.85)"
 MAP_SELECTED_OUTLINE_WIDTH = 2.4
+EXCLUDED_BSR_FILL_COLOR = "#f1efeb"
+EXCLUDED_BSR_HATCH_COLOR = "#54616b"
+EXCLUDED_BSR_HATCH_WIDTH = 1.5
 
 CORE_SCORE_FILES = {
     "bsr": "bsr_scores.csv",
@@ -159,23 +163,19 @@ RISK_COLOR_SCALE = [
     [0.50, "#f7f7f7"],
     [1.00, "#7f0000"],
 ]
-FISH_USE_COLOR_SCALE = [
-    [0.00, "#d6d8da"],
-    [0.50, "#9ecae1"],
-    [1.00, "#08519c"],
-]
 LIMITING_CONDITION_COLOR_SCALE = [
     [0.00, "#fff9ec"],
     [0.50, "#f0c8ba"],
     [1.00, "#c79dbf"],
 ]
-ACTION_BENEFIT_COLOR_SCALE = "Greens"
+FISH_USE_COLOR_SCALE = LIMITING_CONDITION_COLOR_SCALE
+ACTION_BENEFIT_COLOR_SCALE = LIMITING_CONDITION_COLOR_SCALE
 TIER_ORDER = ["Tier 1", "Tier 2", "Tier 3", "Not included"]
 TIER_COLORS = {
-    "Tier 1": "#21918C",
-    "Tier 2": "#440154",
-    "Tier 3": "#A7AAA5",
-    "Not included": "#f1efeb",
+    "Tier 1": "#d06777",
+    "Tier 2": "#e8be7b",
+    "Tier 3": "#b2b5b0",
+    "Not included": EXCLUDED_BSR_FILL_COLOR,
 }
 EXCLUDED_TIER_BSRS = {"UGR8", "UGR08"}
 REFERENCE_CATEGORY_COLORS = [
@@ -235,11 +235,8 @@ DISPLAY_LABELS = {
     "species_aggregate_score": "Species Fish Use Score",
     "LS_corrected_score": "Life-Stage Fish Use Score",
     "overall_risk_score": "Overall Risk Score",
-    "scenario_i_tier": "Scenario I Tier",
-    "scenario_i_basis": "Scenario I Assignment Basis",
-    "scenario_ii_tier": "Scenario II Tier",
-    "scenario_ii_basis": "Scenario II Assignment Basis",
-    "scenario_ii_species_top_two_for": "Tier 1 Species Top-Two For",
+    "preliminary_tier": "Preliminary Tiers",
+    "preliminary_tier_basis": "Tier Assignment Basis",
     "highest_risk_species_life_stage": "Highest Priority Life Stage",
     "top_species_life_stage_risk_score": (
         "Risk Score for Highest Priority Life Stage"
@@ -268,7 +265,6 @@ DISPLAY_LABELS = {
     "lfat_score": "Action Weight",
     "benefit_component": "Action-Specific Benefit Component",
     "action_benefit_score": "Action-Specific Benefit Score",
-    "action_benefit_tier": "Action-Specific Benefit Tier",
     "overall_benefit_score": "Overall Benefit Score",
     "action_count": "Number of Actions",
     "highest_risk_aligned_action_type": "Highest Risk-Aligned Action Type",
@@ -736,117 +732,20 @@ def add_ranked_thirds(
     return tiered
 
 
-def add_overall_risk_tier_scenarios(
-    bsr: pd.DataFrame,
-    life_stage: pd.DataFrame,
-) -> pd.DataFrame:
-    """Add the two preliminary tier scenarios used by the mapping script."""
-    scenario_i = add_ranked_thirds(
+def add_preliminary_tiers(bsr: pd.DataFrame) -> pd.DataFrame:
+    """Assign preliminary tiers from consecutive overall-risk thirds."""
+    tiered = add_ranked_thirds(
         bsr,
         "overall_risk_score",
-        "scenario_i_tier",
+        "preliminary_tier",
     )
-    scenario_i["scenario_i_basis"] = np.where(
-        scenario_i["scenario_i_tier"].eq("Not included"),
+    tiered["preliminary_tier_basis"] = np.where(
+        tiered["preliminary_tier"].eq("Not included"),
         "Excluded from analysis",
         "Overall risk score",
     )
+    return tiered
 
-    ordered = scenario_i.loc[
-        scenario_i["scenario_i_tier"].isin(TIER_ORDER[:3]),
-        ["bsr", "overall_risk_score"],
-    ].copy()
-    ordered["overall_risk_score"] = pd.to_numeric(
-        ordered["overall_risk_score"], errors="coerce"
-    )
-    ordered = ordered.dropna(subset=["overall_risk_score"]).sort_values(
-        ["overall_risk_score", "bsr"],
-        ascending=[False, True],
-        kind="stable",
-    )
-    ordered_keys = ordered["bsr"].tolist()
-    sizes = tier_group_sizes(len(ordered_keys))
-    overall_risk_lookup = ordered.set_index("bsr")[
-        "overall_risk_score"
-    ].to_dict()
-
-    species_scores = (
-        life_stage.groupby(["bsr", "species"], as_index=False)
-        .agg(risk_score=("risk_score", "sum"))
-    )
-    species_scores["risk_score"] = pd.to_numeric(
-        species_scores["risk_score"], errors="coerce"
-    )
-    species_scores = species_scores.loc[
-        species_scores["bsr"].isin(set(ordered_keys))
-    ].dropna(subset=["species", "risk_score"])
-    species_scores["_overall_risk"] = species_scores["bsr"].map(
-        overall_risk_lookup
-    )
-    species_scores = species_scores.sort_values(
-        ["species", "risk_score", "_overall_risk", "bsr"],
-        ascending=[True, False, False, True],
-        kind="stable",
-    )
-    species_top_two = (
-        species_scores.groupby("species", sort=False, group_keys=False)
-        .head(2)
-        .copy()
-    )
-    required_tier_one = set(species_top_two["bsr"])
-    tier_one_target = sizes[0]
-    if len(required_tier_one) > tier_one_target:
-        raise ValueError(
-            "Scenario II cannot fit the two highest-risk BSRs for every "
-            f"species into Tier 1 ({len(required_tier_one)} required; "
-            f"{tier_one_target} available)."
-        )
-
-    tier_one = set(required_tier_one)
-    tier_one_fill: set[str] = set()
-    for bsr_key in ordered_keys:
-        if len(tier_one) >= tier_one_target:
-            break
-        if bsr_key in tier_one:
-            continue
-        tier_one.add(bsr_key)
-        tier_one_fill.add(bsr_key)
-    remaining = [key for key in ordered_keys if key not in tier_one]
-    tier_two = set(remaining[: sizes[1]])
-    tier_three = set(remaining[sizes[1] :])
-    tier_lookup = {
-        **{key: "Tier 1" for key in tier_one},
-        **{key: "Tier 2" for key in tier_two},
-        **{key: "Tier 3" for key in tier_three},
-    }
-    required_species = (
-        species_top_two.groupby("bsr")["species"]
-        .agg(lambda values: "; ".join(sorted(set(values), key=str.casefold)))
-        .to_dict()
-    )
-
-    scenario_i["scenario_ii_tier"] = scenario_i["bsr"].map(tier_lookup)
-    scenario_i.loc[
-        scenario_i["scenario_i_tier"].eq("Not included"),
-        "scenario_ii_tier",
-    ] = "Not included"
-    scenario_i["scenario_ii_species_top_two_for"] = scenario_i["bsr"].map(
-        required_species
-    )
-    scenario_i["scenario_ii_basis"] = "Overall risk rank"
-    scenario_i.loc[
-        scenario_i["bsr"].isin(tier_one_fill),
-        "scenario_ii_basis",
-    ] = "Overall risk rank (Tier 1 fill)"
-    scenario_i.loc[
-        scenario_i["bsr"].isin(required_tier_one),
-        "scenario_ii_basis",
-    ] = "Top-two risk score for at least one species"
-    scenario_i.loc[
-        scenario_i["scenario_i_tier"].eq("Not included"),
-        "scenario_ii_basis",
-    ] = "Excluded from analysis"
-    return scenario_i
 
 def complete_category_color_map(
     categories: pd.Series | list[str],
@@ -1201,6 +1100,128 @@ def add_selected_bsr_outline(
         figure.add_trace(go.Choroplethmapbox(**outline_arguments))
 
 
+def add_excluded_bsr_hatching(
+    figure: Any,
+    mapped: gpd.GeoDataFrame,
+    plot_data: pd.DataFrame,
+    *,
+    show_legend: bool,
+) -> None:
+    """Cover excluded BSRs with a neutral fill and diagonal hatching."""
+    if mapped.empty or not figure.data:
+        return
+    excluded_mask = mapped["bsr"].map(normalized_bsr_id).isin(
+        EXCLUDED_TIER_BSRS
+    )
+    excluded = mapped.loc[excluded_mask, ["bsr", "geometry"]].copy()
+    if excluded.empty:
+        return
+
+    hover_lookup = plot_data.set_index("bsr")["_hover_text"].to_dict()
+    customdata = [
+        [
+            bsr,
+            hover_lookup.get(
+                bsr,
+                f"<b>BSR:</b> {escape(str(bsr))}<br>"
+                "<b>Analysis status:</b> Not included",
+            ),
+        ]
+        for bsr in excluded["bsr"]
+    ]
+    overlay_arguments = {
+        "geojson": json.loads(excluded.to_json()),
+        "locations": excluded["bsr"],
+        "featureidkey": "properties.bsr",
+        "z": [0] * len(excluded),
+        "zmin": 0,
+        "zmax": 1,
+        "colorscale": [
+            [0, EXCLUDED_BSR_FILL_COLOR],
+            [1, EXCLUDED_BSR_FILL_COLOR],
+        ],
+        "showscale": False,
+        "showlegend": False,
+        "customdata": customdata,
+        "hovertemplate": "%{customdata[1]}<extra></extra>",
+        "marker": {
+            "line": {
+                "color": MAP_BOUNDARY_COLOR,
+                "width": MAP_BOUNDARY_WIDTH,
+            },
+            "opacity": 1,
+        },
+        "name": "Not included in analysis: UGR 8",
+    }
+    trace_type = getattr(figure.data[0], "type", "")
+    if trace_type == "choroplethmap":
+        figure.add_trace(go.Choroplethmap(**overlay_arguments))
+        scatter_class = getattr(go, "Scattermap", None)
+    else:
+        figure.add_trace(go.Choroplethmapbox(**overlay_arguments))
+        scatter_class = go.Scattermapbox
+    if scatter_class is None:
+        scatter_class = go.Scattermapbox
+
+    projected = excluded.to_crs(epsg=3857)
+    hatch_segments = []
+    for polygon in projected.geometry:
+        min_x, min_y, max_x, max_y = polygon.bounds
+        width = max_x - min_x
+        height = max_y - min_y
+        spacing = max(max(width, height) / 14.0, 1.0)
+        for x_start in np.arange(
+            min_x - height,
+            max_x + spacing,
+            spacing,
+        ):
+            diagonal = LineString(
+                [(x_start, min_y), (x_start + height, max_y)]
+            )
+            clipped = polygon.intersection(diagonal)
+            if clipped.is_empty:
+                continue
+            if clipped.geom_type == "LineString":
+                hatch_segments.append(clipped)
+            elif clipped.geom_type in {"MultiLineString", "GeometryCollection"}:
+                hatch_segments.extend(
+                    part
+                    for part in clipped.geoms
+                    if part.geom_type == "LineString" and not part.is_empty
+                )
+    if not hatch_segments:
+        return
+
+    hatch_lines = gpd.GeoSeries(
+        hatch_segments,
+        crs=projected.crs,
+    ).to_crs(epsg=4326)
+    longitudes: list[float | None] = []
+    latitudes: list[float | None] = []
+    for line in hatch_lines:
+        coordinates = list(line.coords)
+        longitudes.extend([coordinate[0] for coordinate in coordinates])
+        latitudes.extend([coordinate[1] for coordinate in coordinates])
+        longitudes.append(None)
+        latitudes.append(None)
+
+    figure.add_trace(
+        scatter_class(
+            lon=longitudes,
+            lat=latitudes,
+            mode="lines",
+            line={
+                "color": EXCLUDED_BSR_HATCH_COLOR,
+                "width": EXCLUDED_BSR_HATCH_WIDTH,
+            },
+            hoverinfo="skip",
+            showlegend=show_legend,
+            legendgroup="excluded_bsr",
+            name="Not included in analysis: UGR 8",
+        )
+    )
+
+
 def add_bsr_labels(
     figure: Any,
     mapped: gpd.GeoDataFrame,
@@ -1310,18 +1331,36 @@ def render_choropleth(
     ]
     requested = list(dict.fromkeys(column for column in requested if column in values.columns))
     value_table = values[requested].drop_duplicates("bsr")
-    mapped = geometry.merge(value_table, on="bsr", how="inner", validate="one_to_one")
-    mapped = mapped.loc[
-        mapped[metric].notna() & mapped[color_column].notna()
+    map_candidates = geometry.merge(
+        value_table,
+        on="bsr",
+        how="inner",
+        validate="one_to_one",
+    )
+    excluded_candidate_mask = map_candidates["bsr"].map(
+        normalized_bsr_id
+    ).isin(EXCLUDED_TIER_BSRS)
+    mapped = map_candidates.loc[
+        map_candidates[metric].notna()
+        & map_candidates[color_column].notna()
+        & ~excluded_candidate_mask
     ].copy()
 
     if mapped.empty:
         st.warning(f"No mapped BSRs contain values for {metric_label}.")
         return
 
+    excluded_candidates = map_candidates.loc[excluded_candidate_mask]
+    displayed_geometry = gpd.GeoDataFrame(
+        pd.concat([mapped, excluded_candidates], ignore_index=True)
+        .drop_duplicates("bsr"),
+        geometry="geometry",
+        crs=geometry.crs,
+    )
+
     geojson = json.loads(mapped[["bsr", "geometry"]].to_json())
     plot_data = round_float_columns(pd.DataFrame(mapped.drop(columns="geometry")))
-    center, zoom = map_center_zoom(mapped)
+    center, zoom = map_center_zoom(displayed_geometry)
 
     hover_fields = list(dict.fromkeys(["bsr", *hover_columns]))
     if metric not in hover_fields:
@@ -1442,13 +1481,19 @@ def render_choropleth(
         st.session_state.get("selected_bsr"),
         chart_key,
     )
+    add_excluded_bsr_hatching(
+        figure,
+        displayed_geometry,
+        plot_data,
+        show_legend=show_legend,
+    )
     add_selected_bsr_outline(
         figure,
-        mapped,
+        displayed_geometry,
         plot_data,
         st.session_state.get("selected_bsr"),
     )
-    add_bsr_labels(figure, mapped)
+    add_bsr_labels(figure, displayed_geometry)
     st.plotly_chart(
         figure,
         width="stretch",
@@ -1547,10 +1592,7 @@ def render_overall_risk(
     map_style: str,
 ) -> None:
     """Render the overall risk map and its two principal drill-downs."""
-    all_bsr = add_overall_risk_tier_scenarios(
-        tables["bsr"],
-        tables["life_stage"],
-    )
+    all_bsr = add_preliminary_tiers(tables["bsr"])
     bsr = filter_table(all_bsr, basin)
     life = filter_table(tables["life_stage"], basin)
     limiting = filter_table(tables["limiting_factor"], basin)
@@ -1565,8 +1607,7 @@ def render_overall_risk(
         "Overall risk map",
         options=[
             "Overall Risk Score",
-            "Preliminary Tiers: Scenario I",
-            "Preliminary Tiers: Scenario II",
+            "Preliminary Tiers",
         ],
         horizontal=True,
     )
@@ -1592,33 +1633,25 @@ def render_overall_risk(
             "Blue represents lower risk and dark red represents higher risk."
         )
     else:
-        scenario_ii = map_selection.endswith("Scenario II")
-        tier_field = (
-            "scenario_ii_tier" if scenario_ii else "scenario_i_tier"
-        )
-        basis_field = (
-            "scenario_ii_basis" if scenario_ii else "scenario_i_basis"
-        )
-        tier_hover = [tier_field, basis_field, *common_hover]
-        if scenario_ii:
-            tier_hover.insert(2, "scenario_ii_species_top_two_for")
         render_choropleth(
             geometry,
             bsr,
-            tier_field,
-            "Preliminary BSR Tier",
-            map_selection,
+            "preliminary_tier",
+            "Preliminary Tiers",
+            "Preliminary Tiers",
             "map_overall_risk",
             map_style,
             categorical=True,
-            hover_columns=tier_hover,
+            hover_columns=[
+                "preliminary_tier_basis",
+                *common_hover,
+            ],
             color_discrete_map=TIER_COLORS,
             category_order=TIER_ORDER,
         )
         st.caption(
-            "Scenario I assigns consecutive thirds by Overall Risk Score. "
-            "Scenario II places each species' two highest-risk BSRs in Tier "
-            "1, then fills the remaining positions by Overall Risk Score."
+            "Preliminary tiers assign consecutive thirds by Overall Risk "
+            "Score. Tier 1 is the highest third and Tier 3 is the lowest."
         )
 
     row = bsr.loc[bsr["bsr"].eq(selected_bsr)].iloc[0]
@@ -1627,13 +1660,8 @@ def render_overall_risk(
     metric_columns[1].metric(
         "Overall Risk Score", format_score(row["overall_risk_score"])
     )
-    selected_tier_field = (
-        "scenario_ii_tier"
-        if map_selection.endswith("Scenario II")
-        else "scenario_i_tier"
-    )
     metric_columns[2].metric(
-        "Preliminary BSR Tier", row[selected_tier_field]
+        "Preliminary Tier", row["preliminary_tier"]
     )
     metric_columns[3].metric(
         "Overall Fish Use Score", format_score(row["fish_use_score"])
@@ -2000,10 +2028,8 @@ def render_limiting_factors(
     map_style: str,
 ) -> None:
     """Render factor-condition maps and biological risk drill-downs."""
-    bsr = filter_table(tables["bsr"], basin)
     limiting = filter_table(tables["limiting_factor"], basin)
     grid = filter_table(tables["grid"], basin)
-    priority_factor_map = summarize_priority_limiting_factors(bsr, limiting)
     ranked_factor_maps = summarize_ranked_categories(
         limiting,
         "limiting_factor",
@@ -2012,11 +2038,8 @@ def render_limiting_factors(
     )
     factor_category_values = pd.concat(
         [
-            priority_factor_map["highest_risk_limiting_factor"],
-            *[
-                ranked_factor_maps[f"limiting_factor_rank_{rank}_label"]
-                for rank in range(1, 4)
-            ],
+            ranked_factor_maps[f"limiting_factor_rank_{rank}_label"]
+            for rank in range(1, 4)
         ],
         ignore_index=True,
     )
@@ -2026,42 +2049,7 @@ def render_limiting_factors(
     )
 
     st.header("Level 1: Limiting Factors")
-
-    with st.expander("Highest Priority Limiting Factor map", expanded=True):
-        st.caption(
-            "This priority indicator is a placeholder retained for future "
-            "consideration."
-        )
-        render_choropleth(
-            geometry,
-            priority_factor_map,
-            "highest_risk_limiting_factor",
-            "Limiting Factor",
-            "Highest Risk-Aligned Limiting Factor",
-            "map_top_limiting_factor",
-            map_style,
-            categorical=True,
-            hover_columns=[
-                "overall_risk_score",
-                "highest_risk_limiting_factor",
-                "top_limiting_factor_risk_score",
-                "second_highest_risk_limiting_factor",
-                "third_highest_risk_limiting_factor",
-            ],
-            hover_label_overrides={
-                "top_limiting_factor_risk_score": (
-                    "Risk from Highest Priority Limiting Factor"
-                ),
-            },
-            color_discrete_map=factor_colors,
-            category_order=sorted(
-                priority_factor_map[
-                    "highest_risk_limiting_factor"
-                ].dropna().astype(str).unique()
-            ),
-        )
-
-    st.subheader("Specific Limiting-Factor Drill-Down")
+    st.subheader("Specific Limiting-Factor Map")
     factor_options = sorted(limiting["limiting_factor"].dropna().unique())
     selected_factor = st.selectbox(
         "Limiting factor",
@@ -2071,6 +2059,44 @@ def render_limiting_factors(
     factor_map = limiting.loc[
         limiting["limiting_factor"].eq(selected_factor)
     ].copy()
+    factor_map_selection = st.radio(
+        "Limiting-factor map value",
+        options=[
+            "Limiting-Factor Condition Score",
+            "Limiting-Factor Risk Score",
+        ],
+        horizontal=True,
+    )
+    factor_map_metric = (
+        "condition_score"
+        if factor_map_selection == "Limiting-Factor Condition Score"
+        else "risk_score"
+    )
+    render_choropleth(
+        geometry,
+        factor_map,
+        factor_map_metric,
+        factor_map_selection,
+        f"{selected_factor}: {factor_map_selection}",
+        "map_specific_limiting_factor",
+        map_style,
+        hover_columns=[
+            "condition_score",
+            "risk_score",
+        ],
+        color_scale=(
+            LIMITING_CONDITION_COLOR_SCALE
+            if factor_map_metric == "condition_score"
+            else RISK_COLOR_SCALE
+        ),
+        range_color=(
+            (0.01, 1.0)
+            if factor_map_metric == "condition_score"
+            else None
+        ),
+    )
+
+    st.subheader("Specific Limiting-Factor Drill-Down")
 
     left, right = st.columns(2)
     bsr_factors = limiting.loc[limiting["bsr"].eq(selected_bsr)].copy()
@@ -2126,78 +2152,36 @@ def render_limiting_factors(
             },
         )
 
-    st.subheader("Specific Limiting-Factor Map")
-    factor_map_selection = st.radio(
-        "Limiting-factor map value",
-        options=[
-            "Limiting-Factor Condition Score",
-            "Limiting-Factor Risk Score",
-        ],
-        horizontal=True,
-    )
-    factor_map_metric = (
-        "condition_score"
-        if factor_map_selection == "Limiting-Factor Condition Score"
-        else "risk_score"
-    )
-    render_choropleth(
-        geometry,
-        factor_map,
-        factor_map_metric,
-        factor_map_selection,
-        f"{selected_factor}: {factor_map_selection}",
-        "map_specific_limiting_factor",
-        map_style,
-        hover_columns=[
-            "condition_score",
-            "risk_score",
-        ],
-        color_scale=(
-            LIMITING_CONDITION_COLOR_SCALE
-            if factor_map_metric == "condition_score"
-            else RISK_COLOR_SCALE
-        ),
-        range_color=(
-            (0.01, 1.0)
-            if factor_map_metric == "condition_score"
-            else None
-        ),
-    )
-
     st.subheader("Top Three Limiting Factors")
     st.caption(
         "Ranks are based on Limiting-Factor Risk within each BSR. Tied "
         "factors are retained together."
     )
-    selected_rank = st.radio(
-        "Limiting-factor rank",
-        options=[1, 2, 3],
-        horizontal=True,
-        format_func=lambda rank: f"Rank {rank}",
-    )
-    label_column = f"limiting_factor_rank_{selected_rank}_label"
-    score_column = f"limiting_factor_rank_{selected_rank}_score"
-    render_choropleth(
-        geometry,
-        ranked_factor_maps,
-        label_column,
-        "Limiting Factor",
-        f"Rank {selected_rank} Limiting Factor",
-        "map_limiting_factor_rank",
-        map_style,
-        categorical=True,
-        hover_columns=[score_column],
-        hover_label_overrides={
-            score_column: "Limiting-Factor Risk",
-        },
-        color_discrete_map=factor_colors,
-        category_order=sorted(
-            ranked_factor_maps[label_column]
-            .dropna()
-            .astype(str)
-            .unique()
-        ),
-    )
+    for rank in range(1, 4):
+        label_column = f"limiting_factor_rank_{rank}_label"
+        score_column = f"limiting_factor_rank_{rank}_score"
+        render_choropleth(
+            geometry,
+            ranked_factor_maps,
+            label_column,
+            "Limiting Factor",
+            f"Rank {rank} Limiting Factor",
+            f"map_limiting_factor_rank_{rank}",
+            map_style,
+            categorical=True,
+            hover_columns=[score_column],
+            hover_label_overrides={
+                score_column: "Limiting-Factor Risk",
+            },
+            color_discrete_map=factor_colors,
+            category_order=sorted(
+                ranked_factor_maps[label_column]
+                .dropna()
+                .astype(str)
+                .unique()
+            ),
+        )
+
 
 def summarize_action_benefits(
     bsr: pd.DataFrame,
@@ -2425,14 +2409,8 @@ def render_actions(
     map_style: str,
 ) -> None:
     """Render Level 2 action-benefit maps, rankings, and components."""
-    bsr = filter_table(tables["bsr"], basin)
-    all_actions = add_ranked_thirds(
-        tables["action"],
-        "action_benefit_score",
-        "action_benefit_tier",
-        group_column="action_type",
-    )
-    actions = filter_table(all_actions, basin)
+    bsr = filter_table(add_preliminary_tiers(tables["bsr"]), basin)
+    actions = filter_table(tables["action"], basin)
     limiting = filter_table(tables["limiting_factor"], basin)
     action_components = filter_table(tables["action_components"], basin)
     _, overall_benefit_map = summarize_action_benefits(
@@ -2464,6 +2442,23 @@ def render_actions(
     )
 
     st.header("Level 2: Action Benefits")
+    st.subheader("Overall Benefit Score Map")
+    st.caption(
+        "Overall Benefit Score is the sum of Action-Specific Benefit Scores "
+        "for all actions within each BSR."
+    )
+    render_choropleth(
+        geometry,
+        overall_benefit_map,
+        "overall_benefit_score",
+        "Overall Benefit Score",
+        "Overall Benefit Score Map",
+        "map_overall_benefit",
+        map_style,
+        hover_columns=["action_count"],
+        color_scale=ACTION_BENEFIT_COLOR_SCALE,
+    )
+
     action_options = (
         actions[["action_id", "action_type"]]
         .drop_duplicates()
@@ -2478,12 +2473,12 @@ def render_actions(
         actions["action_type"].eq(selected_action)
     ].copy()
 
-    st.subheader("Action-Specific Benefit Score Map")
+    st.subheader("Action-Specific Benefit Map")
     action_map_selection = st.radio(
         "Action-benefit map value",
         options=[
             "Action-Specific Benefit Score",
-            "Action-Specific Benefit Tier",
+            "Preliminary Tiers",
         ],
         horizontal=True,
     )
@@ -2497,7 +2492,6 @@ def render_actions(
             "map_action_specific",
             map_style,
             hover_columns=[
-                "action_benefit_tier",
                 "benefit_rank_within_bsr",
             ],
             color_scale=ACTION_BENEFIT_COLOR_SCALE,
@@ -2505,23 +2499,23 @@ def render_actions(
     else:
         render_choropleth(
             geometry,
-            action_map,
-            "action_benefit_tier",
-            "Action-Specific Benefit Tier",
-            f"{selected_action}: Action-Specific Benefit Tier",
+            bsr,
+            "preliminary_tier",
+            "Preliminary Tiers",
+            "Preliminary Tiers",
             "map_action_specific",
             map_style,
             categorical=True,
             hover_columns=[
-                "action_benefit_score",
-                "benefit_rank_within_bsr",
+                "preliminary_tier_basis",
+                "overall_risk_score",
             ],
             color_discrete_map=TIER_COLORS,
             category_order=TIER_ORDER,
         )
         st.caption(
-            "Tier 1 is the highest third of Action-Specific Benefit Scores "
-            "for the selected action. Tier 3 is the lowest third."
+            "These are the same preliminary overall-risk tiers shown on the "
+            "Overall Risk page."
         )
 
     selected = actions.loc[actions["bsr"].eq(selected_bsr)].copy()
@@ -2608,57 +2602,36 @@ def render_actions(
             )
         )
 
-    st.subheader("Overall Benefit Score Map")
-    st.caption(
-        "Overall Benefit Score is the sum of Action-Specific Benefit Scores "
-        "for all actions within each BSR."
-    )
-    render_choropleth(
-        geometry,
-        overall_benefit_map,
-        "overall_benefit_score",
-        "Overall Benefit Score",
-        "Overall Benefit Score Map",
-        "map_overall_benefit",
-        map_style,
-        hover_columns=["action_count"],
-        color_scale=ACTION_BENEFIT_COLOR_SCALE,
-    )
-
     st.subheader("Top Three Action-Specific Benefits")
     st.caption(
         "Ranks are based on Action-Specific Benefit Score within each BSR. "
         "Tied action types are retained together."
     )
-    selected_rank = st.radio(
-        "Action-benefit rank",
-        options=[1, 2, 3],
-        horizontal=True,
-        format_func=lambda rank: f"Rank {rank}",
-    )
-    label_column = f"action_rank_{selected_rank}_label"
-    score_column = f"action_rank_{selected_rank}_score"
-    render_choropleth(
-        geometry,
-        ranked_action_maps,
-        label_column,
-        "Action Type",
-        f"Rank {selected_rank} Action-Specific Benefit",
-        "map_action_rank",
-        map_style,
-        categorical=True,
-        hover_columns=[score_column],
-        hover_label_overrides={
-            score_column: "Action-Specific Benefit Score",
-        },
-        color_discrete_map=action_colors,
-        category_order=sorted(
-            ranked_action_maps[label_column]
-            .dropna()
-            .astype(str)
-            .unique()
-        ),
-    )
+    for rank in range(1, 4):
+        label_column = f"action_rank_{rank}_label"
+        score_column = f"action_rank_{rank}_score"
+        render_choropleth(
+            geometry,
+            ranked_action_maps,
+            label_column,
+            "Action Type",
+            f"Rank {rank} Action-Specific Benefit",
+            f"map_action_rank_{rank}",
+            map_style,
+            categorical=True,
+            hover_columns=[score_column],
+            hover_label_overrides={
+                score_column: "Action-Specific Benefit Score",
+            },
+            color_discrete_map=action_colors,
+            category_order=sorted(
+                ranked_action_maps[label_column]
+                .dropna()
+                .astype(str)
+                .unique()
+            ),
+        )
+
 
 def load_bsr_geometry(bsr_scores: pd.DataFrame) -> gpd.GeoDataFrame:
     """Load the scored BSR feature layer written by the notebook."""
