@@ -14,40 +14,14 @@ Each BSR is evaluated for every species, life stage, and limiting factor combina
 
 ### Vulnerability inputs
 
-- **Vulnerability Rank** is specific to the species, life stage, and limiting factor. Rank 1 represents the highest vulnerability, and rank 15 represents the lowest vulnerability.
-- The vulnerability score used in the calculations maps rank 1 to 1.0 and rank 15 to 0.01:
-
-$$
-\text{vulnerability}
-=
-1
--
-\left(
-\text{vulnerability rank} - 1
-\right)
-\times
-\frac{0.99}{14}
-$$
-
+- **Vulnerability Rank** is specific to the species, life stage, and limiting factor. Rank 1 represents the limiting factor with the most likely impact on a given species and life stage, and rank 15 represents the lowest impact.
+- The vulnerability score used in the calculations maps these 1-to-15 rankings on a scale from 0.01 (lowest species/life stage impact) to 1.0 (highest species/life stage imapct)
 - For the combined Migration life stage, the calculation uses the higher of the adult and juvenile vulnerability scores for each species and limiting factor.
 
 ### Limiting-factor inputs
 
 - **Limiting-Factor Condition** is specific to the BSR and limiting factor. The current input table does not contain a life-stage-specific condition field.
-- The limiting-factor condition score used in the calculations maps the source 1-to-5 rating to 0.01 to 1.0:
-
-$$
-\text{limiting-factor condition}
-=
-0.01
-+
-\left(
-\text{raw condition rating} - 1
-\right)
-\times
-\frac{0.99}{4}
-$$
-
+- The limiting-factor condition score used in the calculations maps the source 1-to-5 rating to 0.01 to 1.0
 - The provided `lf_condition_score` field uses a previous 0.10-to-1.0 transformation. It is retained for reference, but the calculations use the score recalculated from `lf_condition_score_raw_1_5` using the equation above.
 - Within a BSR, the same condition score for a limiting factor is applied to every species and life-stage pathway.
 
@@ -58,25 +32,14 @@ $$
 
 ## Level 1 risk calculations
 
-### Pathway risk components
+### Risk score components
 
-For each BSR, species, life stage, and limiting factor combination:
+Risk score components vary as follows:
 
-$$
-\begin{aligned}
-\text{risk component}
-={}&
-\text{life-stage fish use}
-\times
-\text{limiting-factor condition} \\
-&\times
-\text{vulnerability}
-\times
-\text{population priority}
-\end{aligned}
-$$
-
-Life-stage fish use and population priority are specific to the applicable BSR, species, and life stage. Vulnerability is specific to the species, life stage, and limiting factor. Limiting-factor condition is specific to the BSR and limiting factor and is applied to all species and life-stage pathways for that limiting factor within the BSR.
+- Life-stage fish use is specific to BSR, species, and life stage. 
+- Population priority is specific to basin, species, and life stage.
+- Vulnerability is specific to the species, life stage, and limiting factor. 
+- Limiting-factor condition is specific to BSR.
 
 Risk can be aggregated in two equivalent ways:
 
@@ -123,7 +86,7 @@ The **Highest Priority Life Stage** is the species and life-stage combination wi
 
 ### Limiting-factor risk scores
 
-For a given BSR and limiting factor, the Limiting-Factor Condition is constant across species and life stages and can be placed in front of the sum:
+Limiting-factor risk scores describe how much risk a given limiting factor is creating for the collection of fish use (all species and life stages) within a BSR. For a given BSR and limiting factor, the Limiting-Factor Condition is constant across species and life stages and can be placed in front of the sum:
 
 $$
 \begin{aligned}
