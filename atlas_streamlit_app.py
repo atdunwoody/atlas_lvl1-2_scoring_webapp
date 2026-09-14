@@ -1,11 +1,5 @@
 """Interactive Atlas scoring viewer for Streamlit.
 
-Required packages:
-    pip install "streamlit>=1.42" "plotly>=5.24" pandas numpy geopandas pyogrio shapely
-
-Launch command:
-    streamlit run atlas_streamlit_app.py
-
 The app reads the Level 1 and Level 2 outputs created by
 Atlas_Integrated_Scoring.ipynb, including the scored BSR GeoPackage. The BSR
 feature layer is detected from the score_bsr field written by the notebook.
