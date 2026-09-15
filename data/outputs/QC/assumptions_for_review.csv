@@ -1,11 +1,10 @@
 component,field_or_rule,implementation
-Life-stage fish use,LS_corrected_score,Source score divided by the maximum source score; ranges from 0 to 1.
-Source life-stage fish use,LS_corrected_score_source,Retained for audit; not used directly in impact or risk.
-Species fish use,species_aggregate_score,Context only; not a direct multiplier.
-BSR fish use,fish_use_score_decimal,Context only; not a direct multiplier.
-Population priority,population_priority,Risk equals impact multiplied by priority.
-Limiting-factor condition,condition_score,Raw 1 maps to 0.01 and 5 maps to 1.0.
-Vulnerability,vulnerability_score,Rank 1 maps to 1.0 and 15 maps to 0.01.
-Combined migration,maximum vulnerability_score,Uses the higher adult or juvenile value.
-LFAT,lfat_score,Directness multiplied by frequency.
-BSR identifiers,bsr,Fish-use and condition files use the same identifiers.
+Life-stage fish use,LS_corrected_score,Source divided by the maximum across the complete input table; source and denominator retained.
+Species fish use,species_aggregate_score,Unchanged context field; may exceed 1; not a direct multiplier.
+Overall fish use,fish_use_score_decimal,Input mapped to output fish_use_score; context only.
+Population priority,population_priority,Within-species life-stage weights; source rounding retained; no between-species weighting.
+Condition direction,condition_score,Assumes raw 1 means least impairment and 5 greatest impairment; verify against source rubric.
+Vulnerability,vulnerability_score,Rank 1 maps to 1 and rank 15 to 0.01 using a linear transformation.
+Migration,maximum vulnerability_score,Use the larger adult/juvenile vulnerability separately for each species and limiting factor.
+Action weight,lfat_score,Directness × frequency; source product checked before scoring.
+Action alignment,overall_benefit_score,Sum across actions; can count a limiting-factor contribution multiple times; not predicted benefit.

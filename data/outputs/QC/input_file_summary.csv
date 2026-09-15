@@ -1,0 +1,6 @@
+dataset,file,rows,columns,sha256
+fish_use,Fish Use Scores.csv,290,8,f21d305d9b894eebc25aa16aba1a6a8aacb81229c6933caf09be117f52d699c0
+lfat,LFAT.csv,165,19,d24f71894f1ff92e6a06fa499f46ce323086b2a704ead210096de96bdb50d10b
+limiting_factor,Limiting factor scores.csv,435,18,d3bea17c18238b7e32072de49d6d81ca9028d6de9af7fd99aadee98071c9d180
+population,Population scores.csv,20,4,e8d353404cc1513a72368d7e09ee0d582cc7ab1da8f6c943f727d775db73b53e
+vulnerability,Vulnerability table.csv,180,14,f4218b99f14e7c4884e638b01501044c49f55cd4d9d97114715a615da86db893

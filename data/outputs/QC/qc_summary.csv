@@ -1,0 +1,221 @@
+stage,check,result
+input,fish_use: required columns,passed
+input,lfat: required columns,passed
+input,limiting_factor: required columns,passed
+input,population: required columns,passed
+input,vulnerability: required columns,passed
+input,fish_use.bsr: no missing identifiers,passed
+input,fish_use.bsr: no blank identifiers,passed
+input,fish_use.basin: no missing identifiers,passed
+input,fish_use.basin: no blank identifiers,passed
+input,fish_use.species: no missing identifiers,passed
+input,fish_use.species: no blank identifiers,passed
+input,fish_use.life_stage: no missing identifiers,passed
+input,fish_use.life_stage: no blank identifiers,passed
+input,fish_use.bsr_crosswalk_status: no missing identifiers,passed
+input,fish_use.bsr_crosswalk_status: no blank identifiers,passed
+input,population.basin: no missing identifiers,passed
+input,population.basin: no blank identifiers,passed
+input,population.species: no missing identifiers,passed
+input,population.species: no blank identifiers,passed
+input,population.life_stage: no missing identifiers,passed
+input,population.life_stage: no blank identifiers,passed
+input,limiting_factor.bsr: no missing identifiers,passed
+input,limiting_factor.bsr: no blank identifiers,passed
+input,limiting_factor.limiting_factor: no missing identifiers,passed
+input,limiting_factor.limiting_factor: no blank identifiers,passed
+input,vulnerability.species: no missing identifiers,passed
+input,vulnerability.species: no blank identifiers,passed
+input,vulnerability.source_life_stage: no missing identifiers,passed
+input,vulnerability.source_life_stage: no blank identifiers,passed
+input,vulnerability.life_stage: no missing identifiers,passed
+input,vulnerability.life_stage: no blank identifiers,passed
+input,vulnerability.limiting_factor: no missing identifiers,passed
+input,vulnerability.limiting_factor: no blank identifiers,passed
+input,lfat.action_id: no missing identifiers,passed
+input,lfat.action_type: no missing identifiers,passed
+input,lfat.action_type: no blank identifiers,passed
+input,lfat.action_definition: no missing identifiers,passed
+input,lfat.action_definition: no blank identifiers,passed
+input,lfat.limiting_factor: no missing identifiers,passed
+input,lfat.limiting_factor: no blank identifiers,passed
+input,fish_use.LS_corrected_score: finite numeric values,passed
+input,fish_use.species_aggregate_score: finite numeric values,passed
+input,fish_use.fish_use_score_decimal: finite numeric values,passed
+input,population.population_priority: finite numeric values,passed
+input,limiting_factor.lf_condition_score_raw_1_5: finite numeric values,passed
+input,limiting_factor.lf_condition_score: finite numeric values,passed
+input,limiting_factor.n: finite numeric values,passed
+input,vulnerability.vulnerability_rank: finite numeric values,passed
+input,vulnerability.vulnerability_score: finite numeric values,passed
+input,lfat.directness_value: finite numeric values,passed
+input,lfat.frequency_value: finite numeric values,passed
+input,lfat.lfat_score: finite numeric values,passed
+input,fish_use: unique scoring keys,passed
+input,population: unique scoring keys,passed
+input,limiting_factor: unique scoring keys,passed
+input,vulnerability: unique scoring keys,passed
+input,lfat: unique scoring keys,passed
+input,Overall fish use is 0–1,passed
+input,Source life-stage fish use is nonnegative,passed
+input,At least one positive life-stage fish-use score,passed
+input,Species fish use is nonnegative,passed
+input,One basin value per BSR,passed
+input,One fish_use_score_decimal value per BSR,passed
+input,One bsr_crosswalk_status value per BSR,passed
+input,One species fish-use value per BSR/species,passed
+input,limiting_factor: canonical limiting factors,passed
+input,vulnerability: canonical limiting factors,passed
+input,lfat: canonical limiting factors,passed
+input,limiting_factor: complete 15-factor coverage,passed
+input,vulnerability: complete 15-factor coverage,passed
+input,lfat: complete 15-factor coverage,passed
+input,Fish-use and condition BSR coverage agrees,passed
+input,CC1: complete species/life-stage coverage,passed
+input,CC2: complete species/life-stage coverage,passed
+input,CC3: complete species/life-stage coverage,passed
+input,CC4: complete species/life-stage coverage,passed
+input,CC5: complete species/life-stage coverage,passed
+input,CC6: complete species/life-stage coverage,passed
+input,CC7: complete species/life-stage coverage,passed
+input,CC8: complete species/life-stage coverage,passed
+input,CC9: complete species/life-stage coverage,passed
+input,UGR1: complete species/life-stage coverage,passed
+input,UGR10: complete species/life-stage coverage,passed
+input,UGR11: complete species/life-stage coverage,passed
+input,UGR12: complete species/life-stage coverage,passed
+input,UGR13: complete species/life-stage coverage,passed
+input,UGR14: complete species/life-stage coverage,passed
+input,UGR15: complete species/life-stage coverage,passed
+input,UGR16: complete species/life-stage coverage,passed
+input,UGR17: complete species/life-stage coverage,passed
+input,UGR18: complete species/life-stage coverage,passed
+input,UGR19: complete species/life-stage coverage,passed
+input,UGR2: complete species/life-stage coverage,passed
+input,UGR20: complete species/life-stage coverage,passed
+input,UGR3: complete species/life-stage coverage,passed
+input,UGR4: complete species/life-stage coverage,passed
+input,UGR5: complete species/life-stage coverage,passed
+input,UGR6: complete species/life-stage coverage,passed
+input,UGR7: complete species/life-stage coverage,passed
+input,UGR8: complete species/life-stage coverage,passed
+input,UGR9: complete species/life-stage coverage,passed
+input,Fish-use and population-priority keys agree,passed
+input,Fish-use and vulnerability life stages agree,passed
+input,Population priorities are 0–1,passed
+input,Population-priority sums allow only source rounding,passed
+input,Raw condition ratings are 1–5,passed
+input,Vulnerability ranks are 1–15,passed
+input,Vulnerability ranks are integers,passed
+input,LFAT directness_value is 0–1,passed
+input,LFAT frequency_value is 0–1,passed
+input,LFAT lfat_score is 0–1,passed
+input,LFAT weight equals directness × frequency,passed
+input,One action_type per action ID,passed
+input,One action_definition per action ID,passed
+input,Action types identify unique action IDs,passed
+input,Bull Trout/FMO: one uncombined source stage,passed
+input,Bull Trout/Spawning & Resident: one uncombined source stage,passed
+input,Chinook: adult/juvenile migration source coverage,passed
+input,Chinook/Spawning: one uncombined source stage,passed
+input,Chinook/Summer Rearing: one uncombined source stage,passed
+input,Chinook/Winter Rearing: one uncombined source stage,passed
+input,Steelhead: adult/juvenile migration source coverage,passed
+input,Steelhead/Spawning: one uncombined source stage,passed
+input,Steelhead/Summer Rearing: one uncombined source stage,passed
+input,Steelhead/Winter Rearing: one uncombined source stage,passed
+transformation,Normalized life-stage fish use is 0–1,passed
+transformation,Maximum normalized fish use equals 1,passed
+transformation,Transformed condition is 0.01–1,passed
+transformation,Transformed vulnerability is 0.01–1,passed
+transformation,Condition endpoint anchors,passed
+transformation,Vulnerability endpoint anchors,passed
+calculation,Collapsed vulnerability row count,passed
+calculation,Unique collapsed vulnerability keys,passed
+calculation,Complete pathway-grid row count,passed
+calculation,Unique pathway keys,passed
+calculation,Complete pathway coverage in each BSR,passed
+calculation,Finite joined LS_corrected_score,passed
+calculation,Finite joined species_aggregate_score,passed
+calculation,Finite joined fish_use_score,passed
+calculation,Finite joined population_priority,passed
+calculation,Finite joined condition_score,passed
+calculation,Finite joined vulnerability_score,passed
+calculation,Finite joined impact_component,passed
+calculation,Finite joined risk_component,passed
+calculation,Pathway impact equation,passed
+calculation,Pathway risk equation,passed
+calculation,Zero fish use gives zero pathway scores,passed
+calculation,life stage scores equal pathway sums,passed
+calculation,species scores equal pathway sums,passed
+calculation,limiting factor scores equal pathway sums,passed
+calculation,Source and normalized fish-use fields preserved,passed
+calculation,species_impact_balance_difference within rounding tolerance,passed
+calculation,species_risk_balance_difference within rounding tolerance,passed
+calculation,impact_balance_difference within rounding tolerance,passed
+calculation,risk_balance_difference within rounding tolerance,passed
+calculation,BSR summary coverage,passed
+calculation,One summary row per BSR,passed
+calculation,Complete action-component coverage,passed
+calculation,Complete BSR/action coverage,passed
+calculation,Unique BSR/action keys,passed
+calculation,condition_improvement_component equation,passed
+calculation,amelioration_component equation,passed
+calculation,benefit_component equation,passed
+calculation,Action scores equal component sums,passed
+calculation,Overall alignment equals the sum across actions,passed
+calculation,Overall action total equals factor risk × summed action weight,passed
+calculation,life stage: finite output scores,passed
+calculation,species: finite output scores,passed
+calculation,limiting factor: finite output scores,passed
+calculation,action: finite output scores,passed
+calculation,BSR: finite output scores,passed
+calculation,Hand-calculated example,passed
+staging,Calculation QC completed,passed
+staging,Worked example completed,passed
+staging,Scoring tables unchanged since validation,passed
+staging,Input unchanged: Fish Use Scores.csv,passed
+staging,Input unchanged: LFAT.csv,passed
+staging,Input unchanged: Limiting factor scores.csv,passed
+staging,Input unchanged: Population scores.csv,passed
+staging,Input unchanged: Vulnerability table.csv,passed
+staging,Input unchanged: bsr.gpkg,passed
+staged output,CSV readback: bsr_scores.csv,passed
+staged output,CSV readback: fish_use_scores.csv,passed
+staged output,CSV readback: population_scores.csv,passed
+staged output,CSV readback: life_stage_scores.csv,passed
+staged output,CSV readback: species_scores.csv,passed
+staged output,CSV readback: limiting_factor_scores_integrated.csv,passed
+staged output,CSV readback: action_scores.csv,passed
+staged output,CSV readback: calculation_grid.csv,passed
+staged output,CSV readback: action_score_components.csv,passed
+staged output,CSV readback: assumptions_for_review.csv,passed
+staged output,CSV readback: bsr_identifiers_for_review.csv,passed
+staged output,CSV readback: vulnerability_scores_for_review.csv,passed
+staged output,CSV readback: input_file_summary.csv,passed
+staged output,CSV readback: life_stage_fish_use_normalization.csv,passed
+staged output,CSV readback: normalization_maximum_source_rows.csv,passed
+staged output,CSV readback: population_priority_sums.csv,passed
+staged output,CSV readback: action_factor_weight_totals.csv,passed
+staged output,CSV readback: score_field_definitions.csv,passed
+staged output,GeoPackage database integrity,passed
+staged output,GeoPackage foreign-key integrity,passed
+staged output,GeoPackage BSR scores and review fields,passed
+staged output,GeoPackage attribute tables registered,passed
+staged output,GeoPackage attribute values: fish_use_scores,passed
+staged output,GeoPackage attribute values: population_scores,passed
+staged output,GeoPackage attribute values: life_stage_scores,passed
+staged output,GeoPackage attribute values: species_scores,passed
+staged output,GeoPackage attribute values: limiting_factor_scores,passed
+staged output,GeoPackage attribute values: action_type_scores,passed
+staged output,No null scored geometry,passed
+staged output,Geometry and BSR identifiers preserved byte-for-byte,passed
+staged output,Geometry and feature IDs preserved byte-for-byte,passed
+staged output,Spatial-index rows and trigger definitions preserved,passed
+staged output,Input still unchanged: Fish Use Scores.csv,passed
+staged output,Input still unchanged: LFAT.csv,passed
+staged output,Input still unchanged: Limiting factor scores.csv,passed
+staged output,Input still unchanged: Population scores.csv,passed
+staged output,Input still unchanged: Vulnerability table.csv,passed
+staged output,Input still unchanged: bsr.gpkg,passed
+staged output,Run metadata readback,passed

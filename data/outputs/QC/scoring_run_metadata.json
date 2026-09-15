@@ -1,0 +1,78 @@
+{
+  "run_id": "20260915T003501Z_b2b548a9",
+  "created_utc": "2026-09-15T00:35:01.426781+00:00",
+  "framework_version": "2026-09-14.2",
+  "life_stage_fish_use_normalization": {
+    "run_id": "20260915T003501Z_b2b548a9",
+    "method": "global maximum across complete fish-use input table",
+    "source_field": "LS_corrected_score",
+    "source_output_field": "LS_corrected_score_source",
+    "normalized_output_field": "LS_corrected_score",
+    "denominator": 3.59,
+    "source_min": 0.0,
+    "normalized_min": 0.0,
+    "normalized_max": 1.0,
+    "source_rows": 290
+  },
+  "normalization_maximum_source_rows": [
+    {
+      "bsr": "CC9",
+      "species": "Bull Trout",
+      "life_stage": "Spawning & Resident",
+      "LS_corrected_score_source": 3.59
+    }
+  ],
+  "condition_rating_assumption": "1 = least impairment; 5 = greatest impairment",
+  "unresolved_bsr_matches": [
+    "CC1",
+    "CC2",
+    "CC3",
+    "CC4",
+    "CC5",
+    "CC6",
+    "CC7",
+    "CC8",
+    "CC9"
+  ],
+  "population_priorities": "Source values retained; sums checked within basin/species with absolute tolerance 0.011.",
+  "run_review_status": "provisional BSR correspondence",
+  "source_vulnerability_review_rows": 6,
+  "source_condition_review_rows": 55,
+  "input_files": {
+    "fish_use": {
+      "file_name": "Fish Use Scores.csv",
+      "sha256": "f21d305d9b894eebc25aa16aba1a6a8aacb81229c6933caf09be117f52d699c0"
+    },
+    "lfat": {
+      "file_name": "LFAT.csv",
+      "sha256": "d24f71894f1ff92e6a06fa499f46ce323086b2a704ead210096de96bdb50d10b"
+    },
+    "limiting_factor": {
+      "file_name": "Limiting factor scores.csv",
+      "sha256": "d3bea17c18238b7e32072de49d6d81ca9028d6de9af7fd99aadee98071c9d180"
+    },
+    "population": {
+      "file_name": "Population scores.csv",
+      "sha256": "e8d353404cc1513a72368d7e09ee0d582cc7ab1da8f6c943f727d775db73b53e"
+    },
+    "vulnerability": {
+      "file_name": "Vulnerability table.csv",
+      "sha256": "f4218b99f14e7c4884e638b01501044c49f55cd4d9d97114715a615da86db893"
+    },
+    "spatial": {
+      "file_name": "bsr.gpkg",
+      "sha256": "7d5d57b54605975fa5089536982281c596c676931a4080b81024ef7bdc1d31e5"
+    }
+  },
+  "core_output_rows": {
+    "bsr_scores.csv": 29,
+    "fish_use_scores.csv": 290,
+    "population_scores.csv": 20,
+    "life_stage_scores.csv": 290,
+    "species_scores.csv": 87,
+    "limiting_factor_scores_integrated.csv": 435,
+    "action_scores.csv": 319,
+    "calculation_grid.csv": 4350
+  },
+  "numerical_qc": "input, transformation, calculation, example, and staged-file checks passed"
+}

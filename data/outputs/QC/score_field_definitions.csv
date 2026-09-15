@@ -1,0 +1,18 @@
+tables,field,display_label,definition
+fish_use / life_stage / grid,LS_corrected_score_source,Source Life-Stage Fish Use,Unchanged input value before maximum normalization.
+fish_use / life_stage / grid,LS_corrected_score,Life-Stage Fish Use Score,Source divided by the recorded global maximum; 0–1; risk multiplier.
+fish_use / life_stage / bsr / grid,life_stage_fish_use_normalization_max,Life-Stage Fish-Use Normalization Maximum,Denominator used for this run; compare before interpreting changes between runs.
+fish_use / life_stage / species,species_aggregate_score,Species Fish Use Score,Unchanged context field; may exceed 1; not a multiplier.
+fish_use / bsr,fish_use_score,Overall Fish Use Score,"Input fish_use_score_decimal, unchanged; 0–1; context only."
+limiting_factor / grid,condition_score,Limiting-Factor Impairment Score,Raw 1–5 mapped to 0.01–1; assumes higher raw values indicate greater impairment.
+population / life_stage / grid,population_priority,Life-Stage Population Priority,Within basin/species weight; source rounding retained; no explicit between-species multiplier.
+bsr,overall_risk_score,Overall Risk Score,"Sum of population-weighted pathway contributions; relative index, not a probability."
+action,condition_improvement_score,Condition Improvement Score,"Sum of condition score × action relationship weight; alignment index, not predicted improvement."
+action,limiting_factor_amelioration_score,Limiting Factor Amelioration Score,Sum of limiting-factor impact × action relationship weight; alignment index.
+action,action_benefit_score,Action Benefit Score,Sum of limiting-factor risk × action relationship weight for one action; alignment index.
+bsr,overall_condition_improvement_score,Overall Condition Improvement Score,Sum across actions; includes repeated limiting-factor relationships.
+bsr,overall_limiting_factor_amelioration_score,Overall Limiting Factor Amelioration Score,Sum across actions; includes repeated limiting-factor relationships.
+bsr,overall_benefit_score,Overall Benefit Score,Sum across actions; repeated limiting-factor relationships; not additive realized benefits.
+bsr,highest_action_benefit_score,Highest Action Benefit Score,Largest action-specific alignment score within a BSR.
+bsr / fish_use / grid,bsr_crosswalk_status,Source BSR Crosswalk Status,"Original source status preserved, including provisional_positional."
+bsr / fish_use / grid,bsr_match_review_required,BSR Correspondence Requires Review,True when the source crosswalk status is not exact_identifier.

@@ -1,0 +1,7 @@
+basin,species,priority_sum,life_stage_count,difference_from_one
+Catherine Creek,Bull Trout,1.0,2,0.0
+Catherine Creek,Chinook,0.99,4,-0.010000000000000009
+Catherine Creek,Steelhead,1.0,4,0.0
+Upper Grande Ronde,Bull Trout,1.0,2,0.0
+Upper Grande Ronde,Chinook,1.0,4,0.0
+Upper Grande Ronde,Steelhead,1.0,4,0.0
