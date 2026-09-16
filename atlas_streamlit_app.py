@@ -324,7 +324,7 @@ def configure_page() -> None:
     """Set page-level options and light visual styling."""
     st.set_page_config(
         page_title="Atlas Integrated Scoring",
-        page_icon="Ã°Å¸â€”ÂºÃ¯Â¸Â",
+        page_icon="ðŸ—ºï¸",
         layout="wide",
         initial_sidebar_state="expanded",
     )
@@ -2770,7 +2770,7 @@ def summarize_action_benefits(
     ):
         raise ValueError(
             "Action-Specific Benefit Components do not equal "
-            "Limiting-Factor Risk Ãƒâ€” Action Weight."
+            "Limiting-Factor Risk Ã— Action Weight."
         )
     candidates["_highest_component_score"] = candidates.groupby("bsr")[
         "benefit_component"

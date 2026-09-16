@@ -324,7 +324,7 @@ def configure_page() -> None:
     """Set page-level options and light visual styling."""
     st.set_page_config(
         page_title="Atlas Integrated Scoring",
-        page_icon="ðŸ—ºï¸",
+        page_icon="Ã°Å¸â€”ÂºÃ¯Â¸Â",
         layout="wide",
         initial_sidebar_state="expanded",
     )
@@ -2770,7 +2770,7 @@ def summarize_action_benefits(
     ):
         raise ValueError(
             "Action-Specific Benefit Components do not equal "
-            "Limiting-Factor Risk Ã— Action Weight."
+            "Limiting-Factor Risk Ãƒâ€” Action Weight."
         )
     candidates["_highest_component_score"] = candidates.groupby("bsr")[
         "benefit_component"
@@ -2930,6 +2930,9 @@ def render_actions(
         ],
         horizontal=True,
     )
+    # The Plotly chart is a selection widget. Give each action and map mode a
+    # distinct key so its prior figure/UI state cannot persist on a new map.
+    action_chart_key = f"map_action_specific:{selected_action}:{action_map_selection}"
     if action_map_selection == "Action-Specific Benefit Score":
         render_choropleth(
             geometry,
@@ -2937,7 +2940,7 @@ def render_actions(
             "action_benefit_score",
             "Action-Specific Benefit Score",
             f"{selected_action}: Action-Specific Benefit Score",
-            "map_action_specific",
+            action_chart_key,
             map_style,
             hover_columns=[
                 "action_type",
@@ -2957,7 +2960,7 @@ def render_actions(
             "action_preliminary_tier",
             "Action-Specific Preliminary Tiers",
             f"{selected_action}: Preliminary Tiers",
-            "map_action_specific",
+            action_chart_key,
             map_style,
             categorical=True,
             hover_columns=[
