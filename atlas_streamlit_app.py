@@ -54,7 +54,7 @@ CORE_SCORE_FILES = {
 SUPPORTING_SCORE_FILES: dict[str, str] = {}
 
 SCORE_FILES = {**CORE_SCORE_FILES, **SUPPORTING_SCORE_FILES}
-SCORE_SCHEMA_VERSION = "2026-09-16-theoretical-action-ceilings-v9"
+SCORE_SCHEMA_VERSION = "2026-09-16-observed-species-and-action-scales-v10"
 
 # The contextual species_aggregate_score has a maximum possible value of 6.
 SPECIES_FISH_USE_MAXIMUM = 6.0
@@ -67,26 +67,22 @@ UNIT_SCORE_FIELDS = {
     "vulnerability_score",
 }
 OVERALL_FISH_USE_HELP = (
-    "Overall fish use is shown for context. The species/life-stage-specific "
-    "Life-Stage Fish Use Score (LS_corrected_score) is the fish-use input "
-    "directly incorporated in the risk scoring framework. The contextual "
-    "Species Fish Use Score is also not a direct risk multiplier."
+    "Overall Fish Use Score ranges from 0 to 1 and is shown for context. "
+    "It is not a direct multiplier in the risk equations."
 )
-SCORE_MAXIMUM_HELP = (
-    "Overall Risk Score is shown relative to the highest observed Overall "
-    "Risk Score among BSRs included in the analysis. Other risk scores use "
-    "calculated totals with life-stage fish use and population priorities "
-    "held fixed and vulnerability and limiting-factor condition set to 1. "
-    "Their totals may vary by BSR, species, life stage, or limiting factor. "
-    "Action-Specific Benefit Score is out of a theoretical 15 for every BSR "
-    "and action: each of 15 limiting factors has risk and action weight set "
-    "to 1. Each benefit component is out of 1; Overall Benefit Score is out "
-    "of 15 times the number of actions. Species Fish Use Score is out of 6."
+OVERALL_RISK_MAXIMUM_HELP = (
+    "The displayed upper bound is the highest observed Overall Risk Score "
+    "among BSRs included in the analysis."
+)
+SPECIES_RISK_MAXIMUM_HELP = (
+    "The displayed upper bound is the highest observed risk score for the "
+    "selected species among BSRs included in the analysis."
 )
 ACTION_BENEFIT_MAXIMUM_HELP = (
     "The theoretical maximum is 15 for every BSR and action. Set the "
     "limiting-factor risk score and action weight to 1 for each of the 15 "
-    "limiting factors, then sum their benefit components."
+    "limiting factors, then sum their benefit components. Map colors span "
+    "0 to the highest observed score for the selected action."
 )
 
 REQUIRED_COLUMNS = {
@@ -376,12 +372,26 @@ def render_scoring_methodology() -> None:
     with st.expander("How scores are calculated"):
         st.markdown(METHODOLOGY_MARKDOWN)
         st.markdown("### Total possible scores")
-        st.write(SCORE_MAXIMUM_HELP)
         st.markdown(
-            "The Overall Limiting-Factor Condition Score is the unweighted "
-            "mean of the condition scores across all limiting factors in a "
-            "BSR (out of 1). This is a display summary; risk calculations "
-            "continue to use each limiting factor's individual condition."
+            "- **Overall Risk Score:** The upper bound is the highest observed "
+            "Overall Risk Score among BSRs included in the analysis.\n"
+            "- **Species Risk Score:** The upper bound for each species is "
+            "its highest observed risk score among included BSRs.\n"
+            "- **Other risk scores:** Theoretical totals hold life-stage fish "
+            "use and population priority fixed, with vulnerability and "
+            "limiting-factor condition set to 1.\n"
+            "- **Action-Specific Benefit Score:** The theoretical maximum "
+            "is 15 for each action and BSR. The map color scale reaches "
+            "the highest observed score for the selected action.\n"
+            "- **Action-Specific Benefit Component:** The theoretical "
+            "maximum is 1. **Overall Benefit Score:** The theoretical "
+            "maximum is 15 times the number of actions.\n"
+            "- **Species Fish Use Score:** The maximum is 6. "
+            "**Overall and Life-Stage Fish Use Scores:** The maximum is 1.\n"
+            "- **Overall Limiting-Factor Condition Score:** The unweighted "
+            "mean of limiting-factor condition scores is out of 1. This is "
+            "a display summary; risk calculations use the individual "
+            "limiting-factor conditions."
         )
 
 def require_columns(table_name: str, table: pd.DataFrame) -> None:
@@ -589,17 +599,27 @@ def observed_maximum_column(field: str) -> str:
     return field + OBSERVED_MAXIMUM_SUFFIX
 
 
+def observed_included_maximum(table: pd.DataFrame, field: str) -> float:
+    """Find the highest observed score among BSRs included in analysis."""
+    included = pd.to_numeric(
+        table.loc[
+            ~table["bsr"].map(normalized_bsr_id).isin(EXCLUDED_TIER_BSRS),
+            field,
+        ],
+        errors="coerce",
+    )
+    if included.empty or included.isna().any() or not np.isfinite(included).all():
+        label = DISPLAY_LABELS.get(field, field)
+        raise ValueError(f"Included BSRs must have finite {label} values.")
+    return float(included.max())
+
+
 def add_observed_risk_maximum(bsr: pd.DataFrame) -> pd.DataFrame:
     """Attach the largest observed risk among BSRs included in analysis."""
-    included = bsr.loc[
-        ~bsr["bsr"].map(normalized_bsr_id).isin(EXCLUDED_TIER_BSRS),
-        "overall_risk_score",
-    ]
-    included = pd.to_numeric(included, errors="coerce")
-    if included.empty or included.isna().any() or not np.isfinite(included).all():
-        raise ValueError("Included BSRs must have finite Overall Risk Scores.")
     result = bsr.copy()
-    result[observed_maximum_column("overall_risk_score")] = float(included.max())
+    result[observed_maximum_column("overall_risk_score")] = (
+        observed_included_maximum(bsr, "overall_risk_score")
+    )
     return result
 
 
@@ -692,12 +712,28 @@ def add_score_maxima(tables: dict[str, pd.DataFrame]) -> dict[str, pd.DataFrame]
 
 
 def summarize_species_risk(life_stage: pd.DataFrame) -> pd.DataFrame:
-    """Sum life-stage risk within each BSR and species, retaining ceilings."""
-    return life_stage.groupby(["bsr", "basin", "species"], as_index=False).agg(
+    """Sum life-stage risk and attach each species' observed map upper bound."""
+    summary = life_stage.groupby(["bsr", "basin", "species"], as_index=False).agg(
         species_risk_score=("risk_score", "sum"),
         **{maximum_column("species_risk_score"):
            (maximum_column("risk_score"), "sum")},
     )
+    included = summary.loc[
+        ~summary["bsr"].map(normalized_bsr_id).isin(EXCLUDED_TIER_BSRS)
+    ].copy()
+    included["species_risk_score"] = pd.to_numeric(
+        included["species_risk_score"], errors="coerce"
+    )
+    if (included.empty or included["species_risk_score"].isna().any()
+            or not np.isfinite(included["species_risk_score"]).all()):
+        raise ValueError("Included BSRs must have finite Species Risk Scores.")
+    observed = included.groupby("species")["species_risk_score"].max()
+    summary[observed_maximum_column("species_risk_score")] = (
+        summary["species"].map(observed)
+    )
+    if summary[observed_maximum_column("species_risk_score")].isna().any():
+        raise ValueError("Every species needs an included BSR to set its map upper bound.")
+    return summary
 
 
 def summarize_overall_limiting_factors(limiting: pd.DataFrame) -> pd.DataFrame:
@@ -741,7 +777,7 @@ def score_maximum(row: pd.Series, field: str) -> Any:
         return ACTION_BENEFIT_MAXIMUM
     if field in {"benefit_component", "highest_benefit_component_score"}:
         return 1.0
-    if field == "overall_risk_score" and observed_maximum_column(field) in row:
+    if field in {"overall_risk_score", "species_risk_score"} and observed_maximum_column(field) in row:
         return row[observed_maximum_column(field)]
     if maximum_column(field) in row:
         return row[maximum_column(field)]
@@ -778,7 +814,7 @@ def score_axis_label(table: pd.DataFrame, field: str, label: str) -> str:
         return f"{label}<br>(maximum not supplied)"
     numeric = pd.to_numeric(maxima, errors="coerce")
     if numeric.notna().all() and np.allclose(numeric, numeric.iloc[0]):
-        if field == "overall_risk_score" and observed_maximum_column(field) in table:
+        if field in {"overall_risk_score", "species_risk_score"} and observed_maximum_column(field) in table:
             return f"{label}<br>(maximum observed: {format_score(numeric.iloc[0])})"
         return f"{label}<br>(out of {format_score(numeric.iloc[0])})"
     return f"{label}<br>(total possible varies; see hover)"
@@ -1517,8 +1553,9 @@ def add_excluded_bsr_hatching(
 
 def add_excluded_bsr_key(figure: Any) -> None:
     """Place a hatched swatch in the right map margin, clear of color keys."""
-    x0, x1 = 1.04, 1.12
-    y0, y1 = 0.88, 0.94
+    # Half the previous width and height gives the swatch one-quarter its area.
+    x0, x1 = 1.04, 1.08
+    y0, y1 = 0.895, 0.925
     figure.add_shape(
         type="rect", xref="paper", yref="paper",
         x0=x0, x1=x1, y0=y0, y1=y1,
@@ -1526,7 +1563,7 @@ def add_excluded_bsr_key(figure: Any) -> None:
         line={"color": MAP_BOUNDARY_COLOR, "width": 0.7},
     )
     # Clip each diagonal to the swatch, using the same color as the map hatch.
-    for start in np.arange(x0 - (y1 - y0), x1, 0.017):
+    for start in np.arange(x0 - (y1 - y0), x1, 0.0085):
         left = max(x0, start)
         right = min(x1, start + (y1 - y0))
         if right <= left:
@@ -1538,7 +1575,7 @@ def add_excluded_bsr_key(figure: Any) -> None:
             line={"color": EXCLUDED_BSR_HATCH_COLOR, "width": 1},
         )
     figure.add_annotation(
-        xref="paper", yref="paper", x=1.15, y=(y0 + y1) / 2,
+        xref="paper", yref="paper", x=1.11, y=(y0 + y1) / 2,
         text="Not included in analysis:<br>UGR8 (U8)",
         xanchor="left", yanchor="middle", align="left",
         showarrow=False, font={"size": 11, "color": "#334155"},
@@ -2020,10 +2057,18 @@ def render_overall_risk(
         species = map_selection.removesuffix(" Risk Score")
         species_scores = summarize_species_risk(life)
         species_map = species_scores.loc[species_scores["species"].eq(species)].copy()
+        species_observed_maximum = (
+            float(species_map[
+                observed_maximum_column("species_risk_score")
+            ].iloc[0])
+            if not species_map.empty else None
+        )
         render_choropleth(
             geometry, species_map, "species_risk_score", map_selection,
             map_selection, "map_overall_risk", map_style,
             hover_columns=["species"], color_scale=RISK_COLOR_SCALE,
+            range_color=(0.0, species_observed_maximum)
+            if species_observed_maximum is not None else None,
         )
         st.caption(f"{species} risk is the sum of its species/life-stage risk scores within each BSR.")
 
@@ -2032,7 +2077,7 @@ def render_overall_risk(
     metric_columns[0].metric("Selected BSR", selected_bsr)
     metric_columns[1].metric(
         "Overall Risk Score", format_score_value(row, "overall_risk_score"),
-        help=SCORE_MAXIMUM_HELP,
+        help=OVERALL_RISK_MAXIMUM_HELP,
     )
     metric_columns[2].metric(
         "Preliminary Tier", row["preliminary_tier"]
@@ -2048,7 +2093,7 @@ def render_overall_risk(
             format_score_value(selected_species.iloc[0], "species_risk_score")
             if not selected_species.empty else "Not available"
         )
-        secondary_help = SCORE_MAXIMUM_HELP
+        secondary_help = SPECIES_RISK_MAXIMUM_HELP
     metric_columns[3].metric(
         secondary_label, secondary_value, help=secondary_help,
     )
@@ -2875,6 +2920,9 @@ def render_actions(
         key="selected_action_type",
     )
     action_map = selected_action_map(actions, selected_action)
+    action_observed_maximum = observed_included_maximum(
+        action_map, "action_benefit_score"
+    )
 
     st.subheader("Action-Specific Benefit Map")
     action_map_selection = st.radio(
@@ -2899,7 +2947,11 @@ def render_actions(
                 "benefit_rank_within_bsr",
             ],
             color_scale=ACTION_BENEFIT_COLOR_SCALE,
-            range_color=(0.0, ACTION_BENEFIT_MAXIMUM),
+            range_color=(0.0, action_observed_maximum),
+        )
+        st.caption(
+            f"Map colors span 0 to {format_score(action_observed_maximum)} "
+            f"for {selected_action}; scores are reported out of 15."
         )
     else:
         render_choropleth(
@@ -3142,7 +3194,10 @@ def main() -> None:
     st.sidebar.markdown("### View")
     page = render_sidebar_view_selector()
     st.sidebar.caption("Map labels: U = Upper Grande Ronde; C = Catherine Creek.")
-    st.caption("Numerical scores show score / displayed maximum.", help=SCORE_MAXIMUM_HELP)
+    st.caption(
+        "Numerical scores show score / displayed upper bound. See 'How scores "
+        "are calculated' for each score's definition."
+    )
 
     mapped_bsrs = set(geometry["bsr"])
     missing_geometry = sorted(set(available_bsrs) - mapped_bsrs)
