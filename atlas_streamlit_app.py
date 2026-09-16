@@ -3218,7 +3218,6 @@ def main() -> None:
         key="selected_bsr",
         help="Map clicks and this selector stay synchronized.",
     )
-    st.sidebar.markdown("### View")
     page = render_sidebar_view_selector()
     st.sidebar.caption("Map labels: U = Upper Grande Ronde; C = Catherine Creek.")
     st.caption(
