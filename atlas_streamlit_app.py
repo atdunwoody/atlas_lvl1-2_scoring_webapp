@@ -5,9 +5,9 @@ Atlas_Integrated_Scoring.ipynb, including the scored BSR GeoPackage. The BSR
 feature layer is detected from the score_bsr field written by the notebook.
 Fish-use views distinguish the BSR-level fish_use_score, species-level
 species_aggregate_score, and life-stage LS_corrected_score fields. Level 2
-views use action_benefit_score for individual actions. Displayed risk and
-benefit ceilings hold life-stage fish use, population priority, and action
-weights fixed and set vulnerability and condition to 1.
+views use action_benefit_score for individual actions. Displayed risk ceilings
+hold life-stage fish use and population priority fixed and set vulnerability
+and condition to 1. The action-specific benefit ceiling is 15.
 """
 
 from __future__ import annotations
@@ -54,10 +54,11 @@ CORE_SCORE_FILES = {
 SUPPORTING_SCORE_FILES: dict[str, str] = {}
 
 SCORE_FILES = {**CORE_SCORE_FILES, **SUPPORTING_SCORE_FILES}
-SCORE_SCHEMA_VERSION = "2026-09-16-observed-risk-and-corrected-ceilings-v8"
+SCORE_SCHEMA_VERSION = "2026-09-16-theoretical-action-ceilings-v9"
 
 # The contextual species_aggregate_score has a maximum possible value of 6.
 SPECIES_FISH_USE_MAXIMUM = 6.0
+ACTION_BENEFIT_MAXIMUM = 15.0
 MAXIMUM_SUFFIX = "__maximum"
 OBSERVED_MAXIMUM_SUFFIX = "__observed_maximum"
 UNIT_SCORE_FIELDS = {
@@ -73,20 +74,19 @@ OVERALL_FISH_USE_HELP = (
 )
 SCORE_MAXIMUM_HELP = (
     "Overall Risk Score is shown relative to the highest observed Overall "
-    "Risk Score among BSRs included in the analysis. Other risk and benefit "
-    "scores are shown relative to their calculated total possible: life-stage "
-    "fish use, population priorities, and action weights remain fixed while "
-    "vulnerability and limiting-factor condition are set to 1. These totals "
-    "vary by BSR, species, life stage, limiting factor, or action. Species Fish "
-    "Use Score is reported out of a possible 6."
+    "Risk Score among BSRs included in the analysis. Other risk scores use "
+    "calculated totals with life-stage fish use and population priorities "
+    "held fixed and vulnerability and limiting-factor condition set to 1. "
+    "Their totals may vary by BSR, species, life stage, or limiting factor. "
+    "Action-Specific Benefit Score is out of a theoretical 15 for every BSR "
+    "and action: each of 15 limiting factors has risk and action weight set "
+    "to 1. Each benefit component is out of 1; Overall Benefit Score is out "
+    "of 15 times the number of actions. Species Fish Use Score is out of 6."
 )
 ACTION_BENEFIT_MAXIMUM_HELP = (
-    "For each BSR and action, total possible holds life-stage fish use, "
-    "population priority, and the action weights fixed. Vulnerability and "
-    "limiting-factor condition are each set to 1. The resulting risk "
-    "components are multiplied by that action's weights and summed across "
-    "limiting factors, species, and life stages. The total varies by BSR "
-    "and action; hover over a BSR for its value."
+    "The theoretical maximum is 15 for every BSR and action. Set the "
+    "limiting-factor risk score and action weight to 1 for each of the 15 "
+    "limiting factors, then sum their benefit components."
 )
 
 REQUIRED_COLUMNS = {
@@ -368,7 +368,7 @@ def configure_page() -> None:
     )
 
 
-METHODOLOGY_MARKDOWN = '# How risk scores are calculated\n\nEach BSR is evaluated for every species, life stage, and limiting factor combination. Higher input values increase the calculated risk score.\n\n## Inputs\n\n### Fish-use inputs\n\n- **Life-Stage Fish Use Score** is specific to the BSR, species, and life stage. It is the fish-use multiplier used in the risk calculations.\n- The Life-Stage Fish Use Score is the **Corrected\\_{life stage}** score in the `Normalized Score Calculator` tab and the `LS_corrected_score` field in the fish-use input table.\n- Life-Stage Fish Use Scores are normalized from 0 to 1.\n- **Species Fish Use Score** is the species-specific score listed in the `Fish Use Scores - Normalized` tab and the `species_aggregate_score` field. Its maximum possible value is 6. It is reported for context but is not a direct multiplier in the risk equations.\n- **Overall Fish Use Score** is the BSR-level 0-to-1 score in the `fish_use_score_decimal` field. It is reported for context but is not a direct multiplier in the risk equations.\n\n### Vulnerability inputs\n\n- **Vulnerability Rank** is specific to the species, life stage, and limiting factor. Rank 1 represents the limiting factor with the most likely impact on a given species and life stage, and rank 15 represents the lowest impact.\n- The vulnerability score used in the calculations maps these 1-to-15 rankings on a scale from 0.01 (lowest species/life stage impact) to 1.0 (highest species/life stage imapct)\n- For the combined Migration life stage, the calculation uses the higher of the adult and juvenile vulnerability scores for each species and limiting factor.\n\n### Limiting-factor inputs\n\n- **Limiting-Factor Condition** is specific to the BSR and limiting factor. The current input table does not contain a life-stage-specific condition field.\n- The limiting-factor condition score used in the calculations maps the source 1-to-5 rating to 0.01 to 1.0\n- The provided `lf_condition_score` field uses a previous 0.10-to-1.0 transformation. It is retained for reference, but the calculations use the score recalculated from `lf_condition_score_raw_1_5` using the equation above.\n- Within a BSR, the same condition score for a limiting factor is applied to every species and life-stage pathway.\n\n### Population-priority inputs\n\n- **Population Priority** is specific to the basin, species, and life stage.\n- The population priorities for each species sum to 100%.\n\n## Level 1 risk calculations\n\n### Risk score components\n\nRisk score components vary as follows:\n\n- Life-stage fish use is specific to BSR, species, and life stage. \n- Population priority is specific to basin, species, and life stage.\n- Vulnerability is specific to the species, life stage, and limiting factor. \n- Limiting-factor condition is specific to BSR.\n\nRisk can be aggregated in two equivalent ways:\n\n1. Across the 15 limiting factors for each species and life stage.\n2. Across all species and life stages for each limiting factor.\n\nBoth approaches produce the same Overall Risk Score within a BSR, although the intermediate scores describe different components of the overall score.\n\n### Species and life-stage risk scores\n\nFor a given BSR, species, and life stage, the Life-Stage Fish Use Score and Population Priority are constant across the 15 limiting factors and can be placed in front of the sum:\n\n$$\n\\begin{aligned}\n\\text{life-stage risk score}\n={}&\n\\text{life-stage fish use}\n\\times\n\\text{population priority} \\\\\n&\\times\n\\sum_{\\substack{\\text{15 limiting}\\\\\\text{factors}}}\n\\Bigl(\n\\text{limiting-factor condition}\n\\times\n\\text{vulnerability}\n\\Bigr)\n\\end{aligned}\n$$\n\nThe risk score for the highest-priority life stage is:\n\n$$\n\\begin{aligned}\n\\text{risk score for highest priority life stage}\n={}&\n\\max_{\\substack{\\text{all species and}\\\\\\text{life stages}}}\n\\left(\n\\text{life-stage risk score}\n\\right)\n\\end{aligned}\n$$\n\nThe **Highest Priority Life Stage** is the species and life-stage combination with the largest Life-Stage Risk Score within the BSR.\n\n### Limiting-factor risk scores\n\nLimiting-factor risk scores describe how much risk a given limiting factor is creating for the collection of fish use (all species and life stages) within a BSR. For a given BSR and limiting factor, the Limiting-Factor Condition is constant across species and life stages and can be placed in front of the sum:\n\n$$\n\\begin{aligned}\n\\text{limiting-factor risk score}\n={}&\n\\text{limiting-factor condition} \\\\\n&\\times\n\\sum_{\\substack{\\text{all species and}\\\\\\text{life stages}}}\n\\Bigl(\n\\text{life-stage fish use}\n\\times\n\\text{vulnerability}\n\\times\n\\text{population priority}\n\\Bigr)\n\\end{aligned}\n$$\n\nWithin this sum, life-stage fish use and population priority are specific to the applicable BSR, species, and life stage. Vulnerability is specific to the species, life stage, and limiting factor. Limiting-factor condition is the single condition score for the BSR and limiting factor.\n\nThe risk score for the highest-priority limiting factor is:\n\n$$\n\\begin{aligned}\n\\text{risk score for highest priority limiting factor}\n={}&\n\\max_{\\text{15 limiting factors}}\n\\left(\n\\text{limiting-factor risk score}\n\\right)\n\\end{aligned}\n$$\n\nThe **Highest Priority Limiting Factor** is the limiting factor with the largest Limiting-Factor Risk Score within the BSR.\n\n### Overall BSR risk score\n\nThe Overall Risk Score can be calculated equivalently by summing either all Life-Stage Risk Scores or all 15 Limiting-Factor Risk Scores:\n\n$$\n\\begin{aligned}\n\\text{Overall Risk Score}\n&=\n\\sum_{\\substack{\\text{all species and}\\\\\\text{life stages}}}\n\\left(\n\\text{life-stage risk score}\n\\right) \\\\\n&=\n\\sum_{\\text{15 limiting factors}}\n\\left(\n\\text{limiting-factor risk score}\n\\right)\n\\end{aligned}\n$$\n\n## Level 2 action calculations\n\nThe action weight is calculated from relationship directness and frequency:\n\n$$\n\\text{action weight}\n=\n\\text{relationship directness}\n\\times\n\\text{frequency}\n$$\n\nFor each limiting factor and action:\n\n$$\n\\text{action-specific benefit component}\n=\n\\text{limiting-factor risk score}\n\\times\n\\text{action weight}\n$$\n\nFor each action, the action-specific benefit components are summed across the 15 limiting factors:\n\n$$\n\\begin{aligned}\n\\text{action-specific benefit score}\n={}&\n\\sum_{\\substack{\\text{15 limiting}\\\\\\text{factors}}}\n\\left(\n\\text{limiting-factor risk score}\n\\times\n\\text{action weight}\n\\right)\n\\end{aligned}\n$$\n\nThe Overall Benefit Score is the sum of the Action-Specific Benefit Scores across all actions:\n\n$$\n\\begin{aligned}\n\\text{overall benefit score}\n={}&\n\\sum_{\\text{all actions}}\n\\left(\n\\text{action-specific benefit score}\n\\right)\n\\end{aligned}\n$$\n\nThe **Highest Risk-Aligned Action Type** is the action type with the largest Action-Specific Benefit Score within the BSR.'
+METHODOLOGY_MARKDOWN = '# How risk scores are calculated\n\nEach BSR is evaluated for every species, life stage, and limiting factor combination. Higher input values increase the calculated risk score.\n\n## Inputs\n\n### Fish-use inputs\n\n- **Life-Stage Fish Use Score** is specific to the BSR, species, and life stage. It is the fish-use multiplier used in the risk calculations.\n- The Life-Stage Fish Use Score is the **Corrected\\_{life stage}** score in the `Normalized Score Calculator` tab and the `LS_corrected_score` field in the fish-use input table.\n- Life-Stage Fish Use Scores are normalized from 0 to 1.\n- **Scores reported for context**\n  - **Species Fish Use Score** is the species-specific score listed in the `Fish Use Scores - Normalized` tab and the `species_aggregate_score` field. Its maximum possible value is 6. It is not a direct multiplier in the risk equations.\n  - **Overall Fish Use Score** is the BSR-level 0-to-1 score in the `fish_use_score_decimal` field. It is not a direct multiplier in the risk equations.\n\n### Vulnerability inputs\n\n- **Vulnerability Rank** is specific to the species, life stage, and limiting factor. Rank 1 represents the limiting factor with the most likely impact on a given species and life stage, and rank 15 represents the lowest impact.\n- The vulnerability score used in the calculations maps these 1-to-15 rankings on a scale from 0.01 (lowest species/life stage impact) to 1.0 (highest species/life stage imapct)\n- For the combined Migration life stage, the calculation uses the higher of the adult and juvenile vulnerability scores for each species and limiting factor.\n\n### Limiting-factor inputs\n\n- **Limiting-Factor Condition** is specific to the BSR and limiting factor. The current input table does not contain a life-stage-specific condition field.\n- The limiting-factor condition score used in the calculations maps the source 1-to-5 rating to 0.01 to 1.0\n- The provided `lf_condition_score` field uses a previous 0.10-to-1.0 transformation. It is retained for reference, but the calculations use the score recalculated from `lf_condition_score_raw_1_5` using the equation above.\n- Within a BSR, the same condition score for a limiting factor is applied to every species and life-stage pathway.\n\n### Population-priority inputs\n\n- **Population Priority** is specific to the basin, species, and life stage.\n- The population priorities for each species sum to 100%.\n\n## Level 1 risk calculations\n\n### Risk score components\n\nRisk score components vary as follows:\n\n- Life-stage fish use is specific to BSR, species, and life stage. \n- Population priority is specific to basin, species, and life stage.\n- Vulnerability is specific to the species, life stage, and limiting factor. \n- Limiting-factor condition is specific to BSR.\n\nRisk can be aggregated in two equivalent ways:\n\n1. Across the 15 limiting factors for each species and life stage.\n2. Across all species and life stages for each limiting factor.\n\nBoth approaches produce the same Overall Risk Score within a BSR, although the intermediate scores describe different components of the overall score.\n\n### Species and life-stage risk scores\n\nFor a given BSR, species, and life stage, the Life-Stage Fish Use Score and Population Priority are constant across the 15 limiting factors and can be placed in front of the sum:\n\n$$\n\\begin{aligned}\n\\text{life-stage risk score}\n={}&\n\\text{life-stage fish use}\n\\times\n\\text{population priority} \\\\\n&\\times\n\\sum_{\\substack{\\text{15 limiting}\\\\\\text{factors}}}\n\\Bigl(\n\\text{limiting-factor condition}\n\\times\n\\text{vulnerability}\n\\Bigr)\n\\end{aligned}\n$$\n\nThe risk score for the highest-priority life stage is:\n\n$$\n\\begin{aligned}\n\\text{risk score for highest priority life stage}\n={}&\n\\max_{\\substack{\\text{all species and}\\\\\\text{life stages}}}\n\\left(\n\\text{life-stage risk score}\n\\right)\n\\end{aligned}\n$$\n\nThe **Highest Priority Life Stage** is the species and life-stage combination with the largest Life-Stage Risk Score within the BSR.\n\n### Limiting-factor risk scores\n\nLimiting-factor risk scores describe how much risk a given limiting factor is creating for the collection of fish use (all species and life stages) within a BSR. For a given BSR and limiting factor, the Limiting-Factor Condition is constant across species and life stages and can be placed in front of the sum:\n\n$$\n\\begin{aligned}\n\\text{limiting-factor risk score}\n={}&\n\\text{limiting-factor condition} \\\\\n&\\times\n\\sum_{\\substack{\\text{all species and}\\\\\\text{life stages}}}\n\\Bigl(\n\\text{life-stage fish use}\n\\times\n\\text{vulnerability}\n\\times\n\\text{population priority}\n\\Bigr)\n\\end{aligned}\n$$\n\nWithin this sum, life-stage fish use and population priority are specific to the applicable BSR, species, and life stage. Vulnerability is specific to the species, life stage, and limiting factor. Limiting-factor condition is the single condition score for the BSR and limiting factor.\n\nThe risk score for the highest-priority limiting factor is:\n\n$$\n\\begin{aligned}\n\\text{risk score for highest priority limiting factor}\n={}&\n\\max_{\\text{15 limiting factors}}\n\\left(\n\\text{limiting-factor risk score}\n\\right)\n\\end{aligned}\n$$\n\nThe **Highest Priority Limiting Factor** is the limiting factor with the largest Limiting-Factor Risk Score within the BSR.\n\n### Overall BSR risk score\n\nThe Overall Risk Score can be calculated equivalently by summing either all Life-Stage Risk Scores or all 15 Limiting-Factor Risk Scores:\n\n$$\n\\begin{aligned}\n\\text{Overall Risk Score}\n&=\n\\sum_{\\substack{\\text{all species and}\\\\\\text{life stages}}}\n\\left(\n\\text{life-stage risk score}\n\\right) \\\\\n&=\n\\sum_{\\text{15 limiting factors}}\n\\left(\n\\text{limiting-factor risk score}\n\\right)\n\\end{aligned}\n$$\n\n## Level 2 action calculations\n\nThe action weight is calculated from relationship directness and frequency:\n\n$$\n\\text{action weight}\n=\n\\text{relationship directness}\n\\times\n\\text{frequency}\n$$\n\nFor each limiting factor and action:\n\n$$\n\\text{action-specific benefit component}\n=\n\\text{limiting-factor risk score}\n\\times\n\\text{action weight}\n$$\n\nFor each action, the action-specific benefit components are summed across the 15 limiting factors:\n\n$$\n\\begin{aligned}\n\\text{action-specific benefit score}\n={}&\n\\sum_{\\substack{\\text{15 limiting}\\\\\\text{factors}}}\n\\left(\n\\text{limiting-factor risk score}\n\\times\n\\text{action weight}\n\\right)\n\\end{aligned}\n$$\n\nThe theoretical maximum Action-Specific Benefit Score is **15** for every BSR and action. Set both Limiting-Factor Risk Score and Action Weight to 1 for each of the 15 limiting factors, then sum the resulting 15 benefit components.\n\nThe **Highest Risk-Aligned Action Type** is the action type with the largest Action-Specific Benefit Score within the BSR.'
 
 
 def render_scoring_methodology() -> None:
@@ -615,12 +615,13 @@ def score_columns(table: pd.DataFrame, fields: list[str]) -> list[str]:
 
 
 def add_score_maxima(tables: dict[str, pd.DataFrame]) -> dict[str, pd.DataFrame]:
-    """Calculate attainable ceilings with the framework weights held fixed.
+    """Calculate risk ceilings and theoretical action-benefit ceilings.
 
     These are display metadata only. Source scores and priorities (including
     rounded priorities that sum to 0.99) are never rescaled. A grid component's
     ceiling is LS_corrected_score * population_priority: condition and
-    vulnerability are both 1. Aggregation follows the scoring framework.
+    vulnerability are both 1. Each action benefit component is out of 1,
+    and an action's 15 components have a theoretical total of 15.
     """
     result = {name: frame.copy() for name, frame in tables.items()}
     grid = result["grid"]
@@ -656,29 +657,22 @@ def add_score_maxima(tables: dict[str, pd.DataFrame]) -> dict[str, pd.DataFrame]
            "risk_component", "risk_score")
     attach("bsr", grid, ["bsr"], "risk_component", "overall_risk_score")
 
-    components = result["action_components"].merge(
-        result["limiting_factor"][[
-            "bsr", "limiting_factor", maximum_column("risk_score")
-        ]],
-        on=["bsr", "limiting_factor"], how="left", validate="many_to_one",
-    )
+    components = result["action_components"].copy()
     weights = pd.to_numeric(components["lfat_score"], errors="coerce")
     if (weights.isna().any() or not np.isfinite(weights).all() or weights.lt(0).any()):
         raise ValueError("Action weights must contain finite, nonnegative values.")
-    if components[maximum_column("risk_score")].isna().any():
-        raise ValueError("An action component has no matching limiting-factor ceiling.")
     if components.duplicated(["bsr", "action_id", "limiting_factor"]).any():
         raise ValueError("The action components contain duplicate scoring pathways.")
-    components[maximum_column("benefit_component")] = (
-        components[maximum_column("risk_score")] * weights
+    components[maximum_column("benefit_component")] = 1.0
+    result["action_components"] = components
+    result["action"][maximum_column("action_benefit_score")] = (
+        ACTION_BENEFIT_MAXIMUM
     )
-    result["action_components"] = components.drop(
-        columns=maximum_column("risk_score")
-    )
-    attach("action", components, ["bsr", "action_id", "action_type"],
-           "benefit_component", "action_benefit_score")
     attach("bsr", result["action"], ["bsr"],
            "action_benefit_score", "overall_benefit_score")
+    result["bsr"][maximum_column("highest_action_benefit_score")] = (
+        ACTION_BENEFIT_MAXIMUM
+    )
 
     result["bsr"] = add_observed_risk_maximum(result["bsr"])
 
@@ -741,6 +735,12 @@ def score_maximum(row: pd.Series, field: str) -> Any:
     """Read a score's displayed denominator, with known scale fallbacks."""
     if field == "species_aggregate_score" or field.endswith(" Species Fish Use Score"):
         return SPECIES_FISH_USE_MAXIMUM
+    if field in {"action_benefit_score", "highest_action_benefit_score"} or re.fullmatch(
+        r"action_rank_\d+_score", field
+    ):
+        return ACTION_BENEFIT_MAXIMUM
+    if field in {"benefit_component", "highest_benefit_component_score"}:
+        return 1.0
     if field == "overall_risk_score" and observed_maximum_column(field) in row:
         return row[observed_maximum_column(field)]
     if maximum_column(field) in row:
@@ -1400,8 +1400,6 @@ def add_excluded_bsr_hatching(
     figure: Any,
     mapped: gpd.GeoDataFrame,
     plot_data: pd.DataFrame,
-    *,
-    show_legend: bool,
 ) -> None:
     """Cover excluded BSRs with a neutral fill and diagonal hatching."""
     if mapped.empty or not figure.data:
@@ -1511,10 +1509,39 @@ def add_excluded_bsr_hatching(
                 "width": EXCLUDED_BSR_HATCH_WIDTH,
             },
             hoverinfo="skip",
-            showlegend=show_legend,
-            legendgroup="excluded_bsr",
+            showlegend=False,
             name="Not included in analysis: UGR8 (U8)",
         )
+    )
+
+
+def add_excluded_bsr_key(figure: Any) -> None:
+    """Place a hatched swatch in the right map margin, clear of color keys."""
+    x0, x1 = 1.04, 1.12
+    y0, y1 = 0.88, 0.94
+    figure.add_shape(
+        type="rect", xref="paper", yref="paper",
+        x0=x0, x1=x1, y0=y0, y1=y1,
+        fillcolor=EXCLUDED_BSR_FILL_COLOR,
+        line={"color": MAP_BOUNDARY_COLOR, "width": 0.7},
+    )
+    # Clip each diagonal to the swatch, using the same color as the map hatch.
+    for start in np.arange(x0 - (y1 - y0), x1, 0.017):
+        left = max(x0, start)
+        right = min(x1, start + (y1 - y0))
+        if right <= left:
+            continue
+        figure.add_shape(
+            type="line", xref="paper", yref="paper",
+            x0=left, y0=y0 + left - start,
+            x1=right, y1=y0 + right - start,
+            line={"color": EXCLUDED_BSR_HATCH_COLOR, "width": 1},
+        )
+    figure.add_annotation(
+        xref="paper", yref="paper", x=1.15, y=(y0 + y1) / 2,
+        text="Not included in analysis:<br>UGR8 (U8)",
+        xanchor="left", yanchor="middle", align="left",
+        showarrow=False, font={"size": 11, "color": "#334155"},
     )
 
 
@@ -1655,11 +1682,9 @@ def render_choropleth(
     has_excluded = displayed_geometry["bsr"].map(
         normalized_bsr_id
     ).isin(EXCLUDED_TIER_BSRS).any()
-    # Reserve separate rows below the map for the excluded BSR key and scale.
-    right_margin = 15
-    bottom_margin = (85 if categorical else 165) if has_excluded else (
-        15 if categorical else 95
-    )
+    # Reserve the right margin for the hatch key and the bottom for color scales.
+    right_margin = 240 if has_excluded and show_legend else 15
+    bottom_margin = 15 if categorical else 95
     center, zoom = map_center_zoom(
         displayed_geometry, height,
         bottom_margin=bottom_margin, right_margin=right_margin,
@@ -1797,7 +1822,6 @@ def render_choropleth(
         figure,
         displayed_geometry,
         plot_data,
-        show_legend=show_legend,
     )
     add_selected_bsr_outline(
         figure,
@@ -1806,20 +1830,17 @@ def render_choropleth(
         st.session_state.get("selected_bsr"),
     )
     add_bsr_labels(figure, displayed_geometry)
+    if has_excluded and show_legend:
+        add_excluded_bsr_key(figure)
     figure.update_layout(
-        showlegend=bool(has_excluded and show_legend),
+        showlegend=False,
         margin={"r": right_margin, "t": 55, "l": 15, "b": bottom_margin},
-        legend={
-            "orientation": "h", "x": 0.02, "xanchor": "left",
-            "y": -0.025, "yanchor": "top",
-            "font": {"size": 12}, "bgcolor": "rgba(255,255,255,0.9)",
-        },
     )
     if not categorical:
         figure.update_layout(
             coloraxis_colorbar={
                 "orientation": "h", "x": 0.5, "xanchor": "center",
-                "y": -0.16 if has_excluded else -0.04,
+                "y": -0.04,
                 "yanchor": "top", "len": 0.8,
                 "thickness": 12,
                 "title": {"text": score_axis_label(plot_data, color_column, color_label),
@@ -2878,7 +2899,7 @@ def render_actions(
                 "benefit_rank_within_bsr",
             ],
             color_scale=ACTION_BENEFIT_COLOR_SCALE,
-            range_color=(0.0, float(actions["action_benefit_score"].max())),
+            range_color=(0.0, ACTION_BENEFIT_MAXIMUM),
         )
     else:
         render_choropleth(
@@ -2905,7 +2926,7 @@ def render_actions(
 
     selected = actions.loc[actions["bsr"].eq(selected_bsr)].copy()
     st.caption(
-        "Action-Specific Benefit Score (total possible varies; see hover)",
+        "Action-Specific Benefit Score (out of 15 for every BSR and action)",
         help=ACTION_BENEFIT_MAXIMUM_HELP,
     )
     horizontal_bar(
