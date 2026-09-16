@@ -81,8 +81,7 @@ SPECIES_RISK_MAXIMUM_HELP = (
 ACTION_BENEFIT_MAXIMUM_HELP = (
     "The theoretical maximum is 15 for every BSR and action. Set the "
     "limiting-factor risk score and action weight to 1 for each of the 15 "
-    "limiting factors, then sum their benefit components. Map colors span "
-    "0 to the highest observed score for the selected action."
+    "limiting factors, then sum their benefit components."
 )
 
 REQUIRED_COLUMNS = {
@@ -382,7 +381,10 @@ def render_scoring_methodology() -> None:
             "limiting-factor condition set to 1.\n"
             "- **Action-Specific Benefit Score:** The theoretical maximum "
             "is 15 for each action and BSR. The map color scale reaches "
-            "the highest observed score for the selected action.\n"
+            "the highest observed score for the selected action by default. "
+            "With 'Normalize scores to highest ranked action' on, the "
+            "color scale uses the highest observed score across all actions "
+            "and included BSRs.\n"
             "- **Species Fish Use Score:** The maximum is 6. \n"
             "**Overall and Life-Stage Fish Use Scores:** The maximum is 1.\n"
             "- **Overall Limiting-Factor Condition Score:** The unweighted "
@@ -2930,10 +2932,28 @@ def render_actions(
         ],
         horizontal=True,
     )
-    # The Plotly chart is a selection widget. Give each action and map mode a
-    # distinct key so its prior figure/UI state cannot persist on a new map.
-    action_chart_key = f"map_action_specific:{selected_action}:{action_map_selection}"
+    normalize_action_colors = st.toggle(
+        "Normalize scores to highest ranked action",
+        value=False,
+        key="normalize_action_benefit_colors",
+        disabled=action_map_selection != "Action-Specific Benefit Score",
+        help=(
+            "Use the highest observed Action-Specific Benefit Score across all "
+            "action types and BSRs included in the analysis as the common "
+            "color-scale upper bound. Scores do not change."
+        ),
+    )
+    # Reset the Plotly selection widget when the action, map mode, or color
+    # scale changes so the previous figure cannot persist on the new map.
+    action_chart_key = (
+        f"map_action_specific:{selected_action}:{action_map_selection}:"
+        f"{'shared' if normalize_action_colors else 'selected'}"
+    )
     if action_map_selection == "Action-Specific Benefit Score":
+        map_scale_maximum = (
+            observed_included_maximum(actions, "action_benefit_score")
+            if normalize_action_colors else action_observed_maximum
+        )
         render_choropleth(
             geometry,
             action_map,
@@ -2947,12 +2967,19 @@ def render_actions(
                 "benefit_rank_within_bsr",
             ],
             color_scale=ACTION_BENEFIT_COLOR_SCALE,
-            range_color=(0.0, action_observed_maximum),
+            range_color=(0.0, map_scale_maximum),
         )
-        st.caption(
-            f"Map colors span 0 to {format_score(action_observed_maximum)} "
-            f"for {selected_action}; scores are reported out of 15."
-        )
+        if normalize_action_colors:
+            st.caption(
+                f"Map colors span 0 to {format_score(map_scale_maximum)} "
+                "for all action types, based on the highest observed score "
+                "among BSRs included in the analysis. Scores are reported out of 15."
+            )
+        else:
+            st.caption(
+                f"Map colors span 0 to {format_score(map_scale_maximum)} "
+                f"for {selected_action}; scores are reported out of 15."
+            )
     else:
         render_choropleth(
             geometry,
