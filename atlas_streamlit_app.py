@@ -54,7 +54,7 @@ CORE_SCORE_FILES = {
 SUPPORTING_SCORE_FILES: dict[str, str] = {}
 
 SCORE_FILES = {**CORE_SCORE_FILES, **SUPPORTING_SCORE_FILES}
-SCORE_SCHEMA_VERSION = "2026-09-16-species-fish-use-maximum-6-v7"
+SCORE_SCHEMA_VERSION = "2026-09-16-observed-risk-and-corrected-ceilings-v8"
 
 # The contextual species_aggregate_score has a maximum possible value of 6.
 SPECIES_FISH_USE_MAXIMUM = 6.0
@@ -328,7 +328,7 @@ def configure_page() -> None:
     """Set page-level options and light visual styling."""
     st.set_page_config(
         page_title="Atlas Integrated Scoring",
-        page_icon="🗺️",
+        page_icon="ðŸ—ºï¸",
         layout="wide",
         initial_sidebar_state="expanded",
     )
@@ -589,6 +589,20 @@ def observed_maximum_column(field: str) -> str:
     return field + OBSERVED_MAXIMUM_SUFFIX
 
 
+def add_observed_risk_maximum(bsr: pd.DataFrame) -> pd.DataFrame:
+    """Attach the largest observed risk among BSRs included in analysis."""
+    included = bsr.loc[
+        ~bsr["bsr"].map(normalized_bsr_id).isin(EXCLUDED_TIER_BSRS),
+        "overall_risk_score",
+    ]
+    included = pd.to_numeric(included, errors="coerce")
+    if included.empty or included.isna().any() or not np.isfinite(included).all():
+        raise ValueError("Included BSRs must have finite Overall Risk Scores.")
+    result = bsr.copy()
+    result[observed_maximum_column("overall_risk_score")] = float(included.max())
+    return result
+
+
 def score_columns(table: pd.DataFrame, fields: list[str]) -> list[str]:
     """Keep display denominators when selecting map and drill-down fields."""
     return list(dict.fromkeys([
@@ -666,16 +680,7 @@ def add_score_maxima(tables: dict[str, pd.DataFrame]) -> dict[str, pd.DataFrame]
     attach("bsr", result["action"], ["bsr"],
            "action_benefit_score", "overall_benefit_score")
 
-    included = result["bsr"].loc[
-        ~result["bsr"]["bsr"].map(normalized_bsr_id).isin(EXCLUDED_TIER_BSRS),
-        "overall_risk_score",
-    ]
-    included = pd.to_numeric(included, errors="coerce")
-    if included.empty or included.isna().any() or not np.isfinite(included).all():
-        raise ValueError("Included BSRs must have finite Overall Risk Scores.")
-    result["bsr"][observed_maximum_column("overall_risk_score")] = float(
-        included.max()
-    )
+    result["bsr"] = add_observed_risk_maximum(result["bsr"])
 
     for table in result.values():
         for field in UNIT_SCORE_FIELDS.intersection(table.columns):
@@ -717,12 +722,7 @@ def summarize_overall_limiting_factors(limiting: pd.DataFrame) -> pd.DataFrame:
     if not summary["limiting_factor_count"].eq(limiting["limiting_factor"].nunique()).all():
         raise ValueError("BSRs do not contain the same complete set of limiting factors.")
     summary[maximum_column("overall_limiting_factor_score")] = 1.0
-    included = summary.loc[
-        ~summary["bsr"].map(normalized_bsr_id).isin(EXCLUDED_TIER_BSRS),
-        "overall_risk_score",
-    ]
-    summary[observed_maximum_column("overall_risk_score")] = included.max()
-    return summary
+    return add_observed_risk_maximum(summary)
 
 
 def is_score_field(field: str) -> bool:
@@ -1925,7 +1925,8 @@ def render_overall_risk(
     map_style: str,
 ) -> None:
     """Render the overall risk map and its two principal drill-downs."""
-    all_bsr = add_preliminary_tiers(tables["bsr"])
+    # Reattach display metadata in case an older cached table lacks it.
+    all_bsr = add_preliminary_tiers(add_observed_risk_maximum(tables["bsr"]))
     bsr = filter_table(all_bsr, basin)
     life = filter_table(tables["life_stage"], basin)
     limiting = filter_table(tables["limiting_factor"], basin)
@@ -2706,7 +2707,7 @@ def summarize_action_benefits(
     ):
         raise ValueError(
             "Action-Specific Benefit Components do not equal "
-            "Limiting-Factor Risk × Action Weight."
+            "Limiting-Factor Risk Ã— Action Weight."
         )
     candidates["_highest_component_score"] = candidates.groupby("bsr")[
         "benefit_component"
