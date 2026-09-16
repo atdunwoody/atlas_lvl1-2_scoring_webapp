@@ -1487,7 +1487,7 @@ def add_bsr_labels(
     figure: Any,
     mapped: gpd.GeoDataFrame,
 ) -> None:
-    """Add a single short-label layer with canonical BSR click identifiers."""
+    """Draw short BSR IDs over a thin white text halo."""
     if mapped.empty or not figure.data:
         return
     label_points = mapped[["bsr", "geometry"]].to_crs(epsg=3857)
@@ -1505,18 +1505,28 @@ def add_bsr_labels(
     common = {
         "lon": label_points.geometry.x,
         "lat": label_points.geometry.y,
-        "mode": "markers+text",
         "text": label_points["bsr"].map(short_bsr_label),
         "customdata": [[str(bsr)] for bsr in label_points["bsr"]],
         "ids": label_points["bsr"].astype(str),
-        "marker": {"size": 26, "color": "#ffffff", "opacity": 0.86},
         "textposition": "middle center",
         "hoverinfo": "none",
         "showlegend": False,
     }
+    # Slightly larger white glyphs behind the dark glyphs outline the text
+    # without covering the score colors with circular label backgrounds.
     figure.add_trace(
         scatter_class(
             **common,
+            mode="text",
+            textfont={"family": "Open Sans Bold", "size": 14, "color": "#ffffff"},
+            name="BSR label halo",
+        )
+    )
+    figure.add_trace(
+        scatter_class(
+            **common,
+            mode="markers+text",
+            marker={"size": 26, "color": "#ffffff", "opacity": 0.001},
             textfont={
                 "family": "Open Sans Bold",
                 "size": 12,
