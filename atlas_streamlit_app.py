@@ -1483,65 +1483,66 @@ def add_excluded_bsr_hatching(
     )
 
 
+from copy import deepcopy
+
 def add_bsr_labels(
     figure: Any,
     mapped: gpd.GeoDataFrame,
+    base_style: dict,
 ) -> None:
-    """Draw short BSR IDs over a thin white text halo."""
+    """Add BSR labels with a 1 px white text halo."""
     if mapped.empty or not figure.data:
         return
-    label_points = mapped[["bsr", "geometry"]].to_crs(epsg=3857)
-    label_points["geometry"] = label_points.geometry.representative_point()
-    label_points = label_points.to_crs(epsg=4326)
-    trace_type = getattr(figure.data[0], "type", "")
-    scatter_class = (
-        getattr(go, "Scattermap", None)
-        if trace_type == "choroplethmap"
-        else go.Scattermapbox
-    )
-    if scatter_class is None:
-        scatter_class = go.Scattermapbox
 
-    common = {
-        "lon": label_points.geometry.x,
-        "lat": label_points.geometry.y,
-        "text": label_points["bsr"].map(short_bsr_label),
-        "customdata": [[str(bsr)] for bsr in label_points["bsr"]],
-        "ids": label_points["bsr"].astype(str),
-        "textposition": "middle center",
-        "hoverinfo": "none",
-        "showlegend": False,
+    points = mapped[["bsr", "geometry"]].to_crs(3857).copy()
+    points["geometry"] = points.geometry.representative_point()
+    points = points.to_crs(4326)
+
+    features = [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [float(point.x), float(point.y)],
+            },
+            "properties": {"label": short_bsr_label(bsr)},
+        }
+        for bsr, point in zip(points["bsr"], points.geometry)
+    ]
+
+    layer_id = "bsr-labels"
+    style = deepcopy(base_style)
+    style["sources"]["bsr-label-points"] = {
+        "type": "geojson",
+        "data": {"type": "FeatureCollection", "features": features},
     }
-    # Slightly larger white glyphs behind the dark glyphs outline the text
-    # without covering the score colors with circular label backgrounds.
-    # White pseudo-halo
-    figure.add_trace(
-        scatter_class(
-            **common,
-            mode="text",
-            textfont={
-                "family": "Open Sans",
-                "size": 12.7,
-                "color": "#ffffff",
-            },
-            name="BSR label halo",
-        )
-    )
+    style["layers"].append({
+        "id": layer_id,
+        "type": "symbol",
+        "source": "bsr-label-points",
+        "layout": {
+            "text-field": ["get", "label"],
+            "text-font": ["Open Sans Regular"],
+            "text-size": 12,
+            "text-anchor": "center",
+            "text-allow-overlap": True,
+        },
+        "paint": {
+            "text-color": "#263238",
+            "text-halo-color": "#ffffff",
+            "text-halo-width": 1,
+            "text-halo-blur": 0,
+        },
+    })
 
-    # Foreground label
-    figure.add_trace(
-        scatter_class(
-            **common,
-            mode="text",
-            textfont={
-                "family": "Open Sans",
-                "size": 12,
-                "color": "#263238",
-            },
-            name="BSR labels",
-        )
+    subplot = (
+        "map" if figure.data[0].type == "choroplethmap" else "mapbox"
     )
+    figure.update_layout(**{subplot: {"style": style}})
 
+    # Keep the choropleth and its outlines below the label layer.
+    for trace in figure.data:
+        trace.below = layer_id
 
 def render_choropleth(
     geometry: gpd.GeoDataFrame,
@@ -1778,7 +1779,7 @@ def render_choropleth(
         plot_data,
         st.session_state.get("selected_bsr"),
     )
-    add_bsr_labels(figure, displayed_geometry)
+    add_bsr_labels(figure, displayed_geometry, base_style=MAP_STYLE)
     figure.update_layout(
         showlegend=bool(has_excluded and show_legend),
         margin={"r": right_margin, "t": 55, "l": 15, "b": bottom_margin},
