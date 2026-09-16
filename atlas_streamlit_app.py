@@ -1089,19 +1089,6 @@ def render_shared_legend(
     )
 
 
-def render_exclusion_legend() -> None:
-    """Give the excluded-BSR key its own wrapping row outside the chart."""
-    st.markdown(
-        '<div style="display:flex;align-items:center;gap:0.45rem;'
-        'font-size:0.82rem;margin:0.35rem 0 0.7rem;">'
-        '<span style="display:inline-block;flex:0 0 1.2rem;height:0.9rem;'
-        'border:1px solid #54616b;background:repeating-linear-gradient('
-        '135deg,#f1efeb,#f1efeb 4px,#54616b 4px,#54616b 5px);"></span>'
-        '<span>Not included in analysis: UGR 8 (U8)</span></div>',
-        unsafe_allow_html=True,
-    )
-
-
 def summarize_priority_life_stages(
     bsr: pd.DataFrame,
     life_stage: pd.DataFrame,
@@ -1206,26 +1193,39 @@ def show_score_table(
     )
 
 
-def map_center_zoom(geometry: gpd.GeoDataFrame) -> tuple[dict[str, float], float]:
-    """Center the map and frame the BSR extent relatively tightly."""
-    min_x, min_y, max_x, max_y = geometry.total_bounds
-    center = {"lon": float((min_x + max_x) / 2), "lat": float((min_y + max_y) / 2)}
-    span = max(float(max_x - min_x), float(max_y - min_y))
-    if span <= 0.10:
-        zoom = 10.0
-    elif span <= 0.25:
-        zoom = 9.0
-    elif span <= 0.50:
-        zoom = 8.0
-    elif span <= 1.00:
-        zoom = 7.0
-    elif span <= 2.00:
-        zoom = 6.0
-    elif span <= 5.00:
-        zoom = 5.0
-    else:
-        zoom = 4.0
-    return center, min(zoom + 2.0, 12.0)
+def map_center_zoom(
+    geometry: gpd.GeoDataFrame,
+    height: int,
+    *,
+    bottom_margin: int,
+    right_margin: int,
+    padding_fraction: float = 0.06,
+) -> tuple[dict[str, float], float]:
+    """Frame the complete BSR extent in Web Mercator with a small margin.
+
+    Plotly's fitbounds does not fit choroplethmap polygons, so calculate a zoom
+    for the usable map height and a conservative 700 px chart width. Streamlit
+    charts can expand beyond that width on a desktop without clipping.
+    """
+    west, south, east, north = map(float, geometry.total_bounds)
+    south, north = np.clip([south, north], -85.0, 85.0)
+    y_south, y_north = (1 - np.arcsinh(np.tan(np.radians([south, north]))) / np.pi) / 2
+    y_mid = (y_south + y_north) / 2
+    center = {
+        "lon": (west + east) / 2,
+        "lat": float(np.degrees(np.arctan(np.sinh(np.pi * (1 - 2 * y_mid))))),
+    }
+    x_span = max((east - west) / 360, 1e-9)
+    y_span = max(y_south - y_north, 1e-9)
+    map_width = 700 - 15 - right_margin
+    map_height = height - 55 - bottom_margin
+    padded = 1 + 2 * padding_fraction
+    zoom = min(
+        np.log2(map_width / (512 * x_span * padded)),
+        np.log2(map_height / (512 * y_span * padded)),
+        12.0,
+    )
+    return center, float(zoom)
 
 
 def selected_point_bsr(point: dict[str, Any]) -> str | None:
@@ -1476,9 +1476,9 @@ def add_excluded_bsr_hatching(
                 "width": EXCLUDED_BSR_HATCH_WIDTH,
             },
             hoverinfo="skip",
-            showlegend=False,
+            showlegend=show_legend,
             legendgroup="excluded_bsr",
-            name="Not included in analysis: UGR 8",
+            name="Not included in analysis:<br>UGR 8 (U8)",
         )
     )
 
@@ -1509,7 +1509,7 @@ def add_bsr_labels(
         "text": label_points["bsr"].map(short_bsr_label),
         "customdata": [[str(bsr)] for bsr in label_points["bsr"]],
         "ids": label_points["bsr"].astype(str),
-        "marker": {"size": 12, "opacity": 0},
+        "marker": {"size": 26, "color": "#ffffff", "opacity": 0.86},
         "textposition": "middle center",
         "hoverinfo": "none",
         "showlegend": False,
@@ -1612,10 +1612,18 @@ def render_choropleth(
         geometry="geometry",
         crs=geometry.crs,
     )
+    has_excluded = displayed_geometry["bsr"].map(
+        normalized_bsr_id
+    ).isin(EXCLUDED_TIER_BSRS).any()
+    right_margin = 210 if has_excluded else 15
+    bottom_margin = 15 if categorical else 95
+    center, zoom = map_center_zoom(
+        displayed_geometry, height,
+        bottom_margin=bottom_margin, right_margin=right_margin,
+    )
 
     geojson = json.loads(mapped[["bsr", "geometry"]].to_json())
     plot_data = pd.DataFrame(mapped.drop(columns="geometry"))
-    center, zoom = map_center_zoom(displayed_geometry)
 
     hover_fields = list(dict.fromkeys(["bsr", *hover_columns]))
     if metric not in hover_fields:
@@ -1712,6 +1720,7 @@ def render_choropleth(
     else:
         figure = px.choropleth_mapbox(mapbox_style=map_style, **common)
         figure.update_layout(
+            mapbox={"bearing": 0, "pitch": 0},
             margin={"r": 0, "t": 55, "l": 0, "b": 0},
             height=height,
             legend_title_text=color_label,
@@ -1734,6 +1743,7 @@ def render_choropleth(
         marker_line_width=MAP_BOUNDARY_WIDTH,
         marker_line_color=MAP_BOUNDARY_COLOR,
         hovertemplate="%{customdata[1]}<extra></extra>",
+        showlegend=False,
     )
     apply_bsr_selection_style(
         figure,
@@ -1753,9 +1763,16 @@ def render_choropleth(
         st.session_state.get("selected_bsr"),
     )
     add_bsr_labels(figure, displayed_geometry)
+    figure.update_layout(
+        showlegend=bool(has_excluded and show_legend),
+        margin={"r": right_margin, "t": 55, "l": 15, "b": bottom_margin},
+        legend={
+            "x": 1.01, "xanchor": "left", "y": 0.96, "yanchor": "top",
+            "font": {"size": 12}, "bgcolor": "rgba(255,255,255,0.9)",
+        },
+    )
     if not categorical:
         figure.update_layout(
-            margin={"r": 15, "t": 55, "l": 15, "b": 95},
             coloraxis_colorbar={
                 "orientation": "h", "x": 0.5, "xanchor": "center",
                 "y": -0.04, "yanchor": "top", "len": 0.8,
@@ -1774,8 +1791,6 @@ def render_choropleth(
     )
     if categorical and show_legend:
         render_shared_legend(color_label, plot_data[color_column], color_discrete_map)
-    if displayed_geometry["bsr"].map(normalized_bsr_id).isin(EXCLUDED_TIER_BSRS).any():
-        render_exclusion_legend()
 
 
 def horizontal_bar(
