@@ -1554,8 +1554,8 @@ def add_excluded_bsr_hatching(
 def add_excluded_bsr_key(figure: Any) -> None:
     """Place a hatched swatch in the right map margin, clear of color keys."""
     # Half the previous width and height gives the swatch one-quarter its area.
-    x0, x1 = 1.04, 1.08
-    y0, y1 = 0.895, 0.925
+    x0, x1 = 1.04, 1.07
+    y0, y1 = 0.885, 0.925
     figure.add_shape(
         type="rect", xref="paper", yref="paper",
         x0=x0, x1=x1, y0=y0, y1=y1,
