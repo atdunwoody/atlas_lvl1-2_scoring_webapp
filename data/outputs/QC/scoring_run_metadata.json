@@ -1,9 +1,9 @@
 {
-  "run_id": "20260915T003501Z_b2b548a9",
-  "created_utc": "2026-09-15T00:35:01.426781+00:00",
-  "framework_version": "2026-09-14.2",
+  "run_id": "20260916T225423Z_9700d92a",
+  "created_utc": "2026-09-16T22:54:23.840773+00:00",
+  "framework_version": "2026-09-16.1",
   "life_stage_fish_use_normalization": {
-    "run_id": "20260915T003501Z_b2b548a9",
+    "run_id": "20260916T225423Z_9700d92a",
     "method": "global maximum across complete fish-use input table",
     "source_field": "LS_corrected_score",
     "source_output_field": "LS_corrected_score_source",

@@ -141,29 +141,24 @@ calculation,Finite joined fish_use_score,passed
 calculation,Finite joined population_priority,passed
 calculation,Finite joined condition_score,passed
 calculation,Finite joined vulnerability_score,passed
-calculation,Finite joined impact_component,passed
 calculation,Finite joined risk_component,passed
-calculation,Pathway impact equation,passed
-calculation,Pathway risk equation,passed
-calculation,Zero fish use gives zero pathway scores,passed
-calculation,life stage scores equal pathway sums,passed
-calculation,species scores equal pathway sums,passed
-calculation,limiting factor scores equal pathway sums,passed
+calculation,Four-factor pathway risk equation,passed
+calculation,Zero fish use gives zero pathway risk,passed
+calculation,life stage risk equals pathway sum,passed
+calculation,species risk equals pathway sum,passed
+calculation,limiting factor risk equals pathway sum,passed
 calculation,Source and normalized fish-use fields preserved,passed
-calculation,species_impact_balance_difference within rounding tolerance,passed
-calculation,species_risk_balance_difference within rounding tolerance,passed
-calculation,impact_balance_difference within rounding tolerance,passed
-calculation,risk_balance_difference within rounding tolerance,passed
+calculation,Overall BSR risk equals life stage risk sum,passed
+calculation,Overall BSR risk equals species risk sum,passed
+calculation,Overall BSR risk equals limiting factor risk sum,passed
 calculation,BSR summary coverage,passed
 calculation,One summary row per BSR,passed
 calculation,Complete action-component coverage,passed
 calculation,Complete BSR/action coverage,passed
 calculation,Unique BSR/action keys,passed
-calculation,condition_improvement_component equation,passed
-calculation,amelioration_component equation,passed
-calculation,benefit_component equation,passed
-calculation,Action scores equal component sums,passed
-calculation,Overall alignment equals the sum across actions,passed
+calculation,Action benefit component equals factor risk × action weight,passed
+calculation,Action benefit equals weighted factor risk sum,passed
+calculation,Overall benefit equals the sum across actions,passed
 calculation,Overall action total equals factor risk × summed action weight,passed
 calculation,life stage: finite output scores,passed
 calculation,species: finite output scores,passed
