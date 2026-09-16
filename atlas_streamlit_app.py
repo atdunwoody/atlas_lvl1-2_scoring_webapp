@@ -1514,21 +1514,27 @@ def add_bsr_labels(
     }
     # Slightly larger white glyphs behind the dark glyphs outline the text
     # without covering the score colors with circular label backgrounds.
+    # White pseudo-halo
     figure.add_trace(
         scatter_class(
             **common,
             mode="text",
-            textfont={"family": "Open Sans Bold", "size": 14, "color": "#ffffff"},
+            textfont={
+                "family": "Open Sans",
+                "size": 12.7,
+                "color": "#ffffff",
+            },
             name="BSR label halo",
         )
     )
+
+    # Foreground label
     figure.add_trace(
         scatter_class(
             **common,
-            mode="markers+text",
-            marker={"size": 26, "color": "#ffffff", "opacity": 0.001},
+            mode="text",
             textfont={
-                "family": "Open Sans Bold",
+                "family": "Open Sans",
                 "size": 12,
                 "color": "#263238",
             },
