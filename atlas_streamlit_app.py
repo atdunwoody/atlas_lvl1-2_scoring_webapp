@@ -1552,7 +1552,7 @@ def add_bsr_labels(
         scatter_class(
             **common,
             mode="text",
-            textfont={"family": "Open Sans Bold", "size": 14, "color": "#4b5563"},
+            textfont={"family": "Open Sans Bold", "size": 14, "color": "#414141"},
             name="BSR label halo",
         )
     )
@@ -1561,7 +1561,7 @@ def add_bsr_labels(
             **common,
             mode="markers+text",
             marker={"size": 26, "color": "#ffffff", "opacity": 0.001},
-            textfont={"family": "Open Sans Bold", "size": 12, "color": "#f2f1ed"},
+            textfont={"family": "Open Sans Bold", "size": 12, "color": "#414141"},
             name="BSR labels",
         )
     )
