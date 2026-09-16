@@ -5,8 +5,9 @@ Atlas_Integrated_Scoring.ipynb, including the scored BSR GeoPackage. The BSR
 feature layer is detected from the score_bsr field written by the notebook.
 Fish-use views distinguish the BSR-level fish_use_score, species-level
 species_aggregate_score, and life-stage LS_corrected_score fields. Level 2
-views use action_benefit_score for individual actions and
-overall_benefit_score for the BSR-wide sum across actions.
+views use action_benefit_score for individual actions. Displayed risk ceilings
+hold life-stage fish use and population priority fixed and set vulnerability
+and condition to 1. The action-specific benefit ceiling is 15.
 """
 
 from __future__ import annotations
@@ -33,12 +34,10 @@ BSR_GPKG_PATH = SCORE_DIR / "bsr_scores.gpkg"
 BSR_ID_FIELD_CANDIDATES = ("score_bsr", "BSR", "bsr")
 MAP_STYLE = "carto-positron"
 MAP_FILL_OPACITY = 0.78
-MAP_SELECTED_OPACITY = 0.95
-MAP_UNSELECTED_OPACITY = 0.6
 MAP_BOUNDARY_COLOR = "#334155"
 MAP_BOUNDARY_WIDTH = 0.4
-MAP_SELECTED_OUTLINE_COLOR = "rgba(107, 114, 128, 0.85)"
-MAP_SELECTED_OUTLINE_WIDTH = 2.4
+MAP_SELECTED_OUTLINE_COLOR = "#f3b63f"
+MAP_SELECTED_OUTLINE_WIDTH = 3.0
 EXCLUDED_BSR_FILL_COLOR = "#f1efeb"
 EXCLUDED_BSR_HATCH_COLOR = "#54616b"
 EXCLUDED_BSR_HATCH_WIDTH = 1.5
@@ -55,7 +54,36 @@ CORE_SCORE_FILES = {
 SUPPORTING_SCORE_FILES: dict[str, str] = {}
 
 SCORE_FILES = {**CORE_SCORE_FILES, **SUPPORTING_SCORE_FILES}
-SCORE_SCHEMA_VERSION = "2026-08-12-notebook-174505-v5"
+SCORE_SCHEMA_VERSION = "2026-09-16-observed-species-and-action-scales-v10"
+
+# The contextual species_aggregate_score has a maximum possible value of 6.
+SPECIES_FISH_USE_MAXIMUM = 6.0
+ACTION_BENEFIT_MAXIMUM = 15.0
+MAXIMUM_SUFFIX = "__maximum"
+OBSERVED_MAXIMUM_SUFFIX = "__observed_maximum"
+UNIT_SCORE_FIELDS = {
+    "fish_use_score", "LS_corrected_score", "condition_score",
+    "overall_limiting_factor_score", "population_priority",
+    "vulnerability_score",
+}
+OVERALL_FISH_USE_HELP = (
+    "Overall Fish Use Score ranges from 0 to 1 and is shown for context. "
+    "It is not a direct multiplier in the risk equations."
+)
+OVERALL_RISK_MAXIMUM_HELP = (
+    "The displayed upper bound is the highest observed Overall Risk Score "
+    "among BSRs included in the analysis."
+)
+SPECIES_RISK_MAXIMUM_HELP = (
+    "The displayed upper bound is the highest observed risk score for the "
+    "selected species among BSRs included in the analysis."
+)
+ACTION_BENEFIT_MAXIMUM_HELP = (
+    "The theoretical maximum is 15 for every BSR and action. Set the "
+    "limiting-factor risk score and action weight to 1 for each of the 15 "
+    "limiting factors, then sum their benefit components. Map colors span "
+    "0 to the highest observed score for the selected action."
+)
 
 REQUIRED_COLUMNS = {
     "bsr": {
@@ -216,8 +244,8 @@ LIMITING_FACTOR_SELECTION_HELP = (
 )
 ACTION_MAP_HELP = (
     "**Action-Specific Benefit Score:** applies Action Weight to "
-    "Limiting-Factor Risk. Overall Benefit Score sums these scores across all "
-    "actions in a BSR.\n\n"
+    "Limiting-Factor Risk and sums the components for the selected action. "
+    "Both scores and action-specific tiers update when Action type changes.\n\n"
     "These scores indicate relative alignment, not expected project "
     "effectiveness, feasibility, or cost."
 )
@@ -229,6 +257,8 @@ DISPLAY_LABELS = {
     "species_aggregate_score": "Species Fish Use Score",
     "LS_corrected_score": "Life-Stage Fish Use Score",
     "overall_risk_score": "Overall Risk Score",
+    "species_risk_score": "Species Risk Score",
+    "overall_limiting_factor_score": "Overall Limiting-Factor Condition Score",
     "preliminary_tier": "Preliminary Tiers",
     "preliminary_tier_basis": "Tier Assignment Basis",
     "highest_risk_species_life_stage": "Highest Priority Life Stage",
@@ -294,7 +324,7 @@ def configure_page() -> None:
     """Set page-level options and light visual styling."""
     st.set_page_config(
         page_title="Atlas Integrated Scoring",
-        page_icon="🗺️",
+        page_icon="ðŸ—ºï¸",
         layout="wide",
         initial_sidebar_state="expanded",
     )
@@ -334,13 +364,32 @@ def configure_page() -> None:
     )
 
 
-METHODOLOGY_MARKDOWN = '# How risk scores are calculated\n\nEach BSR is evaluated for every species, life stage, and limiting factor combination. Higher input values increase the calculated risk score.\n\n## Inputs\n\n### Fish-use inputs\n\n- **Life-Stage Fish Use Score** is specific to the BSR, species, and life stage. It is the fish-use multiplier used in the risk calculations.\n- The Life-Stage Fish Use Score is the **Corrected\\_{life stage}** score in the `Normalized Score Calculator` tab and the `LS_corrected_score` field in the fish-use input table.\n- Life-Stage Fish Use Scores are normalized from 0 to 1.\n- **Species Fish Use Score** is the species-specific score listed in the `Fish Use Scores - Normalized` tab and the `species_aggregate_score` field. It is reported for context but is not a direct multiplier in the risk equations.\n- **Overall Fish Use Score** is the BSR-level 0-to-1 score in the `fish_use_score_decimal` field. It is reported for context but is not a direct multiplier in the risk equations.\n\n### Vulnerability inputs\n\n- **Vulnerability Rank** is specific to the species, life stage, and limiting factor. Rank 1 represents the limiting factor with the most likely impact on a given species and life stage, and rank 15 represents the lowest impact.\n- The vulnerability score used in the calculations maps these 1-to-15 rankings on a scale from 0.01 (lowest species/life stage impact) to 1.0 (highest species/life stage imapct)\n- For the combined Migration life stage, the calculation uses the higher of the adult and juvenile vulnerability scores for each species and limiting factor.\n\n### Limiting-factor inputs\n\n- **Limiting-Factor Condition** is specific to the BSR and limiting factor. The current input table does not contain a life-stage-specific condition field.\n- The limiting-factor condition score used in the calculations maps the source 1-to-5 rating to 0.01 to 1.0\n- The provided `lf_condition_score` field uses a previous 0.10-to-1.0 transformation. It is retained for reference, but the calculations use the score recalculated from `lf_condition_score_raw_1_5` using the equation above.\n- Within a BSR, the same condition score for a limiting factor is applied to every species and life-stage pathway.\n\n### Population-priority inputs\n\n- **Population Priority** is specific to the basin, species, and life stage.\n- The population priorities for each species sum to 100%.\n\n## Level 1 risk calculations\n\n### Risk score components\n\nRisk score components vary as follows:\n\n- Life-stage fish use is specific to BSR, species, and life stage. \n- Population priority is specific to basin, species, and life stage.\n- Vulnerability is specific to the species, life stage, and limiting factor. \n- Limiting-factor condition is specific to BSR.\n\nRisk can be aggregated in two equivalent ways:\n\n1. Across the 15 limiting factors for each species and life stage.\n2. Across all species and life stages for each limiting factor.\n\nBoth approaches produce the same Overall Risk Score within a BSR, although the intermediate scores describe different components of the overall score.\n\n### Species and life-stage risk scores\n\nFor a given BSR, species, and life stage, the Life-Stage Fish Use Score and Population Priority are constant across the 15 limiting factors and can be placed in front of the sum:\n\n$$\n\\begin{aligned}\n\\text{life-stage risk score}\n={}&\n\\text{life-stage fish use}\n\\times\n\\text{population priority} \\\\\n&\\times\n\\sum_{\\substack{\\text{15 limiting}\\\\\\text{factors}}}\n\\Bigl(\n\\text{limiting-factor condition}\n\\times\n\\text{vulnerability}\n\\Bigr)\n\\end{aligned}\n$$\n\nThe risk score for the highest-priority life stage is:\n\n$$\n\\begin{aligned}\n\\text{risk score for highest priority life stage}\n={}&\n\\max_{\\substack{\\text{all species and}\\\\\\text{life stages}}}\n\\left(\n\\text{life-stage risk score}\n\\right)\n\\end{aligned}\n$$\n\nThe **Highest Priority Life Stage** is the species and life-stage combination with the largest Life-Stage Risk Score within the BSR.\n\n### Limiting-factor risk scores\n\nLimiting-factor risk scores describe how much risk a given limiting factor is creating for the collection of fish use (all species and life stages) within a BSR. For a given BSR and limiting factor, the Limiting-Factor Condition is constant across species and life stages and can be placed in front of the sum:\n\n$$\n\\begin{aligned}\n\\text{limiting-factor risk score}\n={}&\n\\text{limiting-factor condition} \\\\\n&\\times\n\\sum_{\\substack{\\text{all species and}\\\\\\text{life stages}}}\n\\Bigl(\n\\text{life-stage fish use}\n\\times\n\\text{vulnerability}\n\\times\n\\text{population priority}\n\\Bigr)\n\\end{aligned}\n$$\n\nWithin this sum, life-stage fish use and population priority are specific to the applicable BSR, species, and life stage. Vulnerability is specific to the species, life stage, and limiting factor. Limiting-factor condition is the single condition score for the BSR and limiting factor.\n\nThe risk score for the highest-priority limiting factor is:\n\n$$\n\\begin{aligned}\n\\text{risk score for highest priority limiting factor}\n={}&\n\\max_{\\text{15 limiting factors}}\n\\left(\n\\text{limiting-factor risk score}\n\\right)\n\\end{aligned}\n$$\n\nThe **Highest Priority Limiting Factor** is the limiting factor with the largest Limiting-Factor Risk Score within the BSR.\n\n### Overall BSR risk score\n\nThe Overall Risk Score can be calculated equivalently by summing either all Life-Stage Risk Scores or all 15 Limiting-Factor Risk Scores:\n\n$$\n\\begin{aligned}\n\\text{Overall Risk Score}\n&=\n\\sum_{\\substack{\\text{all species and}\\\\\\text{life stages}}}\n\\left(\n\\text{life-stage risk score}\n\\right) \\\\\n&=\n\\sum_{\\text{15 limiting factors}}\n\\left(\n\\text{limiting-factor risk score}\n\\right)\n\\end{aligned}\n$$\n\n## Level 2 action calculations\n\nThe action weight is calculated from relationship directness and frequency:\n\n$$\n\\text{action weight}\n=\n\\text{relationship directness}\n\\times\n\\text{frequency}\n$$\n\nFor each limiting factor and action:\n\n$$\n\\text{action-specific benefit component}\n=\n\\text{limiting-factor risk score}\n\\times\n\\text{action weight}\n$$\n\nFor each action, the action-specific benefit components are summed across the 15 limiting factors:\n\n$$\n\\begin{aligned}\n\\text{action-specific benefit score}\n={}&\n\\sum_{\\substack{\\text{15 limiting}\\\\\\text{factors}}}\n\\left(\n\\text{limiting-factor risk score}\n\\times\n\\text{action weight}\n\\right)\n\\end{aligned}\n$$\n\nThe Overall Benefit Score is the sum of the Action-Specific Benefit Scores across all actions:\n\n$$\n\\begin{aligned}\n\\text{overall benefit score}\n={}&\n\\sum_{\\text{all actions}}\n\\left(\n\\text{action-specific benefit score}\n\\right)\n\\end{aligned}\n$$\n\nThe **Highest Risk-Aligned Action Type** is the action type with the largest Action-Specific Benefit Score within the BSR.'
+METHODOLOGY_MARKDOWN = '# How risk scores are calculated\n\nEach BSR is evaluated for every species, life stage, and limiting factor combination. Higher input values increase the calculated risk score.\n\n## Inputs\n\n### Fish-use inputs\n\n- **Life-Stage Fish Use Score** is specific to the BSR, species, and life stage. It is the fish-use multiplier used in the risk calculations.\n- The Life-Stage Fish Use Score is the **Corrected\\_{life stage}** score in the `Normalized Score Calculator` tab and the `LS_corrected_score` field in the fish-use input table.\n- Life-Stage Fish Use Scores are normalized from 0 to 1.\n- **Scores reported for context**\n  - **Species Fish Use Score** is the species-specific score listed in the `Fish Use Scores - Normalized` tab and the `species_aggregate_score` field. Its maximum possible value is 6. It is not a direct multiplier in the risk equations.\n  - **Overall Fish Use Score** is the BSR-level 0-to-1 score in the `fish_use_score_decimal` field. It is not a direct multiplier in the risk equations.\n\n### Vulnerability inputs\n\n- **Vulnerability Rank** is specific to the species, life stage, and limiting factor. Rank 1 represents the limiting factor with the most likely impact on a given species and life stage, and rank 15 represents the lowest impact.\n- The vulnerability score used in the calculations maps these 1-to-15 rankings on a scale from 0.01 (lowest species/life stage impact) to 1.0 (highest species/life stage imapct)\n- For the combined Migration life stage, the calculation uses the higher of the adult and juvenile vulnerability scores for each species and limiting factor.\n\n### Limiting-factor inputs\n\n- **Limiting-Factor Condition** is specific to the BSR and limiting factor. The current input table does not contain a life-stage-specific condition field.\n- The limiting-factor condition score used in the calculations maps the source 1-to-5 rating to 0.01 to 1.0\n- The provided `lf_condition_score` field uses a previous 0.10-to-1.0 transformation. It is retained for reference, but the calculations use the score recalculated from `lf_condition_score_raw_1_5` using the equation above.\n- Within a BSR, the same condition score for a limiting factor is applied to every species and life-stage pathway.\n\n### Population-priority inputs\n\n- **Population Priority** is specific to the basin, species, and life stage.\n- The population priorities for each species sum to 100%.\n\n## Level 1 risk calculations\n\n### Risk score components\n\nRisk score components vary as follows:\n\n- Life-stage fish use is specific to BSR, species, and life stage. \n- Population priority is specific to basin, species, and life stage.\n- Vulnerability is specific to the species, life stage, and limiting factor. \n- Limiting-factor condition is specific to BSR.\n\nRisk can be aggregated in two equivalent ways:\n\n1. Across the 15 limiting factors for each species and life stage.\n2. Across all species and life stages for each limiting factor.\n\nBoth approaches produce the same Overall Risk Score within a BSR, although the intermediate scores describe different components of the overall score.\n\n### Species and life-stage risk scores\n\nFor a given BSR, species, and life stage, the Life-Stage Fish Use Score and Population Priority are constant across the 15 limiting factors and can be placed in front of the sum:\n\n$$\n\\begin{aligned}\n\\text{life-stage risk score}\n={}&\n\\text{life-stage fish use}\n\\times\n\\text{population priority} \\\\\n&\\times\n\\sum_{\\substack{\\text{15 limiting}\\\\\\text{factors}}}\n\\Bigl(\n\\text{limiting-factor condition}\n\\times\n\\text{vulnerability}\n\\Bigr)\n\\end{aligned}\n$$\n\nThe risk score for the highest-priority life stage is:\n\n$$\n\\begin{aligned}\n\\text{risk score for highest priority life stage}\n={}&\n\\max_{\\substack{\\text{all species and}\\\\\\text{life stages}}}\n\\left(\n\\text{life-stage risk score}\n\\right)\n\\end{aligned}\n$$\n\nThe **Highest Priority Life Stage** is the species and life-stage combination with the largest Life-Stage Risk Score within the BSR.\n\n### Limiting-factor risk scores\n\nLimiting-factor risk scores describe how much risk a given limiting factor is creating for the collection of fish use (all species and life stages) within a BSR. For a given BSR and limiting factor, the Limiting-Factor Condition is constant across species and life stages and can be placed in front of the sum:\n\n$$\n\\begin{aligned}\n\\text{limiting-factor risk score}\n={}&\n\\text{limiting-factor condition} \\\\\n&\\times\n\\sum_{\\substack{\\text{all species and}\\\\\\text{life stages}}}\n\\Bigl(\n\\text{life-stage fish use}\n\\times\n\\text{vulnerability}\n\\times\n\\text{population priority}\n\\Bigr)\n\\end{aligned}\n$$\n\nWithin this sum, life-stage fish use and population priority are specific to the applicable BSR, species, and life stage. Vulnerability is specific to the species, life stage, and limiting factor. Limiting-factor condition is the single condition score for the BSR and limiting factor.\n\nThe risk score for the highest-priority limiting factor is:\n\n$$\n\\begin{aligned}\n\\text{risk score for highest priority limiting factor}\n={}&\n\\max_{\\text{15 limiting factors}}\n\\left(\n\\text{limiting-factor risk score}\n\\right)\n\\end{aligned}\n$$\n\nThe **Highest Priority Limiting Factor** is the limiting factor with the largest Limiting-Factor Risk Score within the BSR.\n\n### Overall BSR risk score\n\nThe Overall Risk Score can be calculated equivalently by summing either all Life-Stage Risk Scores or all 15 Limiting-Factor Risk Scores:\n\n$$\n\\begin{aligned}\n\\text{Overall Risk Score}\n&=\n\\sum_{\\substack{\\text{all species and}\\\\\\text{life stages}}}\n\\left(\n\\text{life-stage risk score}\n\\right) \\\\\n&=\n\\sum_{\\text{15 limiting factors}}\n\\left(\n\\text{limiting-factor risk score}\n\\right)\n\\end{aligned}\n$$\n\n## Level 2 action calculations\n\nThe action weight is calculated from relationship directness and frequency:\n\n$$\n\\text{action weight}\n=\n\\text{relationship directness}\n\\times\n\\text{frequency}\n$$\n\nFor each action, the action-specific benefit components are summed across the 15 limiting factors:\n\n$$\n\\begin{aligned}\n\\text{action-specific benefit score}\n={}&\n\\sum_{\\substack{\\text{15 limiting}\\\\\\text{factors}}}\n\\left(\n\\text{limiting-factor risk score}\n\\times\n\\text{action weight}\n\\right)\n\\end{aligned}\n$$\n\nThe theoretical maximum Action-Specific Benefit Score is **15** for every BSR and action. Set both Limiting-Factor Risk Score and Action Weight to 1 for each of the 15 limiting factors, then sum the resulting 15 benefit components.\n\nThe **Highest Risk-Aligned Action Type** is the action type with the largest Action-Specific Benefit Score within the BSR.'
 
 
 def render_scoring_methodology() -> None:
     """Render the project-approved scoring explanation from Markdown."""
     with st.expander("How scores are calculated"):
         st.markdown(METHODOLOGY_MARKDOWN)
+        st.markdown("### Total possible scores")
+        st.markdown(
+            "- **Overall Risk Score:** The upper bound is the highest observed "
+            "Overall Risk Score among BSRs included in the analysis.\n"
+            "- **Species Risk Score:** The upper bound for each species is "
+            "its highest observed risk score among included BSRs.\n"
+            "- **Other risk scores:** Theoretical totals hold life-stage fish "
+            "use and population priority fixed, with vulnerability and "
+            "limiting-factor condition set to 1.\n"
+            "- **Action-Specific Benefit Score:** The theoretical maximum "
+            "is 15 for each action and BSR. The map color scale reaches "
+            "the highest observed score for the selected action.\n"
+            "- **Species Fish Use Score:** The maximum is 6. \n"
+            "**Overall and Life-Stage Fish Use Scores:** The maximum is 1.\n"
+            "- **Overall Limiting-Factor Condition Score:** The unweighted "
+            "mean of limiting-factor condition scores is out of 1. This is "
+            "a display summary; risk calculations use the individual "
+            "limiting-factor conditions."
+        )
 
 def require_columns(table_name: str, table: pd.DataFrame) -> None:
     """Raise a readable error when an expected notebook output field is absent."""
@@ -534,7 +583,238 @@ def load_score_tables(
                 "limiting-factor aggregation paths."
             )
 
-    return tables
+    return add_score_maxima(tables)
+
+
+def maximum_column(field: str) -> str:
+    """Name a display-only ceiling field without changing any source score."""
+    return field + MAXIMUM_SUFFIX
+
+
+def observed_maximum_column(field: str) -> str:
+    """Name a display-only maximum from BSRs included in the analysis."""
+    return field + OBSERVED_MAXIMUM_SUFFIX
+
+
+def observed_included_maximum(table: pd.DataFrame, field: str) -> float:
+    """Find the highest observed score among BSRs included in analysis."""
+    included = pd.to_numeric(
+        table.loc[
+            ~table["bsr"].map(normalized_bsr_id).isin(EXCLUDED_TIER_BSRS),
+            field,
+        ],
+        errors="coerce",
+    )
+    if included.empty or included.isna().any() or not np.isfinite(included).all():
+        label = DISPLAY_LABELS.get(field, field)
+        raise ValueError(f"Included BSRs must have finite {label} values.")
+    return float(included.max())
+
+
+def add_observed_risk_maximum(bsr: pd.DataFrame) -> pd.DataFrame:
+    """Attach the largest observed risk among BSRs included in analysis."""
+    result = bsr.copy()
+    result[observed_maximum_column("overall_risk_score")] = (
+        observed_included_maximum(bsr, "overall_risk_score")
+    )
+    return result
+
+
+def score_columns(table: pd.DataFrame, fields: list[str]) -> list[str]:
+    """Keep display denominators when selecting map and drill-down fields."""
+    return list(dict.fromkeys([
+        *fields,
+        *[maximum_column(field) for field in fields
+          if maximum_column(field) in table.columns],
+        *[observed_maximum_column(field) for field in fields
+          if observed_maximum_column(field) in table.columns],
+    ]))
+
+
+def add_score_maxima(tables: dict[str, pd.DataFrame]) -> dict[str, pd.DataFrame]:
+    """Calculate risk ceilings and theoretical action-benefit ceilings.
+
+    These are display metadata only. Source scores and priorities (including
+    rounded priorities that sum to 0.99) are never rescaled. A grid component's
+    ceiling is LS_corrected_score * population_priority: condition and
+    vulnerability are both 1. Each action benefit component is out of 1,
+    and an action's 15 components have a theoretical total of 15.
+    """
+    result = {name: frame.copy() for name, frame in tables.items()}
+    grid = result["grid"]
+    grid_keys = ["bsr", "species", "life_stage", "limiting_factor"]
+    if grid.duplicated(grid_keys).any():
+        raise ValueError("The calculation grid contains duplicate scoring pathways.")
+    for field in ("population_priority", "vulnerability_score",
+                  "LS_corrected_score", "condition_score"):
+        grid[field] = pd.to_numeric(grid[field], errors="coerce")
+        if (grid[field].isna().any() or not np.isfinite(grid[field]).all()
+                or grid[field].lt(0).any() or grid[field].gt(1 + 1e-9).any()):
+            raise ValueError(f"{field} must contain finite 0-to-1 values.")
+    grid[maximum_column("risk_component")] = (
+        grid["LS_corrected_score"] * grid["population_priority"]
+    )
+
+    def attach(target: str, source: pd.DataFrame, keys: list[str],
+               source_field: str, target_field: str) -> None:
+        ceilings = source.groupby(keys, as_index=False)[
+            maximum_column(source_field)
+        ].sum().rename(columns={
+            maximum_column(source_field): maximum_column(target_field)
+        })
+        result[target] = result[target].merge(
+            ceilings, on=keys, how="left", validate="one_to_one"
+        )
+        if result[target][maximum_column(target_field)].isna().any():
+            raise ValueError(f"Missing score ceilings for {target}.")
+
+    attach("life_stage", grid, ["bsr", "species", "life_stage"],
+           "risk_component", "risk_score")
+    attach("limiting_factor", grid, ["bsr", "limiting_factor"],
+           "risk_component", "risk_score")
+    attach("bsr", grid, ["bsr"], "risk_component", "overall_risk_score")
+
+    components = result["action_components"].copy()
+    weights = pd.to_numeric(components["lfat_score"], errors="coerce")
+    if (weights.isna().any() or not np.isfinite(weights).all() or weights.lt(0).any()):
+        raise ValueError("Action weights must contain finite, nonnegative values.")
+    if components.duplicated(["bsr", "action_id", "limiting_factor"]).any():
+        raise ValueError("The action components contain duplicate scoring pathways.")
+    components[maximum_column("benefit_component")] = 1.0
+    result["action_components"] = components
+    result["action"][maximum_column("action_benefit_score")] = (
+        ACTION_BENEFIT_MAXIMUM
+    )
+    attach("bsr", result["action"], ["bsr"],
+           "action_benefit_score", "overall_benefit_score")
+    result["bsr"][maximum_column("highest_action_benefit_score")] = (
+        ACTION_BENEFIT_MAXIMUM
+    )
+
+    result["bsr"] = add_observed_risk_maximum(result["bsr"])
+
+    for table in result.values():
+        for field in UNIT_SCORE_FIELDS.intersection(table.columns):
+            table[maximum_column(field)] = 1.0
+        if "species_aggregate_score" in table:
+            table[maximum_column("species_aggregate_score")] = SPECIES_FISH_USE_MAXIMUM
+        for field in list(table.columns):
+            ceiling = maximum_column(field)
+            if ceiling not in table:
+                continue
+            observed = pd.to_numeric(table[field], errors="coerce")
+            if (observed > table[ceiling] + 1e-8).any():
+                raise ValueError(f"{field} exceeds its calculated total possible score.")
+    return result
+
+
+def summarize_species_risk(life_stage: pd.DataFrame) -> pd.DataFrame:
+    """Sum life-stage risk and attach each species' observed map upper bound."""
+    summary = life_stage.groupby(["bsr", "basin", "species"], as_index=False).agg(
+        species_risk_score=("risk_score", "sum"),
+        **{maximum_column("species_risk_score"):
+           (maximum_column("risk_score"), "sum")},
+    )
+    included = summary.loc[
+        ~summary["bsr"].map(normalized_bsr_id).isin(EXCLUDED_TIER_BSRS)
+    ].copy()
+    included["species_risk_score"] = pd.to_numeric(
+        included["species_risk_score"], errors="coerce"
+    )
+    if (included.empty or included["species_risk_score"].isna().any()
+            or not np.isfinite(included["species_risk_score"]).all()):
+        raise ValueError("Included BSRs must have finite Species Risk Scores.")
+    observed = included.groupby("species")["species_risk_score"].max()
+    summary[observed_maximum_column("species_risk_score")] = (
+        summary["species"].map(observed)
+    )
+    if summary[observed_maximum_column("species_risk_score")].isna().any():
+        raise ValueError("Every species needs an included BSR to set its map upper bound.")
+    return summary
+
+
+def summarize_overall_limiting_factors(limiting: pd.DataFrame) -> pd.DataFrame:
+    """Summarize all factor conditions equally; do not recompute risk scores."""
+    if limiting.duplicated(["bsr", "limiting_factor"]).any():
+        raise ValueError("Duplicate limiting factors prevent an overall condition mean.")
+    if limiting["condition_score"].isna().any():
+        raise ValueError("Missing limiting-factor conditions prevent an overall mean.")
+    summary = limiting.groupby(["bsr", "basin"], as_index=False).agg(
+        overall_limiting_factor_score=("condition_score", "mean"),
+        limiting_factor_count=("limiting_factor", "nunique"),
+        overall_risk_score=("risk_score", "sum"),
+        **{maximum_column("overall_risk_score"):
+           (maximum_column("risk_score"), "sum")},
+    )
+    if not summary["limiting_factor_count"].eq(limiting["limiting_factor"].nunique()).all():
+        raise ValueError("BSRs do not contain the same complete set of limiting factors.")
+    summary[maximum_column("overall_limiting_factor_score")] = 1.0
+    return add_observed_risk_maximum(summary)
+
+
+def is_score_field(field: str) -> bool:
+    """Identify scores, excluding ranks, counts, and hidden ceiling metadata."""
+    if field == "lfat_score":
+        # This is a fixed source coefficient, displayed as Action Weight.
+        # Its scale is not defined in the summary exports.
+        return False
+    return (
+        field in UNIT_SCORE_FIELDS
+        or field.endswith(("_score", "_risk", "_component", " Fish Use Score"))
+    ) and not field.endswith(MAXIMUM_SUFFIX)
+
+
+def score_maximum(row: pd.Series, field: str) -> Any:
+    """Read a score's displayed denominator, with known scale fallbacks."""
+    if field == "species_aggregate_score" or field.endswith(" Species Fish Use Score"):
+        return SPECIES_FISH_USE_MAXIMUM
+    if field in {"action_benefit_score", "highest_action_benefit_score"} or re.fullmatch(
+        r"action_rank_\d+_score", field
+    ):
+        return ACTION_BENEFIT_MAXIMUM
+    if field in {"benefit_component", "highest_benefit_component_score"}:
+        return 1.0
+    if field in {"overall_risk_score", "species_risk_score"} and observed_maximum_column(field) in row:
+        return row[observed_maximum_column(field)]
+    if maximum_column(field) in row:
+        return row[maximum_column(field)]
+    if field in UNIT_SCORE_FIELDS or field.endswith(" Life-Stage Fish Use Score"):
+        return 1.0
+    return None
+
+
+def format_score_value(row: pd.Series, field: str) -> str:
+    """Format a score and its observed or calculated display denominator."""
+    value = row[field]
+    if pd.isna(value):
+        return "Not available"
+    if not pd.api.types.is_number(value):
+        return str(value)
+    if is_rank_field(field) or field.endswith("_count"):
+        return f"{float(value):,.0f}"
+    if not is_score_field(field):
+        return format_score(value)
+    ceiling = score_maximum(row, field)
+    if ceiling is None or pd.isna(ceiling):
+        return f"{format_score(value)} (maximum not supplied)"
+    if isinstance(ceiling, str):
+        return f"{format_score(value)} ({ceiling})"
+    return f"{format_score(value)} / {format_score(ceiling)}"
+
+
+def score_axis_label(table: pd.DataFrame, field: str, label: str) -> str:
+    """State a common denominator or direct readers to row-specific totals."""
+    if not is_score_field(field):
+        return label
+    maxima = table.apply(lambda row: score_maximum(row, field), axis=1).dropna()
+    if maxima.empty:
+        return f"{label}<br>(maximum not supplied)"
+    numeric = pd.to_numeric(maxima, errors="coerce")
+    if numeric.notna().all() and np.allclose(numeric, numeric.iloc[0]):
+        if field in {"overall_risk_score", "species_risk_score"} and observed_maximum_column(field) in table:
+            return f"{label}<br>(maximum observed: {format_score(numeric.iloc[0])})"
+        return f"{label}<br>(out of {format_score(numeric.iloc[0])})"
+    return f"{label}<br>(total possible varies; see hover)"
 
 
 @st.cache_data(show_spinner=False)
@@ -649,6 +929,8 @@ def format_score(value: Any, digits: int = 2) -> str:
     """Format numeric KPI values without implying unnecessary precision."""
     if pd.isna(value):
         return "Not available"
+    if 0 < abs(float(value)) < 0.005:
+        return f"{float(value):.3g}"
     return f"{float(value):,.{digits}f}"
 
 
@@ -662,12 +944,23 @@ def round_float_columns(table: pd.DataFrame) -> pd.DataFrame:
 
 def is_rank_field(column: str) -> bool:
     """Return whether a field name represents an ordinal rank."""
-    return re.search(r"(^|_)rank($|_)", column.casefold()) is not None
+    return (not column.endswith("_score")
+            and re.search(r"(^|_)rank($|_)", column.casefold()) is not None)
 
 
 def normalized_bsr_id(value: Any) -> str:
     """Normalize a BSR identifier for tier exclusions and tie-breaking."""
     return re.sub(r"[^A-Z0-9]+", "", str(value).upper())
+
+
+def short_bsr_label(value: Any) -> str:
+    """Use U# and C# on maps while preserving canonical IDs for joins/clicks."""
+    identifier = normalized_bsr_id(value)
+    match = re.fullmatch(r"(UGR|CC|U|C)0*(\d+)", identifier)
+    if match:
+        prefix = "U" if match.group(1) in {"UGR", "U"} else "C"
+        return f"{prefix}{int(match.group(2))}"
+    return str(value)
 
 
 def tier_group_sizes(record_count: int) -> tuple[int, int, int]:
@@ -778,7 +1071,7 @@ def summarize_ranked_categories(
     ranks: int = 3,
 ) -> pd.DataFrame:
     """Summarize dense-ranked categories and tied labels for each BSR."""
-    ranked = table[["bsr", category_column, score_column]].copy()
+    ranked = table[score_columns(table, ["bsr", category_column, score_column])].copy()
     ranked[score_column] = pd.to_numeric(
         ranked[score_column], errors="coerce"
     )
@@ -817,6 +1110,22 @@ def summarize_ranked_categories(
             how="left",
             validate="one_to_one",
         )
+        ceiling_field = maximum_column(score_column)
+        if ceiling_field in ranked:
+            ceiling_rows = []
+            for bsr, group in ranked.loc[ranked["_dense_rank"].eq(rank)].groupby("bsr"):
+                if np.allclose(group[ceiling_field], group[ceiling_field].iloc[0]):
+                    ceiling = group[ceiling_field].iloc[0]
+                else:
+                    ceiling = "totals by tied category: " + "; ".join(
+                        f"{row[category_column]}: {format_score(row[ceiling_field])}"
+                        for _, row in group.sort_values(category_column).iterrows()
+                    )
+                ceiling_rows.append({"bsr": bsr, maximum_column(value_column): ceiling})
+            detail_maxima = pd.DataFrame(
+                ceiling_rows, columns=["bsr", maximum_column(value_column)]
+            )
+            summary = summary.merge(detail_maxima, on="bsr", how="left", validate="one_to_one")
     return summary
 
 
@@ -842,7 +1151,7 @@ def render_shared_legend(
         for value in values
     )
     st.markdown(
-        f'<div style="font-size:0.82rem;line-height:1.2;margin-bottom:0.4rem;">'
+        f'<div style="font-size:0.82rem;line-height:1.4;margin-bottom:0.4rem;">'
         f'<strong>{escape(title)}</strong><br>{items}</div>',
         unsafe_allow_html=True,
     )
@@ -875,7 +1184,7 @@ def summarize_priority_life_stages(
         label_column = f"priority_life_stage_{position}_hover_label"
         detail = ranked.loc[
             ranked["_priority_position"].eq(position),
-            ["bsr", "species", "life_stage", "risk_score"],
+            score_columns(ranked, ["bsr", "species", "life_stage", "risk_score"]),
         ].copy()
         detail[label_column] = (
             detail["species"].astype(str)
@@ -883,9 +1192,11 @@ def summarize_priority_life_stages(
             + detail["life_stage"].astype(str)
             + " Life-Stage Risk Score"
         )
-        detail = detail.rename(columns={"risk_score": score_column})[
-            ["bsr", score_column, label_column]
-        ]
+        detail = detail.rename(columns={
+            "risk_score": score_column,
+            maximum_column("risk_score"): maximum_column(score_column),
+        })
+        detail = detail[score_columns(detail, ["bsr", score_column, label_column])]
         summary = summary.merge(
             detail,
             on="bsr",
@@ -923,15 +1234,20 @@ def show_score_table(
     column_labels: dict[str, str] | None = None,
 ) -> None:
     """Display score tables with calculation-consistent, readable labels."""
+    display_fields = [field for field in table if not field.endswith(MAXIMUM_SUFFIX)]
     labels = {
         column: DISPLAY_LABELS.get(
             column,
             column.replace("_", " ").title(),
         )
-        for column in table.columns
+        for column in display_fields
     }
     labels.update(column_labels or {})
-    rounded = round_float_columns(table).rename(columns=labels)
+    rounded = round_float_columns(table)[display_fields]
+    for field in display_fields:
+        if is_score_field(field):
+            rounded[field] = table.apply(lambda row: format_score_value(row, field), axis=1)
+    rounded = rounded.rename(columns=labels)
     float_columns = rounded.select_dtypes(include=["floating"]).columns
     column_config = {
         column: st.column_config.NumberColumn(format="%.2f")
@@ -945,32 +1261,45 @@ def show_score_table(
     )
 
 
-def map_center_zoom(geometry: gpd.GeoDataFrame) -> tuple[dict[str, float], float]:
-    """Center the map and frame the BSR extent relatively tightly."""
-    min_x, min_y, max_x, max_y = geometry.total_bounds
-    center = {"lon": float((min_x + max_x) / 2), "lat": float((min_y + max_y) / 2)}
-    span = max(float(max_x - min_x), float(max_y - min_y))
-    if span <= 0.10:
-        zoom = 10.0
-    elif span <= 0.25:
-        zoom = 9.0
-    elif span <= 0.50:
-        zoom = 8.0
-    elif span <= 1.00:
-        zoom = 7.0
-    elif span <= 2.00:
-        zoom = 6.0
-    elif span <= 5.00:
-        zoom = 5.0
-    else:
-        zoom = 4.0
-    return center, min(zoom + 2.0, 12.0)
+def map_center_zoom(
+    geometry: gpd.GeoDataFrame,
+    height: int,
+    *,
+    bottom_margin: int,
+    right_margin: int,
+    padding_fraction: float = 0.06,
+) -> tuple[dict[str, float], float]:
+    """Frame the complete BSR extent in Web Mercator with a small margin.
+
+    Plotly's fitbounds does not fit choroplethmap polygons, so calculate a zoom
+    for the usable map height and a conservative 700 px chart width. Streamlit
+    charts can expand beyond that width on a desktop without clipping.
+    """
+    west, south, east, north = map(float, geometry.total_bounds)
+    south, north = np.clip([south, north], -85.0, 85.0)
+    y_south, y_north = (1 - np.arcsinh(np.tan(np.radians([south, north]))) / np.pi) / 2
+    y_mid = (y_south + y_north) / 2
+    center = {
+        "lon": (west + east) / 2,
+        "lat": float(np.degrees(np.arctan(np.sinh(np.pi * (1 - 2 * y_mid))))),
+    }
+    x_span = max((east - west) / 360, 1e-9)
+    y_span = max(y_south - y_north, 1e-9)
+    map_width = 700 - 15 - right_margin
+    map_height = height - 55 - bottom_margin
+    padded = 1 + 2 * padding_fraction
+    zoom = min(
+        np.log2(map_width / (512 * x_span * padded)),
+        np.log2(map_height / (512 * y_span * padded)),
+        12.0,
+    )
+    return center, float(zoom)
 
 
 def selected_point_bsr(point: dict[str, Any]) -> str | None:
     """Extract a BSR identifier from a Plotly selection point."""
     custom = point.get("customdata")
-    if isinstance(custom, (list, tuple)) and custom:
+    if isinstance(custom, (list, tuple, np.ndarray)) and len(custom):
         return str(custom[0])
     if custom is not None:
         return str(custom)
@@ -989,10 +1318,13 @@ def capture_map_selection(chart_key: str) -> None:
         points = event.get("selection", {}).get("points", [])
     if not points:
         return
-    clicked_bsr = selected_point_bsr(points[-1])
     available = set(st.session_state.get("available_bsrs", []))
-    if clicked_bsr in available:
-        st.session_state["selected_bsr"] = clicked_bsr
+    candidates = [selected_point_bsr(point) for point in points]
+    candidates = [value for value in candidates if value in available]
+    current = st.session_state.get("selected_bsr")
+    changed = [value for value in candidates if value != current]
+    if candidates:
+        st.session_state["selected_bsr"] = (changed or candidates)[-1]
 
 
 def apply_bsr_selection_style(
@@ -1000,7 +1332,7 @@ def apply_bsr_selection_style(
     selected_bsr: str | None,
     chart_key: str,
 ) -> None:
-    """Select the sidebar BSR on the map without obscuring other polygons."""
+    """Sync clicks with the sidebar while leaving every polygon fill intact."""
     selected_value = None if selected_bsr is None else str(selected_bsr)
     trace_locations: list[tuple[Any, list[str]]] = []
 
@@ -1026,14 +1358,17 @@ def apply_bsr_selection_style(
         )
         trace.update(
             selectedpoints=selected_indices,
-            selected={"marker": {"opacity": MAP_SELECTED_OPACITY}},
-            unselected={"marker": {"opacity": MAP_UNSELECTED_OPACITY}},
+            selected={"marker": {"opacity": MAP_FILL_OPACITY}},
+            unselected={"marker": {"opacity": MAP_FILL_OPACITY}},
         )
 
     # Changing this value tells Plotly to accept the dropdown-controlled
     # selection instead of retaining a previous map click.
     figure.update_layout(
-        selectionrevision=f"{chart_key}:{selected_value or 'none'}"
+        selectionrevision=f"{chart_key}:{selected_value or 'none'}",
+        clickmode="event+select",
+        dragmode="pan",
+        uirevision=chart_key,
     )
 
 
@@ -1098,8 +1433,6 @@ def add_excluded_bsr_hatching(
     figure: Any,
     mapped: gpd.GeoDataFrame,
     plot_data: pd.DataFrame,
-    *,
-    show_legend: bool,
 ) -> None:
     """Cover excluded BSRs with a neutral fill and diagonal hatching."""
     if mapped.empty or not figure.data:
@@ -1145,7 +1478,7 @@ def add_excluded_bsr_hatching(
             },
             "opacity": 1,
         },
-        "name": "Not included in analysis: UGR 8",
+        "name": "Not included in analysis: UGR8 (U8)",
     }
     trace_type = getattr(figure.data[0], "type", "")
     if trace_type == "choroplethmap":
@@ -1209,10 +1542,40 @@ def add_excluded_bsr_hatching(
                 "width": EXCLUDED_BSR_HATCH_WIDTH,
             },
             hoverinfo="skip",
-            showlegend=show_legend,
-            legendgroup="excluded_bsr",
-            name="Not included in analysis: UGR 8",
+            showlegend=False,
+            name="Not included in analysis: UGR8 (U8)",
         )
+    )
+
+
+def add_excluded_bsr_key(figure: Any) -> None:
+    """Place a hatched swatch in the right map margin, clear of color keys."""
+    # Half the previous width and height gives the swatch one-quarter its area.
+    x0, x1 = 1.04, 1.06
+    y0, y1 = 0.885, 0.915
+    figure.add_shape(
+        type="rect", xref="paper", yref="paper",
+        x0=x0, x1=x1, y0=y0, y1=y1,
+        fillcolor=EXCLUDED_BSR_FILL_COLOR,
+        line={"color": MAP_BOUNDARY_COLOR, "width": 0.7},
+    )
+    # Clip each diagonal to the swatch, using the same color as the map hatch.
+    for start in np.arange(x0 - (y1 - y0), x1, 0.0085):
+        left = max(x0, start)
+        right = min(x1, start + (y1 - y0))
+        if right <= left:
+            continue
+        figure.add_shape(
+            type="line", xref="paper", yref="paper",
+            x0=left, y0=y0 + left - start,
+            x1=right, y1=y0 + right - start,
+            line={"color": EXCLUDED_BSR_HATCH_COLOR, "width": 1},
+        )
+    figure.add_annotation(
+        xref="paper", yref="paper", x=1.11, y=(y0 + y1) / 2,
+        text="Not included in analysis:<br>UGR8 (U8)",
+        xanchor="left", yanchor="middle", align="left",
+        showarrow=False, font={"size": 11, "color": "#334155"},
     )
 
 
@@ -1220,7 +1583,7 @@ def add_bsr_labels(
     figure: Any,
     mapped: gpd.GeoDataFrame,
 ) -> None:
-    """Add small bold BSR labels with a subtle white halo."""
+    """Draw off-white BSR IDs over a thin charcoal text halo."""
     if mapped.empty or not figure.data:
         return
     label_points = mapped[["bsr", "geometry"]].to_crs(epsg=3857)
@@ -1238,30 +1601,28 @@ def add_bsr_labels(
     common = {
         "lon": label_points.geometry.x,
         "lat": label_points.geometry.y,
-        "mode": "text",
-        "text": label_points["bsr"],
-        "hoverinfo": "skip",
+        "text": label_points["bsr"].map(short_bsr_label),
+        "customdata": [[str(bsr)] for bsr in label_points["bsr"]],
+        "ids": label_points["bsr"].astype(str),
+        "textposition": "middle center",
+        "hoverinfo": "none",
         "showlegend": False,
     }
+    # A one-pixel charcoal edge separates the off-white glyphs from light fills.
     figure.add_trace(
         scatter_class(
             **common,
-            textfont={
-                "family": "Arial Black, Arial, sans-serif",
-                "size": 11,
-                "color": "rgba(255, 255, 255, 0.92)",
-            },
+            mode="text",
+            textfont={"family": "Open Sans Bold", "size": 14, "color": "#414141"},
             name="BSR label halo",
         )
     )
     figure.add_trace(
         scatter_class(
             **common,
-            textfont={
-                "family": "Arial Black, Arial, sans-serif",
-                "size": 9,
-                "color": "#263238",
-            },
+            mode="markers+text",
+            marker={"size": 26, "color": "#ffffff", "opacity": 0.001},
+            textfont={"family": "Open Sans Bold", "size": 12, "color": "#414141"},
             name="BSR labels",
         )
     )
@@ -1324,6 +1685,7 @@ def render_choropleth(
         *hover_label_columns.values(),
     ]
     requested = list(dict.fromkeys(column for column in requested if column in values.columns))
+    requested = score_columns(values, requested)
     value_table = values[requested].drop_duplicates("bsr")
     map_candidates = geometry.merge(
         value_table,
@@ -1351,10 +1713,19 @@ def render_choropleth(
         geometry="geometry",
         crs=geometry.crs,
     )
+    has_excluded = displayed_geometry["bsr"].map(
+        normalized_bsr_id
+    ).isin(EXCLUDED_TIER_BSRS).any()
+    # Reserve the right margin for the hatch key and the bottom for color scales.
+    right_margin = 240 if has_excluded and show_legend else 15
+    bottom_margin = 15 if categorical else 95
+    center, zoom = map_center_zoom(
+        displayed_geometry, height,
+        bottom_margin=bottom_margin, right_margin=right_margin,
+    )
 
     geojson = json.loads(mapped[["bsr", "geometry"]].to_json())
-    plot_data = round_float_columns(pd.DataFrame(mapped.drop(columns="geometry")))
-    center, zoom = map_center_zoom(displayed_geometry)
+    plot_data = pd.DataFrame(mapped.drop(columns="geometry"))
 
     hover_fields = list(dict.fromkeys(["bsr", *hover_columns]))
     if metric not in hover_fields:
@@ -1376,17 +1747,7 @@ def render_choropleth(
         lines = []
         for column in hover_fields:
             value = row[column]
-            if pd.isna(value):
-                displayed = "Not available"
-            elif is_rank_field(column):
-                try:
-                    displayed = f"{float(value):,.0f}"
-                except (TypeError, ValueError):
-                    displayed = str(value)
-            elif pd.api.types.is_numeric_dtype(plot_data[column]):
-                displayed = f"{float(value):,.2f}"
-            else:
-                displayed = str(value)
+            displayed = format_score_value(row, column)
             label_column = hover_label_columns.get(column)
             dynamic_label = (
                 row[label_column]
@@ -1425,10 +1786,13 @@ def render_choropleth(
     }
 
     if categorical:
-        if color_discrete_map:
-            common["color_discrete_map"] = color_discrete_map
-        else:
-            common["color_discrete_sequence"] = px.colors.qualitative.Safe
+        # Plotly Express otherwise repeats the entire watershed GeoJSON in
+        # every category trace. Assign only each trace's polygons below.
+        common["geojson"] = {"type": "FeatureCollection", "features": []}
+        color_discrete_map = complete_category_color_map(
+            plot_data[color_column], color_discrete_map
+        )
+        common["color_discrete_map"] = color_discrete_map
         if category_order:
             common["category_orders"] = {color_column: category_order}
     else:
@@ -1452,23 +1816,36 @@ def render_choropleth(
             margin={"r": 0, "t": 55, "l": 0, "b": 0},
             height=height,
             legend_title_text=color_label,
-            showlegend=show_legend,
+            showlegend=False,
             coloraxis_showscale=show_legend,
         )
     else:
         figure = px.choropleth_mapbox(mapbox_style=map_style, **common)
         figure.update_layout(
+            mapbox={"bearing": 0, "pitch": 0},
             margin={"r": 0, "t": 55, "l": 0, "b": 0},
             height=height,
             legend_title_text=color_label,
-            showlegend=show_legend,
+            showlegend=False,
             coloraxis_showscale=show_legend,
         )
+
+    if categorical:
+        features_by_bsr = {
+            str(feature["properties"]["bsr"]): feature
+            for feature in geojson["features"]
+        }
+        for trace in figure.data:
+            trace.geojson = {
+                "type": "FeatureCollection",
+                "features": [features_by_bsr[str(bsr)] for bsr in trace.locations],
+            }
 
     figure.update_traces(
         marker_line_width=MAP_BOUNDARY_WIDTH,
         marker_line_color=MAP_BOUNDARY_COLOR,
         hovertemplate="%{customdata[1]}<extra></extra>",
+        showlegend=False,
     )
     apply_bsr_selection_style(
         figure,
@@ -1479,7 +1856,6 @@ def render_choropleth(
         figure,
         displayed_geometry,
         plot_data,
-        show_legend=show_legend,
     )
     add_selected_bsr_outline(
         figure,
@@ -1488,6 +1864,23 @@ def render_choropleth(
         st.session_state.get("selected_bsr"),
     )
     add_bsr_labels(figure, displayed_geometry)
+    if has_excluded and show_legend:
+        add_excluded_bsr_key(figure)
+    figure.update_layout(
+        showlegend=False,
+        margin={"r": right_margin, "t": 55, "l": 15, "b": bottom_margin},
+    )
+    if not categorical:
+        figure.update_layout(
+            coloraxis_colorbar={
+                "orientation": "h", "x": 0.5, "xanchor": "center",
+                "y": -0.04,
+                "yanchor": "top", "len": 0.8,
+                "thickness": 12,
+                "title": {"text": score_axis_label(plot_data, color_column, color_label),
+                          "side": "bottom"},
+            },
+        )
     st.plotly_chart(
         figure,
         width="stretch",
@@ -1496,6 +1889,8 @@ def render_choropleth(
         selection_mode="points",
         config={"displaylogo": False, "scrollZoom": True},
     )
+    if categorical and show_legend:
+        render_shared_legend(color_label, plot_data[color_column], color_discrete_map)
 
 
 def horizontal_bar(
@@ -1510,7 +1905,7 @@ def horizontal_bar(
     hover_label_overrides: dict[str, str] | None = None,
 ) -> None:
     """Render a consistently formatted horizontal comparison chart."""
-    ordered = round_float_columns(table).sort_values(value, ascending=True)
+    ordered = table.copy().sort_values(value, ascending=True)
     hover_columns = [
         column
         for column in (hover_columns or [])
@@ -1527,10 +1922,8 @@ def horizontal_bar(
                 if column in hover_columns:
                     continue
                 displayed = "Not available"
-            elif pd.api.types.is_numeric_dtype(ordered[column]):
-                displayed = f"{float(displayed_value):,.2f}"
             else:
-                displayed = str(displayed_value)
+                displayed = format_score_value(row, column)
             if column == category:
                 label = DISPLAY_LABELS.get(category, category.replace("_", " ").title())
             elif column == value:
@@ -1548,6 +1941,7 @@ def horizontal_bar(
         return "<br>".join(lines)
 
     ordered["_hover_text"] = ordered.apply(bar_hover_text, axis=1)
+    ordered["_score_text"] = ordered.apply(lambda row: format_score_value(row, value), axis=1)
     figure = px.bar(
         ordered,
         x=value,
@@ -1555,13 +1949,13 @@ def horizontal_bar(
         color=color,
         orientation="h",
         title=title,
-        labels={value: value_label or value, category: ""},
-        text_auto=".2f",
+        labels={value: score_axis_label(ordered, value, value_label or value), category: ""},
+        text="_score_text",
         custom_data=["_hover_text"],
     )
     figure.update_layout(
         height=max(360, 30 * len(ordered) + 110),
-        margin={"r": 10, "t": 55, "l": 10, "b": 10},
+        margin={"r": 80, "t": 55, "l": 10, "b": 65},
         legend_title_text="Species" if color == "species" else color,
     )
     figure.update_traces(
@@ -1586,7 +1980,8 @@ def render_overall_risk(
     map_style: str,
 ) -> None:
     """Render the overall risk map and its two principal drill-downs."""
-    all_bsr = add_preliminary_tiers(tables["bsr"])
+    # Reattach display metadata in case an older cached table lacks it.
+    all_bsr = add_preliminary_tiers(add_observed_risk_maximum(tables["bsr"]))
     bsr = filter_table(all_bsr, basin)
     life = filter_table(tables["life_stage"], basin)
     limiting = filter_table(tables["limiting_factor"], basin)
@@ -1597,13 +1992,16 @@ def render_overall_risk(
         "partition the selected BSR score by species and life stage and by "
         "limiting factor."
     )
-    map_selection = st.radio(
-        "Overall risk map",
+    map_selection = st.selectbox(
+        "Risk score map",
         options=[
             "Overall Risk Score",
-            "Preliminary Tiers",
+            "Overall Preliminary Tiers",
+            "Chinook Risk Score",
+            "Steelhead Risk Score",
+            "Bull Trout Risk Score",
         ],
-        horizontal=True,
+        key="risk_map_selection",
     )
     common_hover = [
         "overall_risk_score",
@@ -1611,6 +2009,7 @@ def render_overall_risk(
         "highest_risk_species_life_stage",
         "highest_risk_limiting_factor",
     ]
+    species_map = None
     if map_selection == "Overall Risk Score":
         render_choropleth(
             geometry,
@@ -1622,17 +2021,21 @@ def render_overall_risk(
             map_style,
             hover_columns=common_hover,
             color_scale=RISK_COLOR_SCALE,
+            range_color=(
+                0.0,
+                float(bsr[observed_maximum_column("overall_risk_score")].iloc[0]),
+            ),
         )
         st.caption(
             "Blue represents lower risk and dark red represents higher risk."
         )
-    else:
+    elif map_selection == "Overall Preliminary Tiers":
         render_choropleth(
             geometry,
             bsr,
             "preliminary_tier",
-            "Preliminary Tiers",
-            "Preliminary Tiers",
+            "Overall Preliminary Tiers",
+            "Overall Preliminary Tiers",
             "map_overall_risk",
             map_style,
             categorical=True,
@@ -1647,18 +2050,49 @@ def render_overall_risk(
             "Preliminary tiers assign consecutive thirds by Overall Risk "
             "Score. Tier 1 is the highest third and Tier 3 is the lowest."
         )
+    else:
+        species = map_selection.removesuffix(" Risk Score")
+        species_scores = summarize_species_risk(life)
+        species_map = species_scores.loc[species_scores["species"].eq(species)].copy()
+        species_observed_maximum = (
+            float(species_map[
+                observed_maximum_column("species_risk_score")
+            ].iloc[0])
+            if not species_map.empty else None
+        )
+        render_choropleth(
+            geometry, species_map, "species_risk_score", map_selection,
+            map_selection, "map_overall_risk", map_style,
+            hover_columns=["species"], color_scale=RISK_COLOR_SCALE,
+            range_color=(0.0, species_observed_maximum)
+            if species_observed_maximum is not None else None,
+        )
+        st.caption(f"{species} risk is the sum of its species/life-stage risk scores within each BSR.")
 
     row = bsr.loc[bsr["bsr"].eq(selected_bsr)].iloc[0]
     metric_columns = st.columns(4)
     metric_columns[0].metric("Selected BSR", selected_bsr)
     metric_columns[1].metric(
-        "Overall Risk Score", format_score(row["overall_risk_score"])
+        "Overall Risk Score", format_score_value(row, "overall_risk_score"),
+        help=OVERALL_RISK_MAXIMUM_HELP,
     )
     metric_columns[2].metric(
         "Preliminary Tier", row["preliminary_tier"]
     )
+    if species_map is None:
+        secondary_label = "Overall Fish Use Score"
+        secondary_value = format_score_value(row, "fish_use_score")
+        secondary_help = OVERALL_FISH_USE_HELP
+    else:
+        secondary_label = f"{species} Risk Score"
+        selected_species = species_map.loc[species_map["bsr"].eq(selected_bsr)]
+        secondary_value = (
+            format_score_value(selected_species.iloc[0], "species_risk_score")
+            if not selected_species.empty else "Not available"
+        )
+        secondary_help = SPECIES_RISK_MAXIMUM_HELP
     metric_columns[3].metric(
-        "Overall Fish Use Score", format_score(row["fish_use_score"])
+        secondary_label, secondary_value, help=secondary_help,
     )
 
     st.markdown(
@@ -1698,14 +2132,14 @@ def render_overall_risk(
         st.subheader("Species and life stages")
         show_score_table(
             life_selected[
-                [
+                score_columns(life_selected, [
                     "species",
                     "species_aggregate_score",
                     "life_stage",
                     "LS_corrected_score",
                     "population_priority",
                     "risk_score",
-                ]
+                ])
             ].sort_values("risk_score", ascending=False),
             column_labels={
                 "risk_score": "Life-Stage Risk Score",
@@ -1714,11 +2148,11 @@ def render_overall_risk(
         st.subheader("Limiting factors")
         show_score_table(
             factor_selected[
-                [
+                score_columns(factor_selected, [
                     "limiting_factor",
                     "condition_score",
                     "risk_score",
-                ]
+                ])
             ].sort_values("risk_score", ascending=False),
             column_labels={
                 "risk_score": "Limiting-Factor Risk",
@@ -1738,7 +2172,7 @@ def render_fish_use(
     life = filter_table(tables["life_stage"], basin)
 
     species_hover_scores = (
-        life[["bsr", "species", "species_aggregate_score"]]
+        life[score_columns(life, ["bsr", "species", "species_aggregate_score"])]
         .drop_duplicates()
         .pivot(
             index="bsr",
@@ -1791,6 +2225,7 @@ def render_fish_use(
     map_life_stage = None
 
     if map_level == "Overall":
+        st.subheader("Overall Fish Use Score", help=OVERALL_FISH_USE_HELP)
         map_values = fish_hover_values
         map_metric = "fish_use_score"
         map_metric_label = "Overall Fish Use Score"
@@ -1805,14 +2240,14 @@ def render_fish_use(
         species_rows = life.loc[life["species"].eq(map_species)].copy()
         if map_level == "Species":
             map_values = species_rows[
-                [
+                score_columns(species_rows, [
                     "bsr",
                     "species",
                     "species_aggregate_score",
-                ]
+                ])
             ].drop_duplicates("bsr").merge(
                 fish_hover_values[
-                    ["bsr", "fish_use_score", *species_hover_columns]
+                    score_columns(fish_hover_values, ["bsr", "fish_use_score", *species_hover_columns])
                 ],
                 on="bsr",
                 how="left",
@@ -1842,16 +2277,16 @@ def render_fish_use(
             )
             map_values = species_rows.loc[
                 species_rows["life_stage"].eq(map_life_stage),
-                [
+                score_columns(species_rows, [
                     "bsr",
                     "species",
                     "life_stage",
                     "LS_corrected_score",
                     "species_aggregate_score",
-                ],
+                ]),
             ].merge(
                 fish_hover_values[
-                    ["bsr", "fish_use_score", *species_hover_columns]
+                    score_columns(fish_hover_values, ["bsr", "fish_use_score", *species_hover_columns])
                 ],
                 on="bsr",
                 how="left",
@@ -1870,6 +2305,17 @@ def render_fish_use(
                 *species_hover_columns,
             ]
 
+    species_observed_maximum = None
+    if map_metric == "species_aggregate_score":
+        included_on_map = map_values.loc[
+            map_values["bsr"].isin(geometry["bsr"])
+            & ~map_values["bsr"].map(normalized_bsr_id).isin(EXCLUDED_TIER_BSRS),
+            map_metric,
+        ]
+        species_observed_maximum = float(pd.to_numeric(
+            included_on_map, errors="coerce"
+        ).max())
+
     render_choropleth(
         geometry,
         map_values,
@@ -1880,11 +2326,8 @@ def render_fish_use(
         map_style,
         hover_columns=hover_columns,
         color_scale=FISH_USE_COLOR_SCALE,
-        range_color=(
-            (0.0, 1.0)
-            if map_metric in {"fish_use_score", "LS_corrected_score"}
-            else None
-        ),
+        range_color=(0.0, species_observed_maximum
+                     if species_observed_maximum is not None else 1.0),
     )
 
     selected = life.loc[life["bsr"].eq(selected_bsr)].copy()
@@ -1899,7 +2342,8 @@ def render_fish_use(
     summary_columns[0].metric("Selected BSR", selected_bsr)
     summary_columns[1].metric(
         "Overall Fish Use Score",
-        format_score(selected_bsr_row["fish_use_score"]),
+        format_score_value(selected_bsr_row, "fish_use_score"),
+        help=OVERALL_FISH_USE_HELP,
     )
     if map_level == "Overall":
         summary_columns[2].metric(
@@ -1909,11 +2353,12 @@ def render_fish_use(
     else:
         summary_columns[2].metric(
             map_metric_label,
-            format_score(mapped_score),
+            (format_score_value(selected_map_row.iloc[0], map_metric)
+             if not selected_map_row.empty else "Not available"),
         )
 
     species_summary = (
-        selected[["species", "species_aggregate_score"]]
+        selected[score_columns(selected, ["species", "species_aggregate_score"])]
         .drop_duplicates()
         .sort_values("species")
     )
@@ -1959,7 +2404,7 @@ def render_fish_use(
         )
         life_stage_summary = selected.loc[
             selected["species"].eq(chart_species),
-            ["life_stage", "LS_corrected_score"],
+            score_columns(selected, ["life_stage", "LS_corrected_score"]),
         ]
         horizontal_bar(
             life_stage_summary,
@@ -2001,12 +2446,12 @@ def render_fish_use(
     with st.expander(f"Show species and life-stage data for BSR: {selected_bsr}"):
         show_score_table(
             selected[
-                [
+                score_columns(selected, [
                     "species",
                     "species_aggregate_score",
                     "life_stage",
                     "LS_corrected_score",
-                ]
+                ])
             ].sort_values(
                 ["species_aggregate_score", "species", "LS_corrected_score"],
                 ascending=[False, True, False],
@@ -2043,6 +2488,19 @@ def render_limiting_factors(
     )
 
     st.header("Level 1: Limiting Factors")
+    overall_conditions = summarize_overall_limiting_factors(limiting)
+    st.subheader("Overall Limiting-Factor Condition Score")
+    st.caption(
+        "Unweighted mean of all limiting-factor condition scores within each "
+        "BSR, out of 1. Higher values indicate more limiting conditions."
+    )
+    render_choropleth(
+        geometry, overall_conditions, "overall_limiting_factor_score",
+        "Overall Limiting-Factor Condition Score",
+        "Overall Limiting-Factor Condition Score", "map_overall_limiting_factor",
+        map_style, hover_columns=["limiting_factor_count", "overall_risk_score"],
+        color_scale=LIMITING_CONDITION_COLOR_SCALE, range_color=(0.01, 1.0),
+    )
     st.subheader("Specific Limiting-Factor Map")
     factor_options = sorted(limiting["limiting_factor"].dropna().unique())
     selected_factor = st.selectbox(
@@ -2129,7 +2587,7 @@ def render_limiting_factors(
     ):
         show_score_table(
             biological[
-                [
+                score_columns(biological, [
                     "species",
                     "species_aggregate_score",
                     "life_stage",
@@ -2139,7 +2597,7 @@ def render_limiting_factors(
                     "condition_score",
                     "vulnerability_score",
                     "risk_component",
-                ]
+                ])
             ].sort_values("risk_component", ascending=False),
             column_labels={
                 "condition_score": "Limiting-Factor Condition Score",
@@ -2312,7 +2770,7 @@ def summarize_action_benefits(
     ):
         raise ValueError(
             "Action-Specific Benefit Components do not equal "
-            "Limiting-Factor Risk × Action Weight."
+            "Limiting-Factor Risk Ã— Action Weight."
         )
     candidates["_highest_component_score"] = candidates.groupby("bsr")[
         "benefit_component"
@@ -2395,6 +2853,16 @@ def summarize_action_benefits(
     return highest_action_map, overall_benefit_map
 
 
+def selected_action_map(actions: pd.DataFrame, action_type: str) -> pd.DataFrame:
+    """Rebuild map values and tiers from the currently selected action."""
+    selected = actions.loc[actions["action_type"].eq(action_type)].copy()
+    if selected.empty or selected["bsr"].duplicated().any():
+        raise ValueError("An action map requires exactly one score per BSR.")
+    return add_ranked_thirds(
+        selected, "action_benefit_score", "action_preliminary_tier"
+    )
+
+
 def render_actions(
     tables: dict[str, pd.DataFrame],
     geometry: gpd.GeoDataFrame,
@@ -2407,7 +2875,7 @@ def render_actions(
     actions = filter_table(tables["action"], basin)
     limiting = filter_table(tables["limiting_factor"], basin)
     action_components = filter_table(tables["action_components"], basin)
-    _, overall_benefit_map = summarize_action_benefits(
+    summarize_action_benefits(
         bsr,
         actions,
         limiting,
@@ -2436,22 +2904,6 @@ def render_actions(
     )
 
     st.header("Level 2: Action Benefits")
-    st.subheader("Overall Benefit Score Map")
-    st.caption(
-        "Overall Benefit Score is the sum of Action-Specific Benefit Scores "
-        "for all actions within each BSR."
-    )
-    render_choropleth(
-        geometry,
-        overall_benefit_map,
-        "overall_benefit_score",
-        "Overall Benefit Score",
-        "Overall Benefit Score Map",
-        "map_overall_benefit",
-        map_style,
-        hover_columns=["action_count"],
-        color_scale=ACTION_BENEFIT_COLOR_SCALE,
-    )
 
     action_options = (
         actions[["action_id", "action_type"]]
@@ -2462,17 +2914,19 @@ def render_actions(
         "Action type",
         action_options["action_type"].tolist(),
         help=ACTION_MAP_HELP,
+        key="selected_action_type",
     )
-    action_map = actions.loc[
-        actions["action_type"].eq(selected_action)
-    ].copy()
+    action_map = selected_action_map(actions, selected_action)
+    action_observed_maximum = observed_included_maximum(
+        action_map, "action_benefit_score"
+    )
 
     st.subheader("Action-Specific Benefit Map")
     action_map_selection = st.radio(
         "Action-benefit map value",
         options=[
             "Action-Specific Benefit Score",
-            "Preliminary Tiers",
+            "Action-Specific Preliminary Tiers",
         ],
         horizontal=True,
     )
@@ -2486,33 +2940,44 @@ def render_actions(
             "map_action_specific",
             map_style,
             hover_columns=[
+                "action_type",
                 "benefit_rank_within_bsr",
             ],
             color_scale=ACTION_BENEFIT_COLOR_SCALE,
+            range_color=(0.0, action_observed_maximum),
+        )
+        st.caption(
+            f"Map colors span 0 to {format_score(action_observed_maximum)} "
+            f"for {selected_action}; scores are reported out of 15."
         )
     else:
         render_choropleth(
             geometry,
-            bsr,
-            "preliminary_tier",
-            "Preliminary Tiers",
-            "Preliminary Tiers",
+            action_map,
+            "action_preliminary_tier",
+            "Action-Specific Preliminary Tiers",
+            f"{selected_action}: Preliminary Tiers",
             "map_action_specific",
             map_style,
             categorical=True,
             hover_columns=[
-                "preliminary_tier_basis",
-                "overall_risk_score",
+                "action_type",
+                "action_benefit_score",
             ],
             color_discrete_map=TIER_COLORS,
             category_order=TIER_ORDER,
         )
         st.caption(
-            "These are the same preliminary overall-risk tiers shown on the "
-            "Overall Risk page."
+            "Tiers rank BSRs in consecutive thirds using the selected action's "
+            "benefit score. Tier 1 is the highest third. These tiers update "
+            "when Action type changes."
         )
 
     selected = actions.loc[actions["bsr"].eq(selected_bsr)].copy()
+    st.caption(
+        "Action-Specific Benefit Score (out of 15 for every BSR and action)",
+        help=ACTION_BENEFIT_MAXIMUM_HELP,
+    )
     horizontal_bar(
         selected,
         "action_benefit_score",
@@ -2525,20 +2990,20 @@ def render_actions(
     component_rows = action_components.loc[
         action_components["bsr"].eq(selected_bsr)
         & action_components["action_type"].eq(selected_action),
-        [
+        score_columns(action_components, [
             "bsr",
             "limiting_factor",
             "lfat_score",
             "benefit_component",
-        ],
+        ]),
     ].merge(
         limiting[
-            [
+            score_columns(limiting, [
                 "bsr",
                 "limiting_factor",
                 "condition_score",
                 "risk_score",
-            ]
+            ])
         ],
         on=["bsr", "limiting_factor"],
         how="left",
@@ -2565,13 +3030,13 @@ def render_actions(
         )
         show_score_table(
             component_rows[
-                [
+                score_columns(component_rows, [
                     "limiting_factor",
                     "condition_score",
                     "risk_score",
                     "lfat_score",
                     "benefit_component",
-                ]
+                ])
             ].sort_values("benefit_component", ascending=False),
             column_labels={
                 "risk_score": "Limiting-Factor Risk",
@@ -2581,12 +3046,12 @@ def render_actions(
     with st.expander(f"Show action table for BSR: {selected_bsr}"):
         show_score_table(
             selected[
-                [
+                score_columns(selected, [
                     "action_id",
                     "action_type",
                     "action_benefit_score",
                     "benefit_rank_within_bsr",
-                ]
+                ])
             ]
             .sort_values("benefit_rank_within_bsr")
             .assign(
@@ -2709,8 +3174,7 @@ def main() -> None:
         st.stop()
 
     st.sidebar.header("Map and drill-down")
-    basin_options = ["All basins", *sorted(tables["bsr"]["basin"].unique())]
-    basin = st.sidebar.selectbox("Basin", basin_options)
+    basin = "All basins"
     available_bsrs = sorted(
         filter_table(tables["bsr"], basin)["bsr"].unique(),
         key=natural_sort_key,
@@ -2726,6 +3190,11 @@ def main() -> None:
     )
     st.sidebar.markdown("### View")
     page = render_sidebar_view_selector()
+    st.sidebar.caption("Map labels: U = Upper Grande Ronde; C = Catherine Creek.")
+    st.caption(
+        "Numerical scores show score / displayed upper bound. See 'How scores "
+        "are calculated' for each score's definition."
+    )
 
     mapped_bsrs = set(geometry["bsr"])
     missing_geometry = sorted(set(available_bsrs) - mapped_bsrs)
