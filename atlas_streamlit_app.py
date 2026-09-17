@@ -184,13 +184,29 @@ RISK_COLOR_SCALE = [
     [0.50, "#f7f7f7"],
     [1.00, "#7f0000"],
 ]
-LIMITING_CONDITION_COLOR_SCALE = [
-    [0.00, "#fff9ec"],
-    [0.50, "#f0c8ba"],
-    [1.00, "#c79dbf"],
+LIMITING_FACTOR_COLOR_SCALE = [
+    [0.00, "#fff0d2"],
+    [0.25, "#fbc876"],
+    [0.50, "#eb9142"],
+    [0.75, "#c6502b"],
+    [1.00, "#7f1f24"],
 ]
-FISH_USE_COLOR_SCALE = LIMITING_CONDITION_COLOR_SCALE
-ACTION_BENEFIT_COLOR_SCALE = LIMITING_CONDITION_COLOR_SCALE
+# These sequential ramps darken as the score increases. Distinct hues help
+# separate fish presence, limiting conditions, and action benefits on the maps.
+FISH_USE_COLOR_SCALE = [
+    [0.00, "#daedf2"],
+    [0.25, "#a4cddd"],
+    [0.50, "#5b9fbc"],
+    [0.75, "#286e9a"],
+    [1.00, "#113b65"],
+]
+ACTION_BENEFIT_COLOR_SCALE = [
+    [0.00, "#e5f1dc"],
+    [0.25, "#b1d8a9"],
+    [0.50, "#6eb685"],
+    [0.75, "#27865e"],
+    [1.00, "#07513f"],
+]
 TIER_ORDER = ["Tier 1", "Tier 2", "Tier 3", "Not included"]
 TIER_COLORS = {
     "Tier 1": "#d06777",
@@ -2501,7 +2517,7 @@ def render_limiting_factors(
         "Overall Limiting-Factor Condition Score",
         "Overall Limiting-Factor Condition Score", "map_overall_limiting_factor",
         map_style, hover_columns=["limiting_factor_count", "overall_risk_score"],
-        color_scale=LIMITING_CONDITION_COLOR_SCALE, range_color=(0.01, 1.0),
+        color_scale=LIMITING_FACTOR_COLOR_SCALE, range_color=(0.01, 1.0),
     )
     st.subheader("Specific Limiting-Factor Map")
     factor_options = sorted(limiting["limiting_factor"].dropna().unique())
@@ -2538,11 +2554,7 @@ def render_limiting_factors(
             "condition_score",
             "risk_score",
         ],
-        color_scale=(
-            LIMITING_CONDITION_COLOR_SCALE
-            if factor_map_metric == "condition_score"
-            else RISK_COLOR_SCALE
-        ),
+        color_scale=LIMITING_FACTOR_COLOR_SCALE,
         range_color=(
             (0.01, 1.0)
             if factor_map_metric == "condition_score"
