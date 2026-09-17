@@ -185,7 +185,7 @@ RISK_COLOR_SCALE = [
     [1.00, "#7f0000"],
 ]
 LIMITING_FACTOR_COLOR_SCALE = [
-    [0.00, "#fff0d2"],
+    [0.00, "#ffffff"],
     [0.25, "#fbc876"],
     [0.50, "#eb9142"],
     [0.75, "#c6502b"],
@@ -194,14 +194,14 @@ LIMITING_FACTOR_COLOR_SCALE = [
 # These sequential ramps darken as the score increases. Distinct hues help
 # separate fish presence, limiting conditions, and action benefits on the maps.
 FISH_USE_COLOR_SCALE = [
-    [0.00, "#daedf2"],
+    [0.00, "#ffffff"],
     [0.25, "#a4cddd"],
     [0.50, "#5b9fbc"],
     [0.75, "#286e9a"],
     [1.00, "#113b65"],
 ]
 ACTION_BENEFIT_COLOR_SCALE = [
-    [0.00, "#e5f1dc"],
+    [0.00, "#ffffff"],
     [0.25, "#b1d8a9"],
     [0.50, "#6eb685"],
     [0.75, "#27865e"],
