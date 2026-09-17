@@ -186,26 +186,26 @@ RISK_COLOR_SCALE = [
 ]
 LIMITING_FACTOR_COLOR_SCALE = [
     [0.00, "#ffffff"],
-    [0.25, "#fbc876"],
-    [0.50, "#eb9142"],
-    [0.75, "#c6502b"],
-    [1.00, "#7f1f24"],
+    [0.25, "#ffd27a"],
+    [0.50, "#f48731"],
+    [0.75, "#ce3f28"],
+    [1.00, "#751625"],
 ]
 # These sequential ramps darken as the score increases. Distinct hues help
 # separate fish presence, limiting conditions, and action benefits on the maps.
 FISH_USE_COLOR_SCALE = [
     [0.00, "#ffffff"],
-    [0.25, "#a4cddd"],
-    [0.50, "#5b9fbc"],
-    [0.75, "#286e9a"],
-    [1.00, "#113b65"],
+    [0.25, "#b6e4ed"],
+    [0.50, "#489fc2"],
+    [0.75, "#24639a"],
+    [1.00, "#102e61"],
 ]
 ACTION_BENEFIT_COLOR_SCALE = [
     [0.00, "#ffffff"],
-    [0.25, "#b1d8a9"],
-    [0.50, "#6eb685"],
-    [0.75, "#27865e"],
-    [1.00, "#07513f"],
+    [0.25, "#c1e39f"],
+    [0.50, "#5ab77d"],
+    [0.75, "#1c8064"],
+    [1.00, "#06493e"],
 ]
 TIER_ORDER = ["Tier 1", "Tier 2", "Tier 3", "Not included"]
 TIER_COLORS = {
@@ -1821,9 +1821,9 @@ def render_choropleth(
         else:
             minimum = float(numeric.min())
             maximum = float(numeric.max())
-            if np.isclose(minimum, maximum):
-                pad = max(abs(minimum) * 0.05, 0.5)
-                common["range_color"] = (minimum - pad, maximum + pad)
+            if minimum == maximum:
+                pad = max(abs(minimum) * 0.05, 0.01)
+                common["range_color"] = (max(0.0, minimum - pad), maximum + pad)
             else:
                 common["range_color"] = (minimum, maximum)
 
@@ -2323,17 +2323,6 @@ def render_fish_use(
                 *species_hover_columns,
             ]
 
-    species_observed_maximum = None
-    if map_metric == "species_aggregate_score":
-        included_on_map = map_values.loc[
-            map_values["bsr"].isin(geometry["bsr"])
-            & ~map_values["bsr"].map(normalized_bsr_id).isin(EXCLUDED_TIER_BSRS),
-            map_metric,
-        ]
-        species_observed_maximum = float(pd.to_numeric(
-            included_on_map, errors="coerce"
-        ).max())
-
     render_choropleth(
         geometry,
         map_values,
@@ -2344,8 +2333,10 @@ def render_fish_use(
         map_style,
         hover_columns=hover_columns,
         color_scale=FISH_USE_COLOR_SCALE,
-        range_color=(0.0, species_observed_maximum
-                     if species_observed_maximum is not None else 1.0),
+    )
+    st.caption(
+        "Colors span the lowest to highest BSR score on this map. White is "
+        "the lowest displayed score, which may be greater than zero."
     )
 
     selected = life.loc[life["bsr"].eq(selected_bsr)].copy()
@@ -2517,7 +2508,11 @@ def render_limiting_factors(
         "Overall Limiting-Factor Condition Score",
         "Overall Limiting-Factor Condition Score", "map_overall_limiting_factor",
         map_style, hover_columns=["limiting_factor_count", "overall_risk_score"],
-        color_scale=LIMITING_FACTOR_COLOR_SCALE, range_color=(0.01, 1.0),
+        color_scale=LIMITING_FACTOR_COLOR_SCALE,
+    )
+    st.caption(
+        "Map colors span the observed BSR scores. White is the lowest "
+        "displayed score, which may be greater than zero."
     )
     st.subheader("Specific Limiting-Factor Map")
     factor_options = sorted(limiting["limiting_factor"].dropna().unique())
@@ -2555,11 +2550,9 @@ def render_limiting_factors(
             "risk_score",
         ],
         color_scale=LIMITING_FACTOR_COLOR_SCALE,
-        range_color=(
-            (0.01, 1.0)
-            if factor_map_metric == "condition_score"
-            else None
-        ),
+    )
+    st.caption(
+        "Colors span the observed BSR scores for the selected limiting factor."
     )
 
     st.subheader("Specific Limiting-Factor Drill-Down")
@@ -2931,10 +2924,6 @@ def render_actions(
         key="selected_action_type",
     )
     action_map = selected_action_map(actions, selected_action)
-    action_observed_maximum = observed_included_maximum(
-        action_map, "action_benefit_score"
-    )
-
     st.subheader("Action-Specific Benefit Map")
     action_map_selection = st.radio(
         "Action-benefit map value",
@@ -2952,7 +2941,9 @@ def render_actions(
         help=(
             "Use the highest observed Action-Specific Benefit Score across all "
             "action types and BSRs included in the analysis as the common "
-            "color-scale upper bound. Scores do not change."
+            "color-scale upper bound, with zero at the low end. When off, "
+            "colors span the displayed BSRs for the selected action. "
+            "Scores do not change."
         ),
     )
     # Reset the Plotly selection widget when the action, map mode, or color
@@ -2964,7 +2955,7 @@ def render_actions(
     if action_map_selection == "Action-Specific Benefit Score":
         map_scale_maximum = (
             observed_included_maximum(actions, "action_benefit_score")
-            if normalize_action_colors else action_observed_maximum
+            if normalize_action_colors else None
         )
         render_choropleth(
             geometry,
@@ -2979,7 +2970,8 @@ def render_actions(
                 "benefit_rank_within_bsr",
             ],
             color_scale=ACTION_BENEFIT_COLOR_SCALE,
-            range_color=(0.0, map_scale_maximum),
+            range_color=(0.0, map_scale_maximum)
+            if map_scale_maximum is not None else None,
         )
         if normalize_action_colors:
             st.caption(
@@ -2989,8 +2981,9 @@ def render_actions(
             )
         else:
             st.caption(
-                f"Map colors span 0 to {format_score(map_scale_maximum)} "
-                f"for {selected_action}; scores are reported out of 15."
+                f"Map colors span the lowest to highest displayed BSR for "
+                f"{selected_action}. White marks the lowest displayed score, "
+                "which may be greater than zero; scores are reported out of 15."
             )
     else:
         render_choropleth(
