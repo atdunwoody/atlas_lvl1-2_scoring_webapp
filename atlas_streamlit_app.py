@@ -99,7 +99,6 @@ REQUIRED_COLUMNS = {
         "highest_risk_aligned_action_type",
         "highest_action_benefit_score",
         "top_action_benefit_tie_count",
-        "overall_benefit_score",
     },
     "life_stage": {
         "bsr",
@@ -304,8 +303,6 @@ DISPLAY_LABELS = {
     "lfat_score": "Action Weight",
     "benefit_component": "Action-Specific Benefit Component",
     "action_benefit_score": "Action-Specific Benefit Score",
-    "overall_benefit_score": "Overall Benefit Score",
-    "action_count": "Number of Actions",
     "highest_risk_aligned_action_type": "Highest Risk-Aligned Action Type",
     "highest_action_benefit_score": "Highest Action-Specific Benefit Score",
     "top_action_benefit_tie_count": "Top Action Benefit Tie Count",
@@ -339,7 +336,7 @@ def configure_page() -> None:
     """Set page-level options and light visual styling."""
     st.set_page_config(
         page_title="Atlas Integrated Scoring",
-        page_icon="ðŸ—ºï¸",
+        page_icon="Ã°Å¸â€”ÂºÃ¯Â¸Â",
         layout="wide",
         initial_sidebar_state="expanded",
     )
@@ -703,8 +700,6 @@ def add_score_maxima(tables: dict[str, pd.DataFrame]) -> dict[str, pd.DataFrame]
     result["action"][maximum_column("action_benefit_score")] = (
         ACTION_BENEFIT_MAXIMUM
     )
-    attach("bsr", result["action"], ["bsr"],
-           "action_benefit_score", "overall_benefit_score")
     result["bsr"][maximum_column("highest_action_benefit_score")] = (
         ACTION_BENEFIT_MAXIMUM
     )
@@ -2642,24 +2637,21 @@ def render_limiting_factors(
         )
 
 
-def summarize_action_benefits(
+def validate_action_benefits(
     bsr: pd.DataFrame,
     actions: pd.DataFrame,
     limiting: pd.DataFrame,
     action_components: pd.DataFrame,
-) -> tuple[pd.DataFrame, pd.DataFrame]:
-    """Build highest-component hover fields and BSR-wide benefit totals."""
+) -> None:
+    """Check action scores and their limiting-factor components."""
     bsr_values = bsr.copy()
-    for column in ("highest_action_benefit_score", "overall_benefit_score"):
-        bsr_values[column] = pd.to_numeric(
-            bsr_values[column], errors="coerce"
-        )
-    if bsr_values[
-        ["highest_action_benefit_score", "overall_benefit_score"]
-    ].isna().any().any():
+    bsr_values["highest_action_benefit_score"] = pd.to_numeric(
+        bsr_values["highest_action_benefit_score"], errors="coerce"
+    )
+    if bsr_values["highest_action_benefit_score"].isna().any():
         raise ValueError(
-            "bsr_scores.csv contains missing or nonnumeric action-benefit "
-            "summary scores."
+            "bsr_scores.csv contains missing or nonnumeric highest "
+            "Action-Specific Benefit Scores."
         )
 
     action_values = actions.copy()
@@ -2777,7 +2769,7 @@ def summarize_action_benefits(
     ):
         raise ValueError(
             "Action-Specific Benefit Components do not equal "
-            "Limiting-Factor Risk Ã— Action Weight."
+            "Limiting-Factor Risk Ãƒâ€” Action Weight."
         )
     candidates["_highest_component_score"] = candidates.groupby("bsr")[
         "benefit_component"
@@ -2788,76 +2780,14 @@ def summarize_action_benefits(
         )
     ].sort_values(["bsr", "action_type", "limiting_factor"])
 
-    def join_text(values: pd.Series) -> str:
-        return " | ".join(dict.fromkeys(values.dropna().astype(str)))
-
-    def join_scores(values: pd.Series) -> str:
-        return " | ".join(
-            dict.fromkeys(f"{float(value):,.2f}" for value in values.dropna())
-        )
-
-    component_summary = (
-        highest_components.groupby("bsr", as_index=False)
-        .agg(
-            highest_benefit_action_type=("action_type", join_text),
-            highest_benefit_limiting_factor=("limiting_factor", join_text),
-            highest_benefit_limiting_factor_risk=(
-                "highest_benefit_limiting_factor_risk",
-                join_scores,
-            ),
-            highest_benefit_action_weight=("lfat_score", join_scores),
-            highest_benefit_component_score=("benefit_component", "max"),
-        )
-    )
     missing_component_bsrs = sorted(
-        set(bsr_values["bsr"]) - set(component_summary["bsr"])
+        set(bsr_values["bsr"]) - set(highest_components["bsr"])
     )
     if missing_component_bsrs:
         raise ValueError(
             "No highest-benefit component could be identified for BSRs: "
             + ", ".join(missing_component_bsrs)
         )
-    highest_action_map = bsr_values.merge(
-        component_summary,
-        on="bsr",
-        how="left",
-        validate="one_to_one",
-    )
-
-    action_totals = (
-        action_values.groupby("bsr", as_index=False)
-        .agg(
-            _calculated_overall_benefit_score=(
-                "action_benefit_score",
-                "sum",
-            ),
-            action_count=("action_type", "nunique"),
-        )
-    )
-    overall_benefit_map = bsr_values[
-        ["bsr", "basin", "overall_benefit_score"]
-    ].merge(
-        action_totals,
-        on="bsr",
-        how="left",
-        validate="one_to_one",
-    )
-    if overall_benefit_map[
-        "_calculated_overall_benefit_score"
-    ].isna().any() or not np.allclose(
-        overall_benefit_map["overall_benefit_score"],
-        overall_benefit_map["_calculated_overall_benefit_score"],
-        rtol=1e-9,
-        atol=1e-12,
-    ):
-        raise ValueError(
-            "Overall Benefit Scores in bsr_scores.csv do not equal the sum "
-            "of Action-Specific Benefit Scores in action_scores.csv."
-        )
-    overall_benefit_map = overall_benefit_map.drop(
-        columns="_calculated_overall_benefit_score"
-    )
-    return highest_action_map, overall_benefit_map
 
 
 def selected_action_map(actions: pd.DataFrame, action_type: str) -> pd.DataFrame:
@@ -2882,7 +2812,7 @@ def render_actions(
     actions = filter_table(tables["action"], basin)
     limiting = filter_table(tables["limiting_factor"], basin)
     action_components = filter_table(tables["action_components"], basin)
-    summarize_action_benefits(
+    validate_action_benefits(
         bsr,
         actions,
         limiting,
