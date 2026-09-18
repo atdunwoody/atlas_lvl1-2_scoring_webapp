@@ -8,7 +8,6 @@ limiting_factor / grid,condition_score,Limiting-Factor Impairment Score,Raw 1–
 population / life_stage / grid,population_priority,Life-Stage Population Priority,Within basin/species weight; source rounding retained; no explicit between-species multiplier.
 bsr,overall_risk_score,Overall Risk Score,"Sum of population-weighted pathway contributions; relative index, not a probability."
 action,action_benefit_score,Action Benefit Score,Sum of limiting-factor risk × action relationship weight for one action; alignment index.
-bsr,overall_benefit_score,Overall Benefit Score,Sum across actions; repeated limiting-factor relationships; not additive realized benefits.
 bsr,highest_action_benefit_score,Highest Action Benefit Score,Largest action-specific alignment score within a BSR.
 bsr / fish_use / grid,bsr_crosswalk_status,Source BSR Crosswalk Status,"Original source status preserved, including provisional_positional."
 bsr / fish_use / grid,bsr_match_review_required,BSR Correspondence Requires Review,True when the source crosswalk status is not exact_identifier.

@@ -7,4 +7,3 @@ Condition direction,condition_score,Assumes raw 1 means least impairment and 5 g
 Vulnerability,vulnerability_score,Rank 1 maps to 1 and rank 15 to 0.01 using a linear transformation.
 Migration,maximum vulnerability_score,Use the larger adult/juvenile vulnerability separately for each species and limiting factor.
 Action weight,lfat_score,Directness × frequency; source product checked before scoring.
-Action alignment,overall_benefit_score,Sum across actions; can count a limiting-factor contribution multiple times; not predicted benefit.

@@ -158,13 +158,6 @@ calculation,Complete BSR/action coverage,passed
 calculation,Unique BSR/action keys,passed
 calculation,Action benefit component equals factor risk × action weight,passed
 calculation,Action benefit equals weighted factor risk sum,passed
-calculation,Overall benefit equals the sum across actions,passed
-calculation,Overall action total equals factor risk × summed action weight,passed
-calculation,life stage: finite output scores,passed
-calculation,species: finite output scores,passed
-calculation,limiting factor: finite output scores,passed
-calculation,action: finite output scores,passed
-calculation,BSR: finite output scores,passed
 calculation,Hand-calculated example,passed
 staging,Calculation QC completed,passed
 staging,Worked example completed,passed
@@ -191,7 +184,6 @@ staged output,CSV readback: input_file_summary.csv,passed
 staged output,CSV readback: life_stage_fish_use_normalization.csv,passed
 staged output,CSV readback: normalization_maximum_source_rows.csv,passed
 staged output,CSV readback: population_priority_sums.csv,passed
-staged output,CSV readback: action_factor_weight_totals.csv,passed
 staged output,CSV readback: score_field_definitions.csv,passed
 staged output,GeoPackage database integrity,passed
 staged output,GeoPackage foreign-key integrity,passed
