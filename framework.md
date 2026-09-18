@@ -1,83 +1,88 @@
 # Atlas integrated scoring framework
 
-This framework combines fish use, limiting-factor condition, biological vulnerability, and population priority into relative BSR-level prioritization indices. It then weights limiting-factor risk by action relationships to describe Level 2 action alignment. The results do not evaluate individual projects or predict fish abundance, habitat gain, or restoration effectiveness.
+This document describes the calculations implemented in the current Atlas integrated scoring notebook. The notebook combines fish use, limiting-factor condition, biological vulnerability, and population priority into relative risk scores for each BSR. It then weights limiting-factor risk by action relationships to score individual action types. The scores do not evaluate individual projects or predict fish abundance, habitat gain, or restoration effectiveness.
 
 ## Source inputs
 
-The scoring code reads five processed CSVs and one BSR polygon GeoPackage. The original workbooks and supporting source table are retained under `inputs/Original Excel/` for review of formulas, ratings, and notes.
+The notebook reads five processed CSVs and one BSR polygon GeoPackage from `data/inputs`, or from the folder set by `INPUT_DIR_OVERRIDE`. The original workbooks and supporting source table in `Original Excel/` are reference material; the notebook does not read them directly.
 
-| Processed scoring input | Original source file |
+| Processed input | Original source file |
 |---|---|
 | `Fish Use Scores.csv`; `Population scores.csv` | `Original Excel/Fish Use Score calculator - Normalized.xlsx` |
 | `Vulnerability table.csv` | `Original Excel/Combined - Lifestage to Limiting Factor Crosswalk Table.xlsx` |
 | `LFAT.csv` | `Original Excel/LFAT Atlas Action-LimFact Crosswalk scoring working.xlsx` |
 | `Limiting factor scores.csv` | `Original Excel/BSR_LF_cell_stats.csv` |
+| `bsr.gpkg` | Input BSR polygons |
 
-The code reads only `fish_use_score_decimal` for overall fish use. It does not import alternate overall fish-use fields.
+The fish-use import selects only the specified fields. Overall BSR fish use comes from `fish_use_score_decimal`.
 
 ## Scoring scales
 
-| Input | Calculation | Interpretation of a larger value |
+| Input | Calculation used by the notebook | Interpretation of a larger value |
 |---|---|---|
-| Life-stage fish use | $\text{life-stage fish use} = \dfrac{\text{source life-stage fish use}}{\text{maximum source life-stage fish use}}$ | More fish use on the source index |
-| Limiting-factor condition | $\text{condition score} = 0.01 + (\text{raw rating} - 1) \times \dfrac{0.99}{4}$ | Greater impairment, assuming the source rubric runs from least impaired at 1 to most impaired at 5 |
-| Biological vulnerability | $\text{vulnerability score} = 1 - (\text{rank} - 1) \times \dfrac{0.99}{14}$ | Greater vulnerability to the limiting factor |
-| Population priority | $\text{population priority} = \text{source priority}$ | More weight for the life stage within its basin and species |
-| Action relationship weight | $\text{action relationship weight} = \text{directness} \times \text{frequency}$ | A stronger action and limiting-factor relationship |
+| Life-stage fish use | $\text{normalized life-stage fish use} = \dfrac{\text{source life-stage fish use}}{\max_{\text{all input rows}}(\text{source life-stage fish use})}$ | More fish use on the source index |
+| Limiting-factor condition | $\text{condition score} = 0.01 + (\text{raw rating} - 1)\dfrac{0.99}{4}$ | Greater impairment |
+| Biological vulnerability | $\text{vulnerability score} = 1 - (\text{rank} - 1)\dfrac{0.99}{14}$ | Greater vulnerability to that limiting factor |
+| Population priority | $\text{population priority} = \text{source priority}$ | More weight for a life stage within its basin and species |
+| Action relationship weight | $\text{action relationship weight} = \text{directness} \times \text{frequency}$ | Stronger relationship between an action and a limiting factor |
 
-The condition and vulnerability transformations retain a 0.01 floor. A source life-stage fish-use score of zero remains zero and therefore produces zero impact and risk.
+The notebook retains the original life-stage value as `LS_corrected_score_source`, stores the normalized result as `LS_corrected_score`, and records the denominator in `life_stage_fish_use_normalization_max`. The action relationship weight is `lfat_score`, the product of `directness_value` and `frequency_value`. A zero source fish-use value remains zero. The condition and vulnerability transformations map their least contributing endpoints to 0.01, not zero. The assumed direction of the condition rating and the linear transformations are modeling choices; passing numerical checks does not validate the source rubric.
 
-Normalization uses one maximum across the complete life-stage fish-use input table. If that maximum changes between runs, absolute impact, risk, and risk-based action scores also rescale. Compare the recorded `life_stage_fish_use_normalization_max` before interpreting score changes between runs.
+Population priorities are used as supplied. They are checked to sum to 1 within each basin and species. There is no additional between-species priority multiplier.
 
-## Migration vulnerability
+`species_aggregate_score` is retained unchanged for species fish-use context and may exceed 1. The BSR-level `fish_use_score` is the source `fish_use_score_decimal` and ranges from 0 to 1. Neither of these scores are an additional risk multiplier. Because the life-stage denominator is set by the complete input table, changes to that maximum rescale risk and risk-weighted action scores. Compare the recorded denominator when comparing runs.
 
-Chinook and Steelhead vulnerability inputs contain separate adult and juvenile migration records. For each species and limiting factor, the framework uses the larger score:
+## Input coverage and migration vulnerability
+
+Each BSR must have the same complete set of species and life stages in fish use, with matching population-priority and vulnerability records. Condition, vulnerability, and action-crosswalk tables must cover the same 15 named limiting factors. Every action has a row for each factor, including zero-weight relationships. The notebook checks unique keys and complete pathway coverage before export.
+
+Chinook and Steelhead fish use and population priority each have one `Migration` life stage, while the vulnerability input has separate adult migration and juvenile emigration records. For each species and limiting factor, the notebook uses the larger vulnerability score:
 
 $$\text{migration vulnerability} = \max(\text{adult migration vulnerability},\ \text{juvenile migration vulnerability})$$
 
-This represents the more vulnerable migration pathway without adding migration twice.
+Other life stages pass through unchanged. The source stages, score ranges, and review flags remain available in the vulnerability review output.
 
-## Level 1 integrated risk
+## Level 1: integrated risk
 
-The basic calculation unit is one BSR, species, life stage, and limiting factor pathway:
+The calculation unit is one BSR, species, life stage, and limiting factor pathway. The notebook calculates one four-factor contribution for each pathway:
 
-$$\text{impact component} = \text{life-stage fish use} \times \text{limiting-factor condition} \times \text{vulnerability}$$
+$$\text{risk component} = \text{life-stage fish use} \times \text{population priority} \times \text{limiting-factor condition} \times \text{vulnerability}$$
 
-$$\text{risk component} = \text{impact component} \times \text{population priority}$$
+It then sums those contributions in several ways:
 
-Impact describes the unweighted overlap of fish use, condition, and vulnerability. Risk adds the life-stage population-priority weight. Risk is a relative index, not a probability.
+$$\text{life-stage risk} = \sum_{\text{15 limiting factors}} \text{risk component}$$
 
-The pathway components are summed to produce species/life-stage, species, limiting-factor, and overall BSR scores:
+$$\text{species risk} = \sum_{\text{life stages of the species}} \text{life-stage risk}$$
 
-$$\text{species/life-stage risk} = \sum_{\text{15 limiting factors}} \text{risk component}$$
+$$\text{limiting-factor risk} = \sum_{\text{all species and life stages}} \text{risk component}$$
 
-$$\text{limiting-factor risk} = \sum_{\text{species and life stages}} \text{risk component}$$
+$$\text{overall BSR risk} = \sum_{\text{all species and life stages}} \text{life-stage risk} = \sum_{\text{15 limiting factors}} \text{limiting-factor risk}$$
 
-$$\text{overall BSR risk} = \sum_{\text{all pathways in the BSR}} \text{risk component}$$
+The notebook stores pathway values as `risk_component`, the grouped life-stage, species, and limiting-factor values as `risk_score`, and the BSR total as `overall_risk_score`. All grouping routes must give the same BSR total. A pathway with zero life-stage fish use has zero risk. Aggregate scores can exceed 1 and are relative indices, not probabilities.
 
-These independent grouping routes must produce the same overall BSR risk. Aggregate scores are sums and may exceed 1.
+Within each BSR, life-stage, species, and limiting-factor scores receive dense ranks. The BSR summary retains the leading life-stage and limiting-factor labels and their tie counts. If all scores are zero, tied leading labels indicate a zero-score tie.
 
-## Level 2 action alignment
+## Level 2: action alignment
 
-The framework applies each action relationship weight to condition, limiting-factor impact, and limiting-factor risk. The established Streamlit app fields are retained.
+For each BSR, limiting factor, and action, the notebook multiplies Level 1 limiting-factor risk by that action's relationship weight:
 
-| Output field | Calculation for one BSR and action |
+$$\text{action benefit score} = \sum_{\text{15 limiting factors}} (\text{limiting-factor risk} \times \text{action relationship weight})$$
+
+The `action_benefit_score` is reported separately for each BSR and action and ranked within the BSR, with equal scores sharing a rank. The BSR summary records `highest_action_benefit_score` and `highest_risk_aligned_action_type` labels. One limiting factor can contribute to several action scores.
+
+`action_benefit_score` is an action-alignment index based on existing risk. It does not estimate condition improvement, habitat gain, fish response, cost, feasibility, or site-specific effectiveness.
+
+## Outputs and review limits
+
+The notebook writes eight core CSVs to `data/outputs`:
+
+| Output | Contents |
 |---|---|
-| `condition_improvement_score` | $\sum_{\text{limiting factors}} (\text{condition score} \times \text{action relationship weight})$ |
-| `limiting_factor_amelioration_score` | $\sum_{\text{limiting factors}} (\text{limiting-factor impact} \times \text{action relationship weight})$ |
-| `action_benefit_score` | $\sum_{\text{limiting factors}} (\text{limiting-factor risk} \times \text{action relationship weight})$ |
+| `bsr_scores.csv` | One row per BSR with overall risk, highest action score, leading labels, and source-review status |
+| `fish_use_scores.csv`; `population_scores.csv` | Scoring inputs and retained fish-use context |
+| `life_stage_scores.csv`; `species_scores.csv` | Level 1 risk grouped by life stage and species |
+| `limiting_factor_scores_integrated.csv` | Level 1 risk grouped by limiting factor |
+| `action_scores.csv` | Separate Level 2 alignment score for each BSR and action |
+| `calculation_grid.csv` | Individual risk pathways and their inputs |
 
-The BSR-level totals use the established fields `overall_condition_improvement_score`, `overall_limiting_factor_amelioration_score`, and `overall_benefit_score`. The final total is:
-
-$$\text{overall benefit score} = \sum_{\text{actions}} \text{action benefit score}$$
-
-Because one limiting factor can be related to multiple actions, the same limiting-factor contribution can enter more than one action score. These values are alignment indices. They are not additive estimates of realized benefit and do not account for feasibility, cost, implementation constraints, landowner willingness, or site-specific effectiveness.
-
-## Interpretation and review limits
-
-- Larger scores indicate greater overlap among the scored inputs or stronger correspondence with action relationships.
-- `species_aggregate_score` and `fish_use_score` are contextual fields. They are not additional multipliers in the Level 1 equations.
-- Population priorities distribute weight among life stages within basin and species. The framework does not add a separate between-species multiplier.
-- `highest_risk_*` fields identify the largest calculated contributions. They do not establish a complete restoration priority.
-- Equal scores share a dense rank and all tied top labels are retained.
-- Source BSR crosswalk statuses and source condition and vulnerability review flags remain visible. Passing numerical QC does not independently validate those source judgments.
+`bsr_scores.gpkg` copies the input BSR polygons, adds score and review fields, and registers nonspatial fish-use, population, life-stage, species, limiting-factor, and action tables. The `QC/` folder includes action components, source-review tables, normalization and population-priority summaries, a field dictionary, input hashes, run metadata, and the check record.
