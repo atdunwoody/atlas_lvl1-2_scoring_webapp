@@ -1916,6 +1916,7 @@ def horizontal_bar(
     value_label: str | None = None,
     hover_columns: list[str] | None = None,
     hover_label_overrides: dict[str, str] | None = None,
+    x_axis_maximum: float | None = None,
 ) -> None:
     """Render a consistently formatted horizontal comparison chart."""
     ordered = table.copy().sort_values(value, ascending=True)
@@ -1971,6 +1972,10 @@ def horizontal_bar(
         margin={"r": 80, "t": 55, "l": 10, "b": 65},
         legend_title_text="Species" if color == "species" else color,
     )
+    if x_axis_maximum is not None:
+        if not np.isfinite(x_axis_maximum) or x_axis_maximum <= 0:
+            raise ValueError("The horizontal-bar x-axis maximum must be positive and finite.")
+        figure.update_xaxes(range=[0.0, float(x_axis_maximum)])
     figure.update_traces(
         textposition="outside",
         cliponaxis=False,
@@ -2122,6 +2127,19 @@ def render_overall_risk(
     left, right = st.columns(2)
     life_selected = life.loc[life["bsr"].eq(selected_bsr)].copy()
     factor_selected = limiting.loc[limiting["bsr"].eq(selected_bsr)].copy()
+    limiting_factor_risk_values = pd.to_numeric(
+        limiting["risk_score"], errors="coerce"
+    )
+    if (
+        limiting_factor_risk_values.isna().any()
+        or not np.isfinite(limiting_factor_risk_values).all()
+    ):
+        raise ValueError("Limiting-Factor Risk values must be finite.")
+    limiting_factor_risk_axis_maximum = float(
+        limiting_factor_risk_values.max()
+    )
+    if limiting_factor_risk_axis_maximum <= 0:
+        limiting_factor_risk_axis_maximum = 1.0
 
     with left:
         horizontal_bar(
@@ -2139,6 +2157,7 @@ def render_overall_risk(
             "limiting_factor",
             f"{selected_bsr}: risk by limiting factor",
             value_label="Limiting-Factor Risk",
+            x_axis_maximum=limiting_factor_risk_axis_maximum,
         )
 
     with st.expander(f"Show score tables for BSR: {selected_bsr}"):
