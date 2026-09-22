@@ -1491,7 +1491,7 @@ def add_excluded_bsr_hatching(
             },
             "opacity": 1,
         },
-        "name": "Not included in analysis: UGR8 (U8)",
+        "name": "Not incl. in analysis: UGR8 (U8)",
     }
     trace_type = getattr(figure.data[0], "type", "")
     if trace_type == "choroplethmap":
@@ -1556,7 +1556,7 @@ def add_excluded_bsr_hatching(
             },
             hoverinfo="skip",
             showlegend=False,
-            name="Not included in analysis: UGR8 (U8)",
+            name="Not incl. analysis: UGR8 (U8)",
         )
     )
 
@@ -1585,7 +1585,7 @@ def add_excluded_bsr_key(figure: Any) -> None:
             line={"color": EXCLUDED_BSR_HATCH_COLOR, "width": 1},
         )
     figure.add_annotation(
-        xref="paper", yref="paper", x=1.11, y=(y0 + y1) / 2,
+        xref="paper", yref="paper", x=1.07, y=(y0 + y1) / 2,
         text="Not included in analysis:<br>UGR8 (U8)",
         xanchor="left", yanchor="middle", align="left",
         showarrow=False, font={"size": 11, "color": "#334155"},
