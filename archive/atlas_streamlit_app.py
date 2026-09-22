@@ -2571,14 +2571,6 @@ def render_limiting_factors(
         biological["species"] + " | " + biological["life_stage"]
     )
     with right:
-        st.caption(
-            "Maximum possible Risk Component",
-            help=(
-                "For each species/life-stage combination, the maximum equals "
-                "Life-Stage Fish Use Score × Population Priority, with "
-                "Limiting-Factor Condition and Vulnerability set to 1."
-            ),
-        )
         horizontal_bar(
             biological,
             "risk_component",
