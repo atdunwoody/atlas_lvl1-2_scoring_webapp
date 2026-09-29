@@ -154,15 +154,6 @@ $$
 \text{frequency}
 $$
 
-For each limiting factor and action:
-
-$$
-\text{action-specific benefit component}
-=
-\text{limiting-factor risk score}
-\times
-\text{action weight}
-$$
 
 For each action, the action-specific benefit components are summed across the 15 limiting factors:
 
