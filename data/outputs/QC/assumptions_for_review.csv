@@ -1,9 +1,9 @@
-component,field_or_rule,implementation
-Life-stage fish use,LS_corrected_score,Source divided by the maximum across the complete input table; source and denominator retained.
-Species fish use,species_aggregate_score,Unchanged context field; may exceed 1; not a direct multiplier.
-Overall fish use,fish_use_score_decimal,Input mapped to output fish_use_score; context only.
-Population priority,population_priority,Within-species life-stage weights; source rounding retained; no between-species weighting.
-Condition direction,condition_score,Assumes raw 1 means least impairment and 5 greatest impairment; verify against source rubric.
-Vulnerability,vulnerability_score,Rank 1 maps to 1 and rank 15 to 0.01 using a linear transformation.
-Migration,maximum vulnerability_score,Use the larger adult/juvenile vulnerability separately for each species and limiting factor.
-Action weight,lfat_score,Directness × frequency; source product checked before scoring.
+topic,implemented_assumption,review_note
+Life-stage fish use,Divide source life-stage fish use by the global maximum across the complete input table.,The normalization denominator can change between runs; review the exported normalization details.
+Condition ratings,Treat raw rating 1 as least impairment and 5 as greatest impairment; map linearly to 0.01 and 1.0.,Confirm that the source ratings use this direction; numerical QC does not establish their meaning.
+Vulnerability ranks,Map vulnerability rank 1 to 1.0 and rank 15 to 0.01 using a linear transformation.,Source vulnerability review flags and uncertainty notes remain relevant after numerical QC.
+Combined migration vulnerability,Use the larger adult-migration or juvenile-emigration vulnerability score for each species and limiting factor.,Review whether the maximum appropriately represents the combined Migration life stage.
+Population priorities,Retain source life-stage priorities within each basin and species; allow a sum-to-one tolerance of 0.011.,No separate between-species multiplier is applied when summing species risks.
+Action relationships,"Weight each limiting-factor risk by the source LFAT directness times frequency, then sum by action.","Action-alignment scores are relative indices, not predicted restoration benefits."
+BSR correspondence,Retain source BSR crosswalk statuses and flag every status other than exact_identifier for review.,Computational checks do not resolve provisional source matches.
+Score interpretation,Sum the four-factor pathway products to calculate relative prioritization indices.,"Scores are not probabilities, physical habitat quantities, or predictions of fish abundance."
