@@ -177,7 +177,7 @@ SPECIES_RISK_MAXIMUM_HELP = (
 )
 BENEFIT_COMPONENT_MAXIMUM_HELP = (
     "An Action-Specific Benefit Component Score is a Limiting-Factor Risk "
-    "Score multiplied by its relationship weight for an action. Percentages "
+    "Score multiplied by its action effectiveness score. Percentages "
     "compare it with the highest Action-Specific Benefit Component Score "
     "across all included BSRs, actions, and limiting factors. "
     "They express relative action alignment, not predicted habitat improvement."
@@ -192,9 +192,9 @@ ACTION_BENEFIT_MAXIMUM_HELP = (
 )
 
 OVERALL_RISK_DESCRIPTION = (
-    "Indicates whether the critical limiting factors within a BSR affect "
-    "the fish present, by combining fish use and life-stage population "
-    "priority with limiting-factor condition and biological vulnerability."
+    "A top-line measure of geographic restoration priority when taking a "
+    "multi-species approach. It combines fish use and population priority "
+    "with limiting-factor condition and biological vulnerability."
 )
 FISH_USE_DESCRIPTION = (
     "Rates how heavily fish use each BSR from the Negligible, Low, Medium, "
@@ -206,51 +206,58 @@ LIFE_STAGE_RISK_DESCRIPTION = (
     "all limiting factors, and vulnerability to those factors."
 )
 LIMITING_FACTOR_RISK_DESCRIPTION = (
-    "Shows the modeled risk posed by a limiting factor in a BSR, based on its "
+    "Shows the calculated risk posed by a limiting factor in a BSR, based on its "
     "condition, fish vulnerability across all species and life stages, and "
     "the importance of the BSR to those fish."
 )
 ACTION_BENEFIT_DESCRIPTION = (
-    "Shows how strongly an action aligns with the existing modeled risk in a "
-    "BSR. It does not estimate feasibility, cost, or expected effectiveness."
+    "Quantifies how strongly a restoration action type addresses the "
+    "calculated risk within a BSR."
 )
 
 OVERALL_RISK_INTRODUCTION = """
-**Overall Risk:** The overall risk score is intended to quantify whether the
-critical limiting factors within a BSR affect the fish present in that BSR.
-It integrates (a) the presence and relative importance of fish species and
-life stages, (b) the condition of limiting factors, and (c) the vulnerability
-of the species and life stages present to those limiting factors.
+**Overall Risk:** The overall risk score is a top-line measure of geographic
+restoration priority when taking a multi-species approach.
 
-The score is intended to address three questions:
+The overall risk score quantifies the total risk to the three fish species
+considered in Atlas. It informs where habitat degradation is most likely to
+negatively affect fish at a population level.
 
-1. How heavily do fish use the BSR?
-2. Which limiting factors are most critical within the BSR?
-3. Do those critical limiting factors affect the fish present in the BSR?
+The score considers three questions to arrive at a risk score, by BSR:
 
-The overall risk score is provided for demonstration purposes and is not a
-direct input to Level 2 scores. Level 2 uses the individual limiting-factor
-risk scores that also contribute to Overall Risk.
+1. How heavy and important is fish use relative to the population?
+2. How degraded are habitat conditions, as rated by limiting-factor category?
+3. How vulnerable are the fish to those limiting factors?
+
+BSRs will have higher risk scores where fish use is more significant and/or
+important, where limiting factors (conditions) are more degraded, and where
+those degraded conditions are more likely to affect the life stages and
+species present.
+
+The risk score can also be narrowed to evaluate the risk to specific species
+and life stages. Risk scoring can also be used to query which limiting
+factors are creating more or less risk in a given BSR.
 """.strip()
 
 FISH_USE_INTRODUCTION = """
-Rates how heavily fish use each BSR, based on the Negligible / Low / Medium /
-High use ratings assigned to each species and life stage. There are three
-levels: overall, species, and life stage. Life-stage fish-use scores enter
-Overall Risk; overall and species scores are provided for context.
+The Fish Use score rates how heavily fish use each BSR, based on the
+TAC-assigned Negligible / Low / Medium / High ratings for each species and
+life stage. The fish-use score can be queried at three levels for each BSR:
+overall use (multi-species), species-specific use, and life-stage-specific use.
 
 Reported percentages compare a BSR with the highest observed score for the
 corresponding level among included BSRs across both basins:
 
 1. **Life-Stage Fish Use:** How heavily a species uses this BSR for one life
-   stage, from Negligible to High (a core use area). Percentages use the
+   stage, from Negligible to High (a core use area). Percentages are calculated with the
    highest life-stage fish-use score for that species across included BSRs
    and all its life stages.
 2. **Species Fish Use:** Life-stage fish use for a species in a BSR, weighted
-   by each life stage's population priority and summed. The app displays the
-   supplied species score. Percentages use the highest species fish-use
+   by each life stage's population priority and summed. Percentages are
+   calculated with the highest species fish-use
    score for that same species among included BSRs.
-3. **Overall Fish Use:** Fish use across all modeled species and life stages.
+3. **Overall Fish Use:** Summation of fish-use scores for all modeled species
+   and life stages.
    The raw input is on a 0-to-1 scale; displayed percentages compare it with
    the highest overall fish-use score among included BSRs, which is 100%.
 
@@ -259,37 +266,55 @@ not mean half the fish use the BSR, and percentages need not sum to 100%.
 """.strip()
 
 LIMITING_FACTOR_INTRODUCTION = """
+Shows the calculated risk posed by a limiting factor in a BSR, based on its
+condition, fish vulnerability across all species and life stages, and the
+importance of the BSR to those fish.
+
+### Overall Limiting-Factor Condition Score
+
+Overall Limiting-Factor Condition Score is the unweighted mean of the 15
+specific Limiting-Factor Condition Scores (TAC-assigned) in a BSR. A mean of
+0.01 is least degraded and 1 is most degraded. Percentages compare it with
+the highest Overall Limiting-Factor Condition Score among included BSRs.
+Overall Limiting-Factor Condition Score is provided for demonstration and is
+not incorporated into Overall Risk Score.
+
+Limiting Factor Count is the number of distinct limiting factors included in
+the BSR's condition mean.
+
+### Specific Limiting-Factor Condition Scores
+
+**Specific Limiting-Factor Condition Score:** Degree of degradation for one
+limiting factor in a BSR. Raw scores are based on TAC ratings and range from
+**0.01 (least degraded)** to **1 (most degraded)**. Percentages compare the
+score with the highest limiting-factor condition score across all included
+BSRs and limiting factors, representing the most degraded BSR and factor
+combination in the included data. That observed maximum can be less than 1,
+so 100% need not mean maximum degradation.
+
 **Overall Limiting-Factor Condition Score:** Mean of the 15 specific
 limiting-factor condition scores within each BSR. This overall limiting-factor condition
 score is provided for demonstration and is not incorporated into Overall Risk.
 Percentages compare each BSR's mean with the highest mean among included BSRs.
 
-**Specific Limiting-Factor Condition Score:** Degree of degradation for one
-limiting factor in a BSR. Raw scores range from **0.01 (least degraded)** to
-**1 (most degraded)**. Percentages compare the score with the highest
-limiting-factor condition score across all included BSRs and limiting factors, representing
-the most degraded BSR and factor combination in the included data. That
-observed maximum can be less than 1, so 100% need not mean maximum degradation.
-
-**Limiting-Factor Risk Score:** Modeled risk posed by a limiting factor in a
+**Limiting-Factor Risk Score:** Calculated risk posed by a limiting factor in a
 BSR, based on its condition, the vulnerability of each species and life
-stage, and the importance of the BSR to those fish through fish use and
+stage, and the importance of fish use as informed by fish-use scores and
 population priority. Percentages compare the score with the highest
 limiting-factor risk across all included BSRs and factors.
 """.strip()
 
 ACTION_BENEFIT_INTRODUCTION = """
-**Action-Specific Benefits:** The action-specific benefit score is intended
-to quantify how strongly an action aligns with the modeled risk within a
-BSR. It combines:
+The action-specific benefit score quantifies how strongly a restoration
+action type addresses the calculated risk within a BSR. It combines:
 
 1. The individual limiting-factor risk scores, which account for fish use,
    population priority, condition, and vulnerability
-2. Action weights describing the strength and frequency of the documented
-   relationship between each action and limiting factor.
+2. Action effectiveness scores describing the strength and likelihood of an
+   action type addressing a limiting factor.
 
 For each action, each limiting-factor risk score is multiplied by its
-corresponding action weight. These weighted contributions are then summed
+action effectiveness score. These weighted contributions are then summed
 across all 15 limiting factors to calculate the Action-Specific Benefit
 Score. Reported percentages compare each score with the highest observed
 Action-Specific Benefit Score across all actions and included BSRs in both
@@ -509,7 +534,7 @@ DISPLAY_LABELS = {
     "risk_score": "Risk Score",
     "action_id": "Action ID",
     "action_type": "Action Type",
-    "lfat_score": "Action Weight",
+    "lfat_score": "Action Effectiveness Score",
     "benefit_component": "Action-Specific Benefit Component",
     "action_benefit_score": "Action-Specific Benefit Score",
     "highest_risk_aligned_action_type": "Highest Risk-Aligned Action Type",
@@ -533,7 +558,7 @@ DISPLAY_LABELS = {
         "Limiting-Factor Risk for Highest Benefit Component"
     ),
     "highest_benefit_action_weight": (
-        "Action Weight for Highest Benefit Component"
+        "Action Effectiveness Score for Highest Benefit Component"
     ),
     "highest_benefit_component_score": (
         "Highest Action-Specific Benefit Component"
@@ -715,9 +740,9 @@ The Highest Priority Limiting Factor is the limiting factor with the largest Lim
 
 ### Overall risk score
 
-**Plain language:** Overall Risk indicates whether the critical limiting factors within a BSR affect the fish present, by combining fish use and population priority with limiting-factor condition and biological vulnerability. It addresses fish use, the most critical limiting factors, and whether those factors affect the fish using the BSR. Percentages compare each BSR with the highest observed Overall Risk Score among included BSRs.
+**Plain language:** Overall Risk is a top-line measure of geographic restoration priority when taking a multi-species approach. It quantifies the total risk to the three fish species considered in Atlas, combining fish use and population priority with limiting-factor condition and biological vulnerability. It informs where habitat degradation is most likely to negatively affect fish at a population level. Percentages compare each BSR with the highest observed Overall Risk Score among included BSRs. Risk can also be evaluated for specific species and life stages.
 
-Overall Risk is provided for demonstration purposes. Its aggregate score is not a direct input to Level 2; Level 2 uses the individual limiting-factor risk scores that also contribute to Overall Risk.
+The aggregate Overall Risk Score is not a direct input to Level 2; Level 2 uses the individual limiting-factor risk scores that also contribute to Overall Risk.
 
 The Overall Risk Score can be calculated equivalently by summing all Life-Stage Risk Scores or all 15 Limiting-Factor Risk Scores:
 
@@ -739,23 +764,23 @@ $$
 
 ## Level 2 action calculations
 
-### Action weight
+### Action effectiveness score
 
-**Plain language:** Action Weight describes the strength and frequency of the documented relationship between an action and a limiting factor.
+**Plain language:** Action Effectiveness Score describes the strength and likelihood of an action type addressing a limiting factor.
 
 $$
-\text{action weight}
+\text{action effectiveness score}
 =
 \text{relationship directness}
 \times
 \text{frequency}
 $$
 
-Action Weight ranges from 0 to 1.
+Action Effectiveness Score ranges from 0 to 1.
 
 ### Action-Specific Benefit Score
 
-**Plain language:** Action-Specific Benefit Score indicates how strongly an action aligns with the existing modeled risk in a BSR. It does not estimate feasibility, cost, or expected effectiveness.
+**Plain language:** Action-Specific Benefit Score quantifies how strongly a restoration action type addresses the calculated risk within a BSR. It combines the individual limiting-factor risk scores with action effectiveness scores describing the strength and likelihood of an action type addressing a limiting factor.
 
 For each action, the weighted limiting-factor contributions are summed:
 
@@ -767,7 +792,7 @@ $$
 \left(
 \text{limiting-factor risk score}
 \times
-\text{action weight}
+\text{action effectiveness score}
 \right)
 \end{aligned}
 $$
@@ -825,7 +850,7 @@ def scoring_maxima_sections(
              observed("limiting_factor", "risk_score")),
             ("Overall Risk Score", "45", "Lower with fish use and priority held fixed",
              observed("bsr", "overall_risk_score")),
-            ("Action-Specific Benefit Score", "45", "15 factors x 3 factor risk x 1 action weight",
+            ("Action-Specific Benefit Score", "45", "15 factors x 3 factor risk x 1 action effectiveness",
              observed("action", "action_benefit_score")),
         )),
     )
@@ -847,7 +872,7 @@ def render_scoring_methodology(tables: dict[str, pd.DataFrame] | None = None) ->
             "species. Specific limiting-factor condition scores share a maximum "
             "across BSRs and factors; overall limiting-factor condition scores "
             "use the highest BSR mean. "
-            "Vulnerability, Population Priority, and Action Weight remain "
+            "Vulnerability, Population Priority, and Action Effectiveness Score remain "
             "percentages of their fixed input-scale maximum of 1. Raw "
             "scores and scoring equations are unchanged by display normalization."
         )
@@ -1430,9 +1455,11 @@ def score_maximum_help(field: str, label: str | None = None) -> str | None:
         return VULNERABILITY_SCORE_MAXIMUM_HELP
     if field == "population_priority" or "population priority" in normalized_label:
         return POPULATION_PRIORITY_MAXIMUM_HELP
-    if field == "lfat_score" or "action weight" in normalized_label:
+    if field == "lfat_score" or "action effectiveness" in normalized_label or "action weight" in normalized_label:
         return (
-            "Action Weight is relationship directness times frequency: 0 "
+            "Action Effectiveness Score describes the strength and likelihood "
+            "of an action type addressing a limiting factor. It is relationship "
+            "directness times frequency: 0 "
             "indicates no scored relationship and 1 the strongest relationship. "
             "Percentages express the fixed input scale, with 100% equal to 1."
         )
@@ -1698,11 +1725,12 @@ def score_percentage_caption(field: str, label: str) -> str:
         reference = "100% is the highest species risk score for the same species among included BSRs."
     else:
         reference = "100% is the highest overall risk score among included BSRs."
+    article = "an" if name[:1] in "aeiou" else "a"
     return (
         f"**Labels:** percentage of observed maximum score **({name})**  \n"
         f"**Reference:** {reference}  \n"
         "**Example:** If the observed maximum is 0.80, **50% (0.40)** "
-        f"means a {name} of **0.40**, half that maximum."
+        f"means {article} {name} of **0.40**, half that maximum."
     )
 
 
@@ -1726,15 +1754,37 @@ def score_scale_description(field: str, label: str, *, raw_condition: bool = Fal
     if raw_condition:
         return f"{name} scale: 0.01 = least degraded; 1 = most degraded."
     if field in {"condition_score", "overall_limiting_factor_score"}:
+        comparison = (
+            "across all included BSRs and limiting factors"
+            if field == "condition_score" else "among included BSRs"
+        )
         return (
             f"Raw {name.casefold()} scale: 0.01 = least degraded; 1 = most degraded. "
-            f"100% identifies the highest observed {name.casefold()} across all BSRs."
+            f"100% identifies the highest observed {name.casefold()} {comparison}."
         )
+    if field in {"species_risk_score", "species_aggregate_score"}:
+        comparison = "for the same species among included BSRs"
+    elif field == "LS_corrected_score":
+        comparison = "for the same species across included BSRs and all its life stages"
+    elif field == "risk_component":
+        comparison = "across all included BSRs, species, life stages, and limiting factors"
+    elif field == "risk_score":
+        comparison = (
+            "across all included BSRs and limiting factors"
+            if "limiting" in label.casefold() else
+            "across all included BSRs, species, and life stages"
+        )
+    elif field in {"action_benefit_score", "highest_action_benefit_score"}:
+        comparison = "across all actions and included BSRs"
+    elif field == "benefit_component":
+        comparison = "across all actions, included BSRs, and limiting factors"
+    else:
+        comparison = "across all included BSRs"
     upper = "1" if unit_color_scale else "100%"
     lower = "0" if unit_color_scale else "0%"
     return (
         f"{lower} = {name.casefold()} of 0; "
-        f"{upper} = highest observed {name.casefold()} across all BSRs"
+        f"{upper} = highest observed {name.casefold()} {comparison}."
     )
 
 
@@ -3047,14 +3097,14 @@ def horizontal_bar(
         )
 
 
-def render_overall_risk(
+def render_risk(
     tables: dict[str, pd.DataFrame],
     geometry: gpd.GeoDataFrame,
     basin: str,
     selected_bsr: str,
     map_style: str,
 ) -> None:
-    """Render the overall risk map and its two principal drill-downs."""
+    """Render overall, species, and life-stage risk maps and BSR drill-downs."""
     # Reattach display metadata in case an older cached table lacks it.
     all_bsr = add_preliminary_tiers(add_observed_risk_maximum(tables["bsr"]))
     bsr = filter_table(all_bsr, basin)
@@ -3062,23 +3112,18 @@ def render_overall_risk(
     limiting = filter_table(tables["limiting_factor"], basin)
     grid = filter_table(tables["grid"], basin)
 
-    st.header("Level 1: Overall Risk", help=OVERALL_RISK_DESCRIPTION)
+    st.header("Level 1: Risk", help=OVERALL_RISK_DESCRIPTION)
     st.markdown(OVERALL_RISK_INTRODUCTION)
     st.divider()
     st.caption(
         "Click a polygon or select a BSR in the sidebar to see its risk by "
         "species and life stage and by limiting factor."
     )
-    map_selection = st.selectbox(
-        "Risk score map",
-        options=[
-            "Overall Risk Score",
-            "Overall Preliminary Tiers",
-            "Chinook Risk Score",
-            "Steelhead Risk Score",
-            "Bull Trout Risk Score",
-        ],
-        key="risk_map_selection",
+    map_level = st.radio(
+        "Risk map level",
+        options=["Overall", "Species", "Life Stage"],
+        horizontal=True,
+        key="risk_map_level",
     )
     common_hover = [
         "overall_risk_score",
@@ -3086,57 +3131,79 @@ def render_overall_risk(
         "highest_risk_species_life_stage",
         "highest_risk_limiting_factor",
     ]
-    species_map = None
-    if map_selection == "Overall Risk Score":
-        render_choropleth(
-            geometry,
-            bsr,
-            "overall_risk_score",
-            "Overall Risk Score",
-            "Overall Risk Score",
-            "map_overall_risk",
-            map_style,
-            hover_columns=common_hover,
-            color_scale=RISK_COLOR_SCALE,
-            range_color=(
-                0.0,
-                float(bsr[observed_maximum_column("overall_risk_score")].iloc[0]),
-            ),
+    map_species = None
+    map_life_stage = None
+    categorical = False
+    if map_level == "Overall":
+        map_selection = st.selectbox(
+            "Risk map value",
+            options=["Overall Risk Score", "Overall Preliminary Tiers"],
+            key="risk_overall_map_value",
         )
-    elif map_selection == "Overall Preliminary Tiers":
-        render_choropleth(
-            geometry,
-            bsr,
-            "preliminary_tier",
-            "Overall Preliminary Tiers",
-            "Overall Preliminary Tiers",
-            "map_overall_risk",
-            map_style,
-            categorical=True,
-            hover_columns=[
-                "preliminary_tier_basis",
-                *common_hover,
-            ],
-            color_discrete_map=TIER_COLORS,
-            category_order=TIER_ORDER,
-        )
+        categorical = map_selection == "Overall Preliminary Tiers"
+        map_values = bsr
+        map_metric = "preliminary_tier" if categorical else "overall_risk_score"
+        map_metric_label = map_selection
+        map_title = map_selection
+        hover_columns = (["preliminary_tier_basis"] if categorical else []) + common_hover
     else:
-        species = map_selection.removesuffix(" Risk Score")
-        species_scores = summarize_species_risk(life)
-        species_map = species_scores.loc[species_scores["species"].eq(species)].copy()
-        species_observed_maximum = (
-            float(species_map[
-                observed_maximum_column("species_risk_score")
-            ].iloc[0])
-            if not species_map.empty else None
+        map_species = st.selectbox(
+            "Species",
+            sorted(life["species"].dropna().unique()),
+            key="risk_map_species",
         )
-        render_choropleth(
-            geometry, species_map, "species_risk_score", map_selection,
-            map_selection, "map_overall_risk", map_style,
-            hover_columns=["species"], color_scale=RISK_COLOR_SCALE,
-            range_color=(0.0, species_observed_maximum)
-            if species_observed_maximum is not None else None,
+        if map_level == "Species":
+            # Set species reference maxima across both basins before filtering.
+            species_scores = filter_table(
+                summarize_species_risk(tables["life_stage"]), basin
+            )
+            map_values = species_scores.loc[
+                species_scores["species"].eq(map_species)
+            ].copy()
+            map_metric = "species_risk_score"
+            map_metric_label = "Species Risk Score"
+            map_title = f"{map_species}: Species Risk Score"
+            hover_columns = ["species", *common_hover]
+        else:
+            species_rows = life.loc[life["species"].eq(map_species)]
+            map_life_stage = st.selectbox(
+                "Life stage",
+                sorted(species_rows["life_stage"].dropna().unique()),
+                key=f"risk_map_life_stage:{map_species}",
+            )
+            # Preserve the shared life-stage risk denominator from the full table.
+            map_values = species_rows.loc[
+                species_rows["life_stage"].eq(map_life_stage),
+                score_columns(species_rows, [
+                    "bsr", "species", "life_stage", "risk_score",
+                    "LS_corrected_score", "population_priority",
+                ]),
+            ].copy()
+            map_metric = "risk_score"
+            map_metric_label = "Life-Stage Risk Score"
+            map_title = f"{map_species} | {map_life_stage}: Life-Stage Risk Score"
+            hover_columns = ["species", "life_stage", *common_hover]
+        map_values = map_values.merge(
+            bsr[score_columns(bsr, ["bsr", *common_hover])],
+            on="bsr",
+            how="left",
+            validate="one_to_one",
         )
+
+    render_choropleth(
+        geometry,
+        map_values,
+        map_metric,
+        map_metric_label,
+        map_title,
+        f"map_risk:{map_level}:{map_species}:{map_life_stage}:{map_metric}",
+        map_style,
+        categorical=categorical,
+        hover_columns=hover_columns,
+        color_scale=RISK_COLOR_SCALE,
+        color_discrete_map=TIER_COLORS if categorical else None,
+        category_order=TIER_ORDER if categorical else None,
+    )
 
     row = bsr.loc[bsr["bsr"].eq(selected_bsr)].iloc[0]
     metric_columns = st.columns(4)
@@ -3149,18 +3216,21 @@ def render_overall_risk(
         "Preliminary Tier", row["preliminary_tier"],
         help=score_meaning("preliminary_tier"),
     )
-    if species_map is None:
+    if map_level == "Overall":
         secondary_label = "Overall Fish Use Score"
         secondary_value = format_score_value(row, "fish_use_score")
         secondary_help = score_meaning("fish_use_score")
     else:
-        secondary_label = f"{species} Risk Score"
-        selected_species = species_map.loc[species_map["bsr"].eq(selected_bsr)]
-        secondary_value = (
-            format_score_value(selected_species.iloc[0], "species_risk_score")
-            if not selected_species.empty else "Not available"
+        secondary_label = (
+            f"{map_species} Risk Score" if map_level == "Species"
+            else f"{map_species} | {map_life_stage} Risk Score"
         )
-        secondary_help = score_meaning("species_risk_score")
+        selected_domain = map_values.loc[map_values["bsr"].eq(selected_bsr)]
+        secondary_value = (
+            format_score_value(selected_domain.iloc[0], map_metric)
+            if not selected_domain.empty else "Not available"
+        )
+        secondary_help = score_meaning(map_metric, map_metric_label)
     metric_columns[3].metric(
         secondary_label, secondary_value, help=secondary_help,
     )
@@ -3269,11 +3339,11 @@ def render_fish_use(
     st.header("Level 1: Fish Use", help=FISH_USE_DESCRIPTION)
     st.markdown(FISH_USE_INTRODUCTION)
     st.divider()
-    st.caption("Choose an Overall, Species, or Life stage map below.")
+    st.caption("Choose an Overall, Species, or Life Stage map below.")
 
     map_level = st.radio(
         "Fish-use map level",
-        options=["Overall", "Species", "Life stage"],
+        options=["Overall", "Species", "Life Stage"],
         index=2,
         horizontal=True,
     )
@@ -3541,7 +3611,7 @@ def render_limiting_factors(
     limiting = filter_table(tables["limiting_factor"], basin)
     grid = filter_table(tables["grid"], basin)
 
-    st.header("Level 1: Limiting Factors", help=LIMITING_FACTOR_RISK_DESCRIPTION)
+    st.header("Level 1: Limiting Factor Risk", help=LIMITING_FACTOR_RISK_DESCRIPTION)
     st.markdown(LIMITING_FACTOR_INTRODUCTION)
     st.divider()
     overall_conditions = filter_table(
@@ -3798,7 +3868,7 @@ def validate_action_benefits(
     if components[["lfat_score", "benefit_component"]].isna().any().any():
         raise ValueError(
             "action_score_components.csv contains missing or nonnumeric "
-            "Action Weights or Action-Specific Benefit Components."
+            "Action Effectiveness Scores or Action-Specific Benefit Components."
         )
     component_totals = (
         components.groupby(
@@ -3865,7 +3935,7 @@ def validate_action_benefits(
     ):
         raise ValueError(
             "Action-Specific Benefit Components do not equal "
-            "Limiting-Factor Risk × Action Weight."
+            "Limiting-Factor Risk × Action Effectiveness Score."
         )
     candidates["_highest_component_score"] = candidates.groupby("bsr")[
         "benefit_component"
@@ -3915,7 +3985,7 @@ def render_actions(
         action_components,
     )
 
-    st.header("Level 2: Action Benefits", help=ACTION_BENEFIT_DESCRIPTION)
+    st.header("Level 2: Action-Specific Benefits", help=ACTION_BENEFIT_DESCRIPTION)
     st.markdown(ACTION_BENEFIT_INTRODUCTION)
     st.divider()
 
@@ -4178,7 +4248,7 @@ def select_sidebar_view(page: str) -> None:
 def render_sidebar_view_selector() -> str:
     """Render Level 1 and Level 2 navigation as grouped controls."""
     pages = [
-        "Overall Risk",
+        "Risk",
         "Fish Use",
         "Highest Risk-Aligned Life Stage",
         "Limiting Factor Risk",
@@ -4304,8 +4374,8 @@ def main() -> None:
             + (" ..." if len(missing_geometry) > 10 else "")
         )
 
-    if page == "Overall Risk":
-        render_overall_risk(tables, geometry, basin, selected_bsr, MAP_STYLE)
+    if page == "Risk":
+        render_risk(tables, geometry, basin, selected_bsr, MAP_STYLE)
     elif page == "Fish Use":
         render_fish_use(tables, geometry, basin, selected_bsr, MAP_STYLE)
     elif page == "Highest Risk-Aligned Life Stage":

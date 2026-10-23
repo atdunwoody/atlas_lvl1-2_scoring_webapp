@@ -278,6 +278,24 @@ population priority. Percentages compare the score with the highest
 limiting-factor risk across all included BSRs and factors.
 """.strip()
 
+ACTION_BENEFIT_INTRODUCTION = """
+**Action-Specific Benefits:** The action-specific benefit score is intended
+to quantify how strongly an action aligns with the modeled risk within a
+BSR. It combines:
+
+1. The individual limiting-factor risk scores, which account for fish use,
+   population priority, condition, and vulnerability
+2. Action weights describing the strength and frequency of the documented
+   relationship between each action and limiting factor.
+
+For each action, each limiting-factor risk score is multiplied by its
+corresponding action weight. These weighted contributions are then summed
+across all 15 limiting factors to calculate the Action-Specific Benefit
+Score. Reported percentages compare each score with the highest observed
+Action-Specific Benefit Score across all actions and included BSRs in both
+basins.
+""".strip()
+
 REQUIRED_COLUMNS = {
     "bsr": {
         "bsr",
@@ -3898,6 +3916,8 @@ def render_actions(
     )
 
     st.header("Level 2: Action Benefits", help=ACTION_BENEFIT_DESCRIPTION)
+    st.markdown(ACTION_BENEFIT_INTRODUCTION)
+    st.divider()
 
     action_options = (
         actions[["action_id", "action_type"]]
