@@ -38,6 +38,8 @@ MAP_BOUNDARY_COLOR = "#334155"
 MAP_BOUNDARY_WIDTH = 0.4
 MAP_SELECTED_OUTLINE_COLOR = "#f3b63f"
 MAP_SELECTED_OUTLINE_WIDTH = 3.0
+NOT_PRESENT_BSR_FILL_COLOR = "#b8bfc7"
+NOT_PRESENT_BSR_LABEL = "Not present in BSR"
 EXCLUDED_BSR_FILL_COLOR = "#f1efeb"
 EXCLUDED_BSR_HATCH_COLOR = "#54616b"
 EXCLUDED_BSR_HATCH_WIDTH = 1.5
@@ -2561,6 +2563,57 @@ def add_excluded_bsr_hatching(
     )
 
 
+def add_not_present_bsr_fill(
+    figure: Any,
+    not_present: gpd.GeoDataFrame,
+    plot_data: pd.DataFrame,
+) -> None:
+    """Use a solid grey fill for BSRs with zero selected-domain fish use."""
+    if not_present.empty or not figure.data:
+        return
+    hover_lookup = plot_data.set_index("bsr")["_hover_text"]
+    overlay_arguments = {
+        "geojson": json.loads(not_present[["bsr", "geometry"]].to_json()),
+        "locations": not_present["bsr"],
+        "featureidkey": "properties.bsr",
+        "z": [0] * len(not_present),
+        "zmin": 0,
+        "zmax": 1,
+        "colorscale": [[0, NOT_PRESENT_BSR_FILL_COLOR], [1, NOT_PRESENT_BSR_FILL_COLOR]],
+        "showscale": False,
+        "showlegend": False,
+        "customdata": [[bsr, hover_lookup.loc[bsr]] for bsr in not_present["bsr"]],
+        "hovertemplate": "%{customdata[1]}<extra></extra>",
+        "marker": {
+            "line": {"color": MAP_BOUNDARY_COLOR, "width": MAP_BOUNDARY_WIDTH},
+            "opacity": 1,
+        },
+        "selected": {"marker": {"opacity": 1}},
+        "unselected": {"marker": {"opacity": 1}},
+        "name": NOT_PRESENT_BSR_LABEL,
+    }
+    if getattr(figure.data[0], "type", "") == "choroplethmap":
+        figure.add_trace(go.Choroplethmap(**overlay_arguments))
+    else:
+        figure.add_trace(go.Choroplethmapbox(**overlay_arguments))
+
+
+def add_not_present_bsr_key(figure: Any, y: float) -> None:
+    """Place the grey presence swatch beside the existing analysis-status key."""
+    figure.add_shape(
+        type="rect", xref="paper", yref="paper",
+        x0=1.04, x1=1.06, y0=y - 0.015, y1=y + 0.015,
+        fillcolor=NOT_PRESENT_BSR_FILL_COLOR,
+        line={"color": MAP_BOUNDARY_COLOR, "width": 0.7},
+    )
+    figure.add_annotation(
+        xref="paper", yref="paper", x=1.07, y=y,
+        text=NOT_PRESENT_BSR_LABEL,
+        xanchor="left", yanchor="middle", align="left",
+        showarrow=False, font={"size": 11, "color": "#334155"},
+    )
+
+
 def add_excluded_bsr_key(figure: Any) -> None:
     """Place a hatched swatch in the right map margin, clear of color keys."""
     # Half the previous width and height gives the swatch one-quarter its area.
@@ -2664,10 +2717,12 @@ def render_choropleth(
     height: int = 600,
     show_legend: bool = True,
     title_help: str | None = None,
+    not_present_bsrs: set[str] | None = None,
 ) -> None:
     """Render an interactive BSR choropleth and register click selection."""
     color_column = color_column or metric
     color_label = color_label or metric_label
+    not_present_bsrs = not_present_bsrs or set()
     hover_columns = [
         column
         for column in (hover_columns or [])
@@ -2720,6 +2775,8 @@ def render_choropleth(
     if mapped.empty:
         st.warning(f"No mapped BSRs contain values for {metric_label}.")
         return
+    not_present = mapped.loc[mapped["bsr"].isin(not_present_bsrs)].copy()
+    has_not_present = not not_present.empty
 
     title_details = title_help or score_meaning(metric, metric_label)
     st.subheader(title, help=title_details or None)
@@ -2735,7 +2792,7 @@ def render_choropleth(
         normalized_bsr_id
     ).isin(EXCLUDED_TIER_BSRS).any()
     # Reserve the right margin for the hatch key and the bottom for color scales.
-    right_margin = 240 if has_excluded and show_legend else 15
+    right_margin = 240 if (has_excluded or has_not_present) and show_legend else 15
     bottom_margin = 15 if categorical else 95
     center, zoom = map_center_zoom(
         displayed_geometry, height,
@@ -2781,6 +2838,8 @@ def render_choropleth(
             )
             label = escape(str(dynamic_label))
             lines.append(f"<b>{label}:</b> {escape(displayed)}")
+        if row["bsr"] in not_present_bsrs:
+            lines.append(f"<b>Presence:</b> {NOT_PRESENT_BSR_LABEL}")
         return "<br>".join(lines)
 
     plot_data["_hover_text"] = plot_data.apply(hover_text, axis=1)
@@ -2906,6 +2965,7 @@ def render_choropleth(
         st.session_state.get("selected_bsr"),
         chart_key,
     )
+    add_not_present_bsr_fill(figure, not_present, plot_data)
     add_excluded_bsr_hatching(
         figure,
         displayed_geometry,
@@ -2920,6 +2980,8 @@ def render_choropleth(
     add_bsr_labels(figure, displayed_geometry)
     if has_excluded and show_legend:
         add_excluded_bsr_key(figure)
+    if has_not_present and show_legend:
+        add_not_present_bsr_key(figure, y=0.82 if has_excluded else 0.90)
     figure.update_layout(
         showlegend=False,
         margin={"r": right_margin, "t": 12, "l": 15, "b": bottom_margin},
@@ -3134,6 +3196,7 @@ def render_risk(
     map_species = None
     map_life_stage = None
     categorical = False
+    not_present_bsrs: set[str] = set()
     if map_level == "Overall":
         map_selection = st.selectbox(
             "Risk map value",
@@ -3152,7 +3215,11 @@ def render_risk(
             sorted(life["species"].dropna().unique()),
             key="risk_map_species",
         )
+        species_rows = life.loc[life["species"].eq(map_species)]
         if map_level == "Species":
+            not_present_bsrs = set(species_rows.loc[
+                species_rows["species_aggregate_score"].eq(0), "bsr"
+            ])
             # Set species reference maxima across both basins before filtering.
             species_scores = filter_table(
                 summarize_species_risk(tables["life_stage"]), basin
@@ -3165,7 +3232,6 @@ def render_risk(
             map_title = f"{map_species}: Species Risk Score"
             hover_columns = ["species", *common_hover]
         else:
-            species_rows = life.loc[life["species"].eq(map_species)]
             map_life_stage = st.selectbox(
                 "Life stage",
                 sorted(species_rows["life_stage"].dropna().unique()),
@@ -3179,6 +3245,9 @@ def render_risk(
                     "LS_corrected_score", "population_priority",
                 ]),
             ].copy()
+            not_present_bsrs = set(map_values.loc[
+                map_values["LS_corrected_score"].eq(0), "bsr"
+            ])
             map_metric = "risk_score"
             map_metric_label = "Life-Stage Risk Score"
             map_title = f"{map_species} | {map_life_stage}: Life-Stage Risk Score"
@@ -3203,6 +3272,7 @@ def render_risk(
         color_scale=RISK_COLOR_SCALE,
         color_discrete_map=TIER_COLORS if categorical else None,
         category_order=TIER_ORDER if categorical else None,
+        not_present_bsrs=not_present_bsrs,
     )
 
     row = bsr.loc[bsr["bsr"].eq(selected_bsr)].iloc[0]
