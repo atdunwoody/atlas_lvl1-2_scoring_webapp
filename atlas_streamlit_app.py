@@ -40,6 +40,10 @@ MAP_SELECTED_OUTLINE_COLOR = "#f3b63f"
 MAP_SELECTED_OUTLINE_WIDTH = 3.0
 NOT_PRESENT_BSR_FILL_COLOR = "#b8bfc7"
 NOT_PRESENT_BSR_LABEL = "Not present in BSR"
+LIFE_STAGE_RISK_NORMALIZATION_OPTIONS = (
+    "Within a single life stage",
+    "Across all life stages",
+)
 EXCLUDED_BSR_FILL_COLOR = "#f1efeb"
 EXCLUDED_BSR_HATCH_COLOR = "#54616b"
 EXCLUDED_BSR_HATCH_WIDTH = 1.5
@@ -696,7 +700,7 @@ $$
 
 ### Life-stage risk score
 
-**Plain language:** Life-Stage Risk Score indicates how much risk a life stage faces in a BSR, based on fish use, population priority, degradation across all limiting factors, and vulnerability to those factors. Percentages compare it with the highest life-stage risk across all included BSRs, species, and life stages; they are not probabilities of harm or shares of a BSR's total risk.
+**Plain language:** Life-Stage Risk Score indicates how much risk a life stage faces in a BSR, based on fish use, population priority, degradation across all limiting factors, and vulnerability to those factors. Life-stage Risk maps default to comparing BSRs within the selected species and life stage. The normalization slider can instead use the highest life-stage risk across all included BSRs, species, and life stages. Life-stage risk comparison charts retain that shared maximum. These percentages are not probabilities of harm or shares of a BSR's total risk.
 
 $$
 \begin{aligned}
@@ -874,6 +878,10 @@ def render_scoring_methodology(tables: dict[str, pd.DataFrame] | None = None) ->
             "species. Specific limiting-factor condition scores share a maximum "
             "across BSRs and factors; overall limiting-factor condition scores "
             "use the highest BSR mean. "
+            "Life-stage Risk maps default to a maximum for the selected species "
+            "and life stage; their slider can select a shared maximum across "
+            "all species and life stages. Life-stage risk comparison charts "
+            "retain the shared maximum. "
             "Vulnerability, Population Priority, and Action Effectiveness Score remain "
             "percentages of their fixed input-scale maximum of 1. Raw "
             "scores and scoring equations are unchanged by display normalization."
@@ -1147,6 +1155,31 @@ def observed_maxima_by_species(table: pd.DataFrame, field: str) -> pd.Series:
     if not set(table["species"]).issubset(maxima.index):
         raise ValueError(f"Every species needs an included BSR to compare {field}.")
     return maxima
+
+
+def life_stage_risk_map_scores(
+    life_stage: pd.DataFrame,
+    species: str,
+    life_stage_name: str,
+    normalization: str,
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Set only the map's denominator, using included BSRs across both basins."""
+    if normalization not in LIFE_STAGE_RISK_NORMALIZATION_OPTIONS:
+        raise ValueError(f"Unknown life-stage risk normalization: {normalization}")
+    selected = life_stage.loc[
+        life_stage["species"].eq(species)
+        & life_stage["life_stage"].eq(life_stage_name)
+    ].copy()
+    if selected.empty:
+        raise ValueError(f"No risk scores are available for {species} | {life_stage_name}.")
+    reference = (
+        selected if normalization == LIFE_STAGE_RISK_NORMALIZATION_OPTIONS[0]
+        else life_stage
+    )
+    selected[display_maximum_column("risk_score")] = observed_included_maximum(
+        reference, "risk_score"
+    )
+    return selected, reference
 
 
 def positive_axis_maximum(
@@ -1605,7 +1638,13 @@ def maximum_source(table: pd.DataFrame, field: str, label: str = "") -> tuple[pd
     return pd.DataFrame(), field
 
 
-def score_maximum_note(table: pd.DataFrame, field: str, label: str) -> str:
+def score_maximum_note(
+    table: pd.DataFrame,
+    field: str,
+    label: str,
+    *,
+    reference_table: pd.DataFrame | None = None,
+) -> str:
     """Describe each denominator and the included records that attain it."""
     if table.empty or not is_score_field(field):
         return ""
@@ -1619,7 +1658,10 @@ def score_maximum_note(table: pd.DataFrame, field: str, label: str) -> str:
         return f"{label}: observed maximum unavailable."
     if field in {"population_priority", "vulnerability_score", "lfat_score"}:
         return f"{label}: input-scale maximum 1."
-    source, source_field = maximum_source(table, field, label)
+    source, source_field = (
+        maximum_source(table, field, label)
+        if reference_table is None else (reference_table, field)
+    )
     if not source.empty and source_field in source:
         source = source.loc[
             ~source["bsr"].map(normalized_bsr_id).isin(EXCLUDED_TIER_BSRS)
@@ -2648,8 +2690,9 @@ def add_excluded_bsr_key(figure: Any) -> None:
 def add_bsr_labels(
     figure: Any,
     mapped: gpd.GeoDataFrame,
+    plot_data: pd.DataFrame,
 ) -> None:
-    """Draw off-white BSR IDs over a thin charcoal text halo."""
+    """Draw BSR labels with the same hover details as their polygons."""
     if mapped.empty or not figure.data:
         return
     label_points = mapped[["bsr", "geometry"]].to_crs(epsg=3857)
@@ -2664,14 +2707,20 @@ def add_bsr_labels(
     if scatter_class is None:
         scatter_class = go.Scattermapbox
 
+    hover_lookup = plot_data.set_index("bsr")["_hover_text"].to_dict()
+    label_customdata = []
+    for bsr in label_points["bsr"].astype(str):
+        fallback = f"<b>BSR:</b> {escape(bsr)}"
+        if normalized_bsr_id(bsr) in EXCLUDED_TIER_BSRS:
+            fallback += "<br><b>Analysis status:</b> Not included"
+        label_customdata.append([bsr, hover_lookup.get(bsr, fallback)])
+
     common = {
         "lon": label_points.geometry.x,
         "lat": label_points.geometry.y,
         "text": label_points["bsr"].map(short_bsr_label),
-        "customdata": [[str(bsr)] for bsr in label_points["bsr"]],
         "ids": label_points["bsr"].astype(str),
         "textposition": "middle center",
-        "hoverinfo": "none",
         "showlegend": False,
     }
     # A one-pixel charcoal edge separates the off-white glyphs from light fills.
@@ -2679,6 +2728,7 @@ def add_bsr_labels(
         scatter_class(
             **common,
             mode="text",
+            hoverinfo="skip",
             textfont={"family": "Open Sans Bold", "size": 14, "color": "#414141"},
             name="BSR label halo",
         )
@@ -2687,6 +2737,8 @@ def add_bsr_labels(
         scatter_class(
             **common,
             mode="markers+text",
+            customdata=label_customdata,
+            hovertemplate="%{customdata[1]}<extra></extra>",
             marker={"size": 26, "color": "#ffffff", "opacity": 0.001},
             textfont={"family": "Open Sans Bold", "size": 12, "color": "#414141"},
             name="BSR labels",
@@ -2718,6 +2770,8 @@ def render_choropleth(
     show_legend: bool = True,
     title_help: str | None = None,
     not_present_bsrs: set[str] | None = None,
+    scale_description: str | None = None,
+    reference_table: pd.DataFrame | None = None,
 ) -> None:
     """Render an interactive BSR choropleth and register click selection."""
     color_column = color_column or metric
@@ -2977,13 +3031,17 @@ def render_choropleth(
         plot_data,
         st.session_state.get("selected_bsr"),
     )
-    add_bsr_labels(figure, displayed_geometry)
+    add_bsr_labels(figure, displayed_geometry, plot_data)
     if has_excluded and show_legend:
         add_excluded_bsr_key(figure)
     if has_not_present and show_legend:
         add_not_present_bsr_key(figure, y=0.82 if has_excluded else 0.90)
     figure.update_layout(
         showlegend=False,
+        hovermode="closest",
+        hoverdistance=8,
+        hoverlabel={"align": "left"},
+        transition={"duration": 0},
         margin={"r": right_margin, "t": 12, "l": 15, "b": bottom_margin},
     )
     if not categorical:
@@ -3018,7 +3076,7 @@ def render_choropleth(
         config={"displaylogo": False, "scrollZoom": True},
     )
     if score_color:
-        scale_note = score_scale_description(
+        scale_note = scale_description or score_scale_description(
             color_column, color_label, raw_condition=raw_condition_colors,
             unit_color_scale=unit_color_scale,
         )
@@ -3029,7 +3087,9 @@ def render_choropleth(
             )
         st.caption(
             scale_note,
-            help=score_maximum_note(plot_data, color_column, color_label) or None,
+            help=score_maximum_note(
+                plot_data, color_column, color_label, reference_table=reference_table
+            ) or None,
         )
     elif categorical:
         notes = [
@@ -3195,6 +3255,10 @@ def render_risk(
     ]
     map_species = None
     map_life_stage = None
+    map_normalization = None
+    map_reference_table = None
+    map_scale_description = None
+    map_title_help = None
     categorical = False
     not_present_bsrs: set[str] = set()
     if map_level == "Overall":
@@ -3217,9 +3281,10 @@ def render_risk(
         )
         species_rows = life.loc[life["species"].eq(map_species)]
         if map_level == "Species":
-            not_present_bsrs = set(species_rows.loc[
-                species_rows["species_aggregate_score"].eq(0), "bsr"
-            ])
+            # Presence follows the life-stage inputs used in the risk equations.
+            # A supplied species aggregate can be zero despite positive use.
+            species_fish_use = species_rows.groupby("bsr")["LS_corrected_score"].max()
+            not_present_bsrs = set(species_fish_use.loc[species_fish_use.eq(0)].index)
             # Set species reference maxima across both basins before filtering.
             species_scores = filter_table(
                 summarize_species_risk(tables["life_stage"]), basin
@@ -3237,14 +3302,45 @@ def render_risk(
                 sorted(species_rows["life_stage"].dropna().unique()),
                 key=f"risk_map_life_stage:{map_species}",
             )
-            # Preserve the shared life-stage risk denominator from the full table.
-            map_values = species_rows.loc[
-                species_rows["life_stage"].eq(map_life_stage),
-                score_columns(species_rows, [
-                    "bsr", "species", "life_stage", "risk_score",
-                    "LS_corrected_score", "population_priority",
-                ]),
-            ].copy()
+            map_normalization = st.select_slider(
+                "Life-stage risk map normalization",
+                options=LIFE_STAGE_RISK_NORMALIZATION_OPTIONS,
+                value=LIFE_STAGE_RISK_NORMALIZATION_OPTIONS[0],
+                key="risk_life_stage_normalization",
+                help=(
+                    "Within a single life stage: 100% is the highest risk for "
+                    "the selected species and life stage among included BSRs "
+                    "across both basins. Across all life stages: 100% is the "
+                    "highest risk across all included BSRs, species, and life "
+                    "stages. This selection controls the map and its summary."
+                ),
+            )
+            map_values, map_reference_table = life_stage_risk_map_scores(
+                tables["life_stage"], map_species, map_life_stage, map_normalization
+            )
+            map_maximum = float(map_values[display_maximum_column("risk_score")].iloc[0])
+            map_values = filter_table(map_values, basin)
+            map_values = map_values[score_columns(map_values, [
+                "bsr", "species", "life_stage", "risk_score",
+                "LS_corrected_score", "population_priority",
+            ])].copy()
+            comparison = (
+                f"for {map_species} | {map_life_stage} among included BSRs across both basins"
+                if map_normalization == LIFE_STAGE_RISK_NORMALIZATION_OPTIONS[0] else
+                "across all included BSRs, species, and life stages in both basins"
+            )
+            reference_text = (
+                f"100% = the highest observed life-stage risk {comparison} "
+                f"(raw score {format_score(map_maximum)})."
+            )
+            map_scale_description = f"0% = life-stage risk score of 0; {reference_text}"
+            if map_maximum == 0:
+                map_scale_description = (
+                    f"All included BSRs have zero life-stage risk {comparison}. "
+                    "Displayed percentages are 0%."
+                )
+                reference_text = map_scale_description
+            map_title_help = f"{LIFE_STAGE_RISK_DESCRIPTION} {reference_text}"
             not_present_bsrs = set(map_values.loc[
                 map_values["LS_corrected_score"].eq(0), "bsr"
             ])
@@ -3265,7 +3361,7 @@ def render_risk(
         map_metric,
         map_metric_label,
         map_title,
-        f"map_risk:{map_level}:{map_species}:{map_life_stage}:{map_metric}",
+        f"map_risk:{map_level}:{map_species}:{map_life_stage}:{map_metric}:{map_normalization}",
         map_style,
         categorical=categorical,
         hover_columns=hover_columns,
@@ -3273,6 +3369,9 @@ def render_risk(
         color_discrete_map=TIER_COLORS if categorical else None,
         category_order=TIER_ORDER if categorical else None,
         not_present_bsrs=not_present_bsrs,
+        title_help=map_title_help,
+        scale_description=map_scale_description,
+        reference_table=map_reference_table,
     )
 
     row = bsr.loc[bsr["bsr"].eq(selected_bsr)].iloc[0]
@@ -3300,7 +3399,7 @@ def render_risk(
             format_score_value(selected_domain.iloc[0], map_metric)
             if not selected_domain.empty else "Not available"
         )
-        secondary_help = score_meaning(map_metric, map_metric_label)
+        secondary_help = map_title_help or score_meaning(map_metric, map_metric_label)
     metric_columns[3].metric(
         secondary_label, secondary_value, help=secondary_help,
     )
