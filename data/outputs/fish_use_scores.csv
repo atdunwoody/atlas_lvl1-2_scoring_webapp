@@ -1,291 +1,291 @@
 bsr,basin,bsr_crosswalk_status,species,life_stage,LS_corrected_score_source,species_aggregate_score,fish_use_score,LS_corrected_score,life_stage_fish_use_normalization_max,bsr_match_review_required,input_review_status
-CC1,Catherine Creek,provisional_positional,Chinook,Spawning,0.0,0.910154756,0.27372974,0.0,3.59,True,Provisional: BSR correspondence requires review
-CC1,Catherine Creek,provisional_positional,Chinook,Winter Rearing,0.9,0.910154756,0.27372974,0.25069637883008355,3.59,True,Provisional: BSR correspondence requires review
-CC1,Catherine Creek,provisional_positional,Chinook,Summer Rearing,0.0,0.910154756,0.27372974,0.0,3.59,True,Provisional: BSR correspondence requires review
-CC1,Catherine Creek,provisional_positional,Chinook,Migration,1.92,0.910154756,0.27372974,0.5348189415041783,3.59,True,Provisional: BSR correspondence requires review
-CC1,Catherine Creek,provisional_positional,Steelhead,Spawning,0.0,0.578061226,0.27372974,0.0,3.59,True,Provisional: BSR correspondence requires review
-CC1,Catherine Creek,provisional_positional,Steelhead,Winter Rearing,0.37,0.578061226,0.27372974,0.10306406685236769,3.59,True,Provisional: BSR correspondence requires review
-CC1,Catherine Creek,provisional_positional,Steelhead,Summer Rearing,0.0,0.578061226,0.27372974,0.0,3.59,True,Provisional: BSR correspondence requires review
-CC1,Catherine Creek,provisional_positional,Steelhead,Migration,1.94,0.578061226,0.27372974,0.5403899721448469,3.59,True,Provisional: BSR correspondence requires review
-CC1,Catherine Creek,provisional_positional,Bull Trout,Spawning & Resident,0.0,0.370506912,0.27372974,0.0,3.59,True,Provisional: BSR correspondence requires review
-CC1,Catherine Creek,provisional_positional,Bull Trout,FMO,0.93,0.370506912,0.27372974,0.2590529247910864,3.59,True,Provisional: BSR correspondence requires review
-CC2,Catherine Creek,provisional_positional,Chinook,Spawning,0.0,0.593464741,0.190894243,0.0,3.59,True,Provisional: BSR correspondence requires review
-CC2,Catherine Creek,provisional_positional,Chinook,Winter Rearing,0.9,0.593464741,0.190894243,0.25069637883008355,3.59,True,Provisional: BSR correspondence requires review
-CC2,Catherine Creek,provisional_positional,Chinook,Summer Rearing,0.0,0.593464741,0.190894243,0.0,3.59,True,Provisional: BSR correspondence requires review
-CC2,Catherine Creek,provisional_positional,Chinook,Migration,0.88,0.593464741,0.190894243,0.24512534818941506,3.59,True,Provisional: BSR correspondence requires review
-CC2,Catherine Creek,provisional_positional,Steelhead,Spawning,0.0,0.332268568,0.190894243,0.0,3.59,True,Provisional: BSR correspondence requires review
-CC2,Catherine Creek,provisional_positional,Steelhead,Winter Rearing,0.37,0.332268568,0.190894243,0.10306406685236769,3.59,True,Provisional: BSR correspondence requires review
-CC2,Catherine Creek,provisional_positional,Steelhead,Summer Rearing,0.0,0.332268568,0.190894243,0.0,3.59,True,Provisional: BSR correspondence requires review
-CC2,Catherine Creek,provisional_positional,Steelhead,Migration,0.96,0.332268568,0.190894243,0.26740947075208915,3.59,True,Provisional: BSR correspondence requires review
-CC2,Catherine Creek,provisional_positional,Bull Trout,Spawning & Resident,0.0,0.370506912,0.190894243,0.0,3.59,True,Provisional: BSR correspondence requires review
-CC2,Catherine Creek,provisional_positional,Bull Trout,FMO,0.93,0.370506912,0.190894243,0.2590529247910864,3.59,True,Provisional: BSR correspondence requires review
-CC3,Catherine Creek,provisional_positional,Chinook,Spawning,0.0,0.168596791,0.111561781,0.0,3.59,True,Provisional: BSR correspondence requires review
-CC3,Catherine Creek,provisional_positional,Chinook,Winter Rearing,0.3,0.168596791,0.111561781,0.08356545961002786,3.59,True,Provisional: BSR correspondence requires review
-CC3,Catherine Creek,provisional_positional,Chinook,Summer Rearing,0.0,0.168596791,0.111561781,0.0,3.59,True,Provisional: BSR correspondence requires review
-CC3,Catherine Creek,provisional_positional,Chinook,Migration,0.2,0.168596791,0.111561781,0.05571030640668524,3.59,True,Provisional: BSR correspondence requires review
-CC3,Catherine Creek,provisional_positional,Steelhead,Spawning,0.71,0.588947629,0.111561781,0.1977715877437326,3.59,True,Provisional: BSR correspondence requires review
-CC3,Catherine Creek,provisional_positional,Steelhead,Winter Rearing,0.75,0.588947629,0.111561781,0.20891364902506965,3.59,True,Provisional: BSR correspondence requires review
-CC3,Catherine Creek,provisional_positional,Steelhead,Summer Rearing,0.35,0.588947629,0.111561781,0.09749303621169916,3.59,True,Provisional: BSR correspondence requires review
-CC3,Catherine Creek,provisional_positional,Steelhead,Migration,0.54,0.588947629,0.111561781,0.15041782729805014,3.59,True,Provisional: BSR correspondence requires review
-CC3,Catherine Creek,provisional_positional,Bull Trout,Spawning & Resident,0.0,0.0,0.111561781,0.0,3.59,True,Provisional: BSR correspondence requires review
-CC3,Catherine Creek,provisional_positional,Bull Trout,FMO,0.0,0.0,0.111561781,0.0,3.59,True,Provisional: BSR correspondence requires review
-CC4,Catherine Creek,provisional_positional,Chinook,Spawning,0.0,0.272560026,0.149868431,0.0,3.59,True,Provisional: BSR correspondence requires review
-CC4,Catherine Creek,provisional_positional,Chinook,Winter Rearing,0.3,0.272560026,0.149868431,0.08356545961002786,3.59,True,Provisional: BSR correspondence requires review
-CC4,Catherine Creek,provisional_positional,Chinook,Summer Rearing,0.5,0.272560026,0.149868431,0.1392757660167131,3.59,True,Provisional: BSR correspondence requires review
-CC4,Catherine Creek,provisional_positional,Chinook,Migration,0.2,0.272560026,0.149868431,0.05571030640668524,3.59,True,Provisional: BSR correspondence requires review
-CC4,Catherine Creek,provisional_positional,Steelhead,Spawning,1.06,0.745100255,0.149868431,0.2952646239554318,3.59,True,Provisional: BSR correspondence requires review
-CC4,Catherine Creek,provisional_positional,Steelhead,Winter Rearing,0.75,0.745100255,0.149868431,0.20891364902506965,3.59,True,Provisional: BSR correspondence requires review
-CC4,Catherine Creek,provisional_positional,Steelhead,Summer Rearing,1.06,0.745100255,0.149868431,0.2952646239554318,3.59,True,Provisional: BSR correspondence requires review
-CC4,Catherine Creek,provisional_positional,Steelhead,Migration,0.11,0.745100255,0.149868431,0.030640668523676882,3.59,True,Provisional: BSR correspondence requires review
-CC4,Catherine Creek,provisional_positional,Bull Trout,Spawning & Resident,0.0,0.0,0.149868431,0.0,3.59,True,Provisional: BSR correspondence requires review
-CC4,Catherine Creek,provisional_positional,Bull Trout,FMO,0.0,0.0,0.149868431,0.0,3.59,True,Provisional: BSR correspondence requires review
-CC5,Catherine Creek,provisional_positional,Chinook,Spawning,0.74,0.909664031,0.281824866,0.20612813370473537,3.59,True,Provisional: BSR correspondence requires review
-CC5,Catherine Creek,provisional_positional,Chinook,Winter Rearing,0.9,0.909664031,0.281824866,0.25069637883008355,3.59,True,Provisional: BSR correspondence requires review
-CC5,Catherine Creek,provisional_positional,Chinook,Summer Rearing,1.01,0.909664031,0.281824866,0.28133704735376047,3.59,True,Provisional: BSR correspondence requires review
-CC5,Catherine Creek,provisional_positional,Chinook,Migration,0.92,0.909664031,0.281824866,0.2562674094707521,3.59,True,Provisional: BSR correspondence requires review
-CC5,Catherine Creek,provisional_positional,Steelhead,Spawning,0.71,0.633520754,0.281824866,0.1977715877437326,3.59,True,Provisional: BSR correspondence requires review
-CC5,Catherine Creek,provisional_positional,Steelhead,Winter Rearing,0.37,0.633520754,0.281824866,0.10306406685236769,3.59,True,Provisional: BSR correspondence requires review
-CC5,Catherine Creek,provisional_positional,Steelhead,Summer Rearing,0.71,0.633520754,0.281824866,0.1977715877437326,3.59,True,Provisional: BSR correspondence requires review
-CC5,Catherine Creek,provisional_positional,Steelhead,Migration,0.74,0.633520754,0.281824866,0.20612813370473537,3.59,True,Provisional: BSR correspondence requires review
-CC5,Catherine Creek,provisional_positional,Bull Trout,Spawning & Resident,0.0,0.370506912,0.281824866,0.0,3.59,True,Provisional: BSR correspondence requires review
-CC5,Catherine Creek,provisional_positional,Bull Trout,FMO,0.93,0.370506912,0.281824866,0.2590529247910864,3.59,True,Provisional: BSR correspondence requires review
-CC6,Catherine Creek,provisional_positional,Chinook,Spawning,2.26,1.169216704,0.372276823,0.6295264623955431,3.59,True,Provisional: BSR correspondence requires review
-CC6,Catherine Creek,provisional_positional,Chinook,Winter Rearing,0.9,1.169216704,0.372276823,0.25069637883008355,3.59,True,Provisional: BSR correspondence requires review
-CC6,Catherine Creek,provisional_positional,Chinook,Summer Rearing,1.5,1.169216704,0.372276823,0.4178272980501393,3.59,True,Provisional: BSR correspondence requires review
-CC6,Catherine Creek,provisional_positional,Chinook,Migration,0.83,1.169216704,0.372276823,0.23119777158774374,3.59,True,Provisional: BSR correspondence requires review
-CC6,Catherine Creek,provisional_positional,Steelhead,Spawning,0.35,0.805680758,0.372276823,0.09749303621169916,3.59,True,Provisional: BSR correspondence requires review
-CC6,Catherine Creek,provisional_positional,Steelhead,Winter Rearing,1.13,0.805680758,0.372276823,0.31476323119777155,3.59,True,Provisional: BSR correspondence requires review
-CC6,Catherine Creek,provisional_positional,Steelhead,Summer Rearing,1.06,0.805680758,0.372276823,0.2952646239554318,3.59,True,Provisional: BSR correspondence requires review
-CC6,Catherine Creek,provisional_positional,Steelhead,Migration,0.69,0.805680758,0.372276823,0.19220055710306405,3.59,True,Provisional: BSR correspondence requires review
-CC6,Catherine Creek,provisional_positional,Bull Trout,Spawning & Resident,0.0,0.552995392,0.372276823,0.0,3.59,True,Provisional: BSR correspondence requires review
-CC6,Catherine Creek,provisional_positional,Bull Trout,FMO,1.38,0.552995392,0.372276823,0.3844011142061281,3.59,True,Provisional: BSR correspondence requires review
-CC7,Catherine Creek,provisional_positional,Chinook,Spawning,2.26,1.09994252,0.595979206,0.6295264623955431,3.59,True,Provisional: BSR correspondence requires review
-CC7,Catherine Creek,provisional_positional,Chinook,Winter Rearing,0.9,1.09994252,0.595979206,0.25069637883008355,3.59,True,Provisional: BSR correspondence requires review
-CC7,Catherine Creek,provisional_positional,Chinook,Summer Rearing,1.5,1.09994252,0.595979206,0.4178272980501393,3.59,True,Provisional: BSR correspondence requires review
-CC7,Catherine Creek,provisional_positional,Chinook,Migration,0.6,1.09994252,0.595979206,0.1671309192200557,3.59,True,Provisional: BSR correspondence requires review
-CC7,Catherine Creek,provisional_positional,Steelhead,Spawning,1.06,0.949662801,0.595979206,0.2952646239554318,3.59,True,Provisional: BSR correspondence requires review
-CC7,Catherine Creek,provisional_positional,Steelhead,Winter Rearing,1.13,0.949662801,0.595979206,0.31476323119777155,3.59,True,Provisional: BSR correspondence requires review
-CC7,Catherine Creek,provisional_positional,Steelhead,Summer Rearing,1.06,0.949662801,0.595979206,0.2952646239554318,3.59,True,Provisional: BSR correspondence requires review
-CC7,Catherine Creek,provisional_positional,Steelhead,Migration,0.56,0.949662801,0.595979206,0.1559888579387187,3.59,True,Provisional: BSR correspondence requires review
-CC7,Catherine Creek,provisional_positional,Bull Trout,Spawning & Resident,2.41,1.997306769,0.595979206,0.6713091922005572,3.59,True,Provisional: BSR correspondence requires review
-CC7,Catherine Creek,provisional_positional,Bull Trout,FMO,1.38,1.997306769,0.595979206,0.3844011142061281,3.59,True,Provisional: BSR correspondence requires review
-CC8,Catherine Creek,provisional_positional,Chinook,Spawning,0.0,0.238044796,0.131806111,0.0,3.59,True,Provisional: BSR correspondence requires review
-CC8,Catherine Creek,provisional_positional,Chinook,Winter Rearing,0.3,0.238044796,0.131806111,0.08356545961002786,3.59,True,Provisional: BSR correspondence requires review
-CC8,Catherine Creek,provisional_positional,Chinook,Summer Rearing,0.5,0.238044796,0.131806111,0.1392757660167131,3.59,True,Provisional: BSR correspondence requires review
-CC8,Catherine Creek,provisional_positional,Chinook,Migration,0.08,0.238044796,0.131806111,0.022284122562674095,3.59,True,Provisional: BSR correspondence requires review
-CC8,Catherine Creek,provisional_positional,Steelhead,Spawning,1.06,0.656965865,0.131806111,0.2952646239554318,3.59,True,Provisional: BSR correspondence requires review
-CC8,Catherine Creek,provisional_positional,Steelhead,Winter Rearing,0.75,0.656965865,0.131806111,0.20891364902506965,3.59,True,Provisional: BSR correspondence requires review
-CC8,Catherine Creek,provisional_positional,Steelhead,Summer Rearing,0.71,0.656965865,0.131806111,0.1977715877437326,3.59,True,Provisional: BSR correspondence requires review
-CC8,Catherine Creek,provisional_positional,Steelhead,Migration,0.11,0.656965865,0.131806111,0.030640668523676882,3.59,True,Provisional: BSR correspondence requires review
-CC8,Catherine Creek,provisional_positional,Bull Trout,Spawning & Resident,0.0,0.0,0.131806111,0.0,3.59,True,Provisional: BSR correspondence requires review
-CC8,Catherine Creek,provisional_positional,Bull Trout,FMO,0.0,0.0,0.131806111,0.0,3.59,True,Provisional: BSR correspondence requires review
-CC9,Catherine Creek,provisional_positional,Chinook,Spawning,0.74,0.638355635,0.542876378,0.20612813370473537,3.59,True,Provisional: BSR correspondence requires review
-CC9,Catherine Creek,provisional_positional,Chinook,Winter Rearing,0.6,0.638355635,0.542876378,0.1671309192200557,3.59,True,Provisional: BSR correspondence requires review
-CC9,Catherine Creek,provisional_positional,Chinook,Summer Rearing,1.01,0.638355635,0.542876378,0.28133704735376047,3.59,True,Provisional: BSR correspondence requires review
-CC9,Catherine Creek,provisional_positional,Chinook,Migration,0.38,0.638355635,0.542876378,0.10584958217270196,3.59,True,Provisional: BSR correspondence requires review
-CC9,Catherine Creek,provisional_positional,Steelhead,Spawning,1.06,0.709792146,0.542876378,0.2952646239554318,3.59,True,Provisional: BSR correspondence requires review
-CC9,Catherine Creek,provisional_positional,Steelhead,Winter Rearing,0.37,0.709792146,0.542876378,0.10306406685236769,3.59,True,Provisional: BSR correspondence requires review
-CC9,Catherine Creek,provisional_positional,Steelhead,Summer Rearing,1.06,0.709792146,0.542876378,0.2952646239554318,3.59,True,Provisional: BSR correspondence requires review
-CC9,Catherine Creek,provisional_positional,Steelhead,Migration,0.35,0.709792146,0.542876378,0.09749303621169916,3.59,True,Provisional: BSR correspondence requires review
-CC9,Catherine Creek,provisional_positional,Bull Trout,Spawning & Resident,3.59,2.338177102,0.542876378,1.0,3.59,True,Provisional: BSR correspondence requires review
-CC9,Catherine Creek,provisional_positional,Bull Trout,FMO,0.46,2.338177102,0.542876378,0.12813370473537605,3.59,True,Provisional: BSR correspondence requires review
-UGR1,Upper Grande Ronde,exact_identifier,Chinook,Spawning,2.36,0.0,0.388977653,0.6573816155988857,3.59,False,Exact BSR identifier
-UGR1,Upper Grande Ronde,exact_identifier,Chinook,Winter Rearing,1.25,0.0,0.388977653,0.34818941504178275,3.59,False,Exact BSR identifier
-UGR1,Upper Grande Ronde,exact_identifier,Chinook,Summer Rearing,1.54,0.0,0.388977653,0.42896935933147634,3.59,False,Exact BSR identifier
-UGR1,Upper Grande Ronde,exact_identifier,Chinook,Migration,0.05,0.0,0.388977653,0.01392757660167131,3.59,False,Exact BSR identifier
-UGR1,Upper Grande Ronde,exact_identifier,Steelhead,Spawning,1.03,0.715371537,0.388977653,0.28690807799442897,3.59,False,Exact BSR identifier
-UGR1,Upper Grande Ronde,exact_identifier,Steelhead,Winter Rearing,0.58,0.715371537,0.388977653,0.1615598885793872,3.59,False,Exact BSR identifier
-UGR1,Upper Grande Ronde,exact_identifier,Steelhead,Summer Rearing,1.05,0.715371537,0.388977653,0.2924791086350975,3.59,False,Exact BSR identifier
-UGR1,Upper Grande Ronde,exact_identifier,Steelhead,Migration,0.2,0.715371537,0.388977653,0.05571030640668524,3.59,False,Exact BSR identifier
-UGR1,Upper Grande Ronde,exact_identifier,Bull Trout,Spawning & Resident,2.22,1.925925926,0.388977653,0.6183844011142062,3.59,False,Exact BSR identifier
-UGR1,Upper Grande Ronde,exact_identifier,Bull Trout,FMO,1.48,1.925925926,0.388977653,0.41225626740947074,3.59,False,Exact BSR identifier
-UGR2,Upper Grande Ronde,exact_identifier,Chinook,Spawning,0.0,6.0,1.0,0.0,3.59,False,Exact BSR identifier
-UGR2,Upper Grande Ronde,exact_identifier,Chinook,Winter Rearing,0.0,6.0,1.0,0.0,3.59,False,Exact BSR identifier
-UGR2,Upper Grande Ronde,exact_identifier,Chinook,Summer Rearing,0.0,6.0,1.0,0.0,3.59,False,Exact BSR identifier
-UGR2,Upper Grande Ronde,exact_identifier,Chinook,Migration,0.01,6.0,1.0,0.002785515320334262,3.59,False,Exact BSR identifier
-UGR2,Upper Grande Ronde,exact_identifier,Steelhead,Spawning,1.03,0.790357866,1.0,0.28690807799442897,3.59,False,Exact BSR identifier
-UGR2,Upper Grande Ronde,exact_identifier,Steelhead,Winter Rearing,0.87,0.790357866,1.0,0.24233983286908078,3.59,False,Exact BSR identifier
-UGR2,Upper Grande Ronde,exact_identifier,Steelhead,Summer Rearing,1.05,0.790357866,1.0,0.2924791086350975,3.59,False,Exact BSR identifier
-UGR2,Upper Grande Ronde,exact_identifier,Steelhead,Migration,0.22,0.790357866,1.0,0.061281337047353765,3.59,False,Exact BSR identifier
-UGR2,Upper Grande Ronde,exact_identifier,Bull Trout,Spawning & Resident,0.0,0.0,1.0,0.0,3.59,False,Exact BSR identifier
-UGR2,Upper Grande Ronde,exact_identifier,Bull Trout,FMO,0.0,0.0,1.0,0.0,3.59,False,Exact BSR identifier
-UGR3,Upper Grande Ronde,exact_identifier,Chinook,Spawning,0.0,0.0,0.237877969,0.0,3.59,False,Exact BSR identifier
-UGR3,Upper Grande Ronde,exact_identifier,Chinook,Winter Rearing,0.0,0.0,0.237877969,0.0,3.59,False,Exact BSR identifier
-UGR3,Upper Grande Ronde,exact_identifier,Chinook,Summer Rearing,0.0,0.0,0.237877969,0.0,3.59,False,Exact BSR identifier
-UGR3,Upper Grande Ronde,exact_identifier,Chinook,Migration,3.56,0.0,0.237877969,0.9916434540389972,3.59,False,Exact BSR identifier
-UGR3,Upper Grande Ronde,exact_identifier,Steelhead,Spawning,0.34,1.022683947,0.237877969,0.09470752089136492,3.59,False,Exact BSR identifier
-UGR3,Upper Grande Ronde,exact_identifier,Steelhead,Winter Rearing,0.58,1.022683947,0.237877969,0.1615598885793872,3.59,False,Exact BSR identifier
-UGR3,Upper Grande Ronde,exact_identifier,Steelhead,Summer Rearing,0.0,1.022683947,0.237877969,0.0,3.59,False,Exact BSR identifier
-UGR3,Upper Grande Ronde,exact_identifier,Steelhead,Migration,3.17,1.022683947,0.237877969,0.883008356545961,3.59,False,Exact BSR identifier
-UGR3,Upper Grande Ronde,exact_identifier,Bull Trout,Spawning & Resident,0.0,0.592592593,0.237877969,0.0,3.59,False,Exact BSR identifier
-UGR3,Upper Grande Ronde,exact_identifier,Bull Trout,FMO,1.48,0.592592593,0.237877969,0.41225626740947074,3.59,False,Exact BSR identifier
-UGR4,Upper Grande Ronde,exact_identifier,Chinook,Spawning,0.0,0.0,0.113978026,0.0,3.59,False,Exact BSR identifier
-UGR4,Upper Grande Ronde,exact_identifier,Chinook,Winter Rearing,0.0,0.0,0.113978026,0.0,3.59,False,Exact BSR identifier
-UGR4,Upper Grande Ronde,exact_identifier,Chinook,Summer Rearing,0.0,0.0,0.113978026,0.0,3.59,False,Exact BSR identifier
-UGR4,Upper Grande Ronde,exact_identifier,Chinook,Migration,0.0,0.0,0.113978026,0.0,3.59,False,Exact BSR identifier
-UGR4,Upper Grande Ronde,exact_identifier,Steelhead,Spawning,1.03,0.773951584,0.113978026,0.28690807799442897,3.59,False,Exact BSR identifier
-UGR4,Upper Grande Ronde,exact_identifier,Steelhead,Winter Rearing,0.87,0.773951584,0.113978026,0.24233983286908078,3.59,False,Exact BSR identifier
-UGR4,Upper Grande Ronde,exact_identifier,Steelhead,Summer Rearing,1.05,0.773951584,0.113978026,0.2924791086350975,3.59,False,Exact BSR identifier
-UGR4,Upper Grande Ronde,exact_identifier,Steelhead,Migration,0.15,0.773951584,0.113978026,0.04178272980501393,3.59,False,Exact BSR identifier
-UGR4,Upper Grande Ronde,exact_identifier,Bull Trout,Spawning & Resident,0.0,0.0,0.113978026,0.0,3.59,False,Exact BSR identifier
-UGR4,Upper Grande Ronde,exact_identifier,Bull Trout,FMO,0.0,0.0,0.113978026,0.0,3.59,False,Exact BSR identifier
-UGR5,Upper Grande Ronde,exact_identifier,Chinook,Spawning,0.0,0.0,0.148929199,0.0,3.59,False,Exact BSR identifier
-UGR5,Upper Grande Ronde,exact_identifier,Chinook,Winter Rearing,0.84,0.0,0.148929199,0.233983286908078,3.59,False,Exact BSR identifier
-UGR5,Upper Grande Ronde,exact_identifier,Chinook,Summer Rearing,0.0,0.0,0.148929199,0.0,3.59,False,Exact BSR identifier
-UGR5,Upper Grande Ronde,exact_identifier,Chinook,Migration,3.23,0.0,0.148929199,0.8997214484679666,3.59,False,Exact BSR identifier
-UGR5,Upper Grande Ronde,exact_identifier,Steelhead,Spawning,0.0,0.815727005,0.148929199,0.0,3.59,False,Exact BSR identifier
-UGR5,Upper Grande Ronde,exact_identifier,Steelhead,Winter Rearing,0.58,0.815727005,0.148929199,0.1615598885793872,3.59,False,Exact BSR identifier
-UGR5,Upper Grande Ronde,exact_identifier,Steelhead,Summer Rearing,0.0,0.815727005,0.148929199,0.0,3.59,False,Exact BSR identifier
-UGR5,Upper Grande Ronde,exact_identifier,Steelhead,Migration,2.68,0.815727005,0.148929199,0.7465181058495822,3.59,False,Exact BSR identifier
-UGR5,Upper Grande Ronde,exact_identifier,Bull Trout,Spawning & Resident,0.0,0.195555556,0.148929199,0.0,3.59,False,Exact BSR identifier
-UGR5,Upper Grande Ronde,exact_identifier,Bull Trout,FMO,0.49,0.195555556,0.148929199,0.13649025069637882,3.59,False,Exact BSR identifier
-UGR6,Upper Grande Ronde,exact_identifier,Chinook,Spawning,0.78,0.0,0.374865821,0.21727019498607245,3.59,False,Exact BSR identifier
-UGR6,Upper Grande Ronde,exact_identifier,Chinook,Winter Rearing,0.41,0.0,0.374865821,0.11420612813370473,3.59,False,Exact BSR identifier
-UGR6,Upper Grande Ronde,exact_identifier,Chinook,Summer Rearing,1.03,0.0,0.374865821,0.28690807799442897,3.59,False,Exact BSR identifier
-UGR6,Upper Grande Ronde,exact_identifier,Chinook,Migration,0.2,0.0,0.374865821,0.05571030640668524,3.59,False,Exact BSR identifier
-UGR6,Upper Grande Ronde,exact_identifier,Steelhead,Spawning,1.03,0.815102705,0.374865821,0.28690807799442897,3.59,False,Exact BSR identifier
-UGR6,Upper Grande Ronde,exact_identifier,Steelhead,Winter Rearing,0.87,0.815102705,0.374865821,0.24233983286908078,3.59,False,Exact BSR identifier
-UGR6,Upper Grande Ronde,exact_identifier,Steelhead,Summer Rearing,1.05,0.815102705,0.374865821,0.2924791086350975,3.59,False,Exact BSR identifier
-UGR6,Upper Grande Ronde,exact_identifier,Steelhead,Migration,0.32,0.815102705,0.374865821,0.08913649025069638,3.59,False,Exact BSR identifier
-UGR6,Upper Grande Ronde,exact_identifier,Bull Trout,Spawning & Resident,2.22,1.73037037,0.374865821,0.6183844011142062,3.59,False,Exact BSR identifier
-UGR6,Upper Grande Ronde,exact_identifier,Bull Trout,FMO,0.99,1.73037037,0.374865821,0.2757660167130919,3.59,False,Exact BSR identifier
-UGR7,Upper Grande Ronde,exact_identifier,Chinook,Spawning,0.0,0.0,0.109858828,0.0,3.59,False,Exact BSR identifier
-UGR7,Upper Grande Ronde,exact_identifier,Chinook,Winter Rearing,0.84,0.0,0.109858828,0.233983286908078,3.59,False,Exact BSR identifier
-UGR7,Upper Grande Ronde,exact_identifier,Chinook,Summer Rearing,0.0,0.0,0.109858828,0.0,3.59,False,Exact BSR identifier
-UGR7,Upper Grande Ronde,exact_identifier,Chinook,Migration,1.56,0.0,0.109858828,0.4345403899721449,3.59,False,Exact BSR identifier
-UGR7,Upper Grande Ronde,exact_identifier,Steelhead,Spawning,0.0,0.550425199,0.109858828,0.0,3.59,False,Exact BSR identifier
-UGR7,Upper Grande Ronde,exact_identifier,Steelhead,Winter Rearing,0.58,0.550425199,0.109858828,0.1615598885793872,3.59,False,Exact BSR identifier
-UGR7,Upper Grande Ronde,exact_identifier,Steelhead,Summer Rearing,0.0,0.550425199,0.109858828,0.0,3.59,False,Exact BSR identifier
-UGR7,Upper Grande Ronde,exact_identifier,Steelhead,Migration,1.62,0.550425199,0.109858828,0.4512534818941505,3.59,False,Exact BSR identifier
-UGR7,Upper Grande Ronde,exact_identifier,Bull Trout,Spawning & Resident,0.0,0.195555556,0.109858828,0.0,3.59,False,Exact BSR identifier
-UGR7,Upper Grande Ronde,exact_identifier,Bull Trout,FMO,0.49,0.195555556,0.109858828,0.13649025069637882,3.59,False,Exact BSR identifier
-UGR8,Upper Grande Ronde,exact_identifier,Chinook,Spawning,0.0,0.993729845,0.146362021,0.0,3.59,False,Exact BSR identifier
-UGR8,Upper Grande Ronde,exact_identifier,Chinook,Winter Rearing,0.0,0.993729845,0.146362021,0.0,3.59,False,Exact BSR identifier
-UGR8,Upper Grande Ronde,exact_identifier,Chinook,Summer Rearing,0.0,0.993729845,0.146362021,0.0,3.59,False,Exact BSR identifier
-UGR8,Upper Grande Ronde,exact_identifier,Chinook,Migration,0.06,0.993729845,0.146362021,0.016713091922005572,3.59,False,Exact BSR identifier
-UGR8,Upper Grande Ronde,exact_identifier,Steelhead,Spawning,0.0,0.000120653,0.146362021,0.0,3.59,False,Exact BSR identifier
-UGR8,Upper Grande Ronde,exact_identifier,Steelhead,Winter Rearing,0.0,0.000120653,0.146362021,0.0,3.59,False,Exact BSR identifier
-UGR8,Upper Grande Ronde,exact_identifier,Steelhead,Summer Rearing,0.0,0.000120653,0.146362021,0.0,3.59,False,Exact BSR identifier
-UGR8,Upper Grande Ronde,exact_identifier,Steelhead,Migration,0.0,0.000120653,0.146362021,0.0,3.59,False,Exact BSR identifier
-UGR8,Upper Grande Ronde,exact_identifier,Bull Trout,Spawning & Resident,0.0,0.0,0.146362021,0.0,3.59,False,Exact BSR identifier
-UGR8,Upper Grande Ronde,exact_identifier,Bull Trout,FMO,0.0,0.0,0.146362021,0.0,3.59,False,Exact BSR identifier
-UGR9,Upper Grande Ronde,exact_identifier,Chinook,Spawning,0.0,0.001960523,0.107707842,0.0,3.59,False,Exact BSR identifier
-UGR9,Upper Grande Ronde,exact_identifier,Chinook,Winter Rearing,0.84,0.001960523,0.107707842,0.233983286908078,3.59,False,Exact BSR identifier
-UGR9,Upper Grande Ronde,exact_identifier,Chinook,Summer Rearing,0.0,0.001960523,0.107707842,0.0,3.59,False,Exact BSR identifier
-UGR9,Upper Grande Ronde,exact_identifier,Chinook,Migration,1.35,0.001960523,0.107707842,0.3760445682451254,3.59,False,Exact BSR identifier
-UGR9,Upper Grande Ronde,exact_identifier,Steelhead,Spawning,0.0,0.533858712,0.107707842,0.0,3.59,False,Exact BSR identifier
-UGR9,Upper Grande Ronde,exact_identifier,Steelhead,Winter Rearing,0.58,0.533858712,0.107707842,0.1615598885793872,3.59,False,Exact BSR identifier
-UGR9,Upper Grande Ronde,exact_identifier,Steelhead,Summer Rearing,0.0,0.533858712,0.107707842,0.0,3.59,False,Exact BSR identifier
-UGR9,Upper Grande Ronde,exact_identifier,Steelhead,Migration,1.55,0.533858712,0.107707842,0.4317548746518106,3.59,False,Exact BSR identifier
-UGR9,Upper Grande Ronde,exact_identifier,Bull Trout,Spawning & Resident,0.0,0.195555556,0.107707842,0.0,3.59,False,Exact BSR identifier
-UGR9,Upper Grande Ronde,exact_identifier,Bull Trout,FMO,0.49,0.195555556,0.107707842,0.13649025069637882,3.59,False,Exact BSR identifier
-UGR10,Upper Grande Ronde,exact_identifier,Chinook,Spawning,0.0,1.219320409,0.294241874,0.0,3.59,False,Exact BSR identifier
-UGR10,Upper Grande Ronde,exact_identifier,Chinook,Winter Rearing,0.41,1.219320409,0.294241874,0.11420612813370473,3.59,False,Exact BSR identifier
-UGR10,Upper Grande Ronde,exact_identifier,Chinook,Summer Rearing,0.51,1.219320409,0.294241874,0.14206128133704737,3.59,False,Exact BSR identifier
-UGR10,Upper Grande Ronde,exact_identifier,Chinook,Migration,0.0,1.219320409,0.294241874,0.0,3.59,False,Exact BSR identifier
-UGR10,Upper Grande Ronde,exact_identifier,Steelhead,Spawning,1.03,0.778687216,0.294241874,0.28690807799442897,3.59,False,Exact BSR identifier
-UGR10,Upper Grande Ronde,exact_identifier,Steelhead,Winter Rearing,0.87,0.778687216,0.294241874,0.24233983286908078,3.59,False,Exact BSR identifier
-UGR10,Upper Grande Ronde,exact_identifier,Steelhead,Summer Rearing,1.05,0.778687216,0.294241874,0.2924791086350975,3.59,False,Exact BSR identifier
-UGR10,Upper Grande Ronde,exact_identifier,Steelhead,Migration,0.17,0.778687216,0.294241874,0.04735376044568246,3.59,False,Exact BSR identifier
-UGR10,Upper Grande Ronde,exact_identifier,Bull Trout,Spawning & Resident,0.0,0.0,0.294241874,0.0,3.59,False,Exact BSR identifier
-UGR10,Upper Grande Ronde,exact_identifier,Bull Trout,FMO,0.0,0.0,0.294241874,0.0,3.59,False,Exact BSR identifier
-UGR11,Upper Grande Ronde,exact_identifier,Chinook,Spawning,0.0,0.001307355,0.153018168,0.0,3.59,False,Exact BSR identifier
-UGR11,Upper Grande Ronde,exact_identifier,Chinook,Winter Rearing,1.25,0.001307355,0.153018168,0.34818941504178275,3.59,False,Exact BSR identifier
-UGR11,Upper Grande Ronde,exact_identifier,Chinook,Summer Rearing,0.51,0.001307355,0.153018168,0.14206128133704737,3.59,False,Exact BSR identifier
-UGR11,Upper Grande Ronde,exact_identifier,Chinook,Migration,1.24,0.001307355,0.153018168,0.34540389972144847,3.59,False,Exact BSR identifier
-UGR11,Upper Grande Ronde,exact_identifier,Steelhead,Spawning,0.34,0.640703729,0.153018168,0.09470752089136492,3.59,False,Exact BSR identifier
-UGR11,Upper Grande Ronde,exact_identifier,Steelhead,Winter Rearing,0.87,0.640703729,0.153018168,0.24233983286908078,3.59,False,Exact BSR identifier
-UGR11,Upper Grande Ronde,exact_identifier,Steelhead,Summer Rearing,0.0,0.640703729,0.153018168,0.0,3.59,False,Exact BSR identifier
-UGR11,Upper Grande Ronde,exact_identifier,Steelhead,Migration,1.36,0.640703729,0.153018168,0.37883008356545966,3.59,False,Exact BSR identifier
-UGR11,Upper Grande Ronde,exact_identifier,Bull Trout,Spawning & Resident,0.0,0.397037037,0.153018168,0.0,3.59,False,Exact BSR identifier
-UGR11,Upper Grande Ronde,exact_identifier,Bull Trout,FMO,0.99,0.397037037,0.153018168,0.2757660167130919,3.59,False,Exact BSR identifier
-UGR12,Upper Grande Ronde,exact_identifier,Chinook,Spawning,0.0,1.392745301,0.303767614,0.0,3.59,False,Exact BSR identifier
-UGR12,Upper Grande Ronde,exact_identifier,Chinook,Winter Rearing,0.41,1.392745301,0.303767614,0.11420612813370473,3.59,False,Exact BSR identifier
-UGR12,Upper Grande Ronde,exact_identifier,Chinook,Summer Rearing,0.51,1.392745301,0.303767614,0.14206128133704737,3.59,False,Exact BSR identifier
-UGR12,Upper Grande Ronde,exact_identifier,Chinook,Migration,0.01,1.392745301,0.303767614,0.002785515320334262,3.59,False,Exact BSR identifier
-UGR12,Upper Grande Ronde,exact_identifier,Steelhead,Spawning,1.03,0.669945503,0.303767614,0.28690807799442897,3.59,False,Exact BSR identifier
-UGR12,Upper Grande Ronde,exact_identifier,Steelhead,Winter Rearing,0.29,0.669945503,0.303767614,0.0807799442896936,3.59,False,Exact BSR identifier
-UGR12,Upper Grande Ronde,exact_identifier,Steelhead,Summer Rearing,1.05,0.669945503,0.303767614,0.2924791086350975,3.59,False,Exact BSR identifier
-UGR12,Upper Grande Ronde,exact_identifier,Steelhead,Migration,0.32,0.669945503,0.303767614,0.08913649025069638,3.59,False,Exact BSR identifier
-UGR12,Upper Grande Ronde,exact_identifier,Bull Trout,Spawning & Resident,0.0,0.0,0.303767614,0.0,3.59,False,Exact BSR identifier
-UGR12,Upper Grande Ronde,exact_identifier,Bull Trout,FMO,0.0,0.0,0.303767614,0.0,3.59,False,Exact BSR identifier
-UGR13,Upper Grande Ronde,exact_identifier,Chinook,Spawning,0.0,0.514585641,0.19986356,0.0,3.59,False,Exact BSR identifier
-UGR13,Upper Grande Ronde,exact_identifier,Chinook,Winter Rearing,0.41,0.514585641,0.19986356,0.11420612813370473,3.59,False,Exact BSR identifier
-UGR13,Upper Grande Ronde,exact_identifier,Chinook,Summer Rearing,0.51,0.514585641,0.19986356,0.14206128133704737,3.59,False,Exact BSR identifier
-UGR13,Upper Grande Ronde,exact_identifier,Chinook,Migration,0.19,0.514585641,0.19986356,0.05292479108635098,3.59,False,Exact BSR identifier
-UGR13,Upper Grande Ronde,exact_identifier,Steelhead,Spawning,1.03,0.842559457,0.19986356,0.28690807799442897,3.59,False,Exact BSR identifier
-UGR13,Upper Grande Ronde,exact_identifier,Steelhead,Winter Rearing,0.87,0.842559457,0.19986356,0.24233983286908078,3.59,False,Exact BSR identifier
-UGR13,Upper Grande Ronde,exact_identifier,Steelhead,Summer Rearing,1.05,0.842559457,0.19986356,0.2924791086350975,3.59,False,Exact BSR identifier
-UGR13,Upper Grande Ronde,exact_identifier,Steelhead,Migration,0.43,0.842559457,0.19986356,0.11977715877437327,3.59,False,Exact BSR identifier
-UGR13,Upper Grande Ronde,exact_identifier,Bull Trout,Spawning & Resident,0.0,0.0,0.19986356,0.0,3.59,False,Exact BSR identifier
-UGR13,Upper Grande Ronde,exact_identifier,Bull Trout,FMO,0.0,0.0,0.19986356,0.0,3.59,False,Exact BSR identifier
-UGR14,Upper Grande Ronde,exact_identifier,Chinook,Spawning,0.78,0.820213762,0.477684601,0.21727019498607245,3.59,False,Exact BSR identifier
-UGR14,Upper Grande Ronde,exact_identifier,Chinook,Winter Rearing,0.41,0.820213762,0.477684601,0.11420612813370473,3.59,False,Exact BSR identifier
-UGR14,Upper Grande Ronde,exact_identifier,Chinook,Summer Rearing,1.03,0.820213762,0.477684601,0.28690807799442897,3.59,False,Exact BSR identifier
-UGR14,Upper Grande Ronde,exact_identifier,Chinook,Migration,0.01,0.820213762,0.477684601,0.002785515320334262,3.59,False,Exact BSR identifier
-UGR14,Upper Grande Ronde,exact_identifier,Steelhead,Spawning,1.03,0.693065254,0.477684601,0.28690807799442897,3.59,False,Exact BSR identifier
-UGR14,Upper Grande Ronde,exact_identifier,Steelhead,Winter Rearing,0.58,0.693065254,0.477684601,0.1615598885793872,3.59,False,Exact BSR identifier
-UGR14,Upper Grande Ronde,exact_identifier,Steelhead,Summer Rearing,1.05,0.693065254,0.477684601,0.2924791086350975,3.59,False,Exact BSR identifier
-UGR14,Upper Grande Ronde,exact_identifier,Steelhead,Migration,0.11,0.693065254,0.477684601,0.030640668523676882,3.59,False,Exact BSR identifier
-UGR14,Upper Grande Ronde,exact_identifier,Bull Trout,Spawning & Resident,2.22,1.73037037,0.477684601,0.6183844011142062,3.59,False,Exact BSR identifier
-UGR14,Upper Grande Ronde,exact_identifier,Bull Trout,FMO,0.99,1.73037037,0.477684601,0.2757660167130919,3.59,False,Exact BSR identifier
-UGR15,Upper Grande Ronde,exact_identifier,Chinook,Spawning,2.36,0.020267356,0.176858586,0.6573816155988857,3.59,False,Exact BSR identifier
-UGR15,Upper Grande Ronde,exact_identifier,Chinook,Winter Rearing,1.25,0.020267356,0.176858586,0.34818941504178275,3.59,False,Exact BSR identifier
-UGR15,Upper Grande Ronde,exact_identifier,Chinook,Summer Rearing,1.54,0.020267356,0.176858586,0.42896935933147634,3.59,False,Exact BSR identifier
-UGR15,Upper Grande Ronde,exact_identifier,Chinook,Migration,0.8,0.020267356,0.176858586,0.22284122562674097,3.59,False,Exact BSR identifier
-UGR15,Upper Grande Ronde,exact_identifier,Steelhead,Spawning,0.34,0.588073145,0.176858586,0.09470752089136492,3.59,False,Exact BSR identifier
-UGR15,Upper Grande Ronde,exact_identifier,Steelhead,Winter Rearing,0.87,0.588073145,0.176858586,0.24233983286908078,3.59,False,Exact BSR identifier
-UGR15,Upper Grande Ronde,exact_identifier,Steelhead,Summer Rearing,0.7,0.588073145,0.176858586,0.19498607242339833,3.59,False,Exact BSR identifier
-UGR15,Upper Grande Ronde,exact_identifier,Steelhead,Migration,0.44,0.588073145,0.176858586,0.12256267409470753,3.59,False,Exact BSR identifier
-UGR15,Upper Grande Ronde,exact_identifier,Bull Trout,Spawning & Resident,0.0,0.592592593,0.176858586,0.0,3.59,False,Exact BSR identifier
-UGR15,Upper Grande Ronde,exact_identifier,Bull Trout,FMO,1.48,0.592592593,0.176858586,0.41225626740947074,3.59,False,Exact BSR identifier
-UGR16,Upper Grande Ronde,exact_identifier,Chinook,Spawning,0.78,0.749730549,0.212921451,0.21727019498607245,3.59,False,Exact BSR identifier
-UGR16,Upper Grande Ronde,exact_identifier,Chinook,Winter Rearing,0.84,0.749730549,0.212921451,0.233983286908078,3.59,False,Exact BSR identifier
-UGR16,Upper Grande Ronde,exact_identifier,Chinook,Summer Rearing,1.03,0.749730549,0.212921451,0.28690807799442897,3.59,False,Exact BSR identifier
-UGR16,Upper Grande Ronde,exact_identifier,Chinook,Migration,0.03,0.749730549,0.212921451,0.008356545961002786,3.59,False,Exact BSR identifier
-UGR16,Upper Grande Ronde,exact_identifier,Steelhead,Spawning,1.03,0.696082301,0.212921451,0.28690807799442897,3.59,False,Exact BSR identifier
-UGR16,Upper Grande Ronde,exact_identifier,Steelhead,Winter Rearing,0.58,0.696082301,0.212921451,0.1615598885793872,3.59,False,Exact BSR identifier
-UGR16,Upper Grande Ronde,exact_identifier,Steelhead,Summer Rearing,1.05,0.696082301,0.212921451,0.2924791086350975,3.59,False,Exact BSR identifier
-UGR16,Upper Grande Ronde,exact_identifier,Steelhead,Migration,0.13,0.696082301,0.212921451,0.036211699164345405,3.59,False,Exact BSR identifier
-UGR16,Upper Grande Ronde,exact_identifier,Bull Trout,Spawning & Resident,0.0,0.0,0.212921451,0.0,3.59,False,Exact BSR identifier
-UGR16,Upper Grande Ronde,exact_identifier,Bull Trout,FMO,0.0,0.0,0.212921451,0.0,3.59,False,Exact BSR identifier
-UGR17,Upper Grande Ronde,exact_identifier,Chinook,Spawning,2.36,0.261924704,0.218191077,0.6573816155988857,3.59,False,Exact BSR identifier
-UGR17,Upper Grande Ronde,exact_identifier,Chinook,Winter Rearing,1.25,0.261924704,0.218191077,0.34818941504178275,3.59,False,Exact BSR identifier
-UGR17,Upper Grande Ronde,exact_identifier,Chinook,Summer Rearing,1.54,0.261924704,0.218191077,0.42896935933147634,3.59,False,Exact BSR identifier
-UGR17,Upper Grande Ronde,exact_identifier,Chinook,Migration,0.56,0.261924704,0.218191077,0.1559888579387187,3.59,False,Exact BSR identifier
-UGR17,Upper Grande Ronde,exact_identifier,Steelhead,Spawning,0.69,0.627078197,0.218191077,0.19220055710306405,3.59,False,Exact BSR identifier
-UGR17,Upper Grande Ronde,exact_identifier,Steelhead,Winter Rearing,0.87,0.627078197,0.218191077,0.24233983286908078,3.59,False,Exact BSR identifier
-UGR17,Upper Grande Ronde,exact_identifier,Steelhead,Summer Rearing,0.7,0.627078197,0.218191077,0.19498607242339833,3.59,False,Exact BSR identifier
-UGR17,Upper Grande Ronde,exact_identifier,Steelhead,Migration,0.25,0.627078197,0.218191077,0.06963788300835655,3.59,False,Exact BSR identifier
-UGR17,Upper Grande Ronde,exact_identifier,Bull Trout,Spawning & Resident,0.0,0.592592593,0.218191077,0.0,3.59,False,Exact BSR identifier
-UGR17,Upper Grande Ronde,exact_identifier,Bull Trout,FMO,1.48,0.592592593,0.218191077,0.41225626740947074,3.59,False,Exact BSR identifier
-UGR18,Upper Grande Ronde,exact_identifier,Chinook,Spawning,0.78,0.972427623,0.442258333,0.21727019498607245,3.59,False,Exact BSR identifier
-UGR18,Upper Grande Ronde,exact_identifier,Chinook,Winter Rearing,0.84,0.972427623,0.442258333,0.233983286908078,3.59,False,Exact BSR identifier
-UGR18,Upper Grande Ronde,exact_identifier,Chinook,Summer Rearing,1.03,0.972427623,0.442258333,0.28690807799442897,3.59,False,Exact BSR identifier
-UGR18,Upper Grande Ronde,exact_identifier,Chinook,Migration,0.06,0.972427623,0.442258333,0.016713091922005572,3.59,False,Exact BSR identifier
-UGR18,Upper Grande Ronde,exact_identifier,Steelhead,Spawning,0.69,0.501775836,0.442258333,0.19220055710306405,3.59,False,Exact BSR identifier
-UGR18,Upper Grande Ronde,exact_identifier,Steelhead,Winter Rearing,0.58,0.501775836,0.442258333,0.1615598885793872,3.59,False,Exact BSR identifier
-UGR18,Upper Grande Ronde,exact_identifier,Steelhead,Summer Rearing,0.7,0.501775836,0.442258333,0.19498607242339833,3.59,False,Exact BSR identifier
-UGR18,Upper Grande Ronde,exact_identifier,Steelhead,Migration,0.03,0.501775836,0.442258333,0.008356545961002786,3.59,False,Exact BSR identifier
-UGR18,Upper Grande Ronde,exact_identifier,Bull Trout,Spawning & Resident,2.22,1.528888889,0.442258333,0.6183844011142062,3.59,False,Exact BSR identifier
-UGR18,Upper Grande Ronde,exact_identifier,Bull Trout,FMO,0.49,1.528888889,0.442258333,0.13649025069637882,3.59,False,Exact BSR identifier
-UGR19,Upper Grande Ronde,exact_identifier,Chinook,Spawning,0.78,0.263232358,0.406661908,0.21727019498607245,3.59,False,Exact BSR identifier
-UGR19,Upper Grande Ronde,exact_identifier,Chinook,Winter Rearing,0.84,0.263232358,0.406661908,0.233983286908078,3.59,False,Exact BSR identifier
-UGR19,Upper Grande Ronde,exact_identifier,Chinook,Summer Rearing,1.03,0.263232358,0.406661908,0.28690807799442897,3.59,False,Exact BSR identifier
-UGR19,Upper Grande Ronde,exact_identifier,Chinook,Migration,0.24,0.263232358,0.406661908,0.06685236768802229,3.59,False,Exact BSR identifier
-UGR19,Upper Grande Ronde,exact_identifier,Steelhead,Spawning,1.03,0.767777155,0.406661908,0.28690807799442897,3.59,False,Exact BSR identifier
-UGR19,Upper Grande Ronde,exact_identifier,Steelhead,Winter Rearing,0.87,0.767777155,0.406661908,0.24233983286908078,3.59,False,Exact BSR identifier
-UGR19,Upper Grande Ronde,exact_identifier,Steelhead,Summer Rearing,1.05,0.767777155,0.406661908,0.2924791086350975,3.59,False,Exact BSR identifier
-UGR19,Upper Grande Ronde,exact_identifier,Steelhead,Migration,0.13,0.767777155,0.406661908,0.036211699164345405,3.59,False,Exact BSR identifier
-UGR19,Upper Grande Ronde,exact_identifier,Bull Trout,Spawning & Resident,2.22,1.73037037,0.406661908,0.6183844011142062,3.59,False,Exact BSR identifier
-UGR19,Upper Grande Ronde,exact_identifier,Bull Trout,FMO,0.99,1.73037037,0.406661908,0.2757660167130919,3.59,False,Exact BSR identifier
-UGR20,Upper Grande Ronde,exact_identifier,Chinook,Spawning,2.36,0.325341124,0.406643278,0.6573816155988857,3.59,False,Exact BSR identifier
-UGR20,Upper Grande Ronde,exact_identifier,Chinook,Winter Rearing,1.25,0.325341124,0.406643278,0.34818941504178275,3.59,False,Exact BSR identifier
-UGR20,Upper Grande Ronde,exact_identifier,Chinook,Summer Rearing,1.54,0.325341124,0.406643278,0.42896935933147634,3.59,False,Exact BSR identifier
-UGR20,Upper Grande Ronde,exact_identifier,Chinook,Migration,0.17,0.325341124,0.406643278,0.04735376044568246,3.59,False,Exact BSR identifier
-UGR20,Upper Grande Ronde,exact_identifier,Steelhead,Spawning,0.69,0.509986331,0.406643278,0.19220055710306405,3.59,False,Exact BSR identifier
-UGR20,Upper Grande Ronde,exact_identifier,Steelhead,Winter Rearing,0.58,0.509986331,0.406643278,0.1615598885793872,3.59,False,Exact BSR identifier
-UGR20,Upper Grande Ronde,exact_identifier,Steelhead,Summer Rearing,0.7,0.509986331,0.406643278,0.19498607242339833,3.59,False,Exact BSR identifier
-UGR20,Upper Grande Ronde,exact_identifier,Steelhead,Migration,0.07,0.509986331,0.406643278,0.019498607242339837,3.59,False,Exact BSR identifier
-UGR20,Upper Grande Ronde,exact_identifier,Bull Trout,Spawning & Resident,2.22,1.925925926,0.406643278,0.6183844011142062,3.59,False,Exact BSR identifier
-UGR20,Upper Grande Ronde,exact_identifier,Bull Trout,FMO,1.48,1.925925926,0.406643278,0.41225626740947074,3.59,False,Exact BSR identifier
+CC1,Catherine Creek,provisional_positional,Chinook,Spawning,0.0,0.910154756,0.4592941119835538,0.0,3.59,True,Provisional: BSR correspondence requires review
+CC1,Catherine Creek,provisional_positional,Chinook,Winter Rearing,0.9,0.910154756,0.4592941119835538,0.25069637883008355,3.59,True,Provisional: BSR correspondence requires review
+CC1,Catherine Creek,provisional_positional,Chinook,Summer Rearing,0.0,0.910154756,0.4592941119835538,0.0,3.59,True,Provisional: BSR correspondence requires review
+CC1,Catherine Creek,provisional_positional,Chinook,Migration,1.92,0.910154756,0.4592941119835538,0.5348189415041783,3.59,True,Provisional: BSR correspondence requires review
+CC1,Catherine Creek,provisional_positional,Steelhead,Spawning,0.0,0.578061226,0.4592941119835538,0.0,3.59,True,Provisional: BSR correspondence requires review
+CC1,Catherine Creek,provisional_positional,Steelhead,Winter Rearing,0.37,0.578061226,0.4592941119835538,0.10306406685236769,3.59,True,Provisional: BSR correspondence requires review
+CC1,Catherine Creek,provisional_positional,Steelhead,Summer Rearing,0.0,0.578061226,0.4592941119835538,0.0,3.59,True,Provisional: BSR correspondence requires review
+CC1,Catherine Creek,provisional_positional,Steelhead,Migration,1.94,0.578061226,0.4592941119835538,0.5403899721448469,3.59,True,Provisional: BSR correspondence requires review
+CC1,Catherine Creek,provisional_positional,Bull Trout,Spawning & Resident,0.0,0.370506912,0.4592941119835538,0.0,3.59,True,Provisional: BSR correspondence requires review
+CC1,Catherine Creek,provisional_positional,Bull Trout,FMO,0.93,0.370506912,0.4592941119835538,0.2590529247910864,3.59,True,Provisional: BSR correspondence requires review
+CC2,Catherine Creek,provisional_positional,Chinook,Spawning,0.0,0.593464741,0.3203035284234241,0.0,3.59,True,Provisional: BSR correspondence requires review
+CC2,Catherine Creek,provisional_positional,Chinook,Winter Rearing,0.9,0.593464741,0.3203035284234241,0.25069637883008355,3.59,True,Provisional: BSR correspondence requires review
+CC2,Catherine Creek,provisional_positional,Chinook,Summer Rearing,0.0,0.593464741,0.3203035284234241,0.0,3.59,True,Provisional: BSR correspondence requires review
+CC2,Catherine Creek,provisional_positional,Chinook,Migration,0.88,0.593464741,0.3203035284234241,0.24512534818941506,3.59,True,Provisional: BSR correspondence requires review
+CC2,Catherine Creek,provisional_positional,Steelhead,Spawning,0.0,0.332268568,0.3203035284234241,0.0,3.59,True,Provisional: BSR correspondence requires review
+CC2,Catherine Creek,provisional_positional,Steelhead,Winter Rearing,0.37,0.332268568,0.3203035284234241,0.10306406685236769,3.59,True,Provisional: BSR correspondence requires review
+CC2,Catherine Creek,provisional_positional,Steelhead,Summer Rearing,0.0,0.332268568,0.3203035284234241,0.0,3.59,True,Provisional: BSR correspondence requires review
+CC2,Catherine Creek,provisional_positional,Steelhead,Migration,0.96,0.332268568,0.3203035284234241,0.26740947075208915,3.59,True,Provisional: BSR correspondence requires review
+CC2,Catherine Creek,provisional_positional,Bull Trout,Spawning & Resident,0.0,0.370506912,0.3203035284234241,0.0,3.59,True,Provisional: BSR correspondence requires review
+CC2,Catherine Creek,provisional_positional,Bull Trout,FMO,0.93,0.370506912,0.3203035284234241,0.2590529247910864,3.59,True,Provisional: BSR correspondence requires review
+CC3,Catherine Creek,provisional_positional,Chinook,Spawning,0.0,0.168596791,0.187190727754708,0.0,3.59,True,Provisional: BSR correspondence requires review
+CC3,Catherine Creek,provisional_positional,Chinook,Winter Rearing,0.3,0.168596791,0.187190727754708,0.08356545961002786,3.59,True,Provisional: BSR correspondence requires review
+CC3,Catherine Creek,provisional_positional,Chinook,Summer Rearing,0.0,0.168596791,0.187190727754708,0.0,3.59,True,Provisional: BSR correspondence requires review
+CC3,Catherine Creek,provisional_positional,Chinook,Migration,0.2,0.168596791,0.187190727754708,0.05571030640668524,3.59,True,Provisional: BSR correspondence requires review
+CC3,Catherine Creek,provisional_positional,Steelhead,Spawning,0.71,0.588947629,0.187190727754708,0.1977715877437326,3.59,True,Provisional: BSR correspondence requires review
+CC3,Catherine Creek,provisional_positional,Steelhead,Winter Rearing,0.75,0.588947629,0.187190727754708,0.20891364902506965,3.59,True,Provisional: BSR correspondence requires review
+CC3,Catherine Creek,provisional_positional,Steelhead,Summer Rearing,0.35,0.588947629,0.187190727754708,0.09749303621169916,3.59,True,Provisional: BSR correspondence requires review
+CC3,Catherine Creek,provisional_positional,Steelhead,Migration,0.54,0.588947629,0.187190727754708,0.15041782729805014,3.59,True,Provisional: BSR correspondence requires review
+CC3,Catherine Creek,provisional_positional,Bull Trout,Spawning & Resident,0.0,0.0,0.187190727754708,0.0,3.59,True,Provisional: BSR correspondence requires review
+CC3,Catherine Creek,provisional_positional,Bull Trout,FMO,0.0,0.0,0.187190727754708,0.0,3.59,True,Provisional: BSR correspondence requires review
+CC4,Catherine Creek,provisional_positional,Chinook,Spawning,0.0,0.272560026,0.251465872900028,0.0,3.59,True,Provisional: BSR correspondence requires review
+CC4,Catherine Creek,provisional_positional,Chinook,Winter Rearing,0.3,0.272560026,0.251465872900028,0.08356545961002786,3.59,True,Provisional: BSR correspondence requires review
+CC4,Catherine Creek,provisional_positional,Chinook,Summer Rearing,0.5,0.272560026,0.251465872900028,0.1392757660167131,3.59,True,Provisional: BSR correspondence requires review
+CC4,Catherine Creek,provisional_positional,Chinook,Migration,0.2,0.272560026,0.251465872900028,0.05571030640668524,3.59,True,Provisional: BSR correspondence requires review
+CC4,Catherine Creek,provisional_positional,Steelhead,Spawning,1.06,0.745100255,0.251465872900028,0.2952646239554318,3.59,True,Provisional: BSR correspondence requires review
+CC4,Catherine Creek,provisional_positional,Steelhead,Winter Rearing,0.75,0.745100255,0.251465872900028,0.20891364902506965,3.59,True,Provisional: BSR correspondence requires review
+CC4,Catherine Creek,provisional_positional,Steelhead,Summer Rearing,1.06,0.745100255,0.251465872900028,0.2952646239554318,3.59,True,Provisional: BSR correspondence requires review
+CC4,Catherine Creek,provisional_positional,Steelhead,Migration,0.11,0.745100255,0.251465872900028,0.030640668523676882,3.59,True,Provisional: BSR correspondence requires review
+CC4,Catherine Creek,provisional_positional,Bull Trout,Spawning & Resident,0.0,0.0,0.251465872900028,0.0,3.59,True,Provisional: BSR correspondence requires review
+CC4,Catherine Creek,provisional_positional,Bull Trout,FMO,0.0,0.0,0.251465872900028,0.0,3.59,True,Provisional: BSR correspondence requires review
+CC5,Catherine Creek,provisional_positional,Chinook,Spawning,0.74,0.909664031,0.4728770122942942,0.20612813370473537,3.59,True,Provisional: BSR correspondence requires review
+CC5,Catherine Creek,provisional_positional,Chinook,Winter Rearing,0.9,0.909664031,0.4728770122942942,0.25069637883008355,3.59,True,Provisional: BSR correspondence requires review
+CC5,Catherine Creek,provisional_positional,Chinook,Summer Rearing,1.01,0.909664031,0.4728770122942942,0.28133704735376047,3.59,True,Provisional: BSR correspondence requires review
+CC5,Catherine Creek,provisional_positional,Chinook,Migration,0.92,0.909664031,0.4728770122942942,0.2562674094707521,3.59,True,Provisional: BSR correspondence requires review
+CC5,Catherine Creek,provisional_positional,Steelhead,Spawning,0.71,0.633520754,0.4728770122942942,0.1977715877437326,3.59,True,Provisional: BSR correspondence requires review
+CC5,Catherine Creek,provisional_positional,Steelhead,Winter Rearing,0.37,0.633520754,0.4728770122942942,0.10306406685236769,3.59,True,Provisional: BSR correspondence requires review
+CC5,Catherine Creek,provisional_positional,Steelhead,Summer Rearing,0.71,0.633520754,0.4728770122942942,0.1977715877437326,3.59,True,Provisional: BSR correspondence requires review
+CC5,Catherine Creek,provisional_positional,Steelhead,Migration,0.74,0.633520754,0.4728770122942942,0.20612813370473537,3.59,True,Provisional: BSR correspondence requires review
+CC5,Catherine Creek,provisional_positional,Bull Trout,Spawning & Resident,0.0,0.370506912,0.4728770122942942,0.0,3.59,True,Provisional: BSR correspondence requires review
+CC5,Catherine Creek,provisional_positional,Bull Trout,FMO,0.93,0.370506912,0.4728770122942942,0.2590529247910864,3.59,True,Provisional: BSR correspondence requires review
+CC6,Catherine Creek,provisional_positional,Chinook,Spawning,2.26,1.169216704,0.6246473353725414,0.6295264623955431,3.59,True,Provisional: BSR correspondence requires review
+CC6,Catherine Creek,provisional_positional,Chinook,Winter Rearing,0.9,1.169216704,0.6246473353725414,0.25069637883008355,3.59,True,Provisional: BSR correspondence requires review
+CC6,Catherine Creek,provisional_positional,Chinook,Summer Rearing,1.5,1.169216704,0.6246473353725414,0.4178272980501393,3.59,True,Provisional: BSR correspondence requires review
+CC6,Catherine Creek,provisional_positional,Chinook,Migration,0.83,1.169216704,0.6246473353725414,0.23119777158774374,3.59,True,Provisional: BSR correspondence requires review
+CC6,Catherine Creek,provisional_positional,Steelhead,Spawning,0.35,0.805680758,0.6246473353725414,0.09749303621169916,3.59,True,Provisional: BSR correspondence requires review
+CC6,Catherine Creek,provisional_positional,Steelhead,Winter Rearing,1.13,0.805680758,0.6246473353725414,0.31476323119777155,3.59,True,Provisional: BSR correspondence requires review
+CC6,Catherine Creek,provisional_positional,Steelhead,Summer Rearing,1.06,0.805680758,0.6246473353725414,0.2952646239554318,3.59,True,Provisional: BSR correspondence requires review
+CC6,Catherine Creek,provisional_positional,Steelhead,Migration,0.69,0.805680758,0.6246473353725414,0.19220055710306405,3.59,True,Provisional: BSR correspondence requires review
+CC6,Catherine Creek,provisional_positional,Bull Trout,Spawning & Resident,0.0,0.552995392,0.6246473353725414,0.0,3.59,True,Provisional: BSR correspondence requires review
+CC6,Catherine Creek,provisional_positional,Bull Trout,FMO,1.38,0.552995392,0.6246473353725414,0.3844011142061281,3.59,True,Provisional: BSR correspondence requires review
+CC7,Catherine Creek,provisional_positional,Chinook,Spawning,2.26,1.09994252,1.0,0.6295264623955431,3.59,True,Provisional: BSR correspondence requires review
+CC7,Catherine Creek,provisional_positional,Chinook,Winter Rearing,0.9,1.09994252,1.0,0.25069637883008355,3.59,True,Provisional: BSR correspondence requires review
+CC7,Catherine Creek,provisional_positional,Chinook,Summer Rearing,1.5,1.09994252,1.0,0.4178272980501393,3.59,True,Provisional: BSR correspondence requires review
+CC7,Catherine Creek,provisional_positional,Chinook,Migration,0.6,1.09994252,1.0,0.1671309192200557,3.59,True,Provisional: BSR correspondence requires review
+CC7,Catherine Creek,provisional_positional,Steelhead,Spawning,1.06,0.949662801,1.0,0.2952646239554318,3.59,True,Provisional: BSR correspondence requires review
+CC7,Catherine Creek,provisional_positional,Steelhead,Winter Rearing,1.13,0.949662801,1.0,0.31476323119777155,3.59,True,Provisional: BSR correspondence requires review
+CC7,Catherine Creek,provisional_positional,Steelhead,Summer Rearing,1.06,0.949662801,1.0,0.2952646239554318,3.59,True,Provisional: BSR correspondence requires review
+CC7,Catherine Creek,provisional_positional,Steelhead,Migration,0.56,0.949662801,1.0,0.1559888579387187,3.59,True,Provisional: BSR correspondence requires review
+CC7,Catherine Creek,provisional_positional,Bull Trout,Spawning & Resident,2.41,1.997306769,1.0,0.6713091922005572,3.59,True,Provisional: BSR correspondence requires review
+CC7,Catherine Creek,provisional_positional,Bull Trout,FMO,1.38,1.997306769,1.0,0.3844011142061281,3.59,True,Provisional: BSR correspondence requires review
+CC8,Catherine Creek,provisional_positional,Chinook,Spawning,0.0,0.238044796,0.2211589085119582,0.0,3.59,True,Provisional: BSR correspondence requires review
+CC8,Catherine Creek,provisional_positional,Chinook,Winter Rearing,0.3,0.238044796,0.2211589085119582,0.08356545961002786,3.59,True,Provisional: BSR correspondence requires review
+CC8,Catherine Creek,provisional_positional,Chinook,Summer Rearing,0.5,0.238044796,0.2211589085119582,0.1392757660167131,3.59,True,Provisional: BSR correspondence requires review
+CC8,Catherine Creek,provisional_positional,Chinook,Migration,0.08,0.238044796,0.2211589085119582,0.022284122562674095,3.59,True,Provisional: BSR correspondence requires review
+CC8,Catherine Creek,provisional_positional,Steelhead,Spawning,1.06,0.656965865,0.2211589085119582,0.2952646239554318,3.59,True,Provisional: BSR correspondence requires review
+CC8,Catherine Creek,provisional_positional,Steelhead,Winter Rearing,0.75,0.656965865,0.2211589085119582,0.20891364902506965,3.59,True,Provisional: BSR correspondence requires review
+CC8,Catherine Creek,provisional_positional,Steelhead,Summer Rearing,0.71,0.656965865,0.2211589085119582,0.1977715877437326,3.59,True,Provisional: BSR correspondence requires review
+CC8,Catherine Creek,provisional_positional,Steelhead,Migration,0.11,0.656965865,0.2211589085119582,0.030640668523676882,3.59,True,Provisional: BSR correspondence requires review
+CC8,Catherine Creek,provisional_positional,Bull Trout,Spawning & Resident,0.0,0.0,0.2211589085119582,0.0,3.59,True,Provisional: BSR correspondence requires review
+CC8,Catherine Creek,provisional_positional,Bull Trout,FMO,0.0,0.0,0.2211589085119582,0.0,3.59,True,Provisional: BSR correspondence requires review
+CC9,Catherine Creek,provisional_positional,Chinook,Spawning,0.74,0.638355635,0.9108981865902682,0.20612813370473537,3.59,True,Provisional: BSR correspondence requires review
+CC9,Catherine Creek,provisional_positional,Chinook,Winter Rearing,0.6,0.638355635,0.9108981865902682,0.1671309192200557,3.59,True,Provisional: BSR correspondence requires review
+CC9,Catherine Creek,provisional_positional,Chinook,Summer Rearing,1.01,0.638355635,0.9108981865902682,0.28133704735376047,3.59,True,Provisional: BSR correspondence requires review
+CC9,Catherine Creek,provisional_positional,Chinook,Migration,0.38,0.638355635,0.9108981865902682,0.10584958217270196,3.59,True,Provisional: BSR correspondence requires review
+CC9,Catherine Creek,provisional_positional,Steelhead,Spawning,1.06,0.709792146,0.9108981865902682,0.2952646239554318,3.59,True,Provisional: BSR correspondence requires review
+CC9,Catherine Creek,provisional_positional,Steelhead,Winter Rearing,0.37,0.709792146,0.9108981865902682,0.10306406685236769,3.59,True,Provisional: BSR correspondence requires review
+CC9,Catherine Creek,provisional_positional,Steelhead,Summer Rearing,1.06,0.709792146,0.9108981865902682,0.2952646239554318,3.59,True,Provisional: BSR correspondence requires review
+CC9,Catherine Creek,provisional_positional,Steelhead,Migration,0.35,0.709792146,0.9108981865902682,0.09749303621169916,3.59,True,Provisional: BSR correspondence requires review
+CC9,Catherine Creek,provisional_positional,Bull Trout,Spawning & Resident,3.59,2.338177102,0.9108981865902682,1.0,3.59,True,Provisional: BSR correspondence requires review
+CC9,Catherine Creek,provisional_positional,Bull Trout,FMO,0.46,2.338177102,0.9108981865902682,0.12813370473537605,3.59,True,Provisional: BSR correspondence requires review
+UGR1,Upper Grande Ronde,exact_identifier,Chinook,Spawning,2.36,0.9937298453115448,0.8982224540757496,0.6573816155988857,3.59,False,Exact BSR identifier
+UGR1,Upper Grande Ronde,exact_identifier,Chinook,Winter Rearing,1.25,0.9937298453115448,0.8982224540757496,0.34818941504178275,3.59,False,Exact BSR identifier
+UGR1,Upper Grande Ronde,exact_identifier,Chinook,Summer Rearing,1.54,0.9937298453115448,0.8982224540757496,0.42896935933147634,3.59,False,Exact BSR identifier
+UGR1,Upper Grande Ronde,exact_identifier,Chinook,Migration,0.05,0.9937298453115448,0.8982224540757496,0.01392757660167131,3.59,False,Exact BSR identifier
+UGR1,Upper Grande Ronde,exact_identifier,Steelhead,Spawning,1.03,0.715371537,0.8982224540757496,0.28690807799442897,3.59,False,Exact BSR identifier
+UGR1,Upper Grande Ronde,exact_identifier,Steelhead,Winter Rearing,0.58,0.715371537,0.8982224540757496,0.1615598885793872,3.59,False,Exact BSR identifier
+UGR1,Upper Grande Ronde,exact_identifier,Steelhead,Summer Rearing,1.05,0.715371537,0.8982224540757496,0.2924791086350975,3.59,False,Exact BSR identifier
+UGR1,Upper Grande Ronde,exact_identifier,Steelhead,Migration,0.2,0.715371537,0.8982224540757496,0.05571030640668524,3.59,False,Exact BSR identifier
+UGR1,Upper Grande Ronde,exact_identifier,Bull Trout,Spawning & Resident,2.22,1.925925926,0.8982224540757496,0.6183844011142062,3.59,False,Exact BSR identifier
+UGR1,Upper Grande Ronde,exact_identifier,Bull Trout,FMO,1.48,1.925925926,0.8982224540757496,0.41225626740947074,3.59,False,Exact BSR identifier
+UGR2,Upper Grande Ronde,exact_identifier,Chinook,Spawning,0.0,0.0019605230291191,0.195783444700657,0.0,3.59,False,Exact BSR identifier
+UGR2,Upper Grande Ronde,exact_identifier,Chinook,Winter Rearing,0.0,0.0019605230291191,0.195783444700657,0.0,3.59,False,Exact BSR identifier
+UGR2,Upper Grande Ronde,exact_identifier,Chinook,Summer Rearing,0.0,0.0019605230291191,0.195783444700657,0.0,3.59,False,Exact BSR identifier
+UGR2,Upper Grande Ronde,exact_identifier,Chinook,Migration,0.01,0.0019605230291191,0.195783444700657,0.002785515320334262,3.59,False,Exact BSR identifier
+UGR2,Upper Grande Ronde,exact_identifier,Steelhead,Spawning,1.03,0.790357866,0.195783444700657,0.28690807799442897,3.59,False,Exact BSR identifier
+UGR2,Upper Grande Ronde,exact_identifier,Steelhead,Winter Rearing,0.87,0.790357866,0.195783444700657,0.24233983286908078,3.59,False,Exact BSR identifier
+UGR2,Upper Grande Ronde,exact_identifier,Steelhead,Summer Rearing,1.05,0.790357866,0.195783444700657,0.2924791086350975,3.59,False,Exact BSR identifier
+UGR2,Upper Grande Ronde,exact_identifier,Steelhead,Migration,0.22,0.790357866,0.195783444700657,0.061281337047353765,3.59,False,Exact BSR identifier
+UGR2,Upper Grande Ronde,exact_identifier,Bull Trout,Spawning & Resident,0.0,0.0,0.195783444700657,0.0,3.59,False,Exact BSR identifier
+UGR2,Upper Grande Ronde,exact_identifier,Bull Trout,FMO,0.0,0.0,0.195783444700657,0.0,3.59,False,Exact BSR identifier
+UGR3,Upper Grande Ronde,exact_identifier,Chinook,Spawning,0.0,1.21932040857364,0.7004345252507278,0.0,3.59,False,Exact BSR identifier
+UGR3,Upper Grande Ronde,exact_identifier,Chinook,Winter Rearing,0.0,1.21932040857364,0.7004345252507278,0.0,3.59,False,Exact BSR identifier
+UGR3,Upper Grande Ronde,exact_identifier,Chinook,Summer Rearing,0.0,1.21932040857364,0.7004345252507278,0.0,3.59,False,Exact BSR identifier
+UGR3,Upper Grande Ronde,exact_identifier,Chinook,Migration,3.56,1.21932040857364,0.7004345252507278,0.9916434540389972,3.59,False,Exact BSR identifier
+UGR3,Upper Grande Ronde,exact_identifier,Steelhead,Spawning,0.34,1.022683947,0.7004345252507278,0.09470752089136492,3.59,False,Exact BSR identifier
+UGR3,Upper Grande Ronde,exact_identifier,Steelhead,Winter Rearing,0.58,1.022683947,0.7004345252507278,0.1615598885793872,3.59,False,Exact BSR identifier
+UGR3,Upper Grande Ronde,exact_identifier,Steelhead,Summer Rearing,0.0,1.022683947,0.7004345252507278,0.0,3.59,False,Exact BSR identifier
+UGR3,Upper Grande Ronde,exact_identifier,Steelhead,Migration,3.17,1.022683947,0.7004345252507278,0.883008356545961,3.59,False,Exact BSR identifier
+UGR3,Upper Grande Ronde,exact_identifier,Bull Trout,Spawning & Resident,0.0,0.592592593,0.7004345252507278,0.0,3.59,False,Exact BSR identifier
+UGR3,Upper Grande Ronde,exact_identifier,Bull Trout,FMO,1.48,0.592592593,0.7004345252507278,0.41225626740947074,3.59,False,Exact BSR identifier
+UGR4,Upper Grande Ronde,exact_identifier,Chinook,Spawning,0.0,0.0013073550874261,0.1915680208563462,0.0,3.59,False,Exact BSR identifier
+UGR4,Upper Grande Ronde,exact_identifier,Chinook,Winter Rearing,0.0,0.0013073550874261,0.1915680208563462,0.0,3.59,False,Exact BSR identifier
+UGR4,Upper Grande Ronde,exact_identifier,Chinook,Summer Rearing,0.0,0.0013073550874261,0.1915680208563462,0.0,3.59,False,Exact BSR identifier
+UGR4,Upper Grande Ronde,exact_identifier,Chinook,Migration,0.0,0.0013073550874261,0.1915680208563462,0.0,3.59,False,Exact BSR identifier
+UGR4,Upper Grande Ronde,exact_identifier,Steelhead,Spawning,1.03,0.773951584,0.1915680208563462,0.28690807799442897,3.59,False,Exact BSR identifier
+UGR4,Upper Grande Ronde,exact_identifier,Steelhead,Winter Rearing,0.87,0.773951584,0.1915680208563462,0.24233983286908078,3.59,False,Exact BSR identifier
+UGR4,Upper Grande Ronde,exact_identifier,Steelhead,Summer Rearing,1.05,0.773951584,0.1915680208563462,0.2924791086350975,3.59,False,Exact BSR identifier
+UGR4,Upper Grande Ronde,exact_identifier,Steelhead,Migration,0.15,0.773951584,0.1915680208563462,0.04178272980501393,3.59,False,Exact BSR identifier
+UGR4,Upper Grande Ronde,exact_identifier,Bull Trout,Spawning & Resident,0.0,0.0,0.1915680208563462,0.0,3.59,False,Exact BSR identifier
+UGR4,Upper Grande Ronde,exact_identifier,Bull Trout,FMO,0.0,0.0,0.1915680208563462,0.0,3.59,False,Exact BSR identifier
+UGR5,Upper Grande Ronde,exact_identifier,Chinook,Spawning,0.0,1.392745301178406,0.5940400505356983,0.0,3.59,False,Exact BSR identifier
+UGR5,Upper Grande Ronde,exact_identifier,Chinook,Winter Rearing,0.84,1.392745301178406,0.5940400505356983,0.233983286908078,3.59,False,Exact BSR identifier
+UGR5,Upper Grande Ronde,exact_identifier,Chinook,Summer Rearing,0.0,1.392745301178406,0.5940400505356983,0.0,3.59,False,Exact BSR identifier
+UGR5,Upper Grande Ronde,exact_identifier,Chinook,Migration,3.23,1.392745301178406,0.5940400505356983,0.8997214484679666,3.59,False,Exact BSR identifier
+UGR5,Upper Grande Ronde,exact_identifier,Steelhead,Spawning,0.0,0.815727005,0.5940400505356983,0.0,3.59,False,Exact BSR identifier
+UGR5,Upper Grande Ronde,exact_identifier,Steelhead,Winter Rearing,0.58,0.815727005,0.5940400505356983,0.1615598885793872,3.59,False,Exact BSR identifier
+UGR5,Upper Grande Ronde,exact_identifier,Steelhead,Summer Rearing,0.0,0.815727005,0.5940400505356983,0.0,3.59,False,Exact BSR identifier
+UGR5,Upper Grande Ronde,exact_identifier,Steelhead,Migration,2.68,0.815727005,0.5940400505356983,0.7465181058495822,3.59,False,Exact BSR identifier
+UGR5,Upper Grande Ronde,exact_identifier,Bull Trout,Spawning & Resident,0.0,0.195555556,0.5940400505356983,0.0,3.59,False,Exact BSR identifier
+UGR5,Upper Grande Ronde,exact_identifier,Bull Trout,FMO,0.49,0.195555556,0.5940400505356983,0.13649025069637882,3.59,False,Exact BSR identifier
+UGR6,Upper Grande Ronde,exact_identifier,Chinook,Spawning,0.78,0.5145856409078179,0.7561465750847277,0.21727019498607245,3.59,False,Exact BSR identifier
+UGR6,Upper Grande Ronde,exact_identifier,Chinook,Winter Rearing,0.41,0.5145856409078179,0.7561465750847277,0.11420612813370473,3.59,False,Exact BSR identifier
+UGR6,Upper Grande Ronde,exact_identifier,Chinook,Summer Rearing,1.03,0.5145856409078179,0.7561465750847277,0.28690807799442897,3.59,False,Exact BSR identifier
+UGR6,Upper Grande Ronde,exact_identifier,Chinook,Migration,0.2,0.5145856409078179,0.7561465750847277,0.05571030640668524,3.59,False,Exact BSR identifier
+UGR6,Upper Grande Ronde,exact_identifier,Steelhead,Spawning,1.03,0.815102705,0.7561465750847277,0.28690807799442897,3.59,False,Exact BSR identifier
+UGR6,Upper Grande Ronde,exact_identifier,Steelhead,Winter Rearing,0.87,0.815102705,0.7561465750847277,0.24233983286908078,3.59,False,Exact BSR identifier
+UGR6,Upper Grande Ronde,exact_identifier,Steelhead,Summer Rearing,1.05,0.815102705,0.7561465750847277,0.2924791086350975,3.59,False,Exact BSR identifier
+UGR6,Upper Grande Ronde,exact_identifier,Steelhead,Migration,0.32,0.815102705,0.7561465750847277,0.08913649025069638,3.59,False,Exact BSR identifier
+UGR6,Upper Grande Ronde,exact_identifier,Bull Trout,Spawning & Resident,2.22,1.73037037,0.7561465750847277,0.6183844011142062,3.59,False,Exact BSR identifier
+UGR6,Upper Grande Ronde,exact_identifier,Bull Trout,FMO,0.99,1.73037037,0.7561465750847277,0.2757660167130919,3.59,False,Exact BSR identifier
+UGR7,Upper Grande Ronde,exact_identifier,Chinook,Spawning,0.0,0.820213762298155,0.387009770037271,0.0,3.59,False,Exact BSR identifier
+UGR7,Upper Grande Ronde,exact_identifier,Chinook,Winter Rearing,0.84,0.820213762298155,0.387009770037271,0.233983286908078,3.59,False,Exact BSR identifier
+UGR7,Upper Grande Ronde,exact_identifier,Chinook,Summer Rearing,0.0,0.820213762298155,0.387009770037271,0.0,3.59,False,Exact BSR identifier
+UGR7,Upper Grande Ronde,exact_identifier,Chinook,Migration,1.56,0.820213762298155,0.387009770037271,0.4345403899721449,3.59,False,Exact BSR identifier
+UGR7,Upper Grande Ronde,exact_identifier,Steelhead,Spawning,0.0,0.550425199,0.387009770037271,0.0,3.59,False,Exact BSR identifier
+UGR7,Upper Grande Ronde,exact_identifier,Steelhead,Winter Rearing,0.58,0.550425199,0.387009770037271,0.1615598885793872,3.59,False,Exact BSR identifier
+UGR7,Upper Grande Ronde,exact_identifier,Steelhead,Summer Rearing,0.0,0.550425199,0.387009770037271,0.0,3.59,False,Exact BSR identifier
+UGR7,Upper Grande Ronde,exact_identifier,Steelhead,Migration,1.62,0.550425199,0.387009770037271,0.4512534818941505,3.59,False,Exact BSR identifier
+UGR7,Upper Grande Ronde,exact_identifier,Bull Trout,Spawning & Resident,0.0,0.195555556,0.387009770037271,0.0,3.59,False,Exact BSR identifier
+UGR7,Upper Grande Ronde,exact_identifier,Bull Trout,FMO,0.49,0.195555556,0.387009770037271,0.13649025069637882,3.59,False,Exact BSR identifier
+UGR8,Upper Grande Ronde,exact_identifier,Chinook,Spawning,0.0,0.0202673556704528,0.0050379174225444,0.0,3.59,False,Exact BSR identifier
+UGR8,Upper Grande Ronde,exact_identifier,Chinook,Winter Rearing,0.0,0.0202673556704528,0.0050379174225444,0.0,3.59,False,Exact BSR identifier
+UGR8,Upper Grande Ronde,exact_identifier,Chinook,Summer Rearing,0.0,0.0202673556704528,0.0050379174225444,0.0,3.59,False,Exact BSR identifier
+UGR8,Upper Grande Ronde,exact_identifier,Chinook,Migration,0.06,0.0202673556704528,0.0050379174225444,0.016713091922005572,3.59,False,Exact BSR identifier
+UGR8,Upper Grande Ronde,exact_identifier,Steelhead,Spawning,0.0,0.000120653,0.0050379174225444,0.0,3.59,False,Exact BSR identifier
+UGR8,Upper Grande Ronde,exact_identifier,Steelhead,Winter Rearing,0.0,0.000120653,0.0050379174225444,0.0,3.59,False,Exact BSR identifier
+UGR8,Upper Grande Ronde,exact_identifier,Steelhead,Summer Rearing,0.0,0.000120653,0.0050379174225444,0.0,3.59,False,Exact BSR identifier
+UGR8,Upper Grande Ronde,exact_identifier,Steelhead,Migration,0.0,0.000120653,0.0050379174225444,0.0,3.59,False,Exact BSR identifier
+UGR8,Upper Grande Ronde,exact_identifier,Bull Trout,Spawning & Resident,0.0,0.0,0.0050379174225444,0.0,3.59,False,Exact BSR identifier
+UGR8,Upper Grande Ronde,exact_identifier,Bull Trout,FMO,0.0,0.0,0.0050379174225444,0.0,3.59,False,Exact BSR identifier
+UGR9,Upper Grande Ronde,exact_identifier,Chinook,Spawning,0.0,0.7497305492989854,0.3654996164682657,0.0,3.59,False,Exact BSR identifier
+UGR9,Upper Grande Ronde,exact_identifier,Chinook,Winter Rearing,0.84,0.7497305492989854,0.3654996164682657,0.233983286908078,3.59,False,Exact BSR identifier
+UGR9,Upper Grande Ronde,exact_identifier,Chinook,Summer Rearing,0.0,0.7497305492989854,0.3654996164682657,0.0,3.59,False,Exact BSR identifier
+UGR9,Upper Grande Ronde,exact_identifier,Chinook,Migration,1.35,0.7497305492989854,0.3654996164682657,0.3760445682451254,3.59,False,Exact BSR identifier
+UGR9,Upper Grande Ronde,exact_identifier,Steelhead,Spawning,0.0,0.533858712,0.3654996164682657,0.0,3.59,False,Exact BSR identifier
+UGR9,Upper Grande Ronde,exact_identifier,Steelhead,Winter Rearing,0.58,0.533858712,0.3654996164682657,0.1615598885793872,3.59,False,Exact BSR identifier
+UGR9,Upper Grande Ronde,exact_identifier,Steelhead,Summer Rearing,0.0,0.533858712,0.3654996164682657,0.0,3.59,False,Exact BSR identifier
+UGR9,Upper Grande Ronde,exact_identifier,Steelhead,Migration,1.55,0.533858712,0.3654996164682657,0.4317548746518106,3.59,False,Exact BSR identifier
+UGR9,Upper Grande Ronde,exact_identifier,Bull Trout,Spawning & Resident,0.0,0.195555556,0.3654996164682657,0.0,3.59,False,Exact BSR identifier
+UGR9,Upper Grande Ronde,exact_identifier,Bull Trout,FMO,0.49,0.195555556,0.3654996164682657,0.13649025069637882,3.59,False,Exact BSR identifier
+UGR10,Upper Grande Ronde,exact_identifier,Chinook,Spawning,0.0,0.2619247036055249,0.2571372682974842,0.0,3.59,False,Exact BSR identifier
+UGR10,Upper Grande Ronde,exact_identifier,Chinook,Winter Rearing,0.41,0.2619247036055249,0.2571372682974842,0.11420612813370473,3.59,False,Exact BSR identifier
+UGR10,Upper Grande Ronde,exact_identifier,Chinook,Summer Rearing,0.51,0.2619247036055249,0.2571372682974842,0.14206128133704737,3.59,False,Exact BSR identifier
+UGR10,Upper Grande Ronde,exact_identifier,Chinook,Migration,0.0,0.2619247036055249,0.2571372682974842,0.0,3.59,False,Exact BSR identifier
+UGR10,Upper Grande Ronde,exact_identifier,Steelhead,Spawning,1.03,0.778687216,0.2571372682974842,0.28690807799442897,3.59,False,Exact BSR identifier
+UGR10,Upper Grande Ronde,exact_identifier,Steelhead,Winter Rearing,0.87,0.778687216,0.2571372682974842,0.24233983286908078,3.59,False,Exact BSR identifier
+UGR10,Upper Grande Ronde,exact_identifier,Steelhead,Summer Rearing,1.05,0.778687216,0.2571372682974842,0.2924791086350975,3.59,False,Exact BSR identifier
+UGR10,Upper Grande Ronde,exact_identifier,Steelhead,Migration,0.17,0.778687216,0.2571372682974842,0.04735376044568246,3.59,False,Exact BSR identifier
+UGR10,Upper Grande Ronde,exact_identifier,Bull Trout,Spawning & Resident,0.0,0.0,0.2571372682974842,0.0,3.59,False,Exact BSR identifier
+UGR10,Upper Grande Ronde,exact_identifier,Bull Trout,FMO,0.0,0.0,0.2571372682974842,0.0,3.59,False,Exact BSR identifier
+UGR11,Upper Grande Ronde,exact_identifier,Chinook,Spawning,0.0,0.972427623462319,0.4967165939622252,0.0,3.59,False,Exact BSR identifier
+UGR11,Upper Grande Ronde,exact_identifier,Chinook,Winter Rearing,1.25,0.972427623462319,0.4967165939622252,0.34818941504178275,3.59,False,Exact BSR identifier
+UGR11,Upper Grande Ronde,exact_identifier,Chinook,Summer Rearing,0.51,0.972427623462319,0.4967165939622252,0.14206128133704737,3.59,False,Exact BSR identifier
+UGR11,Upper Grande Ronde,exact_identifier,Chinook,Migration,1.24,0.972427623462319,0.4967165939622252,0.34540389972144847,3.59,False,Exact BSR identifier
+UGR11,Upper Grande Ronde,exact_identifier,Steelhead,Spawning,0.34,0.640703729,0.4967165939622252,0.09470752089136492,3.59,False,Exact BSR identifier
+UGR11,Upper Grande Ronde,exact_identifier,Steelhead,Winter Rearing,0.87,0.640703729,0.4967165939622252,0.24233983286908078,3.59,False,Exact BSR identifier
+UGR11,Upper Grande Ronde,exact_identifier,Steelhead,Summer Rearing,0.0,0.640703729,0.4967165939622252,0.0,3.59,False,Exact BSR identifier
+UGR11,Upper Grande Ronde,exact_identifier,Steelhead,Migration,1.36,0.640703729,0.4967165939622252,0.37883008356545966,3.59,False,Exact BSR identifier
+UGR11,Upper Grande Ronde,exact_identifier,Bull Trout,Spawning & Resident,0.0,0.397037037,0.4967165939622252,0.0,3.59,False,Exact BSR identifier
+UGR11,Upper Grande Ronde,exact_identifier,Bull Trout,FMO,0.99,0.397037037,0.4967165939622252,0.2757660167130919,3.59,False,Exact BSR identifier
+UGR12,Upper Grande Ronde,exact_identifier,Chinook,Spawning,0.0,0.2632323581498082,0.2305900994976535,0.0,3.59,False,Exact BSR identifier
+UGR12,Upper Grande Ronde,exact_identifier,Chinook,Winter Rearing,0.41,0.2632323581498082,0.2305900994976535,0.11420612813370473,3.59,False,Exact BSR identifier
+UGR12,Upper Grande Ronde,exact_identifier,Chinook,Summer Rearing,0.51,0.2632323581498082,0.2305900994976535,0.14206128133704737,3.59,False,Exact BSR identifier
+UGR12,Upper Grande Ronde,exact_identifier,Chinook,Migration,0.01,0.2632323581498082,0.2305900994976535,0.002785515320334262,3.59,False,Exact BSR identifier
+UGR12,Upper Grande Ronde,exact_identifier,Steelhead,Spawning,1.03,0.669945503,0.2305900994976535,0.28690807799442897,3.59,False,Exact BSR identifier
+UGR12,Upper Grande Ronde,exact_identifier,Steelhead,Winter Rearing,0.29,0.669945503,0.2305900994976535,0.0807799442896936,3.59,False,Exact BSR identifier
+UGR12,Upper Grande Ronde,exact_identifier,Steelhead,Summer Rearing,1.05,0.669945503,0.2305900994976535,0.2924791086350975,3.59,False,Exact BSR identifier
+UGR12,Upper Grande Ronde,exact_identifier,Steelhead,Migration,0.32,0.669945503,0.2305900994976535,0.08913649025069638,3.59,False,Exact BSR identifier
+UGR12,Upper Grande Ronde,exact_identifier,Bull Trout,Spawning & Resident,0.0,0.0,0.2305900994976535,0.0,3.59,False,Exact BSR identifier
+UGR12,Upper Grande Ronde,exact_identifier,Bull Trout,FMO,0.0,0.0,0.2305900994976535,0.0,3.59,False,Exact BSR identifier
+UGR13,Upper Grande Ronde,exact_identifier,Chinook,Spawning,0.0,0.3253411235449588,0.2885905488040706,0.0,3.59,False,Exact BSR identifier
+UGR13,Upper Grande Ronde,exact_identifier,Chinook,Winter Rearing,0.41,0.3253411235449588,0.2885905488040706,0.11420612813370473,3.59,False,Exact BSR identifier
+UGR13,Upper Grande Ronde,exact_identifier,Chinook,Summer Rearing,0.51,0.3253411235449588,0.2885905488040706,0.14206128133704737,3.59,False,Exact BSR identifier
+UGR13,Upper Grande Ronde,exact_identifier,Chinook,Migration,0.19,0.3253411235449588,0.2885905488040706,0.05292479108635098,3.59,False,Exact BSR identifier
+UGR13,Upper Grande Ronde,exact_identifier,Steelhead,Spawning,1.03,0.842559457,0.2885905488040706,0.28690807799442897,3.59,False,Exact BSR identifier
+UGR13,Upper Grande Ronde,exact_identifier,Steelhead,Winter Rearing,0.87,0.842559457,0.2885905488040706,0.24233983286908078,3.59,False,Exact BSR identifier
+UGR13,Upper Grande Ronde,exact_identifier,Steelhead,Summer Rearing,1.05,0.842559457,0.2885905488040706,0.2924791086350975,3.59,False,Exact BSR identifier
+UGR13,Upper Grande Ronde,exact_identifier,Steelhead,Migration,0.43,0.842559457,0.2885905488040706,0.11977715877437327,3.59,False,Exact BSR identifier
+UGR13,Upper Grande Ronde,exact_identifier,Bull Trout,Spawning & Resident,0.0,0.0,0.2885905488040706,0.0,3.59,False,Exact BSR identifier
+UGR13,Upper Grande Ronde,exact_identifier,Bull Trout,FMO,0.0,0.0,0.2885905488040706,0.0,3.59,False,Exact BSR identifier
+UGR14,Upper Grande Ronde,exact_identifier,Chinook,Spawning,0.78,0.4485519049935119,0.709673812153584,0.21727019498607245,3.59,False,Exact BSR identifier
+UGR14,Upper Grande Ronde,exact_identifier,Chinook,Winter Rearing,0.41,0.4485519049935119,0.709673812153584,0.11420612813370473,3.59,False,Exact BSR identifier
+UGR14,Upper Grande Ronde,exact_identifier,Chinook,Summer Rearing,1.03,0.4485519049935119,0.709673812153584,0.28690807799442897,3.59,False,Exact BSR identifier
+UGR14,Upper Grande Ronde,exact_identifier,Chinook,Migration,0.01,0.4485519049935119,0.709673812153584,0.002785515320334262,3.59,False,Exact BSR identifier
+UGR14,Upper Grande Ronde,exact_identifier,Steelhead,Spawning,1.03,0.693065254,0.709673812153584,0.28690807799442897,3.59,False,Exact BSR identifier
+UGR14,Upper Grande Ronde,exact_identifier,Steelhead,Winter Rearing,0.58,0.693065254,0.709673812153584,0.1615598885793872,3.59,False,Exact BSR identifier
+UGR14,Upper Grande Ronde,exact_identifier,Steelhead,Summer Rearing,1.05,0.693065254,0.709673812153584,0.2924791086350975,3.59,False,Exact BSR identifier
+UGR14,Upper Grande Ronde,exact_identifier,Steelhead,Migration,0.11,0.693065254,0.709673812153584,0.030640668523676882,3.59,False,Exact BSR identifier
+UGR14,Upper Grande Ronde,exact_identifier,Bull Trout,Spawning & Resident,2.22,1.73037037,0.709673812153584,0.6183844011142062,3.59,False,Exact BSR identifier
+UGR14,Upper Grande Ronde,exact_identifier,Bull Trout,FMO,0.99,1.73037037,0.709673812153584,0.2757660167130919,3.59,False,Exact BSR identifier
+UGR15,Upper Grande Ronde,exact_identifier,Chinook,Spawning,2.36,1.253052685390807,0.6013766471115415,0.6573816155988857,3.59,False,Exact BSR identifier
+UGR15,Upper Grande Ronde,exact_identifier,Chinook,Winter Rearing,1.25,1.253052685390807,0.6013766471115415,0.34818941504178275,3.59,False,Exact BSR identifier
+UGR15,Upper Grande Ronde,exact_identifier,Chinook,Summer Rearing,1.54,1.253052685390807,0.6013766471115415,0.42896935933147634,3.59,False,Exact BSR identifier
+UGR15,Upper Grande Ronde,exact_identifier,Chinook,Migration,0.8,1.253052685390807,0.6013766471115415,0.22284122562674097,3.59,False,Exact BSR identifier
+UGR15,Upper Grande Ronde,exact_identifier,Steelhead,Spawning,0.34,0.588073145,0.6013766471115415,0.09470752089136492,3.59,False,Exact BSR identifier
+UGR15,Upper Grande Ronde,exact_identifier,Steelhead,Winter Rearing,0.87,0.588073145,0.6013766471115415,0.24233983286908078,3.59,False,Exact BSR identifier
+UGR15,Upper Grande Ronde,exact_identifier,Steelhead,Summer Rearing,0.7,0.588073145,0.6013766471115415,0.19498607242339833,3.59,False,Exact BSR identifier
+UGR15,Upper Grande Ronde,exact_identifier,Steelhead,Migration,0.44,0.588073145,0.6013766471115415,0.12256267409470753,3.59,False,Exact BSR identifier
+UGR15,Upper Grande Ronde,exact_identifier,Bull Trout,Spawning & Resident,0.0,0.592592593,0.6013766471115415,0.0,3.59,False,Exact BSR identifier
+UGR15,Upper Grande Ronde,exact_identifier,Bull Trout,FMO,1.48,0.592592593,0.6013766471115415,0.41225626740947074,3.59,False,Exact BSR identifier
+UGR16,Upper Grande Ronde,exact_identifier,Chinook,Spawning,0.78,0.6037089050722737,0.321180983730889,0.21727019498607245,3.59,False,Exact BSR identifier
+UGR16,Upper Grande Ronde,exact_identifier,Chinook,Winter Rearing,0.84,0.6037089050722737,0.321180983730889,0.233983286908078,3.59,False,Exact BSR identifier
+UGR16,Upper Grande Ronde,exact_identifier,Chinook,Summer Rearing,1.03,0.6037089050722737,0.321180983730889,0.28690807799442897,3.59,False,Exact BSR identifier
+UGR16,Upper Grande Ronde,exact_identifier,Chinook,Migration,0.03,0.6037089050722737,0.321180983730889,0.008356545961002786,3.59,False,Exact BSR identifier
+UGR16,Upper Grande Ronde,exact_identifier,Steelhead,Spawning,1.03,0.696082301,0.321180983730889,0.28690807799442897,3.59,False,Exact BSR identifier
+UGR16,Upper Grande Ronde,exact_identifier,Steelhead,Winter Rearing,0.58,0.696082301,0.321180983730889,0.1615598885793872,3.59,False,Exact BSR identifier
+UGR16,Upper Grande Ronde,exact_identifier,Steelhead,Summer Rearing,1.05,0.696082301,0.321180983730889,0.2924791086350975,3.59,False,Exact BSR identifier
+UGR16,Upper Grande Ronde,exact_identifier,Steelhead,Migration,0.13,0.696082301,0.321180983730889,0.036211699164345405,3.59,False,Exact BSR identifier
+UGR16,Upper Grande Ronde,exact_identifier,Bull Trout,Spawning & Resident,0.0,0.0,0.321180983730889,0.0,3.59,False,Exact BSR identifier
+UGR16,Upper Grande Ronde,exact_identifier,Bull Trout,FMO,0.0,0.0,0.321180983730889,0.0,3.59,False,Exact BSR identifier
+UGR17,Upper Grande Ronde,exact_identifier,Chinook,Spawning,2.36,1.168713593104937,0.5901745157478243,0.6573816155988857,3.59,False,Exact BSR identifier
+UGR17,Upper Grande Ronde,exact_identifier,Chinook,Winter Rearing,1.25,1.168713593104937,0.5901745157478243,0.34818941504178275,3.59,False,Exact BSR identifier
+UGR17,Upper Grande Ronde,exact_identifier,Chinook,Summer Rearing,1.54,1.168713593104937,0.5901745157478243,0.42896935933147634,3.59,False,Exact BSR identifier
+UGR17,Upper Grande Ronde,exact_identifier,Chinook,Migration,0.56,1.168713593104937,0.5901745157478243,0.1559888579387187,3.59,False,Exact BSR identifier
+UGR17,Upper Grande Ronde,exact_identifier,Steelhead,Spawning,0.69,0.627078197,0.5901745157478243,0.19220055710306405,3.59,False,Exact BSR identifier
+UGR17,Upper Grande Ronde,exact_identifier,Steelhead,Winter Rearing,0.87,0.627078197,0.5901745157478243,0.24233983286908078,3.59,False,Exact BSR identifier
+UGR17,Upper Grande Ronde,exact_identifier,Steelhead,Summer Rearing,0.7,0.627078197,0.5901745157478243,0.19498607242339833,3.59,False,Exact BSR identifier
+UGR17,Upper Grande Ronde,exact_identifier,Steelhead,Migration,0.25,0.627078197,0.5901745157478243,0.06963788300835655,3.59,False,Exact BSR identifier
+UGR17,Upper Grande Ronde,exact_identifier,Bull Trout,Spawning & Resident,0.0,0.592592593,0.5901745157478243,0.0,3.59,False,Exact BSR identifier
+UGR17,Upper Grande Ronde,exact_identifier,Bull Trout,FMO,1.48,0.592592593,0.5901745157478243,0.41225626740947074,3.59,False,Exact BSR identifier
+UGR18,Upper Grande Ronde,exact_identifier,Chinook,Spawning,0.78,0.6108994526184405,0.6527357449901262,0.21727019498607245,3.59,False,Exact BSR identifier
+UGR18,Upper Grande Ronde,exact_identifier,Chinook,Winter Rearing,0.84,0.6108994526184405,0.6527357449901262,0.233983286908078,3.59,False,Exact BSR identifier
+UGR18,Upper Grande Ronde,exact_identifier,Chinook,Summer Rearing,1.03,0.6108994526184405,0.6527357449901262,0.28690807799442897,3.59,False,Exact BSR identifier
+UGR18,Upper Grande Ronde,exact_identifier,Chinook,Migration,0.06,0.6108994526184405,0.6527357449901262,0.016713091922005572,3.59,False,Exact BSR identifier
+UGR18,Upper Grande Ronde,exact_identifier,Steelhead,Spawning,0.69,0.501775836,0.6527357449901262,0.19220055710306405,3.59,False,Exact BSR identifier
+UGR18,Upper Grande Ronde,exact_identifier,Steelhead,Winter Rearing,0.58,0.501775836,0.6527357449901262,0.1615598885793872,3.59,False,Exact BSR identifier
+UGR18,Upper Grande Ronde,exact_identifier,Steelhead,Summer Rearing,0.7,0.501775836,0.6527357449901262,0.19498607242339833,3.59,False,Exact BSR identifier
+UGR18,Upper Grande Ronde,exact_identifier,Steelhead,Migration,0.03,0.501775836,0.6527357449901262,0.008356545961002786,3.59,False,Exact BSR identifier
+UGR18,Upper Grande Ronde,exact_identifier,Bull Trout,Spawning & Resident,2.22,1.528888889,0.6527357449901262,0.6183844011142062,3.59,False,Exact BSR identifier
+UGR18,Upper Grande Ronde,exact_identifier,Bull Trout,FMO,0.49,1.528888889,0.6527357449901262,0.13649025069637882,3.59,False,Exact BSR identifier
+UGR19,Upper Grande Ronde,exact_identifier,Chinook,Spawning,0.78,0.6747433130728396,0.7840276163219569,0.21727019498607245,3.59,False,Exact BSR identifier
+UGR19,Upper Grande Ronde,exact_identifier,Chinook,Winter Rearing,0.84,0.6747433130728396,0.7840276163219569,0.233983286908078,3.59,False,Exact BSR identifier
+UGR19,Upper Grande Ronde,exact_identifier,Chinook,Summer Rearing,1.03,0.6747433130728396,0.7840276163219569,0.28690807799442897,3.59,False,Exact BSR identifier
+UGR19,Upper Grande Ronde,exact_identifier,Chinook,Migration,0.24,0.6747433130728396,0.7840276163219569,0.06685236768802229,3.59,False,Exact BSR identifier
+UGR19,Upper Grande Ronde,exact_identifier,Steelhead,Spawning,1.03,0.767777155,0.7840276163219569,0.28690807799442897,3.59,False,Exact BSR identifier
+UGR19,Upper Grande Ronde,exact_identifier,Steelhead,Winter Rearing,0.87,0.767777155,0.7840276163219569,0.24233983286908078,3.59,False,Exact BSR identifier
+UGR19,Upper Grande Ronde,exact_identifier,Steelhead,Summer Rearing,1.05,0.767777155,0.7840276163219569,0.2924791086350975,3.59,False,Exact BSR identifier
+UGR19,Upper Grande Ronde,exact_identifier,Steelhead,Migration,0.13,0.767777155,0.7840276163219569,0.036211699164345405,3.59,False,Exact BSR identifier
+UGR19,Upper Grande Ronde,exact_identifier,Bull Trout,Spawning & Resident,2.22,1.73037037,0.7840276163219569,0.6183844011142062,3.59,False,Exact BSR identifier
+UGR19,Upper Grande Ronde,exact_identifier,Bull Trout,FMO,0.99,1.73037037,0.7840276163219569,0.2757660167130919,3.59,False,Exact BSR identifier
+UGR20,Upper Grande Ronde,exact_identifier,Chinook,Spawning,2.36,1.036876928962366,0.8581330923523806,0.6573816155988857,3.59,False,Exact BSR identifier
+UGR20,Upper Grande Ronde,exact_identifier,Chinook,Winter Rearing,1.25,1.036876928962366,0.8581330923523806,0.34818941504178275,3.59,False,Exact BSR identifier
+UGR20,Upper Grande Ronde,exact_identifier,Chinook,Summer Rearing,1.54,1.036876928962366,0.8581330923523806,0.42896935933147634,3.59,False,Exact BSR identifier
+UGR20,Upper Grande Ronde,exact_identifier,Chinook,Migration,0.17,1.036876928962366,0.8581330923523806,0.04735376044568246,3.59,False,Exact BSR identifier
+UGR20,Upper Grande Ronde,exact_identifier,Steelhead,Spawning,0.69,0.509986331,0.8581330923523806,0.19220055710306405,3.59,False,Exact BSR identifier
+UGR20,Upper Grande Ronde,exact_identifier,Steelhead,Winter Rearing,0.58,0.509986331,0.8581330923523806,0.1615598885793872,3.59,False,Exact BSR identifier
+UGR20,Upper Grande Ronde,exact_identifier,Steelhead,Summer Rearing,0.7,0.509986331,0.8581330923523806,0.19498607242339833,3.59,False,Exact BSR identifier
+UGR20,Upper Grande Ronde,exact_identifier,Steelhead,Migration,0.07,0.509986331,0.8581330923523806,0.019498607242339837,3.59,False,Exact BSR identifier
+UGR20,Upper Grande Ronde,exact_identifier,Bull Trout,Spawning & Resident,2.22,1.925925926,0.8581330923523806,0.6183844011142062,3.59,False,Exact BSR identifier
+UGR20,Upper Grande Ronde,exact_identifier,Bull Trout,FMO,1.48,1.925925926,0.8581330923523806,0.41225626740947074,3.59,False,Exact BSR identifier

@@ -700,7 +700,7 @@ $$
 
 ### Life-stage risk score
 
-**Plain language:** Life-Stage Risk Score indicates how much risk a life stage faces in a BSR, based on fish use, population priority, degradation across all limiting factors, and vulnerability to those factors. Life-stage Risk maps default to comparing BSRs within the selected species and life stage. The normalization slider can instead use the highest life-stage risk across all included BSRs, species, and life stages. Life-stage risk comparison charts retain that shared maximum. These percentages are not probabilities of harm or shares of a BSR's total risk.
+**Plain language:** Life-Stage Risk Score indicates how much risk a life stage faces in a BSR, based on fish use, population priority, degradation across all limiting factors, and vulnerability to those factors. Life-stage Risk maps default to comparing BSRs within the selected species and life stage. Turning on the normalization toggle uses the highest life-stage risk across all included BSRs, species, and life stages. Life-stage risk comparison charts retain that shared maximum. These percentages are not probabilities of harm or shares of a BSR's total risk.
 
 $$
 \begin{aligned}
@@ -879,7 +879,7 @@ def render_scoring_methodology(tables: dict[str, pd.DataFrame] | None = None) ->
             "across BSRs and factors; overall limiting-factor condition scores "
             "use the highest BSR mean. "
             "Life-stage Risk maps default to a maximum for the selected species "
-            "and life stage; their slider can select a shared maximum across "
+            "and life stage; turning on their toggle uses a shared maximum across "
             "all species and life stages. Life-stage risk comparison charts "
             "retain the shared maximum. "
             "Vulnerability, Population Priority, and Action Effectiveness Score remain "
@@ -3302,19 +3302,21 @@ def render_risk(
                 sorted(species_rows["life_stage"].dropna().unique()),
                 key=f"risk_map_life_stage:{map_species}",
             )
-            map_normalization = st.select_slider(
-                "Life-stage risk map normalization",
-                options=LIFE_STAGE_RISK_NORMALIZATION_OPTIONS,
-                value=LIFE_STAGE_RISK_NORMALIZATION_OPTIONS[0],
-                key="risk_life_stage_normalization",
+            normalize_life_stage_colors = st.toggle(
+                "Normalize risk across all life stages",
+                value=False,
+                key="normalize_life_stage_risk_colors",
                 help=(
-                    "Within a single life stage: 100% is the highest risk for "
+                    "When off, 100% is the highest risk for "
                     "the selected species and life stage among included BSRs "
-                    "across both basins. Across all life stages: 100% is the "
+                    "across both basins. When on, 100% is the "
                     "highest risk across all included BSRs, species, and life "
                     "stages. This selection controls the map and its summary."
                 ),
             )
+            map_normalization = LIFE_STAGE_RISK_NORMALIZATION_OPTIONS[
+                1 if normalize_life_stage_colors else 0
+            ]
             map_values, map_reference_table = life_stage_risk_map_scores(
                 tables["life_stage"], map_species, map_life_stage, map_normalization
             )
