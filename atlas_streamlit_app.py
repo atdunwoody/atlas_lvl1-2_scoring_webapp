@@ -768,6 +768,16 @@ $$
 \end{aligned}
 $$
 
+The Overall and Species Risk maps include an optional **Double bull trout risk**
+toggle, off by default. When enabled, it multiplies bull trout's two life-stage
+risk contributions by 2 before summing species and overall risk, to account for
+Chinook and Steelhead having four modeled life stages each. The risk summaries,
+limiting-factor totals, and preliminary tiers below those maps use the same
+weighting. Observed maxima are recalculated. Species percentages retain a
+separate maximum for each species, so doubling bull trout scores does not
+change the relative shading of its Species Risk map. The separate Life Stage
+Risk map and other app pages retain the source scores.
+
 ## Level 2 action calculations
 
 ### Action effectiveness score
@@ -1380,6 +1390,84 @@ def summarize_species_risk(life_stage: pd.DataFrame) -> pd.DataFrame:
     if summary[observed_maximum_column("species_risk_score")].isna().any():
         raise ValueError("Every species needs an included BSR to set its map upper bound.")
     return summary
+
+
+def risk_map_tables(
+    tables: dict[str, pd.DataFrame],
+    double_bull_trout: bool,
+) -> dict[str, pd.DataFrame]:
+    """Weight bull trout risk in this view without changing cached source scores."""
+    if not double_bull_trout:
+        return tables
+
+    result = dict(tables)
+    for name in ("bsr", "life_stage", "limiting_factor", "grid"):
+        result[name] = tables[name].copy()
+
+    # Apply the factor before aggregation, including display-only ceilings.
+    for name, field in (("life_stage", "risk_score"), ("grid", "risk_component")):
+        table = result[name]
+        weights = np.where(table["species"].eq("Bull Trout"), 2.0, 1.0)
+        for column in (field, maximum_column(field)):
+            table[column] = table[column] * weights
+
+    for target, source, keys, source_field, target_field in (
+        ("bsr", "life_stage", ["bsr"], "risk_score", "overall_risk_score"),
+        ("limiting_factor", "grid", ["bsr", "limiting_factor"],
+         "risk_component", "risk_score"),
+    ):
+        fields = [target_field, maximum_column(target_field)]
+        totals = result[source].groupby(keys, as_index=False)[
+            [source_field, maximum_column(source_field)]
+        ].sum().rename(columns={
+            source_field: target_field,
+            maximum_column(source_field): maximum_column(target_field),
+        })
+        result[target] = result[target].drop(columns=fields).merge(
+            totals, on=keys, how="left", validate="one_to_one"
+        )
+
+    # Keep the selected-BSR indicators consistent with the weighted drill-downs.
+    bsr = result["bsr"]
+    for source, label, label_target, score_target, count_target in (
+        ("life_stage", "species_life_stage_label", "highest_risk_species_life_stage",
+         "top_species_life_stage_risk_score", "top_species_life_stage_risk_tie_count"),
+        ("limiting_factor", "limiting_factor", "highest_risk_limiting_factor",
+         "top_limiting_factor_risk_score", "top_limiting_factor_risk_tie_count"),
+    ):
+        table = result[source]
+        maxima = table.groupby("bsr")["risk_score"].transform("max")
+        highest = table.loc[table["risk_score"].eq(maxima)].groupby("bsr").agg(
+            **{
+                label_target: (label, lambda values: "; ".join(sorted(set(values)))),
+                score_target: ("risk_score", "first"),
+                count_target: ("risk_score", "size"),
+            }
+        )
+        for field in (label_target, score_target, count_target):
+            bsr[field] = bsr["bsr"].map(highest[field])
+
+    if "risk_balance_difference" in bsr:
+        factor_totals = result["limiting_factor"].groupby("bsr")["risk_score"].sum()
+        bsr["risk_balance_difference"] = (
+            bsr["overall_risk_score"] - bsr["bsr"].map(factor_totals)
+        )
+
+    for name, field in (
+        ("bsr", "overall_risk_score"), ("life_stage", "risk_score"),
+        ("limiting_factor", "risk_score"), ("grid", "risk_component"),
+    ):
+        maximum = observed_included_maximum(result[name], field)
+        result[name][observed_maximum_column(field)] = maximum
+        result[name][display_maximum_column(field)] = maximum
+    return result
+
+
+def remember_bull_trout_risk_weight() -> None:
+    """Retain the shared toggle setting when its widget is hidden on other views."""
+    st.session_state["double_bull_trout_risk"] = st.session_state[
+        "_double_bull_trout_risk"
+    ]
 
 
 def summarize_overall_limiting_factors(limiting: pd.DataFrame) -> pd.DataFrame:
@@ -3227,13 +3315,6 @@ def render_risk(
     map_style: str,
 ) -> None:
     """Render overall, species, and life-stage risk maps and BSR drill-downs."""
-    # Reattach display metadata in case an older cached table lacks it.
-    all_bsr = add_preliminary_tiers(add_observed_risk_maximum(tables["bsr"]))
-    bsr = filter_table(all_bsr, basin)
-    life = filter_table(tables["life_stage"], basin)
-    limiting = filter_table(tables["limiting_factor"], basin)
-    grid = filter_table(tables["grid"], basin)
-
     st.header("Level 1: Risk", help=OVERALL_RISK_DESCRIPTION)
     st.markdown(OVERALL_RISK_INTRODUCTION)
     st.divider()
@@ -3247,6 +3328,43 @@ def render_risk(
         horizontal=True,
         key="risk_map_level",
     )
+    double_bull_trout = False
+    if map_level in {"Overall", "Species"}:
+        st.session_state["_double_bull_trout_risk"] = st.session_state.get(
+            "double_bull_trout_risk", False
+        )
+        double_bull_trout = st.toggle(
+            "Double bull trout risk",
+            key="_double_bull_trout_risk",
+            on_change=remember_bull_trout_risk_weight,
+            help=(
+                "When on, multiply each bull trout life-stage risk by 2 before "
+                "calculating species and overall risk scores. Bull trout has "
+                "two modeled life stages; Chinook and Steelhead each have four. "
+                "The setting is shared by the Overall and Species Risk maps."
+            ),
+        )
+        if double_bull_trout:
+            st.caption(
+                "Bull trout life-stage risk is multiplied by 2 before species "
+                "and overall totals are summed. Risk summaries, limiting-factor "
+                "totals, and preliminary tiers below use the same weighting."
+            )
+            if map_level == "Species":
+                st.caption(
+                    "Species percentages use each species' own observed maximum. "
+                    "Doubling bull trout raw scores retains its relative map shading."
+                )
+
+    tables = risk_map_tables(tables, double_bull_trout)
+    st.session_state["atlas_score_source_tables"] = tables
+    # Calculate reference maxima and tiers across both basins before filtering.
+    all_bsr = add_preliminary_tiers(add_observed_risk_maximum(tables["bsr"]))
+    bsr = filter_table(all_bsr, basin)
+    life = filter_table(tables["life_stage"], basin)
+    limiting = filter_table(tables["limiting_factor"], basin)
+    grid = filter_table(tables["grid"], basin)
+
     common_hover = [
         "overall_risk_score",
         "fish_use_score",
